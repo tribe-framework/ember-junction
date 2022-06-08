@@ -20,7 +20,7 @@ module.exports = function (defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
-  app.import('public/assets/fontawesome/all.css');
+  app.import('public/assets/fontawesome/css/all.css');
   app.import('node_modules/plyr/dist/plyr.css');
   app.import('node_modules/swiper/swiper-bundle.css');
   app.import('public/assets/css/custom.css');
