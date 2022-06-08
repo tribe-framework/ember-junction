@@ -1,8 +1,7 @@
 import Controller from '@ember/controller';
 
 export default class ApplicationController extends Controller {
-  afterModel() {
-    //enabling tooltips everywhere
+  appLoaded() {
     const tooltipTriggerList = document.querySelectorAll(
       '[data-bs-toggle="tooltip"]'
     );

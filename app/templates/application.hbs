@@ -1,5 +1,18 @@
 {{page-title "Junction"}}
 
-<Header @schema={{@model.schema}}></Header>
+<PageLoading />
 
-{{outlet}}
+<main class="page d-none">
+
+<div class="above-footer">
+
+	<Header @schema={{@model.schema}}></Header>
+
+	{{outlet}}
+</div>
+
+<Footer @schema={{@model.schema}}></Footer>
+
+<img class="d-none" src="/assets/img/pixel-onload.png" {{on 'load' this.appLoaded}}>
+
+</main>

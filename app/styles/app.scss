@@ -66,4 +66,6 @@ $position-values: (
 ) !default;
 // scss-docs-end position-map
 
+$modal-backdrop-opacity: .8;
+
 @import "node_modules/bootstrap/scss/bootstrap";
