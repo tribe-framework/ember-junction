@@ -1,9 +1,9 @@
 {
   "name": "junction",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
-  "description": "Small description for junction goes here",
-  "repository": "",
+  "description": "Content Management System for Tribe",
+  "repository": "https://github.com/wil-ldf-ire/junction",
   "license": "MIT",
   "author": "",
   "directories": {
