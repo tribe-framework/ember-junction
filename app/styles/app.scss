@@ -1,1 +1,69 @@
+@import url("https://use.typekit.net/xkh7dxd.css");
+
+$font-family-sans-serif: effra, sans-serif !default;
+
+// scss-docs-start gray-color-variables
+$gray-200: #e9ecef !default;
+$gray-600: #d4cfd2 !default;
+$gray-900: #0A1119 !default;
+$black:    #000 !default;
+// scss-docs-end gray-color-variables
+
+// scss-docs-start color-variables
+$purple:  #993399 !default;
+$pink:    #ff0066 !default;
+$red:     #ff0033 !default;
+$orange:  #ff6600 !default;
+// scss-docs-end color-variables
+
+// scss-docs-start theme-color-variables
+$primary:       $purple !default;
+$secondary:     $gray-600 !default;
+$info:          $pink !default;
+$warning:       $orange !default;
+$danger:        $red !default;
+$light:         $gray-200 !default;
+$dark:          $gray-900 !default;
+// scss-docs-end theme-color-variables
+
+$enable-caret:                false !default;
+$enable-rounded:              false !default;
+$enable-gradients:            true !default;
+$enable-cssgrid:              true !default;
+$enable-negative-margins:     true !default;
+
+// scss-docs-start spacer-variables-maps
+$spacer: 1rem !default;
+$spacers: (
+  0: 0,
+  1: $spacer * .25,
+  2: $spacer * .5,
+  3: $spacer,
+  4: $spacer * 1.5,
+  5: $spacer * 3,
+  6: $spacer * 4.5,
+  7: $spacer * 6,
+  8: $spacer * 9,
+  9: $spacer * 12,
+  10: $spacer * 18,
+) !default;
+
+// scss-docs-start position-map
+$position-values: (
+  0: 0,
+  25: 25%,
+  50: 50%,
+  75: 75%,
+  100: 100%,
+  10: 10%,
+  20: 20%,
+  30: 30%,
+  40: 40%,
+  60: 60%,
+  70: 70%,
+  80: 80%,
+  90: 90%,
+) !default;
+// scss-docs-end position-map
+
 @import "node_modules/bootstrap/scss/bootstrap";

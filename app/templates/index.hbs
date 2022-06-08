@@ -1,13 +1,13 @@
-{{page-title "Index"}}
+{{page-title "Dashboard"}}
 
-<main>
-	<h1 class="my-5 text-uppercase text-center">
-		Junction
-	</h1>
+<main class="p-3 container">
 
-	<h1 class="my-5 text-uppercase text-center">
-		{{@model.schema.headmeta_title}}
-	</h1>
+	<div class="row">
+
+		<DashboardStatsCard />
+
+	</div>
+
 </main>
 
 {{outlet}}

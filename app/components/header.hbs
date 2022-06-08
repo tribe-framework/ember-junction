@@ -1,0 +1,74 @@
+<nav class="fs-4 border-top border-danger border-3 shadow fs-light navbar navbar-expand-lg bg-dark">
+  <div class="container-fluid">
+    <a class="fs-3 navbar-brand text-white" href="#"
+	  	data-bs-toggle="tooltip"
+	  	title="View webapp">
+	  	<i class="fa-light fa-chevrons-left"></i>
+	  	<span class="d-inline-block ps-1">{{@schema.headmeta_title}}</span>
+    </a>
+    <button id="main-menu-toggler" {{on 'click' this.toggleBarsIcon}} class="shadow-none navbar-toggler p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <i class="fa-light fa-bars-staggered text-white"></i>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto text-end mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link text-white ms-3" href="#"
+          	data-bs-toggle="tooltip"
+          	title="Dashboard">
+          	<i class="fa-light fa-objects-column"></i>
+          	<span class="d-inline-block d-lg-none ps-1">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white ms-3" href="#"
+          	data-bs-toggle="tooltip"
+          	title="Types">
+          	<i class="fa-light fa-list-tree"></i>
+          	<span class="d-inline-block d-lg-none ps-1">Types</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white ms-3" href="#"
+          	data-bs-toggle="tooltip"
+          	title="Users">
+          	<i class="fa-light fa-users"></i>
+          	<span class="d-inline-block d-lg-none ps-1">Users</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white ms-3" href="#"
+          	data-bs-toggle="tooltip"
+          	title="Find">
+          	<i class="fa-light fa-magnifying-glass"></i>
+          	<span class="d-inline-block d-lg-none ps-1">Find</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white ms-3" href="#"
+          	data-bs-toggle="tooltip"
+          	title="Settings">
+          	<i class="fa-light fa-gear"></i>
+          	<span class="d-inline-block d-lg-none ps-1">Settings</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white ms-3" href="#"
+          	data-bs-toggle="tooltip"
+          	title="Account">
+          	<i class="fa-light fa-square-user"></i>
+          	<span class="d-inline-block d-lg-none ps-1">Account</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-white ms-3" href="#"
+          	data-bs-toggle="tooltip"
+          	title="Exit">
+          	<i class="fa-light fa-arrow-right-from-bracket"></i>
+          	<span class="d-inline-block d-lg-none ps-1">Exit</span></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+{{yield}}
