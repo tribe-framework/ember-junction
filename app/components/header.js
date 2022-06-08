@@ -26,5 +26,6 @@ export default class HeaderComponent extends Component {
     ].value = 'false';
     document.querySelector('.tooltip.show').classList.remove('show');
     this.toggleBarsIcon();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 }
