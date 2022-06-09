@@ -5,6 +5,16 @@
 <div class="container">
 
 	<div class="row mt-3 row-cols-1 g-3">
+		<div class="col">
+			<PageSummaryCard @iconclass="fa-light fa-list-tree" @pagetitle="Types">
+				{{#each-in this.model.schema as |type object|}}
+				  {{object.slug}}
+				{{else}}
+				  <h1>No types defined yet.</h1>
+				{{/each-in}}
+			</PageSummaryCard>
+		</div>
+		
 		<div class="col"><PlaceholderCard /></div>
 	</div>
 
