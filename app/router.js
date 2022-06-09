@@ -12,4 +12,6 @@ Router.map(function () {
   this.route('find');
   this.route('settings');
   this.route('my-account');
+  this.route('uploads');
+  this.route('how-to');
 });

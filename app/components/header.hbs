@@ -15,16 +15,20 @@
       <ul class="navbar-nav ms-auto text-end mb-2 mb-lg-0">
         
         <HeaderNavItem @collapseMenu={{this.collapseMenu}} @iconclass="fa-light fa-gauge-high" @navtitle="Dashboard" @navroute="index" />
-        
-        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @iconclass="fa-light fa-magnifying-glass" @navtitle="Find" @navroute="find" />
 
         <HeaderNavItem @collapseMenu={{this.collapseMenu}} @iconclass="fa-light fa-list-tree" @navtitle="Types" @navroute="types" />
 
         <HeaderNavItem @collapseMenu={{this.collapseMenu}} @iconclass="fa-light fa-users" @navtitle="User roles" @navroute="user-roles" />
+        
+        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @iconclass="fa-light fa-magnifying-glass" @navtitle="Find" @navroute="find" />
+
+        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @iconclass="fa-light fa-upload" @navtitle="Uploads" @navroute="uploads" />
 
         <HeaderNavItem @collapseMenu={{this.collapseMenu}} @iconclass="fa-light fa-gear" @navtitle="Settings" @navroute="settings" />
 
         <HeaderNavItem @collapseMenu={{this.collapseMenu}} @iconclass="fa-light fa-square-user" @navtitle="My account" @navroute="my-account" />
+
+        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @iconclass="fa-light fa-circle-info" @navtitle="How-to" @navroute="how-to" />
 
         <HeaderNavItem>
             <a class="nav-link text-white ms-3" href="#logoutModel" data-bs-toggle="modal">
