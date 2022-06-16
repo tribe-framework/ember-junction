@@ -20,14 +20,9 @@ module.exports = function (defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
-  app.import('public/assets/fontawesome/css/all.css');
-  app.import('node_modules/plyr/dist/plyr.css');
-  app.import('node_modules/swiper/swiper-bundle.css');
-  app.import('public/assets/css/custom.css');
-
-  app.import('node_modules/plyr/dist/plyr.polyfilled.min.js');
   app.import('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js');
-  app.import('node_modules/swiper/swiper-bundle.min.js');
+  app.import('public/assets/fontawesome/css/all.css');
+  app.import('public/assets/css/custom.css');
   app.import('public/assets/js/custom.js');
 
   return app.toTree();
