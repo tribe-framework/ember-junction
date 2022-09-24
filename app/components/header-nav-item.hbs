@@ -1,10 +1,8 @@
 {{#if @navtitle}}
-	<li class="nav-item">
-      <LinkTo {{on 'click' @collapseMenu}} class="nav-link text-white ms-3" @route="{{@navroute}}"
-      	data-bs-toggle="tooltip" data-bs-placement="bottom"
-      	title="{{@navtitle}}">
+	<li class="fs-smaller nav-item">
+      <LinkTo {{on 'click' @collapseMenu}} class="nav-link text-white ms-3" @route="{{@navroute}}">
       	<i class="{{@iconclass}}"></i>
-      	<span class="d-inline-block d-lg-none ps-1">{{@navtitle}}</span>
+      	<span class="ps-1">{{@navtitle}}</span>
       </LinkTo>
     </li>
 {{else}}

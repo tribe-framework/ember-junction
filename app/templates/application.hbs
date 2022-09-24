@@ -1,18 +1,16 @@
 {{page-title "Junction"}}
 
-<PageLoading />
-
-<main class="page d-none">
-
 <div class="above-footer">
 
-	<Header @schema={{@model.schema.webapp}}></Header>
+	<Header @schema={{@model.schema}}></Header>
 
-	{{outlet}}
+	<main class="page animate__animated a4 d2">
+		{{outlet}}
+		<Footer @schema={{@model.schema}}></Footer>
+	</main>
+
 </div>
-
-<Footer @schema={{@model.schema.webapp}}></Footer>
 
 <img class="d-none" src="/assets/img/pixel-onload.png" {{on 'load' this.appLoaded}}>
 
-</main>
+
