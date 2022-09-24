@@ -80,5 +80,9 @@
   },
   "ember": {
     "edition": "octane"
+  },
+  "dependencies": {
+    "animate.css": "^4.1.1",
+    "tachyons-animate": "^7.0.1-1"
   }
 }
