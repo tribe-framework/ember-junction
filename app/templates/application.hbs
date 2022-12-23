@@ -2,15 +2,11 @@
 
 <div class="above-footer">
 
-	<Header @schema={{@model.schema}}></Header>
+	<Header></Header>
 
-	<main class="page animate__animated a4 d2">
+	<main class="page a4 d2">
 		{{outlet}}
 		<Footer @schema={{@model.schema}}></Footer>
 	</main>
 
 </div>
-
-<img class="d-none" src="/assets/img/pixel-onload.png" {{on 'load' this.appLoaded}}>
-
-

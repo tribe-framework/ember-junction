@@ -1,38 +1,38 @@
 <nav class="fs-2 border-top border-danger border-3 shadow fs-light navbar navbar-expand-lg bg-dark sticky-top">
   <div class="container-fluid">
-    <a class="fs-4 navbar-brand text-white"
+    <a class="fs-smaller fs-4 navbar-brand text-white"
       target="_blank"
       href="https://wildfiretech.co"
 	  	data-bs-toggle="tooltip" data-bs-placement="bottom"
 	  	title="View webapp" rel="noopener noreferrer">
-	  	<i class="fa-regular fa-chevrons-left"></i>
-	  	<span class="d-inline-block ps-1">{{@schema.headmeta_title}}</span>
+	  	<FaIcon @icon="chevrons-left" @prefix="fa-light" />
+	  	<span class="d-inline-block ps-1">App</span>
     </a>
     <button id="main-menu-toggler" {{on 'click' this.toggleBarsIcon}} class="shadow-none navbar-toggler p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="fa-light fa-bars-staggered text-white fs-1"></i>
+      <i class="bars-staggered text-white fs-1"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto text-end mb-2 mb-lg-0 d-flex align-items-lg-center">
         
-        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @iconclass="fa-light fa-gauge-high" @navtitle="Dashboard" @navroute="index" />
+        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="gauge-high" @navtitle="Dashboard" @navroute="index" />
 
-        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @iconclass="fa-light fa-list-tree" @navtitle="Types" @navroute="types" />
+        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="list-tree" @navtitle="Types" @navroute="types" />
 
-        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @iconclass="fa-light fa-users" @navtitle="User roles" @navroute="user-roles" />
+        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="users" @navtitle="User roles" @navroute="user-roles" />
         
-        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @iconclass="fa-light fa-magnifying-glass" @navtitle="Find" @navroute="find" />
+        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="magnifying-glass" @navtitle="Find" @navroute="find" />
 
-        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @iconclass="fa-light fa-upload" @navtitle="Uploads" @navroute="uploads" />
+        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="upload" @navtitle="Uploads" @navroute="uploads" />
 
-        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @iconclass="fa-light fa-gear" @navtitle="Settings" @navroute="settings" />
+        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="gear" @navtitle="Settings" @navroute="settings" />
 
-        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @iconclass="fa-light fa-square-user" @navtitle="My account" @navroute="my-account" />
+        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="square-user" @navtitle="My account" @navroute="my-account" />
 
-        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @iconclass="fa-light fa-circle-info" @navtitle="How-to" @navroute="how-to" />
+        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="circle-info" @navtitle="How-to" @navroute="how-to" />
 
         <HeaderNavItem>
             <a class="fs-smaller nav-link text-white ms-3" href="#logoutModel" data-bs-toggle="modal">
-            	<i class="fa-light fa-arrow-right-from-bracket"></i>
+            	<i class="arrow-right-from-bracket"></i>
             	<span class="d-inline-block d-lg-none ps-1">Exit</span>
             </a>
         </HeaderNavItem>
