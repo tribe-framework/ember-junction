@@ -21,9 +21,6 @@ module.exports = function (defaults) {
   // along with the exports of each module as its value.
 
   app.import('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js');
-  app.import('node_modules/@fortawesome/fontawesome-pro/js/all.js');
-  app.import('node_modules/animate.css/animate.css');
-  app.import('node_modules/tachyons-animate/css/tachyons-animate.css');
   
   app.import('public/assets/css/custom.css');
   app.import('public/assets/js/custom.js');
