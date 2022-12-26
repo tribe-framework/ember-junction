@@ -12,18 +12,12 @@
 	    </tr>
 	  </thead>
 	  <tbody>
+	  	{{#each-in @types as |key type|}}
 	    <tr>
-	      <td>Posts</td>
+	      <td>{{key}}</td>
 	      <td>25</td>
 	    </tr>
-	    <tr>
-	      <td>Authors</td>
-	      <td>12</td>
-	    </tr>
-	    <tr>
-	      <td>Larry the Bird</td>
-	      <td>21</td>
-	    </tr>
+	    {{/each-in}}
 	  </tbody>
 	</table>
   </div>

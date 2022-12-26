@@ -21,7 +21,7 @@ module.exports = function (defaults) {
   // along with the exports of each module as its value.
 
   app.import('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js');
-  
+
   app.import('public/assets/css/custom.css');
   app.import('public/assets/js/custom.js');
 
