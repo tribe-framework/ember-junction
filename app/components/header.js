@@ -24,7 +24,7 @@ export default class HeaderComponent extends Component {
     document.querySelector('#main-menu-toggler').attributes[
       'aria-expanded'
     ].value = 'false';
-    document.querySelector('.tooltip.show').classList.remove('show');
+    //document.querySelector('.tooltip.show').classList.remove('show');
     this.toggleBarsIcon();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }

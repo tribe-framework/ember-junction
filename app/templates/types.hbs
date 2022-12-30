@@ -1,23 +1,38 @@
 {{page-title "Types"}}
 
-<PageHeading @iconclass="fa-light fa-list-tree" @pagetitle="Types" />
+<PageHeading @icon="list-tree" @pagetitle="Types" />
 
 <div class="container">
 
 	<div class="row mt-3 row-cols-1 g-3">
 		<div class="col">
-			<PageSummaryCard @iconclass="fa-light fa-list-tree" @pagetitle="Types">
-				{{#each-in this.model.schema as |type object|}}
-				  {{object.slug}}
-				{{else}}
-				  <h1>No types defined yet.</h1>
+			<PageSummaryCard @icon="list-tree" @pagetitle="Types defined in types.json">
+				{{#each-in @model.modules as |key type|}}
+					{{#if type.plural}}
+				  		<button {{on 'click' (fn this.loadTypeObjects key)}} type="button" class="btn {{if (eq key this.type) "btn-dark" "btn-outline-dark"}} me-2">{{type.plural}}</button>
+				  	{{/if}}
 				{{/each-in}}
 			</PageSummaryCard>
 		</div>
-		
-		<div class="col"><PlaceholderCard /></div>
 	</div>
-
 </div>
+
+{{#if this.type}}
+	<div class="row mt-3 row-cols-1 g-3">
+		<div class="col">
+			<Types::ListTable @type={{get @model.modules this.type}}>
+				<Types::ListTable::Head @type={{get @model.modules this.type}} />
+
+				<tbody>
+					{{#each this.objects as |object|}}
+						<Types::ListTable::Row />
+					{{else}}
+						<Types::ListTable::EmptyTableRow />
+					{{/each}}
+				</tbody>
+			</Types::ListTable>
+		</div>
+	</div>
+{{/if}}
 
 {{outlet}}
