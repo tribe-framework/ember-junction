@@ -20,7 +20,7 @@
 {{#if this.type}}
 	<div class="row mt-3 row-cols-1 g-3">
 		<div class="col">
-			<Types::ListTable @type={{get @model.modules this.type}}>
+			<Types::ListTable @type={{get @model.modules this.type}} @createNewPost={{this.createNewPost}}>
 				<Types::ListTable::Head @type={{get @model.modules this.type}} />
 
 				<tbody>
@@ -36,3 +36,5 @@
 {{/if}}
 
 {{outlet}}
+
+<Types::NewObjectModal @type={{get @model.modules this.type}} @object={{this.currentObject}} />
