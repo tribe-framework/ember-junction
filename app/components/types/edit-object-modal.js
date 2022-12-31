@@ -7,11 +7,12 @@ import fetch from 'fetch';
 export default class TypesEditObjectModalComponent extends Component {
 	@service store;
 
-	@tracked object = this.args.object ? this.args.object : {};
+	@tracked object = this.args.object;
+	@tracked objectModules = this.args.object ? this.args.object.modules : {};
 
 	@action
-	async saveObject() {
-		let response = await fetch('https://do7.wildfire.world/api.php/'+this.args.type.slug, {
+	saveObject() {
+		/*let response = await fetch('https://do7.wildfire.world/api.php/'+this.args.type.slug, {
 			  method: 'POST',
 			  headers: {
 			    'Content-Type': 'application/json;charset=utf-8'
@@ -25,9 +26,10 @@ export default class TypesEditObjectModalComponent extends Component {
 	      });
 		
 		let v = this.store.findRecord(this.args.type.slug, response.id);	
-	    this.store.push({data: [v]});
+	    this.store.push({data: [v]});*/
 
 		//console.log(this.args.type.slug);
-		//this.object = this.store.createRecord('page', {modules: this.object});
+		let obj = this.store.createRecord(this.args.type.slug, {modules: this.objectModules});
+		//obj.save();
 	}
 }

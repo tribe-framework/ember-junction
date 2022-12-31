@@ -19,7 +19,7 @@ module.exports = function (environment) {
 
     //Wildfire Tribe config for EmberJS
     TribeENV: {
-      API_URL: 'https://do7.wildfire.world/api.php',
+      BASE_URL: 'https://do7.wildfire.world',
     },
 
     APP: {
