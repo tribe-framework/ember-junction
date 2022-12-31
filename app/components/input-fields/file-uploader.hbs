@@ -1,1 +1,30 @@
+<div class="card px-0 border-dark">
+  
+  <div class="card-header border-0 text-uppercase">
+    <i class="fa-light fa-circle-dashed"></i>
+    <span class="ms-1">{{if @module.input_placeholder @module.input_placeholder "File Uploader"}}</span>
+  </div>
+
+  <div class="card-body p-0" {{on 'click' (fn this.triggerSelectFile (concat @type.slug '-' @module.input_slug '-uploader'))}}>
+
+	{{#let (file-queue name="{{concat @type.slug '-' @module.input_slug}}" onFileAdded=this.uploadFile) as |queue|}}
+		<div class="d-none">
+			<input class="form-control" type="file" id="{{concat @type.slug '-' @module.input_slug '-uploader'}}" {{queue.selectFile}}>
+		</div>
+		<FileDropzone @queue={{queue}} as |dropzone|>
+		    {{#if dropzone.active}}
+		      <div class="text-center text-dark w-100 fs-4 p-3" style="border: 6px dashed #000;"><FaIcon @icon="wand-magic-sparkles" @spin={{true}} @pulse={{true}} @prefix="fa-light" />&nbsp;&nbsp;Drop to upload</div>
+		    {{else if queue.files.length}}
+		      <div class="text-center text-dark w-100 fs-4 p-3" style="border: 6px dashed #eee;"><FaIcon @icon="timer" @prefix="fa-light" />&nbsp;Uploading {{queue.files.length}} file(s) ({{queue.progress}}% done).</div>
+		      	<div class="progress" role="progressbar" aria-valuenow="{{queue.progress}}" aria-valuemin="0" aria-valuemax="100">
+				  <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: {{queue.progress}}%"></div>
+				</div>
+		    {{else if dropzone.supported}}
+		      <div class="text-center text-muted w-100 fs-4 p-3" style="border: 6px dashed #eee;"><FaIcon @icon="cloud-arrow-up" @prefix="fa-light" />&nbsp;&nbsp;Drag and drop files here to upload them</div>
+		    {{/if}}
+	  	</FileDropzone>
+	{{/let}}
+
+  </div>
+</div>
 {{yield}}

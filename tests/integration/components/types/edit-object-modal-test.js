@@ -3,22 +3,22 @@ import { setupRenderingTest } from 'junction/tests/helpers';
 import { render } from '@ember/test-helpers';
 import { hbs } from 'ember-cli-htmlbars';
 
-module('Integration | Component | types/new-object-modal', function (hooks) {
+module('Integration | Component | types/edit-object-modal', function (hooks) {
   setupRenderingTest(hooks);
 
   test('it renders', async function (assert) {
     // Set any properties with this.set('myProperty', 'value');
     // Handle any actions with this.set('myAction', function(val) { ... });
 
-    await render(hbs`<Types::NewObjectModal />`);
+    await render(hbs`<Types::EditObjectModal />`);
 
     assert.dom(this.element).hasText('');
 
     // Template block usage:
     await render(hbs`
-      <Types::NewObjectModal>
+      <Types::EditObjectModal>
         template block text
-      </Types::NewObjectModal>
+      </Types::EditObjectModal>
     `);
 
     assert.dom(this.element).hasText('template block text');

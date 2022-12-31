@@ -1,0 +1,75 @@
+{{!-- Modal --}}
+<div class="modal fade" id="editObjectModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editObjectModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="editObjectModalLabel">Edit {{@type.name}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{yield}}
+
+        {{#each @type.modules as |module|}}
+        	
+        	{{#if (eq module.input_type "checkbox")}}
+        		<InputFields::Checkbox @type={{@type}} @module={{module}} @object={{this.object}} />
+
+        	{{else if (eq module.input_type "color")}}
+        		<InputFields::Color @type={{@type}} @module={{module}} @object={{this.object}} />
+
+        	{{else if (eq module.input_type "csv")}}
+        		<InputFields::Csv @type={{@type}} @module={{module}} @object={{this.object}} />
+
+        	{{else if (eq module.input_type "date")}}
+        		<InputFields::Date @type={{@type}} @module={{module}} @object={{this.object}} />
+        	
+        	{{else if (eq module.input_type "datetime-local")}}
+        		<InputFields::Datetime-Local @type={{@type}} @module={{module}} @object={{this.object}} />
+
+        	{{else if (eq module.input_type "editorjs")}}
+        		<InputFields::Editorjs @type={{@type}} @module={{module}} @object={{this.object}} />
+
+        	{{else if (eq module.input_type "email")}}
+        		<InputFields::Email @type={{@type}} @module={{module}} @object={{this.object}} />
+        	
+        	{{else if (eq module.input_type "file_uploader")}}
+        		<InputFields::FileUploader @type={{@type}} @module={{module}} @object={{this.object}} />
+
+        	{{else if (eq module.input_type "hidden")}}
+        		<InputFields::Hidden @type={{@type}} @module={{module}} @object={{this.object}} />
+        	
+        	{{else if (eq module.input_type "json")}}
+        		<InputFields::Json @type={{@type}} @module={{module}} @object={{this.object}} />
+
+        	{{else if (eq module.input_type "number")}}
+        		<InputFields::Number @type={{@type}} @module={{module}} @object={{this.object}} />
+        	
+        	{{else if (eq module.input_type "password")}}
+        		<InputFields::Password @type={{@type}} @module={{module}} @object={{this.object}} />
+
+        	{{else if (eq module.input_type "select")}}
+        		<InputFields::Select @type={{@type}} @module={{module}} @object={{this.object}} />
+
+        	{{else if (eq module.input_type "tel")}}
+        		<InputFields::Tel @type={{@type}} @module={{module}} @object={{this.object}} />
+
+        	{{else if (eq module.input_type "text")}}
+        		<InputFields::Text @type={{@type}} @module={{module}} @object={{this.object}} />
+        	
+        	{{else if (eq module.input_type "textarea")}}
+        		<InputFields::Textarea @type={{@type}} @module={{module}} @object={{this.object}} />
+        	
+        	{{else if (eq module.input_type "url")}}
+        		<InputFields::Url @type={{@type}} @module={{module}} @object={{this.object}} />
+
+        	{{/if}}
+        {{/each}}
+      </div>
+      <div class="modal-footer">
+      	<InputFields::Hidden @module={{hash input_slug="id" input_type="hidden"}} @value={{get this.object "id"}} />
+      	<InputFields::Hidden @module={{hash input_slug="type" input_type="hidden"}} @value={{get this.object "type"}} />
+        <button type="button" class="btn btn-primary" {{on 'click' this.saveObject}}>Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,15 +1,13 @@
 {{page-title "Types"}}
 
-<PageHeading @icon="list-tree" @pagetitle="Types" />
-
 <div class="container">
 
 	<div class="row mt-3 row-cols-1 g-3">
 		<div class="col">
-			<PageSummaryCard @icon="list-tree" @pagetitle="Types defined in types.json">
+			<PageSummaryCard @title="Types defined in types.json">
 				{{#each-in @model.modules as |key type|}}
 					{{#if type.plural}}
-				  		<button {{on 'click' (fn this.loadTypeObjects key)}} type="button" class="btn {{if (eq key this.type) "btn-dark" "btn-outline-dark"}} me-2">{{type.plural}}</button>
+				  		<button {{on 'click' (fn this.loadTypeObjects type)}} type="button" class="btn {{if (eq key this.currentType.slug) "btn-dark" "btn-outline-dark"}} me-2">{{type.plural}}</button>
 				  	{{/if}}
 				{{/each-in}}
 			</PageSummaryCard>
@@ -17,14 +15,14 @@
 	</div>
 </div>
 
-{{#if this.type}}
+{{#if this.currentType}}
 	<div class="row mt-3 row-cols-1 g-3">
 		<div class="col">
-			<Types::ListTable @type={{get @model.modules this.type}} @createNewPost={{this.createNewPost}}>
-				<Types::ListTable::Head @type={{get @model.modules this.type}} />
+			<Types::ListTable @type={{this.currentType}} @editObject={{this.editObject}}>
+				<Types::ListTable::Head @type={{this.currentType}} />
 
 				<tbody>
-					{{#each this.objects as |object|}}
+					{{#each this.objectsInType as |object|}}
 						<Types::ListTable::Row />
 					{{else}}
 						<Types::ListTable::EmptyTableRow />
@@ -37,4 +35,4 @@
 
 {{outlet}}
 
-<Types::NewObjectModal @type={{get @model.modules this.type}} @object={{this.currentObject}} />
+<Types::EditObjectModal @type={{this.currentType}} @object={{this.currentObject}} />

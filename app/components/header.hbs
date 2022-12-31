@@ -1,37 +1,30 @@
-<nav class="fs-2 border-top border-danger border-3 shadow fs-light navbar navbar-expand-lg bg-dark sticky-top">
-  <div class="container-fluid">
-    <a class="fs-smaller fs-4 navbar-brand text-white"
-      target="_blank"
-      href="https://wildfiretech.co"
-	  	data-bs-toggle="tooltip" data-bs-placement="bottom"
-	  	title="View webapp" rel="noopener noreferrer">
-	  	<FaIcon @icon="chevrons-left" @prefix="fa-light" />
-	  	<span class="d-inline-block ps-1">App</span>
-    </a>
+<nav class="fs-2 border-bottom border-danger border-5 fs-light navbar navbar-expand-lg bg-dark sticky-top py-0">
+  <div class="container-fluid px-0">
     <button id="main-menu-toggler" {{on 'click' this.toggleBarsIcon}} class="shadow-none navbar-toggler p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <i class="bars-staggered text-white fs-1"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav ms-auto text-end mb-2 mb-lg-0 d-flex align-items-lg-center">
+      <ul class="navbar-nav me-auto text-end mb-2 mb-lg-0 d-flex align-items-lg-center">
         
         <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="gauge-high" @navtitle="Dashboard" @navroute="index" />
 
         <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="list-tree" @navtitle="Types" @navroute="types" />
+
+        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="upload" @navtitle="Uploads" @navroute="uploads" />
         
         <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="magnifying-glass" @navtitle="Find" @navroute="find" />
 
-        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="upload" @navtitle="Uploads" @navroute="uploads" />
-
-        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="gear" @navtitle="Settings" @navroute="settings" />
-
-        <HeaderNavItem>
-            <a class="fs-smaller nav-link text-white ms-3" href="#logoutModel" data-bs-toggle="modal">
-            	<i class="arrow-right-from-bracket"></i>
-            	<span class="d-inline-block d-lg-none ps-1">Exit</span>
-            </a>
-        </HeaderNavItem>
       </ul>
     </div>
+
+    <a class="fs-smaller fs-4 navbar-brand text-white"
+      target="_blank"
+      href={{@webapp.url}}
+      data-bs-toggle="tooltip" data-bs-placement="bottom"
+      title="View webapp" rel="noopener noreferrer">
+      <FaIcon @icon="external-link-alt" @prefix="fa-light" />
+      <span class="d-inline-block ps-1">Front-end</span>
+    </a>
   </div>
 </nav>
 

@@ -1,11 +1,9 @@
 {{page-title "Uploads"}}
 
-<PageHeading @iconclass="fa-light fa-upload" @pagetitle="Uploads" />
-
 <div class="container">
 
 	<div class="row mt-3 row-cols-1 g-3">
-		<div class="col"><PlaceholderCard /></div>
+		<div class="col"><InputFields::FileUploader @types={{@model.modules}} /></div>
 	</div>
 
 </div>

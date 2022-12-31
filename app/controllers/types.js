@@ -6,19 +6,19 @@ import { service } from '@ember/service';
 export default class TypesController extends Controller {
   @service store;
 
-  @tracked type = false;
+  @tracked currentType = false;
   @tracked currentObject = false;
-  @tracked objects = false;
+  @tracked objectsInType = false;
 
   @action
   loadTypeObjects(type) {
-    this.type = type;
-    this.objects = this.store.findAll(type);
+    this.currentType = type;
+    this.objectsInType = this.store.findAll(type.slug);
   }
 
   @action
-  createNewPost() {
-    const newObjectModal = new bootstrap.Modal('#newObjectModal', {});
-    newObjectModal.show();
+  editObject() {
+    const editObjectModal = new bootstrap.Modal('#editObjectModal', {});
+    editObjectModal.show();
   }
 }

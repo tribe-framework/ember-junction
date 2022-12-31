@@ -106,4 +106,9 @@ $modal-backdrop-opacity: .8;
 .fs-smaller {
   font-size: 0.64em;
 }
+
+.nav-link.active {
+  background: linear-gradient(0deg, rgba(255,0,51,1) 0%, rgba(255,0,102,1) 100%);
+}
+
 @import "ember-power-select";

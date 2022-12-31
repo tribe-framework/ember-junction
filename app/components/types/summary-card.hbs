@@ -1,1 +1,27 @@
+<div class="card px-0 border-dark">
+  <div class="card-header border-0 text-uppercase">
+    <i class="fa-light fa-chart-mixed"></i>
+    <span class="ms-1">Summary</span>
+  </div>
+  <div class="card-body">
+  	<table class="table">
+	  <thead>
+	    <tr>
+	      <th scope="col">Types</th>
+	      <th scope="col">#</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	  	{{#each-in @types as |key type|}}
+	  		{{#if (not-eq key "webapp")}}
+			    <tr>
+			      <td>{{key}}</td>
+			      <td>{{type.total_objects}}</td>
+			    </tr>
+			{{/if}}
+	    {{/each-in}}
+	  </tbody>
+	</table>
+  </div>
+</div>
 {{yield}}
