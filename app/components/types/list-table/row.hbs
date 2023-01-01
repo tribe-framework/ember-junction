@@ -1,6 +1,9 @@
-<tr class="border-dark">
-  <th scope="row">1</th>
-  <td>Mark</td>
+<tr id="row-{{@object.id}}" class="border-dark" {{on 'mouseover' this.showOptions}} {{on 'mouseout' this.hideOptions}}>
+  <th scope="row">{{@object.id}}</th>
+  <td>
+    <div>Mark</div>
+    <div class="d-none position-absolute bottom-0 end-0" id="row-options-{{@object.id}}">YOYOYOYO</div>
+  </td>
   <td>Otto</td>
   <td>@mdo</td>
 </tr>

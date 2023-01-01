@@ -23,7 +23,7 @@
 
 				<tbody>
 					{{#each this.objectsInType as |object|}}
-						<Types::ListTable::Row />
+						<Types::ListTable::Row @object={{object}} />
 					{{else}}
 						<Types::ListTable::EmptyTableRow />
 					{{/each}}
