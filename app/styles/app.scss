@@ -111,4 +111,12 @@ $modal-backdrop-opacity: .8;
   background: linear-gradient(0deg, rgba(255,0,51,1) 0%, rgba(255,0,102,1) 100%);
 }
 
+.min-width-primary-module {
+  min-width: 40%;
+}
+
+.min-width-id-module {
+  width: 60px;
+}
+
 @import "ember-power-select";

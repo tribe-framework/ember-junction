@@ -16,14 +16,14 @@
 </div>
 
 {{#if this.currentType}}
-	<div class="row mt-3 row-cols-1 g-3">
+	<div class="row mt-3 row-cols-1 g-3 {{if (lt this.currentType.modules.length 6) "container mx-auto" "mx-0"}}">
 		<div class="col">
-			<Types::ListTable @type={{this.currentType}} @editObject={{this.editObject}}>
+			<Types::ListTable @type={{this.currentType}}>
 				<Types::ListTable::Head @type={{this.currentType}} />
 
 				<tbody>
 					{{#each this.objectsInType as |object|}}
-						<Types::ListTable::Row @object={{object}} />
+						<Types::ListTable::Row @type={{this.currentType}} @object={{object}} />
 					{{else}}
 						<Types::ListTable::EmptyTableRow />
 					{{/each}}
@@ -34,5 +34,3 @@
 {{/if}}
 
 {{outlet}}
-
-<Types::EditObjectModal @type={{this.currentType}} @object={{this.currentObject}} />

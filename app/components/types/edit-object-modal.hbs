@@ -1,5 +1,5 @@
 {{!-- Modal --}}
-<div class="modal fade" id="editObjectModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editObjectModalLabel" aria-hidden="true">
+<div class="modal fade" id="editObjectModal-{{if @object.id @object.id (concat @type.slug "-" "new")}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editObjectModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
     <div class="modal-content">
       <div class="modal-header">

@@ -1,9 +1,17 @@
 <tr id="row-{{@object.id}}" class="border-dark" {{on 'mouseover' this.showOptions}} {{on 'mouseout' this.hideOptions}}>
   <th scope="row">{{@object.id}}</th>
-  <td>
-    <div>Mark</div>
-    <div class="d-none position-absolute bottom-0 end-0" id="row-options-{{@object.id}}">YOYOYOYO</div>
-  </td>
-  <td>Otto</td>
-  <td>@mdo</td>
+
+  {{#each @type.modules as |module|}}
+    {{#if module.list_field}}
+      <td class="position-relative">
+        <div>{{get @object.modules module.input_slug}}</div>
+
+        {{#if module.input_primary}}
+          <div class="d-none position-absolute bottom-0 end-0" id="row-options-{{@object.id}}">YOYOYOYO</div>
+        {{/if}}    
+      </td>
+    {{/if}}
+  {{/each}}
 </tr>
+
+<Types::EditObjectModal @type={{@type}} @object={{@object}} />
