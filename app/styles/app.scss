@@ -128,14 +128,21 @@ $modal-backdrop-opacity: .8;
 }
 
 .slug-ellipsis {
-  line-height: 1;
+  line-height: 0.9;
   font-size: 0.7em;
   overflow: hidden;
   display: -webkit-inline-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
-  max-width: 300px;
 }
 
 @import "ember-power-select";
+
+.types-data-table tbody tr {
+  height: 6em;
+}
+
+.types-data-table thead tr {
+  height: 3em;
+}

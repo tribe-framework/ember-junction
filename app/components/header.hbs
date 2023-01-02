@@ -16,15 +16,22 @@
 
       </ul>
     </div>
-
-    <a class="fs-smaller fs-4 navbar-brand text-white"
-      target="_blank"
-      href={{@webapp.url}}
-      data-bs-toggle="tooltip" data-bs-placement="bottom"
-      title="View webapp" rel="noopener noreferrer">
-      <FaIcon @icon="external-link-alt" @prefix="fa-light" />
-      <span class="d-inline-block ps-1">Front-end</span>
-    </a>
+    <div class="d-flex align-items-center justify-content-end">
+      <a class="fs-smaller fs-4 navbar-brand text-white"
+        target="_blank"
+        href={{@webapp.url}}
+        data-bs-toggle="tooltip" data-bs-placement="bottom"
+        title="View front-end" rel="noopener noreferrer">
+        <FaIcon @icon="external-link-alt" @prefix="fa-light" />
+      </a>
+      <a class="fs-smaller fs-4 navbar-brand text-white"
+        target="_blank"
+        href={{@webapp.url}}
+        data-bs-toggle="tooltip" data-bs-placement="bottom"
+        title="Settings and logout" rel="noopener noreferrer">
+        <FaIcon @icon="gear" @prefix="fa-light" />
+      </a>
+    </div>
   </div>
 </nav>
 

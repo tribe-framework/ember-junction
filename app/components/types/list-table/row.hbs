@@ -1,22 +1,32 @@
-<tr id="row-{{@object.id}}" class="border-dark" {{on 'mouseover' this.showOptions}} {{on 'mouseout' this.hideOptions}}>
-  <th scope="row">{{@object.id}}</th>
+<tr id="row-{{@object.id}}" class="border-dark">
+  <th class="border-end border-start border-1 border-dark" scope="row">{{@object.id}}</th>
 
   {{#each @type.modules as |module|}}
     {{#if module.list_field}}
-      <td class="position-relative">
-        <div class="text-ellipsis">{{get @object.modules module.input_slug}}</div>
 
-        {{#if module.input_primary}}
-          <div class="w-75 bg-primary p-1 d-none position-absolute bottom-0 end-0 justify-content-between align-items-center" id="row-options-{{@object.id}}">
-            <div class="btn-options">
-                <span class="badge badge-sm border border-dark font-weight-bold text-uppercase" title="Content privacy set to public"><span class="text-green"><FaIcon @icon="megaphone" /></span> public</span>  <span class="d-none d-md-inline-block" data-toggle="tooltip" data-placement="bottom" title="duplicate-student-entry-resolve"><span class="ml-1 small text-muted slug-ellipsis">duplicate-student-entry-resolve</span></span>
+      {{#if module.input_primary}}
+
+        <td class="position-relative border-end border-1 border-dark" {{on 'mouseover' this.showOptions}} {{on 'mouseout' this.hideOptions}}>
+          <div class="text-ellipsis">{{get @object.modules module.input_slug}}</div>
+          <div class="w-100 bg-white border-top border-bottom border-5 border-muted p-1 d-none position-absolute bottom-0 end-0 justify-content-between align-items-center" id="row-options-{{@object.id}}">
+            <div class="d-flex align-items-center">
+              <span class="d-none d-md-inline-block" data-toggle="tooltip" data-placement="bottom" title="{{@object.modules.slug}}"><span class="ml-1 small text-dark slug-ellipsis">{{@object.modules.slug}}</span></span>
             </div>
-            <div class="btn-options">
-                <a class="edit_button badge badge-sm border border-dark font-weight-bold text-uppercase" title="Click here to edit" data-type="tool" data-role="" data-slug="duplicate-student-entry-resolve" data-id="970363" href="#editModal" data-toggle="modal" data-href="/admin/edit?type=tool&amp;id=970363" data-event-set="1"><span class="text-success"><FaIcon @icon="edit" /></span>&nbsp;Edit</a> <a title="Click here to view this record" class=" badge badge-sm border border-dark font-weight-bold text-uppercase" target="new" href="/tool/duplicate-student-entry-resolve"><span class="text-success"><FaIcon @icon="external-link-alt" /></span>&nbsp;View</a>
+            <div class="d-flex align-items-center">
+              <span class="badge badge-sm border-0 font-weight-bold text-uppercase text-dark"><span class="text-success"><FaIcon @icon="megaphone" /></span> {{if @object.modules.content_privacy @object.modules.content_privacy "draft"}}</span> 
+              <button class="badge badge-sm border border-1 border-dark text-dark font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@object.id}}" type="button"><span class="text-success"><FaIcon @icon="edit" /></span>&nbsp;Edit</button>
             </div>
-          </div>
-        {{/if}}    
-      </td>
+          </div> 
+        </td>
+
+      {{else}}
+
+        <td class="position-relative border-end border-1 border-dark">
+          <div class="text-ellipsis">{{get @object.modules module.input_slug}}</div> 
+        </td>
+
+      {{/if}}
+
     {{/if}}
   {{/each}}
 </tr>

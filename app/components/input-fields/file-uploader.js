@@ -2,6 +2,7 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
+import ENV from 'junction/config/environment';
 
 export default class InputFieldsFileUploaderComponent extends Component {
   @service fileQueue;
@@ -21,7 +22,7 @@ export default class InputFieldsFileUploaderComponent extends Component {
   async uploadFile(file) {
     try {
       const response = await file.upload(
-        'https://do7.wildfire.world/uploads.php'
+        ENV.TribeENV.BASE_URL+'/uploads.php'
       );
       response.json().then((data) => {
         if (data.status == 'success') {

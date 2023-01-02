@@ -10,7 +10,7 @@ export default class TypesEditObjectModalComponent extends Component {
   @action
   saveObject() {
     let vvv = this.objectModules;
-    
+
     let obj = this.store.createRecord(this.args.type.slug, {
       modules: vvv,
     });
