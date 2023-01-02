@@ -4,10 +4,17 @@
   {{#each @type.modules as |module|}}
     {{#if module.list_field}}
       <td class="position-relative">
-        <div>{{get @object.modules module.input_slug}}</div>
+        <div class="text-ellipsis">{{get @object.modules module.input_slug}}</div>
 
         {{#if module.input_primary}}
-          <div class="d-none position-absolute bottom-0 end-0" id="row-options-{{@object.id}}">YOYOYOYO</div>
+          <div class="w-75 bg-primary p-1 d-none position-absolute bottom-0 end-0 justify-content-between align-items-center" id="row-options-{{@object.id}}">
+            <div class="btn-options">
+                <span class="badge badge-sm border border-dark font-weight-bold text-uppercase" title="Content privacy set to public"><span class="text-green"><FaIcon @icon="megaphone" /></span> public</span>  <span class="d-none d-md-inline-block" data-toggle="tooltip" data-placement="bottom" title="duplicate-student-entry-resolve"><span class="ml-1 small text-muted slug-ellipsis">duplicate-student-entry-resolve</span></span>
+            </div>
+            <div class="btn-options">
+                <a class="edit_button badge badge-sm border border-dark font-weight-bold text-uppercase" title="Click here to edit" data-type="tool" data-role="" data-slug="duplicate-student-entry-resolve" data-id="970363" href="#editModal" data-toggle="modal" data-href="/admin/edit?type=tool&amp;id=970363" data-event-set="1"><span class="text-success"><FaIcon @icon="edit" /></span>&nbsp;Edit</a> <a title="Click here to view this record" class=" badge badge-sm border border-dark font-weight-bold text-uppercase" target="new" href="/tool/duplicate-student-entry-resolve"><span class="text-success"><FaIcon @icon="external-link-alt" /></span>&nbsp;View</a>
+            </div>
+          </div>
         {{/if}}    
       </td>
     {{/if}}

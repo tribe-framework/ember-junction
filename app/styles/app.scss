@@ -119,4 +119,23 @@ $modal-backdrop-opacity: .8;
   width: 60px;
 }
 
+.text-ellipsis {
+  line-height: 1.12;
+  overflow: hidden;
+  display: -webkit-inline-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.slug-ellipsis {
+  line-height: 1;
+  font-size: 0.7em;
+  overflow: hidden;
+  display: -webkit-inline-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+
 @import "ember-power-select";
