@@ -19,7 +19,7 @@ module.exports = function (environment) {
 
     //Wildfire Tribe config for EmberJS
     TribeENV: {
-      BASE_URL: 'https://beatrootnews.com',
+      BASE_URL: 'https://tribe.foofify.com',
     },
 
     APP: {
