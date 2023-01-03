@@ -68,7 +68,29 @@
       <div class="modal-footer">
       	<InputFields::Hidden @module={{hash input_slug="id" input_type="hidden"}} @object={{this.objectModules}} />
       	<InputFields::Hidden @module={{hash input_slug="type" input_type="hidden"}} @object={{this.objectModules}} />
-        <button type="button" class="btn btn-primary" {{on 'click' this.saveObject}}>Save changes</button>
+        <div class="w-100 d-flex align-items-center justify-content-between">
+
+          {{#if @object.id}}
+
+            <button type="button" class="btn btn-primary" {{on 'click' this.pushObject}}>Save changes</button>
+
+            <div class="d-flex justify-content-start align-items-center" {{on 'click' this.areYouSure}}>
+              <div class="d-flex justify-content-start align-items-start">
+                <button type="button" class="btn btn-danger me-2"><FaIcon @icon="trash-alt" /></button>
+              </div>
+              <div class="d-none justify-content-start align-items-center" id="deleteObjectConfirmation-{{@object.id}}">
+                <div class="me-2">Are you sure?</div>
+                <button data-bs-dismiss="modal" type="button" class="btn btn-sm btn-danger me-1" {{on 'click' this.deleteObject}}>Yes, delete it</button>
+                <button type="button" class="btn btn-sm btn-success me-1" {{on 'click' this.notSoSure}}>No, keep it</button>
+              </div>
+            </div>
+
+          {{else}}
+
+            <button data-bs-dismiss="modal" type="button" class="btn btn-primary" {{on 'click' this.pushObject}}>Create new {{@type.name}}</button>
+
+          {{/if}}
+        </div>
       </div>
     </div>
   </div>
