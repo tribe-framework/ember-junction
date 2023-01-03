@@ -22,7 +22,7 @@ export default class InputFieldsFileUploaderComponent extends Component {
   async uploadFile(file) {
     try {
       const response = await file.upload(
-        ENV.TribeENV.BASE_URL+'/uploads.php'
+        ENV.TribeENV.BASE_URL + '/uploads.php'
       );
       response.json().then((data) => {
         if (data.status == 'success') {
