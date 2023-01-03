@@ -36,14 +36,15 @@ export default class TypesEditObjectModalComponent extends Component {
   }
 
   @action
-  areYouSure() {
-    document.querySelector('#deleteObjectConfirmation-'+this.args.object.id).classList.add('d-flex');
-    document.querySelector('#deleteObjectConfirmation-'+this.args.object.id).classList.remove('d-none');
-  }
-
-  @action
   notSoSure() {
     document.querySelector('#deleteObjectConfirmation-'+this.args.object.id).classList.add('d-none');
     document.querySelector('#deleteObjectConfirmation-'+this.args.object.id).classList.remove('d-flex');
+  }
+
+  @action
+  areYouSure() {
+    document.querySelector('#deleteObjectConfirmation-'+this.args.object.id).classList.add('d-flex');
+    document.querySelector('#deleteObjectConfirmation-'+this.args.object.id).classList.remove('d-none');
+
   }
 }
