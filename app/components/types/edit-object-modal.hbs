@@ -17,9 +17,6 @@
         	{{else if (eq module.input_type "color")}}
         		<InputFields::Color @type={{@type}} @module={{module}} @object={{this.objectModules}} />
 
-        	{{else if (eq module.input_type "csv")}}
-        		<InputFields::Csv @type={{@type}} @module={{module}} @object={{this.objectModules}} />
-
         	{{else if (eq module.input_type "date")}}
         		<InputFields::Date @type={{@type}} @module={{module}} @object={{this.objectModules}} />
         	
@@ -28,6 +25,9 @@
 
         	{{else if (eq module.input_type "editorjs")}}
         		<InputFields::Editorjs @type={{@type}} @module={{module}} @object={{this.objectModules}} />
+
+          {{else if (eq module.input_type "typeout")}}
+            <InputFields::Typeout @type={{@type}} @module={{module}} @object={{this.objectModules}} />
 
         	{{else if (eq module.input_type "email")}}
         		<InputFields::Email @type={{@type}} @module={{module}} @object={{this.objectModules}} />

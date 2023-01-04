@@ -1,1 +1,4 @@
-{{yield}}
+<div class="mb-3">
+	<Textarea id={{concat @type.slug "-" @module.input_slug}} @value={{mut (get @object @module.input_slug)}} class="form-control border-dark" placeholder={{@module.input_placeholder}} autocomplete="off" />
+	<div class="form-text text-end text-dark">{{@module.input_placeholder}}</div>
+</div>
