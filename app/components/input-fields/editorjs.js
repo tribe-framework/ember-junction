@@ -5,8 +5,14 @@ import { service } from '@ember/service';
 import EditorJS from '@editorjs/editorjs';
 
 export default class InputFieldsEditorjsComponent extends Component {
+  @tracked editor;
+
   @action
   initEditor() {
-    const editor = new EditorJS('editorjs');
+    this.editor = new EditorJS({
+      holder: this.args.type.slug+'-'+this.args.module.input_slug+'-'+this.args.id,
+      data: this.args.object[this.args.module.input_slug],
+      placeholder: this.args.module.input_placeholder
+    });
   }
 }

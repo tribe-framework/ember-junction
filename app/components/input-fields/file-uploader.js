@@ -6,10 +6,11 @@ import ENV from 'junction/config/environment';
 
 export default class InputFieldsFileUploaderComponent extends Component {
   @service fileQueue;
+  @tracked files = [];
 
   get queue() {
     return this.fileQueue.findOrCreate(
-      this.args.type.slug + '-' + this.args.module.input_slug
+      this.args.type.slug + '-' + this.args.module.input_slug + '-' + this.args.id
     );
   }
 
@@ -26,7 +27,9 @@ export default class InputFieldsFileUploaderComponent extends Component {
       );
       response.json().then((data) => {
         if (data.status == 'success') {
-          console.log(data.file);
+          this.files.push(data.file);
+          this.files = this.files;
+          console.log(this.files);
         } else if (data.status == 'error') {
           alert(data.error_message);
         }

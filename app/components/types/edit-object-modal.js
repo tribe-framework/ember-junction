@@ -5,17 +5,20 @@ import { tracked } from '@glimmer/tracking';
 
 export default class TypesEditObjectModalComponent extends Component {
   @service store;
+  @service router;
   @tracked objectModules = this.args.object ? this.args.object.modules : {};
+  @tracked objectID = this.args.object ? this.args.object.id : 'new';
 
   @action
   pushObject() {
     let vvv = this.objectModules;
-
+    console.log(this.args.object);
     if (
       this.args.object !== null &&
       this.args.object !== undefined &&
       this.args.object.id !== null
     ) {
+      
       this.store
         .findRecord(this.args.object.modules.type, this.args.object.modules.id)
         .then((obj) => {
@@ -23,11 +26,12 @@ export default class TypesEditObjectModalComponent extends Component {
           obj.save();
         });
     } else {
+
       let obj = this.store.createRecord(this.args.type.slug, {
         modules: vvv,
       });
       obj.save();
-      //this.store.unloadAll(this.args.type.slug);
+      //window.location.href="/types";
     }
   }
 

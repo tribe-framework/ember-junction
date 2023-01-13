@@ -1,3 +1,10 @@
-<PowerSelect @options={{this.names}} @onChange={{this.foo}} as |name|>
-  {{name}}
-</PowerSelect>
+<div class="mb-3">
+  <select id={{concat @type.slug "-" @module.input_slug "-" @id}} class="form-select border-dark" {{on 'change' this.updateValue}}>
+    <option selected="{{if (eq this.currentValue false) "selected"}}">{{@module.input_placeholder}}</option>
+
+    {{#each @module.input_options as |opt|}}
+      <option value={{opt.slug}} selected="{{if (eq this.currentValue opt.slug) "selected"}}">{{opt.title}}</option>
+    {{/each}}
+  </select>
+  <div class="form-text text-end text-dark">{{@module.input_placeholder}}</div>
+</div>

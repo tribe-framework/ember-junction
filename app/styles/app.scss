@@ -137,12 +137,20 @@ $modal-backdrop-opacity: .8;
   text-overflow: ellipsis;
 }
 
-@import "ember-power-select";
-
 .types-data-table tbody tr {
   height: 6em;
 }
 
 .types-data-table thead tr {
   height: 3em;
+}
+
+.codex-editor__redactor {
+  padding-bottom: 0 !important;
+}
+
+.ce-toolbar__content, .ce-block__content {
+  max-width: 84% !important;
+  margin-left: 10px !important;
+  margin-right: auto !important;
 }

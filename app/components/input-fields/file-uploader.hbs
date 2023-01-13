@@ -1,15 +1,15 @@
-<div class="card px-0 border-dark">
+<div class="mb-3"><div class="card px-0 border-dark">
   
   <div class="card-header border-0 text-uppercase">
     <i class="fa-light fa-circle-dashed"></i>
     <span class="ms-1">{{if @module.input_placeholder @module.input_placeholder "File Uploader"}}</span>
   </div>
 
-  <div class="card-body p-0" {{on 'click' (fn this.triggerSelectFile (concat @type.slug '-' @module.input_slug '-uploader'))}}>
+  <div class="card-body p-0" {{on 'click' (fn this.triggerSelectFile (concat @type.slug '-' @module.input_slug '-' @id '-uploader'))}}>
 
-	{{#let (file-queue name="{{concat @type.slug '-' @module.input_slug}}" onFileAdded=this.uploadFile) as |queue|}}
+	{{#let (file-queue name="{{concat @type.slug '-' @module.input_slug '-' @id}}" onFileAdded=this.uploadFile) as |queue|}}
 		<div class="d-none">
-			<input class="form-control" type="file" id="{{concat @type.slug '-' @module.input_slug '-uploader'}}" {{queue.selectFile}}>
+			<input class="form-control" type="file" id="{{concat @type.slug '-' @module.input_slug '-' @id '-uploader'}}" {{queue.selectFile}}>
 		</div>
 		<FileDropzone @queue={{queue}} as |dropzone|>
 		    {{#if dropzone.active}}
@@ -26,5 +26,13 @@
 	{{/let}}
 
   </div>
+  
+  <div class="card-footer border-0">
+  	{{#each this.files as |file|}}
+	    <div>Uploaded &mdash; <span>{{file.url}}</span></div>
+    {{/each}}
+  </div>
+
 </div>
-{{yield}}
+  <div class="form-text text-end text-dark">{{@module.input_placeholder}}</div>
+</div>
