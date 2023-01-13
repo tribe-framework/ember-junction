@@ -24,7 +24,7 @@
         		<InputFields::Datetime-Local @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} />
 
         	{{else if (eq module.input_type "editorjs")}}
-        		<InputFields::Editorjs @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} />
+        		<InputFields::Editorjs @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @editorjsInstances={{this.editorjsInstances}} />
 
           {{else if (eq module.input_type "typeout")}}
             <InputFields::Typeout @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} />
@@ -33,7 +33,7 @@
         		<InputFields::Email @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} />
         	
         	{{else if (eq module.input_type "file_uploader")}}
-        		<InputFields::FileUploader @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} />
+        		<InputFields::FileUploader @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @mutObjectModuleValue={{this.mutObjectModuleValue}} />
 
         	{{else if (eq module.input_type "hidden")}}
         		<InputFields::Hidden @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} />

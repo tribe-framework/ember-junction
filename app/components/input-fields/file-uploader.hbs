@@ -7,7 +7,7 @@
 
   <div class="card-body p-0" {{on 'click' (fn this.triggerSelectFile (concat @type.slug '-' @module.input_slug '-' @id '-uploader'))}}>
 
-	{{#let (file-queue name="{{concat @type.slug '-' @module.input_slug '-' @id}}" onFileAdded=this.uploadFile) as |queue|}}
+	{{#let (file-queue name=(concat @type.slug '/' @module.input_slug '/' @id) onFileAdded=this.uploadFile) as |queue|}}
 		<div class="d-none">
 			<input class="form-control" type="file" id="{{concat @type.slug '-' @module.input_slug '-' @id '-uploader'}}" {{queue.selectFile}}>
 		</div>
@@ -28,8 +28,8 @@
   </div>
   
   <div class="card-footer border-0">
-  	{{#each this.files as |file|}}
-	    <div>Uploaded &mdash; <span>{{file.url}}</span></div>
+  	{{#each (get @object @module.input_slug) as |file|}}
+	    <div>Uploaded &mdash; <span>{{file}}</span></div>
     {{/each}}
   </div>
 
