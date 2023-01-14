@@ -9,9 +9,12 @@ export default class InputFieldsFileUploaderComponent extends Component {
   @service fileQueue;
 
   get queue() {
-
     return this.fileQueue.findOrCreate(
-      this.args.type.slug + '-' + this.args.module.input_slug + '-' + this.args.id
+      this.args.type.slug +
+        '-' +
+        this.args.module.input_slug +
+        '-' +
+        this.args.id
     );
   }
 
@@ -28,7 +31,7 @@ export default class InputFieldsFileUploaderComponent extends Component {
       );
       response.json().then((data) => {
         if (data.status == 'success') {
-          let files  = (this.args.object[this.args.module.input_slug] ?? []);
+          let files = this.args.object[this.args.module.input_slug] ?? [];
           files.push(data.file.url);
           this.args.mutObjectModuleValue(this.args.module.input_slug, files);
         } else if (data.status == 'error') {

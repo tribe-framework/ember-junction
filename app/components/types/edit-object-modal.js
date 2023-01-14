@@ -19,7 +19,6 @@ export default class TypesEditObjectModalComponent extends Component {
       this.args.object !== undefined &&
       this.args.object.id !== null
     ) {
-      
       this.store
         .findRecord(this.args.object.modules.type, this.args.object.modules.id)
         .then((obj) => {
@@ -27,7 +26,6 @@ export default class TypesEditObjectModalComponent extends Component {
           obj.save();
         });
     } else {
-
       let obj = this.store.createRecord(this.args.type.slug, {
         modules: vvv,
       });
@@ -79,15 +77,18 @@ export default class TypesEditObjectModalComponent extends Component {
 
   @action
   initEditorJS(module_input_slug, id) {
-    var editor_object_in_type = Object(this.args.type.modules).find(function (element) {
-      if (element['input_slug'] == module_input_slug)
-        return element;
+    var editor_object_in_type = Object(this.args.type.modules).find(function (
+      element
+    ) {
+      if (element['input_slug'] == module_input_slug) return element;
     });
 
-    this.editorjsInstances[this.args.type.slug+'-'+module_input_slug+'-'+id] = new EditorJS({
-      holder: this.args.type.slug+'-'+module_input_slug+'-'+id,
-      data: (this.args.object ? this.args.object.modules[module_input_slug] : {}),
-      placeholder: editor_object_in_type.input_placeholder
+    this.editorjsInstances[
+      this.args.type.slug + '-' + module_input_slug + '-' + id
+    ] = new EditorJS({
+      holder: this.args.type.slug + '-' + module_input_slug + '-' + id,
+      data: this.args.object ? this.args.object.modules[module_input_slug] : {},
+      placeholder: editor_object_in_type.input_placeholder,
     });
 
     this.editorjsInstances = this.editorjsInstances;
@@ -95,15 +96,15 @@ export default class TypesEditObjectModalComponent extends Component {
 
   @action
   saveAllEditorJS() {
-
-    this.editorjsInstances.forEach((currentEditor, index)=>{
-      this.editorjsInstances[index].save()
-      .then((outputData) => {
-        console.log('Article data: ', outputData)
-      }).catch((error) => {
-        console.log('Saving failed: ', error)
-      });
+    this.editorjsInstances.forEach((currentEditor, index) => {
+      this.editorjsInstances[index]
+        .save()
+        .then((outputData) => {
+          console.log('Article data: ', outputData);
+        })
+        .catch((error) => {
+          console.log('Saving failed: ', error);
+        });
     });
   }
-
 }

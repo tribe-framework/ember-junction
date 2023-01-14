@@ -8,6 +8,8 @@ export default class InputFieldsSelectComponent extends Component {
   }
 
   get currentValue() {
-    return (this.args.object[this.args.module.input_slug] !== undefined ? this.args.object[this.args.module.input_slug] : false);
+    return this.args.object[this.args.module.input_slug] !== undefined
+      ? this.args.object[this.args.module.input_slug]
+      : false;
   }
 }
