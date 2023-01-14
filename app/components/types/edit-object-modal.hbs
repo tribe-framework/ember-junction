@@ -24,7 +24,7 @@
         		<InputFields::Datetime-Local @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} />
 
         	{{else if (eq module.input_type "editorjs")}}
-        		<InputFields::Editorjs @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @editorjsInstances={{this.editorjsInstances}} />
+        		<InputFields::Editorjs @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @editorjsInstances={{this.editorjsInstances}} @initEditorJS={{this.initEditorJS}} />
 
           {{else if (eq module.input_type "typeout")}}
             <InputFields::Typeout @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} />
@@ -72,7 +72,7 @@
 
           {{#if @object.id}}
 
-            <button type="button" class="btn btn-primary" {{on 'click' this.pushObject}}>Save changes</button>
+            <button type="button" class="btn btn-primary" {{on 'click' this.saveAllEditorJS}} {{on 'click' this.pushObject}}>Save changes</button>
 
             <div class="d-flex justify-content-start align-items-center" {{on 'click' this.areYouSure}}>
               <div class="d-flex justify-content-start align-items-start">

@@ -9,6 +9,7 @@ export default class TypesEditObjectModalComponent extends Component {
   @service router;
   @tracked objectModules = this.args.object ? this.args.object.modules : {};
   @tracked objectID = this.args.object ? this.args.object.modules.id : 'new';
+  @tracked editorjsInstances = [];
 
   @action
   pushObject() {
@@ -77,18 +78,32 @@ export default class TypesEditObjectModalComponent extends Component {
   }
 
   @action
-  initEditorJS(module_input_slug) {
-    this.editorjsInstances[this.args.type.slug+'-'+module_input_slug+'-'+this.args.object.modules.id] = new EditorJS({
-      holder: this.args.type.slug+'-'+module_input_slug+'-'+this.args.object.modules.id,
-      data: this.args.object.modules[module_input_slug],
-      placeholder: this.args.type.modules[module_input_slug].input_placeholder
+  initEditorJS(module_input_slug, id) {
+    var editor_object_in_type = Object(this.args.type.modules).find(function (element) {
+      if (element['input_slug'] == module_input_slug)
+        return element;
     });
+
+    this.editorjsInstances[this.args.type.slug+'-'+module_input_slug+'-'+id] = new EditorJS({
+      holder: this.args.type.slug+'-'+module_input_slug+'-'+id,
+      data: (this.args.object ? this.args.object.modules[module_input_slug] : {}),
+      placeholder: editor_object_in_type.input_placeholder
+    });
+
     this.editorjsInstances = this.editorjsInstances;
   }
 
   @action
   saveAllEditorJS() {
 
+    this.editorjsInstances.forEach((currentEditor, index)=>{
+      this.editorjsInstances[index].save()
+      .then((outputData) => {
+        console.log('Article data: ', outputData)
+      }).catch((error) => {
+        console.log('Saving failed: ', error)
+      });
+    });
   }
 
 }
