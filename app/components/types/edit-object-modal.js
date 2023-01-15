@@ -70,9 +70,20 @@ export default class TypesEditObjectModalComponent extends Component {
   }
 
   @action
-  mutObjectModuleValue(module_input_slug, value) {
-    this.objectModules[module_input_slug] = value;
+  mutObjectModuleValue(module_input_slug, value, index = false) {
+    if (index === undefined || index == false) {
+      if (this.objectModules[module_input_slug] === undefined)
+        this.objectModules[module_input_slug] = "";
+      this.objectModules[module_input_slug] = value;
+    }
+    else {
+      if (this.objectModules[module_input_slug] === undefined)
+        this.objectModules[module_input_slug] = [];
+      this.objectModules[module_input_slug][index] = value;
+    }
+
     this.objectModules = this.objectModules;
+    console.log(this.objectModules);
   }
 
   @action
@@ -106,5 +117,15 @@ export default class TypesEditObjectModalComponent extends Component {
           console.log('Saving failed: ', error);
         });
     });
+  }
+
+  @action
+  addFieldAfter(index) {
+    console.log('add after '+index);
+  }
+
+  @action
+  removeThisField(index) {
+    console.log('remove '+index);
   }
 }

@@ -1,4 +1,13 @@
 <div class="mb-3">
-	<Textarea id={{concat @type.slug "-" @module.input_slug "-" @id}} @value={{mut (get @object @module.input_slug)}} class="form-control border-dark" placeholder={{@module.input_placeholder}} autocomplete="off" />
-	<div class="form-text text-end text-dark">{{@module.input_placeholder}}</div>
+	{{#if @module.input_multiple}}
+		{{#each this.fieldValues as |field index|}}
+			<InputFields::Textarea::Multi @mutObjectModuleValue={{@mutObjectModuleValue}} @type={{@type}} @module={{@module}} @id={{@id}} @object={{@object}} @addFieldAfter={{@addFieldAfter}} @removeThisField={{@removeThisField}} @index={{index}} />
+		{{else}}
+			<InputFields::Textarea::Multi @mutObjectModuleValue={{@mutObjectModuleValue}} @type={{@type}} @module={{@module}} @id={{@id}} @object={{@object}} @addFieldAfter={{@addFieldAfter}} @removeThisField={{@removeThisField}} @index="0" />
+		{{/each}}
+		<div class="form-text text-end text-dark" {{did-insert this.initiateFieldValues}}>{{@module.input_placeholder}}</div>
+	{{else}}
+		<Textarea {{on "input" (fn @mutObjectModuleValue @module.input_slug this.fieldValue false)}} @value={{this.fieldValue}} class="form-control border-dark" placeholder={{@module.input_placeholder}} autocomplete="off" />
+		<div class="form-text text-end text-dark" {{did-insert this.initiateFieldValue}}>{{@module.input_placeholder}}</div>
+	{{/if}}
 </div>

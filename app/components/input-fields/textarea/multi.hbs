@@ -1,0 +1,8 @@
+
+
+
+<div class="input-group" {{did-insert this.initiateFieldValue}}>
+  <Textarea {{on "input" (fn @mutObjectModuleValue @module.input_slug this.fieldValue @index)}} @value={{this.fieldValue}} class="form-control border-dark" placeholder={{@module.input_placeholder}} autocomplete="off" />
+  <span class="input-group-text" {{on 'click' (fn @addFieldAfter @index)}}><FaIcon @icon="plus" /></span>
+  <span class="input-group-text" {{on 'click' (fn @removeThisField @index)}}><FaIcon @icon="times" /></span>
+</div>
