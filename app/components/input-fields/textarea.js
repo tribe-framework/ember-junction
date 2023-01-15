@@ -3,8 +3,8 @@ import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
 
 export default class InputFieldsTextareaComponent extends Component {
-  @tracked fieldValue = "";
-  @tracked fieldValues = [""];
+  @tracked fieldValue = this.args.object[this.args.module.input_slug];
+  @tracked fieldValues = this.args.object[this.args.module.input_slug];
 
   @action
   initiateFieldValue() {

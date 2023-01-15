@@ -70,23 +70,6 @@ export default class TypesEditObjectModalComponent extends Component {
   }
 
   @action
-  mutObjectModuleValue(module_input_slug, value, index = false) {
-    if (index === undefined || index == false) {
-      if (this.objectModules[module_input_slug] === undefined)
-        this.objectModules[module_input_slug] = "";
-      this.objectModules[module_input_slug] = value;
-    }
-    else {
-      if (this.objectModules[module_input_slug] === undefined)
-        this.objectModules[module_input_slug] = [];
-      this.objectModules[module_input_slug][index] = value;
-    }
-
-    this.objectModules = this.objectModules;
-    console.log(this.objectModules);
-  }
-
-  @action
   initEditorJS(module_input_slug, id) {
     var editor_object_in_type = Object(this.args.type.modules).find(function (
       element
@@ -120,12 +103,33 @@ export default class TypesEditObjectModalComponent extends Component {
   }
 
   @action
-  addFieldAfter(index) {
-    console.log('add after '+index);
+  mutObjectModuleValue(module_input_slug, value, index = false) {
+    if (index === undefined || index == false) {
+      if (this.objectModules[module_input_slug] === undefined)
+        this.objectModules[module_input_slug] = "";
+      this.objectModules[module_input_slug] = value;
+    }
+    else {
+      if (this.objectModules[module_input_slug] === undefined)
+        this.objectModules[module_input_slug] = [];
+      this.objectModules[module_input_slug][index] = value;
+    }
+
+    this.objectModules = this.objectModules;
+    console.log(this.objectModules);
   }
 
   @action
-  removeThisField(index) {
-    console.log('remove '+index);
+  addFieldAfter(module_input_slug, index = 0) {
+    if (!Array.isArray(this.objectModules[module_input_slug]))
+      this.objectModules[module_input_slug] = [this.objectModules[module_input_slug]];
+    this.objectModules[module_input_slug][index + 1] = "Lene";
+    this.objectModules = this.objectModules;
+    console.log(this.objectModules);
+  }
+
+  @action
+  removeThisField(module_input_slug, index = 0) {
+    console.log('remove '+ module_input_slug + index);
   }
 }
