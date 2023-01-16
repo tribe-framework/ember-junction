@@ -4,7 +4,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5 text-capitalize" id="editObjectModalLabel">{{@type.name}} #{{@object.id}}</h1>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        <button type="button" id="close-{{this.objectID}}" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
         {{yield}}
@@ -72,7 +72,7 @@
 
           {{#if @object.id}}
 
-            <button type="button" class="btn btn-primary" {{on 'click' this.saveAllEditorJS}} {{on 'click' this.pushObject}}>Save changes</button>
+            <button type="button" class="btn btn-primary" {{on 'click' this.pushObject}}>Save changes</button>
 
             <div class="d-flex justify-content-start align-items-center" {{on 'click' this.areYouSure}}>
               <div class="d-flex justify-content-start align-items-start">

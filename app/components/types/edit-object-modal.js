@@ -3,6 +3,7 @@ import { action } from '@ember/object';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import EditorJS from '@editorjs/editorjs';
+import { later } from '@ember/runloop';
 
 export default class TypesEditObjectModalComponent extends Component {
   @service store;
@@ -24,13 +25,17 @@ export default class TypesEditObjectModalComponent extends Component {
         .then((obj) => {
           obj.modules = vvv;
           obj.save();
+          document.querySelector('#close-'+this.args.object.id).click();
         });
     } else {
       let obj = this.store.createRecord(this.args.type.slug, {
         modules: vvv,
       });
-      obj.save();
-      //window.location.href="/types";
+      saveObj(obj);
+      async function saveObj (obj) {
+        await obj.save();
+        window.location.href="/types";
+      }
     }
   }
 
@@ -89,20 +94,6 @@ export default class TypesEditObjectModalComponent extends Component {
   }
 
   @action
-  saveAllEditorJS() {
-    this.editorjsInstances.forEach((currentEditor, index) => {
-      this.editorjsInstances[index]
-        .save()
-        .then((outputData) => {
-          console.log('Article data: ', outputData);
-        })
-        .catch((error) => {
-          console.log('Saving failed: ', error);
-        });
-    });
-  }
-
-  @action
   mutObjectModuleValue(module_input_slug, value, index = false) {
     if (index === undefined || index == false) {
       if (this.objectModules[module_input_slug] === undefined)
@@ -116,7 +107,6 @@ export default class TypesEditObjectModalComponent extends Component {
     }
 
     this.objectModules = this.objectModules;
-    console.log(this.objectModules);
   }
 
   @action

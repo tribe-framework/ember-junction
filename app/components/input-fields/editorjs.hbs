@@ -1,4 +1,4 @@
 <div class="w-100 mb-3" {{did-insert (fn @initEditorJS @module.input_slug @id)}}>
-	<div class="border border-1 border-dark w-100 py-3 px-n3" id={{concat @type.slug "-" @module.input_slug "-" @id}}></div>
+	<div class="border border-1 border-dark w-100 py-3 px-n3" {{on 'keyup' this.saveEditorData}} id={{concat @type.slug "-" @module.input_slug "-" @id}}></div>
   	<div class="form-text text-end text-dark">{{@module.input_placeholder}}</div>
 </div>
