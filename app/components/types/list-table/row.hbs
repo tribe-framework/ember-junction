@@ -1,5 +1,5 @@
 <tr id="row-{{@object.id}}" class="border-dark">
-  <th class="border-end border-start border-1 border-dark" scope="row">{{@object.id}}</th>
+  <th class="border-end border-start border-1 border-dark" scope="row" {{on 'mouseover' this.showOptions}} {{on 'mouseout' this.hideOptions}} {{on 'touchend' this.toggleOptions}}>{{@object.id}}</th>
 
   {{#each @type.modules as |module|}}
     {{#if module.list_field}}
@@ -7,7 +7,7 @@
       {{#if module.input_primary}}
 
         <td class="position-relative border-end border-1 border-dark" {{on 'mouseover' this.showOptions}} {{on 'mouseout' this.hideOptions}}>
-          <div class="text-ellipsis">{{get @object.modules module.input_slug}}</div>
+          <div class="text-ellipsis" {{on 'touchend' this.toggleOptions}}>{{get @object.modules module.input_slug}}</div>
           <div class="w-100 bg-white border-top border-bottom border-5 border-muted p-1 d-none position-absolute bottom-0 end-0 justify-content-between align-items-center" id="row-options-{{@object.id}}">
             <div class="d-flex align-items-center">
               <span class="d-none d-md-inline-block" data-toggle="tooltip" data-placement="bottom" title="{{@object.modules.slug}}"><span class="ml-1 small text-dark slug-ellipsis">{{@object.modules.slug}}</span></span>
