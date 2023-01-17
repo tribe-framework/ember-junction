@@ -35,8 +35,7 @@ export default class TypesListTableRowComponent extends Component {
         .querySelector('#row-options-' + this.args.object.id)
         .classList.add('d-flex');
       this.isShowing = true;
-    }
-    else {
+    } else {
       document
         .querySelector('#row-options-' + this.args.object.id)
         .classList.add('d-none');
