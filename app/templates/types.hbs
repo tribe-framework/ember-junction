@@ -16,7 +16,7 @@
 </div>
 
 {{#if this.currentType}}
-	<div class="row mt-3 row-cols-1 g-3 {{if (lte this.modulesThatWillBeListed.length 5) "container mx-auto" "mx-0"}}">
+	<div style="overflow-x:hidden" class="row mt-3 row-cols-1 g-3 {{if (lte this.modulesThatWillBeListed.length 5) "container mx-auto" "mx-0"}}">
 		<div class="col">
 			<Types::ListTable @type={{this.currentType}}>
 				<Types::ListTable::Head @type={{this.currentType}} />
