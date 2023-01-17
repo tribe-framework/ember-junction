@@ -8,26 +8,19 @@ export default class InputFieldsTextareaComponent extends Component {
 
   @action
   initiateFieldValue() {
-    this.fieldValue = 
-    (
-      this.args.object[this.args.module.input_slug] !== undefined 
-      ? this.args.object[this.args.module.input_slug] 
-      : ""
-    );
+    this.fieldValue =
+      this.args.object[this.args.module.input_slug] !== undefined
+        ? this.args.object[this.args.module.input_slug]
+        : '';
   }
 
   @action
   initiateFieldValues() {
-    this.fieldValues = 
-    (
+    this.fieldValues =
       this.args.object[this.args.module.input_slug] !== undefined
-      ? (
-          Array.isArray(this.args.object[this.args.module.input_slug])
+        ? Array.isArray(this.args.object[this.args.module.input_slug])
           ? this.args.object[this.args.module.input_slug]
           : [this.args.object[this.args.module.input_slug]]
-        )
-      : [""]
-    );
+        : [''];
   }
-
 }

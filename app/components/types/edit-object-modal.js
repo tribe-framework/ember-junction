@@ -25,16 +25,16 @@ export default class TypesEditObjectModalComponent extends Component {
         .then((obj) => {
           obj.modules = vvv;
           obj.save();
-          document.querySelector('#close-'+this.args.object.id).click();
+          document.querySelector('#close-' + this.args.object.id).click();
         });
     } else {
       let obj = this.store.createRecord(this.args.type.slug, {
         modules: vvv,
       });
       saveObj(obj);
-      async function saveObj (obj) {
+      async function saveObj(obj) {
         await obj.save();
-        window.location.href="/types";
+        window.location.href = '/types';
       }
     }
   }
@@ -97,10 +97,9 @@ export default class TypesEditObjectModalComponent extends Component {
   mutObjectModuleValue(module_input_slug, value, index = false) {
     if (index === undefined || index == false) {
       if (this.objectModules[module_input_slug] === undefined)
-        this.objectModules[module_input_slug] = "";
+        this.objectModules[module_input_slug] = '';
       this.objectModules[module_input_slug] = value;
-    }
-    else {
+    } else {
       if (this.objectModules[module_input_slug] === undefined)
         this.objectModules[module_input_slug] = [];
       this.objectModules[module_input_slug][index] = value;
@@ -112,14 +111,16 @@ export default class TypesEditObjectModalComponent extends Component {
   @action
   addFieldAfter(module_input_slug, index = 0) {
     if (!Array.isArray(this.objectModules[module_input_slug]))
-      this.objectModules[module_input_slug] = [this.objectModules[module_input_slug]];
-    this.objectModules[module_input_slug][index + 1] = "Lene";
+      this.objectModules[module_input_slug] = [
+        this.objectModules[module_input_slug],
+      ];
+    this.objectModules[module_input_slug][index + 1] = 'Lene';
     this.objectModules = this.objectModules;
     console.log(this.objectModules);
   }
 
   @action
   removeThisField(module_input_slug, index = 0) {
-    console.log('remove '+ module_input_slug + index);
+    console.log('remove ' + module_input_slug + index);
   }
 }
