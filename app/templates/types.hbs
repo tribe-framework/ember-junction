@@ -18,7 +18,12 @@
 {{#if this.currentType}}
 	<div style="overflow-x:hidden" class="row mt-3 row-cols-1 g-3 {{if (lte this.modulesThatWillBeListed.length 5) "container mx-auto" "mx-0"}}">
 		<div class="col">
+			<Types::ListTable::TitleBar @type={{this.currentType}} @search={{this.search}} @updatePageLength={{this.updatePageLength}} />
+
+			<Types::ListTable::Pagination @type={{this.currentType}} @objects={{this.objectsInType}} @pageLength={{this.pageLength}} @pageOffset={{this.pageOffset}} @updatePageLength={{this.updatePageLength}} @updatePageOffset={{this.updatePageOffset}} @loadTypeObjects={{this.loadTypeObjects}} @numberOfPages={{this.numberOfPages}} @pageLinks={{this.pageLinks}} @updatePageLinks={{this.updatePageLinks}} />
+
 			<Types::ListTable @type={{this.currentType}}>
+
 				<Types::ListTable::Head @type={{this.currentType}} />
 
 				<tbody>
@@ -28,9 +33,8 @@
 						<Types::ListTable::EmptyTableRow />
 					{{/each}}
 				</tbody>
-			</Types::ListTable>
 
-			<Types::ListTable::Pagination @type={{this.currentType}} @objects={{this.objectsInType}} />
+			</Types::ListTable>
 		</div>
 	</div>
 {{/if}}

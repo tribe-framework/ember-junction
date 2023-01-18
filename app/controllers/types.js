@@ -8,20 +8,36 @@ export default class TypesController extends Controller {
 
   @tracked currentType = null;
   @tracked objectsInType = null;
+  @tracked pageLength = 10;
+  @tracked pageOffset = 0;
+  @tracked pageLinks = null;
+  @tracked numberOfPages = Math.ceil(Number(this.currentType.total_objects) / this.pageLength) ?? 1;
 
   @action
   loadTypeObjects(type) {
     this.currentType = type;
-    this.objectsInType = this.store.findAll(type.slug, {
+    this.objectsInType = this.store.query(this.currentType.slug, {
       show_public_objects_only: false,
+      page: { limit: this.pageLength, offset: this.pageOffset },
     });
-
-    /*
-    this.store.query('article', {modules:{title:"unemp", title:"week", publishing_date:"2023-01"}}).then(function(peters) {
-      console.log(peters);
-    });
-    */
   }
+
+  @action
+  updatePageLength(pageLength) {
+    this.pageLength = pageLength;
+    this.pageOffset = 0;
+    this.loadTypeObjects(this.currentType);
+    this.updatePageLinks();
+  }
+
+  @action
+  updatePageOffset(pageOffset) {
+    this.pageOffset = pageOffset;
+    this.loadTypeObjects(this.currentType);
+  }
+
+  @action
+  search(query) {}
 
   get modulesThatWillBeListed() {
     let v = [];
@@ -31,5 +47,16 @@ export default class TypesController extends Controller {
       }
     });
     return v;
+  }
+
+  @action
+  updatePageLinks() {
+    let i = 1;
+    this.pageLinks = [];
+    while (i <= this.numberOfPages) {
+      this.pageLinks.push(i);
+      i++;
+    }
+    this.pageLinks = this.pageLinks;
   }
 }
