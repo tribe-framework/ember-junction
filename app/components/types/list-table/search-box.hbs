@@ -1,4 +1,7 @@
 <div class="input-group mx-0">
   <Input @type="text" @value={{this.searchQuery}} class="border border-dark form-control" placeholder="Search within {{@type.plural}}" />
+  {{#if this.searchQuery}}
+    <button class="btn btn-outline-dark" type="button" {{on 'click' @clearSearch}} {{on 'click' this.clearSearchQuery}}><FaIcon @icon="times" @prefix="fa-light" /></button>
+  {{/if}}
   <button class="btn btn-outline-dark" type="button" {{on 'click' (fn @search this.searchQuery)}}><FaIcon @icon="magnifying-glass" @prefix="fa-light" /></button>
 </div>
