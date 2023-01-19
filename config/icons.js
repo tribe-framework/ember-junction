@@ -25,6 +25,5 @@ module.exports = function () {
       'chevrons-left',
       'chevrons-right',
     ],
-    'free-brands-svg-icons': [],
   };
 };
