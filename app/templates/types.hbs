@@ -22,13 +22,13 @@
 
 			<Types::ListTable::Pagination @type={{this.currentType}} @objects={{this.objectsInType}} @pageLength={{this.pageLength}} @pageOffset={{this.pageOffset}} @updatePageLength={{this.updatePageLength}} @updatePageOffset={{this.updatePageOffset}} @loadTypeObjects={{this.loadTypeObjects}} @numberOfPages={{this.numberOfPages}} @pageLinks={{this.pageLinks}} @updatePageLinks={{this.updatePageLinks}} />
 
-			<Types::ListTable @type={{this.currentType}}>
+			<Types::ListTable @webapp={{@model}} @type={{this.currentType}}>
 
 				<Types::ListTable::Head @type={{this.currentType}} />
 
 				<tbody>
 					{{#each this.objectsInType as |object|}}
-						<Types::ListTable::Row @type={{this.currentType}} @object={{object}} />
+						<Types::ListTable::Row @webapp={{@model}} @type={{this.currentType}} @object={{object}} />
 					{{else}}
 						<Types::ListTable::EmptyTableRow />
 					{{/each}}

@@ -1,8 +1,12 @@
-<div class="mb-3">
+<div class="mb-3" {{did-insert this.isModuleAlsoAType}}>
   <select id={{concat @type.slug "-" @module.input_slug "-" @id}} class="form-select border-dark" {{on 'change' this.updateValue}}>
     <option selected="{{if (eq this.currentValue false) "selected"}}">{{@module.input_placeholder}}</option>
 
     {{#each @module.input_options as |opt|}}
+      <option value={{opt.slug}} selected="{{if (eq this.currentValue opt.slug) "selected"}}">{{opt.title}}</option>
+    {{/each}}
+
+    {{#each this.options as |opt|}}
       <option value={{opt.slug}} selected="{{if (eq this.currentValue opt.slug) "selected"}}">{{opt.title}}</option>
     {{/each}}
   </select>
