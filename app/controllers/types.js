@@ -38,11 +38,15 @@ export default class TypesController extends Controller {
 
   @action
   search(query) {
-    this.objectsInType = this.store.query(this.currentType.slug, {
-      show_public_objects_only: false,
-      page: { limit: this.pageLength, offset: this.pageOffset },
-      search_modules: {"title": query},
-    });
+    if (query != '') {
+      this.objectsInType = this.store.query(this.currentType.slug, {
+        show_public_objects_only: false,
+        page: { limit: this.pageLength, offset: this.pageOffset },
+        search_modules: {"title": query},
+      });
+    }
+    else
+      this.clearSearch();
   }
 
   @action
