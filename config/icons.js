@@ -15,9 +15,11 @@ module.exports = function () {
       'megaphone',
       'magnifying-glass',
       'plus',
+      'times',
     ],
     'pro-solid-svg-icons': [
       'heart',
+      'megaphone',
       'plus',
       'times',
       'trash-alt',
