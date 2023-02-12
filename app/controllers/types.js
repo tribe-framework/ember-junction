@@ -42,7 +42,7 @@ export default class TypesController extends Controller {
       this.objectsInType = this.store.query(this.currentType.slug, {
         show_public_objects_only: false,
         page: { limit: this.pageLength, offset: this.pageOffset },
-        search_modules: {"title": query},
+        filter: {"title": query},
       });
     }
     else
