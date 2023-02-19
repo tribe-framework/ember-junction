@@ -30,15 +30,3 @@
 
 # broccoli-debug
 /DEBUG/
-
-/app/models/*
-!/app/models/webapp.js
-!/app/models/user.js
-!/app/models/page.js
-!/app/models/section.js
-
-/tests/unit/models/*
-!/tests/unit/models/webapp.js
-!/tests/unit/models/user.js
-!/tests/unit/models/page.js
-!/tests/unit/models/section.js
