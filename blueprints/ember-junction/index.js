@@ -4,11 +4,8 @@ module.exports = {
   normalizeEntityName() {},
   
   afterInstall(options) {
-    return this.addAddonsToProject({
-    }).then(() => {
-      return this.addPackagesToProject([
-        { name: '@editorjs/editorjs' },
-      ]);
-    });
+    return this.addPackagesToProject([
+      { name: '@editorjs/editorjs' },
+    ]);
   }
 };
