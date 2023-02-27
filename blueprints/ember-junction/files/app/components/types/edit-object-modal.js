@@ -4,11 +4,12 @@ import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import EditorJS from '@editorjs/editorjs';
 import { later } from '@ember/runloop';
+import { A } from '@ember/array';
 
 export default class TypesEditObjectModalComponent extends Component {
   @service store;
   @service router;
-  @tracked objectModules = this.args.object ? this.args.object.modules : {};
+  @tracked objectModules = this.args.object ? this.args.object.modules : A([]);
   @tracked objectID = this.args.object ? this.args.object.modules.id : 'new';
   @tracked editorjsInstances = [];
 
@@ -94,33 +95,42 @@ export default class TypesEditObjectModalComponent extends Component {
   }
 
   @action
-  mutObjectModuleValue(module_input_slug, value, index = false) {
-    if (index === undefined || index == false) {
-      if (this.objectModules[module_input_slug] === undefined)
-        this.objectModules[module_input_slug] = '';
-      this.objectModules[module_input_slug] = value;
+  mutObjectModuleValue(module_input_slug, value, is_array = false, index = 0) {
+    if (is_array == true) {
+      if (index == 0 && !this.objectModules[module_input_slug][0])
+        this.objectModules[module_input_slug] = [];
+      this.objectModules[module_input_slug][index] = value.trim();
     } else {
       if (this.objectModules[module_input_slug] === undefined)
-        this.objectModules[module_input_slug] = [];
-      this.objectModules[module_input_slug][index] = value;
+        this.objectModules[module_input_slug] = '';
+      this.objectModules[module_input_slug] = value.trim();
     }
 
     this.objectModules = this.objectModules;
   }
 
   @action
-  addFieldAfter(module_input_slug, index = 0) {
+  addToMultiField(module_input_slug, index = 0) {
     if (!Array.isArray(this.objectModules[module_input_slug]))
       this.objectModules[module_input_slug] = [
         this.objectModules[module_input_slug],
       ];
-    this.objectModules[module_input_slug][index + 1] = 'Lene';
+
+    if (
+      this.objectModules[module_input_slug][index + 1] === undefined ||
+      this.objectModules[module_input_slug][index + 1] == null
+    )
+      this.objectModules[module_input_slug][index + 1] = ' ';
+
     this.objectModules = this.objectModules;
-    console.log(this.objectModules);
   }
 
   @action
-  removeThisField(module_input_slug, index = 0) {
-    console.log('remove ' + module_input_slug + index);
+  removeFromMultiField(module_input_slug, index = 0) {
+    delete this.objectModules[module_input_slug][index];
+    if (this.objectModules[module_input_slug]) {
+      this.objectModules[module_input_slug].filter((x) => x).join(', ');
+    }
+    this.objectModules = this.objectModules;
   }
 }

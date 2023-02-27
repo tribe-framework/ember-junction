@@ -1,0 +1,27 @@
+<div class="input-group" {{did-insert this.initiateFieldValue}}>
+
+	{{#if @isTextarea}}
+	
+	  <Textarea @value={{this.fieldValue}} class="form-control border-dark" placeholder={{@module.input_placeholder}} autocomplete="off" {{on 'keydown' (fn this.setIsSaved false)}} />
+	
+	{{else}}
+
+	  <Input @value={{this.fieldValue}} @type={{@module.input_type}} class="form-control border-dark" placeholder={{@module.input_placeholder}} autocomplete="off" {{on 'keydown' (fn this.setIsSaved false)}} />
+
+	{{/if}}
+
+  {{#if this.isSaved}}
+
+    <span class="input-group-text text-dark" {{on 'click' (fn @addToMultiField @module.input_slug @index)}}><FaIcon @icon="circle-plus" /></span>
+
+    {{#if (not-eq @index 0)}}
+      <span class="input-group-text text-danger" {{on 'click' (fn @removeFromMultiField @module.input_slug @index)}}><FaIcon @icon="circle-xmark" /></span>
+    {{/if}}
+
+  {{else}}
+
+    <span class="input-group-text text-success" {{on 'click' (fn this.setIsSaved true)}}><FaIcon @icon="circle-check" /></span>
+
+  {{/if}}
+
+</div>

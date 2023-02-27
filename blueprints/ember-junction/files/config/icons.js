@@ -26,6 +26,9 @@ module.exports = function () {
       'caret-down',
       'chevrons-left',
       'chevrons-right',
+      'circle-xmark',
+      'circle-plus',
+      'circle-check',
     ],
   };
 };

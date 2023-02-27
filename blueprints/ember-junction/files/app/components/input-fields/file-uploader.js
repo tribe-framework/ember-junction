@@ -26,9 +26,7 @@ export default class InputFieldsFileUploaderComponent extends Component {
   @action
   async uploadFile(file) {
     try {
-      const response = await file.upload(
-        ENV.TribeENV.BASE_URL + '/uploads.php'
-      );
+      const response = await file.upload(ENV.TribeENV.API_URL + '/uploads.php');
       response.json().then((data) => {
         if (data.status == 'success') {
           let files = this.args.object[this.args.module.input_slug] ?? [];

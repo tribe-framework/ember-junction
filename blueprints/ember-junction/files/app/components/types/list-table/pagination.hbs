@@ -1,11 +1,11 @@
 <div class="fw-bold fst-italic w-100 text-center mb-2" {{did-insert @updatePageLinks}}>Total {{@type.plural}}: {{@type.total_objects}}</div>
 <nav>
   <ul class="pagination border border-1 border-dark justify-content-center" style="overflow-x:scroll">
-    <li class="page-item {{unless (gt this.currentPageNumber 1) "disabled"}}">
+    <li class="page-item {{if (not (gt this.currentPageNumber 1)) "disabled"}}">
       {{#if (gt this.currentPageNumber 1)}}
-        <div class="page-link bg-secondary border-1 border-top-0 border-bottom-0 border-dark {{unless (gt this.currentPageNumber 1) "text-light" "text-dark"}}" {{on 'click' (fn this.changePageNumber (dec this.currentPageNumber))}}><FaIcon @icon="chevrons-left" /></div>
+        <div class="page-link bg-secondary border-1 border-top-0 border-bottom-0 border-dark {{if (not (gt this.currentPageNumber 1)) "text-light" "text-dark"}}" {{on 'click' (fn this.changePageNumber (dec this.currentPageNumber))}}><FaIcon @icon="chevrons-left" /></div>
       {{else}}
-        <div class="page-link bg-secondary border-1 border-top-0 border-bottom-0 border-dark {{unless (gt this.currentPageNumber 1) "text-light" "text-dark"}}"><FaIcon @icon="chevrons-left" /></div>
+        <div class="page-link bg-secondary border-1 border-top-0 border-bottom-0 border-dark {{if (not (gt this.currentPageNumber 1)) "text-light" "text-dark"}}"><FaIcon @icon="chevrons-left" /></div>
       {{/if}}
     </li>
 
@@ -16,11 +16,11 @@
     {{/each}}
 
     <li class="page-item {{if (gte this.currentPageNumber @numberOfPages) "disabled"}}">
-      {{#unless (gte this.currentPageNumber @numberOfPages)}}
-        <div class="page-link bg-secondary border-1 border-top-0 border-bottom-0 border-dark {{if (gte this.currentPageNumber @numberOfPages) "text-light" "text-dark"}}" {{on 'click' (fn this.changePageNumber (inc this.currentPageNumber))}}><FaIcon @icon="chevrons-right" /></div>
-      {{else}}
+      {{#if (gte this.currentPageNumber @numberOfPages)}}
         <div class="page-link bg-secondary border-1 border-top-0 border-bottom-0 border-dark {{if (gte this.currentPageNumber @numberOfPages) "text-light" "text-dark"}}"><FaIcon @icon="chevrons-right" /></div>
-      {{/unless}}
+      {{else}}
+        <div class="page-link bg-secondary border-1 border-top-0 border-bottom-0 border-dark {{if (gte this.currentPageNumber @numberOfPages) "text-light" "text-dark"}}" {{on 'click' (fn this.changePageNumber (inc this.currentPageNumber))}}><FaIcon @icon="chevrons-right" /></div>
+      {{/if}}
     </li>
   </ul>
 </nav>

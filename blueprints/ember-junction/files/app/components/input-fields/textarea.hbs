@@ -1,13 +1,15 @@
 <div class="mb-3">
 	{{#if @module.input_multiple}}
-		{{#each this.fieldValues as |field index|}}
-			<InputFields::Textarea::Multi @mutObjectModuleValue={{@mutObjectModuleValue}} @type={{@type}} @module={{@module}} @id={{@id}} @object={{@object}} @addFieldAfter={{@addFieldAfter}} @removeThisField={{@removeThisField}} @index={{index}} />
+		{{#each (get @object @module.input_slug) as |field index|}}
+			{{#if field}}
+				<InputFields::Multi @isTextarea={{true}} @mutObjectModuleValue={{@mutObjectModuleValue}} @type={{@type}} @module={{@module}} @id={{@id}} @object={{@object}} @addToMultiField={{@addToMultiField}} @removeFromMultiField={{@removeFromMultiField}} @index={{index}} />
+			{{/if}}
 		{{else}}
-			<InputFields::Textarea::Multi @mutObjectModuleValue={{@mutObjectModuleValue}} @type={{@type}} @module={{@module}} @id={{@id}} @object={{@object}} @addFieldAfter={{@addFieldAfter}} @removeThisField={{@removeThisField}} @index="0" />
+			<InputFields::Multi @isTextarea={{true}} @mutObjectModuleValue={{@mutObjectModuleValue}} @type={{@type}} @module={{@module}} @id={{@id}} @object={{@object}} @addToMultiField={{@addToMultiField}} @removeFromMultiField={{@removeFromMultiField}} @index={{0}} />
 		{{/each}}
-		<div class="form-text text-end text-dark" {{did-insert this.initiateFieldValues}}>{{@module.input_placeholder}}</div>
+		<div class="form-text text-end text-dark">{{@module.input_placeholder}}</div>
 	{{else}}
-		<Textarea {{on "keyup" (fn @mutObjectModuleValue @module.input_slug this.fieldValue false)}} @value={{this.fieldValue}} class="form-control border-dark" placeholder={{@module.input_placeholder}} autocomplete="off" />
-		<div class="form-text text-end text-dark" {{did-insert this.initiateFieldValue}}>{{@module.input_placeholder}}</div>
+		<Textarea {{on "keyup" (fn @mutObjectModuleValue @module.input_slug (get @object @module.input_slug))}} @value={{get @object @module.input_slug}} class="form-control border-dark" placeholder={{@module.input_placeholder}} autocomplete="off" />
+		<div class="form-text text-end text-dark">{{@module.input_placeholder}}</div>
 	{{/if}}
 </div>

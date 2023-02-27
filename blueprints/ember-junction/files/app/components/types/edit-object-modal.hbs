@@ -12,55 +12,55 @@
         {{#each @type.modules as |module|}}
         	
         	{{#if (eq module.input_type "checkbox")}}
-        		<InputFields::Checkbox @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addFieldAfter={{this.addFieldAfter}} @removeThisField={{this.removeThisField}} />
+        		<InputFields::Checkbox @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
 
         	{{else if (eq module.input_type "color")}}
-        		<InputFields::Color @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addFieldAfter={{this.addFieldAfter}} @removeThisField={{this.removeThisField}} />
+        		<InputFields::Color @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
 
         	{{else if (eq module.input_type "date")}}
-        		<InputFields::Date @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addFieldAfter={{this.addFieldAfter}} @removeThisField={{this.removeThisField}} />
+        		<InputFields::Date @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
         	
         	{{else if (eq module.input_type "datetime-local")}}
-        		<InputFields::Datetime-Local @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addFieldAfter={{this.addFieldAfter}} @removeThisField={{this.removeThisField}} />
+        		<InputFields::Datetime-Local @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
 
         	{{else if (eq module.input_type "editorjs")}}
-        		<InputFields::Editorjs @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addFieldAfter={{this.addFieldAfter}} @removeThisField={{this.removeThisField}} @editorjsInstances={{this.editorjsInstances}} @initEditorJS={{this.initEditorJS}} />
+        		<InputFields::Editorjs @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} @editorjsInstances={{this.editorjsInstances}} @initEditorJS={{this.initEditorJS}} />
 
           {{else if (eq module.input_type "typeout")}}
-            <InputFields::Typeout @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addFieldAfter={{this.addFieldAfter}} @removeThisField={{this.removeThisField}} />
+            <InputFields::Typeout @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
 
         	{{else if (eq module.input_type "email")}}
-        		<InputFields::Email @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addFieldAfter={{this.addFieldAfter}} @removeThisField={{this.removeThisField}} />
+        		<InputFields::Email @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
         	
         	{{else if (eq module.input_type "file_uploader")}}
-        		<InputFields::FileUploader @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addFieldAfter={{this.addFieldAfter}} @removeThisField={{this.removeThisField}} />
+        		<InputFields::FileUploader @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
 
         	{{else if (eq module.input_type "hidden")}}
-        		<InputFields::Hidden @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addFieldAfter={{this.addFieldAfter}} @removeThisField={{this.removeThisField}} />
+        		<InputFields::Hidden @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
         	
         	{{else if (eq module.input_type "json")}}
-        		<InputFields::Json @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addFieldAfter={{this.addFieldAfter}} @removeThisField={{this.removeThisField}} />
+        		<InputFields::Json @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
 
         	{{else if (eq module.input_type "number")}}
-        		<InputFields::Number @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addFieldAfter={{this.addFieldAfter}} @removeThisField={{this.removeThisField}} />
+        		<InputFields::Number @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
         	
         	{{else if (eq module.input_type "password")}}
-        		<InputFields::Password @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addFieldAfter={{this.addFieldAfter}} @removeThisField={{this.removeThisField}} />
+        		<InputFields::Password @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
 
         	{{else if (eq module.input_type "select")}}
-        		<InputFields::Select @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addFieldAfter={{this.addFieldAfter}} @removeThisField={{this.removeThisField}} />
+        		<InputFields::Select @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
 
         	{{else if (eq module.input_type "tel")}}
-        		<InputFields::Tel @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addFieldAfter={{this.addFieldAfter}} @removeThisField={{this.removeThisField}} />
+        		<InputFields::Tel @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
 
         	{{else if (eq module.input_type "text")}}
-        		<InputFields::Text @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addFieldAfter={{this.addFieldAfter}} @removeThisField={{this.removeThisField}} />
+        		<InputFields::Text @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
         	
         	{{else if (eq module.input_type "textarea")}}
-        		<InputFields::Textarea @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addFieldAfter={{this.addFieldAfter}} @removeThisField={{this.removeThisField}} />
+        		<InputFields::Textarea @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
         	
         	{{else if (eq module.input_type "url")}}
-        		<InputFields::Url @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addFieldAfter={{this.addFieldAfter}} @removeThisField={{this.removeThisField}} />
+        		<InputFields::Url @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
 
         	{{/if}}
         {{/each}}
