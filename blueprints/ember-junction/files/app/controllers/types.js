@@ -8,7 +8,7 @@ export default class TypesController extends Controller {
 
   @tracked currentType = null;
   @tracked objectsInType = null;
-  @tracked pageLength = 10;
+  @tracked pageLength = 25;
   @tracked pageOffset = 0;
   @tracked pageLinks = null;
   @tracked numberOfPages = Math.ceil(Number(this.currentType.total_objects) / this.pageLength) ?? 1;
