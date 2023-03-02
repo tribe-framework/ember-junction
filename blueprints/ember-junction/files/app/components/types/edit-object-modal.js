@@ -5,6 +5,9 @@ import { tracked } from '@glimmer/tracking';
 import EditorJS from '@editorjs/editorjs';
 import { later } from '@ember/runloop';
 import { A } from '@ember/array';
+import ImageTool from '@editorjs/image';
+import Header from '@editorjs/header';
+import ENV from 'junction/config/environment';
 
 export default class TypesEditObjectModalComponent extends Component {
   @service store;
@@ -89,6 +92,27 @@ export default class TypesEditObjectModalComponent extends Component {
       holder: this.args.type.slug + '-' + module_input_slug + '-' + id,
       data: this.args.object ? this.args.object.modules[module_input_slug] : {},
       placeholder: editor_object_in_type.input_placeholder,
+
+      tools: {
+        image: {
+          class: ImageTool,
+          config: {
+            types: 'image/*, video/*',
+            captionPlaceholder: (editor_object_in_type.input_options.image_caption_placeholder !== undefined ? editor_object_in_type.input_options.image_caption_placeholder : 'Caption'),
+            endpoints: {
+              byFile: ENV.TribeENV.API_URL + '/uploads.php', // Your backend file uploader endpoint
+              byUrl: ENV.TribeENV.API_URL + '/uploads.php', // Your endpoint that provides uploading by Url
+            }
+          }
+        },
+        header: {
+          class: Header,
+          config: {
+            placeholder: (editor_object_in_type.input_options.header_placeholder !== undefined ? editor_object_in_type.input_options.header_placeholder : 'Enter a header'),
+            defaultLevel: 4
+          }
+        }
+      }
     });
 
     this.editorjsInstances = this.editorjsInstances;
@@ -103,10 +127,11 @@ export default class TypesEditObjectModalComponent extends Component {
     } else {
       if (this.objectModules[module_input_slug] === undefined)
         this.objectModules[module_input_slug] = '';
-      this.objectModules[module_input_slug] = value.trim();
+      this.objectModules[module_input_slug] = value;
     }
 
     this.objectModules = this.objectModules;
+    
   }
 
   @action
