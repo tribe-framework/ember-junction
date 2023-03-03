@@ -35,10 +35,16 @@ export default class TypesEditObjectModalComponent extends Component {
       let obj = await this.store.createRecord(this.args.type.slug, {
         modules: { ...vvv },
       });
-      saveObj(obj);
+      await saveObj(obj);
+      
+      this.args.loadTypeObjects(this.args.type);
+
+      this.objectModules = A([]);
+      this.objectID = 'new';
+      this.editorjsInstances = [];
+
       async function saveObj(obj) {
         await obj.save();
-        window.location.href = '/types';
       }
     }
   }
@@ -55,28 +61,21 @@ export default class TypesEditObjectModalComponent extends Component {
         this.args.object.modules.id
       );
       await obj.destroyRecord();
-      window.location.href = '/types';
+      this.args.loadTypeObjects(this.args.type);
     }
   }
 
+  @tracked deleteSurity = 'd-none';
+
   @action
   notSoSure() {
-    document
-      .querySelector('#deleteObjectConfirmation-' + this.args.object.id)
-      .classList.add('d-none');
-    document
-      .querySelector('#deleteObjectConfirmation-' + this.args.object.id)
-      .classList.remove('d-flex');
+    this.deleteSurity = 'd-none';
+    this.deleteSurity = this.deleteSurity;
   }
 
   @action
   areYouSure() {
-    document
-      .querySelector('#deleteObjectConfirmation-' + this.args.object.id)
-      .classList.add('d-flex');
-    document
-      .querySelector('#deleteObjectConfirmation-' + this.args.object.id)
-      .classList.remove('d-none');
+    this.deleteSurity = 'd-flex';
   }
 
   @action

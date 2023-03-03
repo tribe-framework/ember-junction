@@ -78,7 +78,7 @@
               <div class="d-flex justify-content-start align-items-start">
                 <button type="button" class="btn btn-danger text-light me-2"><FaIcon @icon="trash-alt" /></button>
               </div>
-              <div class="d-none justify-content-start align-items-center" id="deleteObjectConfirmation-{{@object.id}}">
+              <div class="{{this.deleteSurity}} justify-content-start align-items-center" id="deleteObjectConfirmation-{{@object.id}}">
                 <div class="me-2">Are you sure?</div>
                 <button data-bs-dismiss="modal" type="button" class="btn btn-sm btn-danger me-1" {{on 'click' this.deleteObject}}>Yes, delete it</button>
                 <button type="button" class="btn btn-sm btn-success me-1" {{on 'click' this.notSoSure}}>No, keep it</button>
