@@ -17,7 +17,7 @@ export default class TypesEditObjectModalComponent extends Component {
   @tracked editorjsInstances = [];
 
   @action
-  pushObject() {
+  async pushObject() {
     let vvv = this.objectModules;
     if (
       this.args.object !== null &&
@@ -32,8 +32,8 @@ export default class TypesEditObjectModalComponent extends Component {
           document.querySelector('#close-' + this.args.object.id).click();
         });
     } else {
-      let obj = this.store.createRecord(this.args.type.slug, {
-        modules: vvv,
+      let obj = await this.store.createRecord(this.args.type.slug, {
+        modules: { ...vvv },
       });
       saveObj(obj);
       async function saveObj(obj) {
@@ -44,7 +44,7 @@ export default class TypesEditObjectModalComponent extends Component {
   }
 
   @action
-  deleteObject() {
+  async deleteObject() {
     if (
       this.args.object !== null &&
       this.args.object !== undefined &&
@@ -54,7 +54,8 @@ export default class TypesEditObjectModalComponent extends Component {
         this.args.object.modules.type,
         this.args.object.modules.id
       );
-      obj.destroyRecord();
+      await obj.destroyRecord();
+      window.location.href = '/types';
     }
   }
 
@@ -98,7 +99,7 @@ export default class TypesEditObjectModalComponent extends Component {
           class: ImageTool,
           config: {
             types: 'image/*, video/*',
-            captionPlaceholder: (editor_object_in_type.input_options.image_caption_placeholder !== undefined ? editor_object_in_type.input_options.image_caption_placeholder : 'Caption'),
+            captionPlaceholder: ((editor_object_in_type.input_options !== undefined && editor_object_in_type.input_options.image_caption_placeholder !== undefined) ? editor_object_in_type.input_options.image_caption_placeholder : 'Caption'),
             endpoints: {
               byFile: ENV.TribeENV.API_URL + '/uploads.php', // Your backend file uploader endpoint
               byUrl: ENV.TribeENV.API_URL + '/uploads.php', // Your endpoint that provides uploading by Url
@@ -108,7 +109,7 @@ export default class TypesEditObjectModalComponent extends Component {
         header: {
           class: Header,
           config: {
-            placeholder: (editor_object_in_type.input_options.header_placeholder !== undefined ? editor_object_in_type.input_options.header_placeholder : 'Enter a header'),
+            placeholder: ((editor_object_in_type.input_options !== undefined && editor_object_in_type.input_options.header_placeholder !== undefined) ? editor_object_in_type.input_options.header_placeholder : 'Enter a header'),
             defaultLevel: 4
           }
         }
