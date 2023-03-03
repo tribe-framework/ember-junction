@@ -13,7 +13,18 @@
               <span class="d-none d-md-inline-block" data-toggle="tooltip" data-placement="bottom" title="{{@object.modules.slug}}"><span class="ml-1 small text-dark slug-ellipsis">{{@object.modules.slug}}</span></span>
             </div>
             <div class="d-flex align-items-center">
-              <span class="badge badge-sm border-0 font-weight-bold text-uppercase text-dark"><span class="text-success"><FaIcon @icon="megaphone" /></span> {{if @object.modules.content_privacy @object.modules.content_privacy "draft"}}</span> 
+              <span class="badge badge-sm border-0 font-weight-bold text-uppercase text-dark">
+                {{#if (eq @object.modules.content_privacy "public")}}
+                  <span class="text-success"><FaIcon @icon="megaphone" /></span>
+                {{else if (eq @object.modules.content_privacy "private")}}
+                  <span class="text-danger"><FaIcon @icon="link-horizontal" @prefix="fa-light" /></span>
+                {{else if (eq @object.modules.content_privacy "pending")}}
+                  <span class="text-warning"><FaIcon @icon="hourglass-half" /></span>
+                {{else}}
+                  <span class="text-dark"><FaIcon @icon="paragraph" /></span>
+                {{/if}}
+                {{if @object.modules.content_privacy @object.modules.content_privacy "draft"}}
+              </span> 
               <button class="badge badge-sm border border-1 border-dark text-dark font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@object.id}}" type="button"><span class="text-success"><FaIcon @icon="edit" /></span>&nbsp;Edit</button>
             </div>
           </div> 
@@ -31,4 +42,4 @@
   {{/each}}
 </tr>
 
-<Types::EditObjectModal @webapp={{@webapp}} @type={{@type}} @object={{@object}} />
+<Types::EditObjectModal @webapp={{@webapp}} @type={{@type}} @object={{@object}} @loadTypeObjects={{@loadTypeObjects}} />

@@ -16,6 +16,7 @@ module.exports = function () {
       'magnifying-glass',
       'plus',
       'times',
+      'link-horizontal',
     ],
     'pro-solid-svg-icons': [
       'heart',
@@ -29,6 +30,8 @@ module.exports = function () {
       'circle-xmark',
       'circle-plus',
       'circle-check',
+      'hourglass-half',
+      'paragraph',
     ],
   };
 };

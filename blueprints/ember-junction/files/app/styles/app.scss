@@ -13,14 +13,14 @@ $black:    #000 !default;
 $purple:  #993399 !default;
 $pink:    #ff0066 !default;
 $red:     #ff0033 !default;
-$orange:  #ff6600 !default;
+$yellow:  #eeaa00 !default;
 // scss-docs-end color-variables
 
 // scss-docs-start theme-color-variables
 $primary:       $purple !default;
 $secondary:     $gray-600 !default;
 $info:          $pink !default;
-$warning:       $orange !default;
+$warning:       $yellow !default;
 $danger:        $red !default;
 $light:         $gray-200 !default;
 $dark:          $gray-900 !default;
