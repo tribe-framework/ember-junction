@@ -9,7 +9,7 @@
 		{{/each}}
 		<div class="form-text text-end text-dark">{{@module.input_placeholder}}</div>
 	{{else}}
-		<Textarea {{on "keyup" (fn @mutObjectModuleValue @module.input_slug (get @object @module.input_slug))}} @value={{get @object @module.input_slug}} class="form-control border-dark" placeholder={{@module.input_placeholder}} autocomplete="off" />
+		<Textarea id={{concat @type.slug "-" @module.input_slug "-" @id}} @value={{mut (get @object @module.input_slug)}} class="form-control border-dark" placeholder={{@module.input_placeholder}} autocomplete="off" />
 		<div class="form-text text-end text-dark">{{@module.input_placeholder}}</div>
 	{{/if}}
 </div>

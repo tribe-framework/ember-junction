@@ -121,7 +121,7 @@ export default class TypesEditObjectModalComponent extends Component {
   @action
   mutObjectModuleValue(module_input_slug, value, is_array = false, index = 0) {
     if (is_array == true) {
-      if (index == 0 && !this.objectModules[module_input_slug][0])
+      if (index == 0 && !Array.isArray(this.objectModules[module_input_slug]))
         this.objectModules[module_input_slug] = [];
       this.objectModules[module_input_slug][index] = value.trim();
     } else {
