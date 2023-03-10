@@ -36,7 +36,7 @@ export default class TypesEditObjectModalComponent extends Component {
         modules: { ...vvv },
       });
       await saveObj(obj);
-      
+
       this.args.loadTypeObjects(this.args.type);
 
       this.objectModules = A([]);
@@ -98,21 +98,31 @@ export default class TypesEditObjectModalComponent extends Component {
           class: ImageTool,
           config: {
             types: 'image/*, video/*',
-            captionPlaceholder: ((editor_object_in_type.input_options !== undefined && editor_object_in_type.input_options.image_caption_placeholder !== undefined) ? editor_object_in_type.input_options.image_caption_placeholder : 'Caption'),
+            captionPlaceholder:
+              editor_object_in_type.input_options !== undefined &&
+              editor_object_in_type.input_options.image_caption_placeholder !==
+                undefined
+                ? editor_object_in_type.input_options.image_caption_placeholder
+                : 'Caption',
             endpoints: {
               byFile: ENV.TribeENV.API_URL + '/uploads.php', // Your backend file uploader endpoint
               byUrl: ENV.TribeENV.API_URL + '/uploads.php', // Your endpoint that provides uploading by Url
-            }
-          }
+            },
+          },
         },
         header: {
           class: Header,
           config: {
-            placeholder: ((editor_object_in_type.input_options !== undefined && editor_object_in_type.input_options.header_placeholder !== undefined) ? editor_object_in_type.input_options.header_placeholder : 'Enter a header'),
-            defaultLevel: 4
-          }
-        }
-      }
+            placeholder:
+              editor_object_in_type.input_options !== undefined &&
+              editor_object_in_type.input_options.header_placeholder !==
+                undefined
+                ? editor_object_in_type.input_options.header_placeholder
+                : 'Enter a header',
+            defaultLevel: 4,
+          },
+        },
+      },
     });
 
     this.editorjsInstances = this.editorjsInstances;
@@ -131,7 +141,6 @@ export default class TypesEditObjectModalComponent extends Component {
     }
 
     this.objectModules = this.objectModules;
-    
   }
 
   @action
