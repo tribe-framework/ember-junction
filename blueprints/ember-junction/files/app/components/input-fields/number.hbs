@@ -1,4 +1,0 @@
-<div class="mb-3">
-	<Input id={{concat @type.slug "-" @module.input_slug "-" @id}} @value={{mut (get @object @module.input_slug)}} @type={{@module.input_type}} min={{@module.input_min}} max={{@module.input_max}} class="form-control border-dark" placeholder={{@module.input_placeholder}} autocomplete="off" />
-	<div class="form-text text-end text-dark">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
-</div>

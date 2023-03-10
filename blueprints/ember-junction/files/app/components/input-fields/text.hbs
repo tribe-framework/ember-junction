@@ -1,4 +1,15 @@
 <div class="mb-3">
-	<Input id={{concat @type.slug "-" @module.input_slug "-" @id}} @value={{mut (get @object @module.input_slug)}} type={{@module.input_type}} class="form-control border-dark" placeholder={{@module.input_placeholder}} autocomplete="off" />
-	<div class="form-text text-end text-dark">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
+	{{#if @module.input_multiple}}
+		{{#each (get @object @module.input_slug) as |field index|}}
+			{{#if field}}
+				<InputFields::Multi @mutObjectModuleValue={{@mutObjectModuleValue}} @type={{@type}} @module={{@module}} @id={{@id}} @object={{@object}} @addToMultiField={{@addToMultiField}} @removeFromMultiField={{@removeFromMultiField}} @index={{index}} />
+			{{/if}}
+		{{else}}
+			<InputFields::Multi @mutObjectModuleValue={{@mutObjectModuleValue}} @type={{@type}} @module={{@module}} @id={{@id}} @object={{@object}} @addToMultiField={{@addToMultiField}} @removeFromMultiField={{@removeFromMultiField}} @index={{0}} />
+		{{/each}}
+		<div class="form-text text-end text-dark">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
+	{{else}}
+		<Input id={{concat @type.slug "-" @module.input_slug "-" @id}} @value={{mut (get @object @module.input_slug)}} @type={{@module.input_type}} class="form-control border-dark {{if (eq @module.input_type "hidden") "d-none"}}" placeholder={{@module.input_placeholder}} min={{@module.input_min}} max={{@module.input_max}} autocomplete="off" />
+		<div class="form-text text-end text-dark {{if (eq @module.input_type "hidden") "d-none"}}">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
+	{{/if}}
 </div>

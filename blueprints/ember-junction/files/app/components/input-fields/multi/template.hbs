@@ -6,7 +6,7 @@
 	
 	{{else}}
 
-	  <Input @value={{this.fieldValue}} @type={{@module.input_type}} class="form-control border-dark" placeholder={{@module.input_placeholder}} autocomplete="off" {{on 'keydown' (fn this.setIsSaved false)}} />
+	  <Input @value={{this.fieldValue}} @type={{@module.input_type}} class="form-control border-dark {{if (eq @module.input_type "hidden") "d-none"}}" placeholder={{@module.input_placeholder}} min={{@module.input_min}} max={{@module.input_max}} autocomplete="off" {{on 'keydown' (fn this.setIsSaved false)}} />
 
 	{{/if}}
 
