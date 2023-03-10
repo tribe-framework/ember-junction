@@ -162,7 +162,10 @@ export default class TypesEditObjectModalComponent extends Component {
         },
         raw: RawTool,
         code: CodeTool,
-        embed: Embed,
+        embed: {
+          class: Embed,
+          inlineToolbar: true,
+        },
       },
     });
 
