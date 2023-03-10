@@ -7,7 +7,7 @@
     {{/each}}
 
     {{#each this.options as |opt|}}
-      <option value={{opt.slug}} selected="{{if (eq this.currentValue opt.slug) "selected"}}">{{opt.title}}</option>
+      <option value={{opt.modules.slug}} selected="{{if (eq this.currentValue opt.modules.slug) "selected"}}">{{opt.modules.title}}</option>
     {{/each}}
   </select>
   <div class="form-text text-end text-dark">{{@module.input_placeholder}}</div>
