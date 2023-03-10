@@ -2,12 +2,20 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
-import EditorJS from '@editorjs/editorjs';
 import { later } from '@ember/runloop';
 import { A } from '@ember/array';
+import ENV from 'junction/config/environment';
+import EditorJS from '@editorjs/editorjs';
 import ImageTool from '@editorjs/image';
 import Header from '@editorjs/header';
-import ENV from 'junction/config/environment';
+import RawTool from '@editorjs/raw';
+import CodeTool from '@editorjs/code';
+import Marker from '@editorjs/marker';
+import Quote from '@editorjs/quote';
+import Delimiter from '@editorjs/delimiter';
+import List from '@editorjs/list';
+import AttachesTool from '@editorjs/attaches';
+import Embed from '@editorjs/embed';
 
 export default class TypesEditObjectModalComponent extends Component {
   @service store;
@@ -94,6 +102,18 @@ export default class TypesEditObjectModalComponent extends Component {
       placeholder: editor_object_in_type.input_placeholder,
 
       tools: {
+        header: {
+          class: Header,
+          config: {
+            placeholder:
+              editor_object_in_type.input_options !== undefined &&
+              editor_object_in_type.input_options.header_placeholder !==
+                undefined
+                ? editor_object_in_type.input_options.header_placeholder
+                : 'Enter a header',
+            defaultLevel: 4,
+          },
+        },
         image: {
           class: ImageTool,
           config: {
@@ -110,18 +130,39 @@ export default class TypesEditObjectModalComponent extends Component {
             },
           },
         },
-        header: {
-          class: Header,
+        attaches: {
+          class: AttachesTool,
           config: {
-            placeholder:
+            endpoint: ENV.TribeENV.API_URL + '/uploads.php',
+          }
+        },
+        quote: {
+          class: Quote,
+          inlineToolbar: true,
+          config: {
+            quotePlaceholder: 'Enter a quote',
+            captionPlaceholder:
               editor_object_in_type.input_options !== undefined &&
-              editor_object_in_type.input_options.header_placeholder !==
+              editor_object_in_type.input_options.quote_caption_placeholder !==
                 undefined
-                ? editor_object_in_type.input_options.header_placeholder
-                : 'Enter a header',
-            defaultLevel: 4,
+                ? editor_object_in_type.input_options.quote_caption_placeholder
+                : 'Quote\'s author',
           },
         },
+        delimiter: Delimiter,
+        Marker: {
+          class: Marker,
+        },
+        list: {
+          class: List,
+          inlineToolbar: true,
+          config: {
+            defaultStyle: 'unordered'
+          }
+        },
+        raw: RawTool,
+        code: CodeTool,
+        embed: Embed,
       },
     });
 
