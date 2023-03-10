@@ -1,14 +1,34 @@
 <div class="mb-3" {{did-insert this.isModuleAlsoAType}}>
-  <select id={{concat @type.slug "-" @module.input_slug "-" @id}} class="form-select border-dark" {{on 'change' this.updateValue}}>
-    <option selected="{{if (eq this.currentValue false) "selected"}}">{{@module.input_placeholder}}</option>
 
-    {{#each @module.input_options as |opt|}}
-      <option value={{opt.slug}} selected="{{if (eq this.currentValue opt.slug) "selected"}}">{{opt.title}}</option>
-    {{/each}}
+  {{#if @module.input_multiple}}
 
-    {{#each this.options as |opt|}}
-      <option value={{opt.modules.slug}} selected="{{if (eq this.currentValue opt.modules.slug) "selected"}}">{{opt.modules.title}}</option>
-    {{/each}}
-  </select>
-  <div class="form-text text-end text-dark">{{@module.input_placeholder}}</div>
+    <select multiple id={{concat @type.slug "-" @module.input_slug "-" @id}} class="form-select border-dark" {{on 'change' this.updateValue}}>
+      <option selected="{{if (eq this.currentValue false) "selected"}}">{{@module.input_placeholder}}</option>
+
+      {{#each @module.input_options as |opt|}}
+        <option value={{opt.slug}} selected="{{if (eq this.currentValue opt.slug) "selected"}}">{{opt.title}}</option>
+      {{/each}}
+
+      {{#each this.options as |opt|}}
+        <option value={{opt.modules.slug}} selected="{{if (eq this.currentValue opt.modules.slug) "selected"}}">{{opt.modules.title}}</option>
+      {{/each}}
+    </select>
+
+  {{else}}
+
+    <select id={{concat @type.slug "-" @module.input_slug "-" @id}} class="form-select border-dark" {{on 'change' this.updateValue}}>
+      <option selected="{{if (eq this.currentValue false) "selected"}}">{{@module.input_placeholder}}</option>
+
+      {{#each @module.input_options as |opt|}}
+        <option value={{opt.slug}} selected="{{if (eq this.currentValue opt.slug) "selected"}}">{{opt.title}}</option>
+      {{/each}}
+
+      {{#each this.options as |opt|}}
+        <option value={{opt.modules.slug}} selected="{{if (eq this.currentValue opt.modules.slug) "selected"}}">{{opt.modules.title}}</option>
+      {{/each}}
+    </select>
+
+  {{/if}}
+
+  <div class="form-text text-end text-dark">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
 </div>

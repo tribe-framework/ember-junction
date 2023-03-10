@@ -34,5 +34,5 @@
   </div>
 
 </div>
-  <div class="form-text text-end text-dark">{{@module.input_placeholder}}</div>
+  <div class="form-text text-end text-dark">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
 </div>

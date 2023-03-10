@@ -1,4 +1,4 @@
 <div class="mb-3">
-	<div class="form-control border-dark" id="typeout-content" contenteditable="true">{{mut (get @object @module.input_slug)}}</div>
-	<div class="form-text text-end text-dark">{{@module.input_placeholder}}</div>
+	<div class="form-control border-dark" id="typeout-content" contenteditable="true">{{{get @object @module.input_slug}}}</div>
+	<div class="form-text text-end text-dark"><strong><em>readonly</em></strong> &mdash; {{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
 </div>
