@@ -6,7 +6,7 @@
   </th>
   {{#each @type.modules as |module|}}
     {{#if module.list_field}}
-      <th scope="col" class="{{if (and module.input_primary (gt this.listableModules 3)) "min-width-primary-module"}}">
+      <th scope="col" class="{{if module.input_primary "min-width-primary-module"}}">
         <span>{{module.input_slug}}</span>
         {{#if module.list_sortable}}
           <span class="d-none"><FaIcon @icon="caret-down" /></span>

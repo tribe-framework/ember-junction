@@ -11,7 +11,8 @@ export default class TypesController extends Controller {
   @tracked pageLength = 25;
   @tracked pageOffset = 0;
   @tracked pageLinks = null;
-  @tracked numberOfPages = Math.ceil(Number(this.currentType.total_objects) / this.pageLength) ?? 1;
+  @tracked numberOfPages =
+    Math.ceil(Number(this.currentType.total_objects) / this.pageLength) ?? 1;
 
   @action
   loadTypeObjects(type) {
@@ -42,11 +43,9 @@ export default class TypesController extends Controller {
       this.objectsInType = this.store.query(this.currentType.slug, {
         show_public_objects_only: false,
         page: { limit: this.pageLength, offset: this.pageOffset },
-        filter: {"title": query},
+        filter: { title: query },
       });
-    }
-    else
-      this.clearSearch();
+    } else this.clearSearch();
   }
 
   @action

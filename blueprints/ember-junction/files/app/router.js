@@ -8,6 +8,4 @@ export default class Router extends EmberRouter {
 
 Router.map(function () {
   this.route('types');
-  this.route('find');
-  this.route('uploads');
 });

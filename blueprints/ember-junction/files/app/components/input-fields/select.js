@@ -24,6 +24,7 @@ export default class InputFieldsSelectComponent extends Component {
     //if this module is also a type append input_options from that type content
     if (this.args.webapp.modules[this.args.module.input_slug] !== undefined) {
       this.options = this.store.query(this.args.module.input_slug, {
+        show_public_objects_only: false,
         page: { limit: -1 },
       });
     }

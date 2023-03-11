@@ -134,7 +134,7 @@ export default class TypesEditObjectModalComponent extends Component {
           class: AttachesTool,
           config: {
             endpoint: ENV.TribeENV.API_URL + '/uploads.php',
-          }
+          },
         },
         quote: {
           class: Quote,
@@ -146,7 +146,7 @@ export default class TypesEditObjectModalComponent extends Component {
               editor_object_in_type.input_options.quote_caption_placeholder !==
                 undefined
                 ? editor_object_in_type.input_options.quote_caption_placeholder
-                : 'Quote\'s author',
+                : "Quote's author",
           },
         },
         delimiter: Delimiter,
@@ -157,15 +157,12 @@ export default class TypesEditObjectModalComponent extends Component {
           class: List,
           inlineToolbar: true,
           config: {
-            defaultStyle: 'unordered'
-          }
+            defaultStyle: 'unordered',
+          },
         },
         raw: RawTool,
         code: CodeTool,
-        embed: {
-          class: Embed,
-          inlineToolbar: true,
-        },
+        embed: Embed,
       },
     });
 

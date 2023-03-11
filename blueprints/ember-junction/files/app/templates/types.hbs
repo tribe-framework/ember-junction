@@ -28,7 +28,11 @@
 
 				<tbody>
 					{{#each this.objectsInType as |object|}}
-						<Types::ListTable::Row @webapp={{@model}} @type={{this.currentType}} @object={{object}} @loadTypeObjects={{this.loadTypeObjects}} />
+						{{#if (not-eq object.id "0")}}
+							<Types::ListTable::Row @webapp={{@model}} @type={{this.currentType}} @object={{object}} @loadTypeObjects={{this.loadTypeObjects}} />
+						{{else}}
+							<Types::ListTable::EmptyTableRow />
+						{{/if}}
 					{{else}}
 						<Types::ListTable::EmptyTableRow />
 					{{/each}}

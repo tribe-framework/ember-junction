@@ -10,10 +10,6 @@
 
         <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="list-tree" @navtitle="Types" @navroute="types" />
 
-        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="upload" @navtitle="Uploads" @navroute="uploads" />
-        
-        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="magnifying-glass" @navtitle="Find" @navroute="find" />
-
       </ul>
     </div>
     <div class="d-flex align-items-center justify-content-end">
@@ -24,35 +20,8 @@
         title="View front-end" rel="noopener noreferrer">
         <FaIcon @icon="external-link-alt" @prefix="fa-light" />
       </a>
-      <a class="fs-smaller fs-4 navbar-brand text-white"
-        target="_blank"
-        href={{@webapp.url}}
-        data-bs-toggle="tooltip" data-bs-placement="bottom"
-        title="Settings and logout" rel="noopener noreferrer">
-        <FaIcon @icon="gear" @prefix="fa-light" />
-      </a>
     </div>
   </div>
 </nav>
-
-{{!-- Modal --}}
-<div class="modal fade" id="logoutModel" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-centered">
-    <div class="modal-content border-3 border-primary">
-      <div class="modal-header">
-        <h5 class="modal-title" id="staticBackdropLabel">Exit?</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        Are you sure you wish to log out?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Stay signed in</button>
-        <button type="button" class="btn btn-secondary">Yes, log me out</button>
-      </div>
-    </div>
-  </div>
-</div>
-
 
 {{yield}}
