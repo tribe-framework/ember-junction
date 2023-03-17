@@ -10,6 +10,7 @@ module.exports = function () {
       'gear',
       'wand-magic-sparkles',
       'timer',
+      'copy',
       'cloud-arrow-up',
       'trash-alt',
       'megaphone',
