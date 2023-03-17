@@ -27,9 +27,30 @@
 
   </div>
   
-  <div class="card-footer border-0">
-  	{{#each (get @object @module.input_slug) as |file|}}
-	    <div>Uploaded &mdash; <span>{{file}}</span></div>
+  <div class="card-footer border-0" style="overflow-x: scroll;">
+  	{{#each (get @object @module.input_slug) as |file index|}}
+	  	{{#unless (this.isString file)}}
+
+	  		<div class="my-1 d-flex align-items-center justify-content-start">
+	  			{{#if file.xs.url}}
+	  				<div class="me-2"><img src="{{file.xs.url}}" height="31" /></div>
+	  			{{/if}}
+	  			<a href="{{file.url}}" class="me-2 btn btn-sm btn-outline-dark" target="new">View file <FaIcon @icon="external-link-alt" @prefix="fa-light" /></a>
+	  			<button {{on 'click' (fn this.copyLink file.url index)}} type="button" class="me-2 btn btn-sm btn-outline-dark" target="new"><span id="copy-{{index}}">Copy link</span> <FaIcon @icon="copy" @prefix="fa-light" /></button>
+	  			<span class="me-3 text-danger cursor-pointer" {{on 'click' (fn this.deleteFile index)}}><FaIcon @icon="circle-xmark" /></span>
+	  			<span class="text-muted">{{this.explodeFilename file.url}}</span>
+	  		</div>
+
+	  	{{else}}
+
+	  		<div class="my-1 d-flex align-items-center justify-content-start">
+	  			<a href="{{file}}" class="me-2 btn btn-sm btn-outline-dark" target="new">View file <FaIcon @icon="external-link-alt" @prefix="fa-light" /></a>
+	  			<button {{on 'click' (fn this.copyLink file index)}} type="button" class="me-2 btn btn-sm btn-outline-dark" target="new"><span id="copy-{{index}}">Copy link</span> <FaIcon @icon="copy" @prefix="fa-light" /></button>
+	  			<span class="me-3 text-danger cursor-pointer" {{on 'click' (fn this.deleteFile index)}}><FaIcon @icon="circle-xmark" /></span>
+	  			<span class="text-muted">{{this.explodeFilename file}}</span>
+	  		</div>
+
+	  	{{/unless}}
     {{/each}}
   </div>
 

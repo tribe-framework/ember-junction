@@ -4,8 +4,20 @@ import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
 import { Queue } from 'ember-file-upload';
 import ENV from 'junction/config/environment';
+import { later } from '@ember/runloop';
+
 
 export default class InputFieldsFileUploaderComponent extends Component {
+
+  isString = (object) => {
+     return (typeof object === 'string') ? true : false
+  }
+
+  explodeFilename = (filename) => {
+    var myarr = filename.split("/uploads/");
+    return myarr[1];
+  }
+
   @service fileQueue;
 
   get queue() {
@@ -30,7 +42,8 @@ export default class InputFieldsFileUploaderComponent extends Component {
       response.json().then((data) => {
         if (data.status == 'success') {
           let files = this.args.object[this.args.module.input_slug] ?? [];
-          files.push(data.file.md.url);
+          console.log(data.file)
+          files.push(data.file);
           this.args.mutObjectModuleValue(this.args.module.input_slug, files);
         } else if (data.status == 'error') {
           alert(data.error_message);
@@ -39,5 +52,29 @@ export default class InputFieldsFileUploaderComponent extends Component {
     } catch (error) {
       file.state = 'aborted';
     }
+  }
+
+  @action
+  deleteFile(index) {
+    let files = this.args.object[this.args.module.input_slug] ?? [];
+    if (index > -1) {
+      files.splice(index, 1);
+    }
+    this.args.mutObjectModuleValue(this.args.module.input_slug, files);
+  }
+
+  @action
+  copyLink(text, index) {
+    document.querySelector('#copy-'+index).innerHTML = 'Copied!';
+
+    navigator.clipboard.writeText(text);
+    
+    later(
+      this,
+      () => {
+        document.querySelector('#copy-'+index).innerHTML = 'Copy link';
+      },
+      2000
+    );
   }
 }
