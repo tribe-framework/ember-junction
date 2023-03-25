@@ -68,7 +68,23 @@ $position-values: (
 
 $modal-backdrop-opacity: .8;
 
+$ember-power-select-border-color: var(--bs-dark);
+$ember-power-select-border-radius: 0;
+
+@import 'ember-power-select/themes/bootstrap';
+@import "ember-power-select";
+
 @import "node_modules/bootstrap/scss/bootstrap";
+
+.ember-power-select-dropdown, .ember-power-select-search {
+  z-index: 1100 !important;
+  position: relative;
+}
+
+#ember-basic-dropdown-wormhole {
+  position: absolute;
+  top:0;
+}
 
 .page-loading {
   height: 100vh;
@@ -81,8 +97,8 @@ $modal-backdrop-opacity: .8;
 
 .bg-primary-flame {
   background: linear-gradient(0deg, rgba(153,51,153,1) 0%, rgba(255,51,153,1) 100%);
-    background-color: rgba(0, 0, 0, 0);
-    background-position-x: 0%;
+  background-color: rgba(0, 0, 0, 0);
+  background-position-x: 0%;
   background-position-y: 0%;
   background-repeat: repeat;
   background-attachment: scroll;
@@ -93,8 +109,8 @@ $modal-backdrop-opacity: .8;
 
 .bg-info-flame {
   background: linear-gradient(0deg, rgba(255,0,102,1) 0%, rgba(255,0,51,1) 100%);
-    background-color: rgba(0, 0, 0, 0);
-    background-position-x: 0%;
+  background-color: rgba(0, 0, 0, 0);
+  background-position-x: 0%;
   background-position-y: 0%;
   background-repeat: repeat;
   background-attachment: scroll;
@@ -109,14 +125,6 @@ $modal-backdrop-opacity: .8;
 
 .nav-link.active {
   background: linear-gradient(0deg, rgba(255,0,51,1) 0%, rgba(255,0,102,1) 100%);
-}
-
-.min-width-primary-module {
-  min-width: 40%;
-}
-
-.min-width-id-module {
-  width: 60px;
 }
 
 .text-ellipsis {

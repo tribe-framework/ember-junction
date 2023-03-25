@@ -2,31 +2,15 @@
 
   {{#if @module.input_multiple}}
 
-    <select multiple id={{concat @type.slug "-" @module.input_slug "-" @id}} class="form-select border-dark" {{on 'change' this.updateValue}}>
-      <option selected="{{if (eq this.currentValue false) "selected"}}">{{@module.input_placeholder}}</option>
-
-      {{#each @module.input_options as |opt|}}
-        <option value={{opt.slug}} selected="{{if (eq this.currentValue opt.slug) "selected"}}">{{opt.title}}</option>
-      {{/each}}
-
-      {{#each this.options as |opt|}}
-        <option value={{opt.modules.slug}} selected="{{if (eq this.currentValue opt.modules.slug) "selected"}}">{{opt.modules.title}}</option>
-      {{/each}}
-    </select>
+      <PowerSelectMultiple class="form-control border-dark" @selected={{this.selectedMultiOptions}} @searchEnabled={{true}} @searchField="title" @placeholder={{@module.input_placeholder}} @options={{this.options}} @onChange={{this.updateMultiValue}} as |opt|>
+        {{opt.title}}
+      </PowerSelectMultiple>
 
   {{else}}
 
-    <select id={{concat @type.slug "-" @module.input_slug "-" @id}} class="form-select border-dark" {{on 'change' this.updateValue}}>
-      <option selected="{{if (eq this.currentValue false) "selected"}}">{{@module.input_placeholder}}</option>
-
-      {{#each @module.input_options as |opt|}}
-        <option value={{opt.slug}} selected="{{if (eq this.currentValue opt.slug) "selected"}}">{{opt.title}}</option>
-      {{/each}}
-
-      {{#each this.options as |opt|}}
-        <option value={{opt.modules.slug}} selected="{{if (eq this.currentValue opt.modules.slug) "selected"}}">{{opt.modules.title}}</option>
-      {{/each}}
-    </select>
+      <PowerSelect class="form-control border-dark" @selected={{this.selectedOption}} @searchEnabled={{true}} @searchField="title" @placeholder={{@module.input_placeholder}} @options={{this.options}} @onChange={{this.updateValue}} as |opt|>
+        {{opt.title}}
+      </PowerSelect>
 
   {{/if}}
 

@@ -6,17 +6,15 @@ import { Queue } from 'ember-file-upload';
 import ENV from 'junction/config/environment';
 import { later } from '@ember/runloop';
 
-
 export default class InputFieldsFileUploaderComponent extends Component {
-
   isString = (object) => {
-     return (typeof object === 'string') ? true : false
-  }
+    return typeof object === 'string' ? true : false;
+  };
 
   explodeFilename = (filename) => {
-    var myarr = filename.split("/uploads/");
+    var myarr = filename.split('/uploads/');
     return myarr[1];
-  }
+  };
 
   @service fileQueue;
 
@@ -42,7 +40,7 @@ export default class InputFieldsFileUploaderComponent extends Component {
       response.json().then((data) => {
         if (data.status == 'success') {
           let files = this.args.object[this.args.module.input_slug] ?? [];
-          console.log(data.file)
+          console.log(data.file);
           files.push(data.file);
           this.args.mutObjectModuleValue(this.args.module.input_slug, files);
         } else if (data.status == 'error') {
@@ -65,14 +63,14 @@ export default class InputFieldsFileUploaderComponent extends Component {
 
   @action
   copyLink(text, index) {
-    document.querySelector('#copy-'+index).innerHTML = 'Copied!';
+    document.querySelector('#copy-' + index).innerHTML = 'Copied!';
 
     navigator.clipboard.writeText(text);
-    
+
     later(
       this,
       () => {
-        document.querySelector('#copy-'+index).innerHTML = 'Copy link';
+        document.querySelector('#copy-' + index).innerHTML = 'Copy link';
       },
       2000
     );
