@@ -7,6 +7,7 @@ export default class InputFieldsSelectComponent extends Component {
   @service store;
 
   @tracked options = [];
+  @tracked inputOptions = this.args.module.input_options ?? null;
   @tracked typeOptions = null;
   @tracked selectedOption = null;
   @tracked selectedMultiOptions = [];
@@ -48,47 +49,83 @@ export default class InputFieldsSelectComponent extends Component {
 
   @action
   async isModuleAlsoAType() {
-    if (this.args.webapp.modules[this.args.module.input_slug] !== undefined) {
-      this.typeOptions = await this.store.query(this.args.module.input_slug, {
-        show_public_objects_only: false,
-        page: { limit: -1 },
-      });
+    if (this.args.webapp.modules[this.args.module.input_slug] !== undefined || this.args.module.input_slug == 'content_privacy') {
 
-      this.typeOptions.forEach((element) => {
-        this.options.push(element.modules);
 
-        if (
-          typeof this.args.object[this.args.module.input_slug] !== 'undefined'
-        ) {
-          //selected option
+      if (this.args.module.input_slug != 'content_privacy') {
+
+        this.typeOptions = await this.store.query(this.args.module.input_slug, {
+          show_public_objects_only: false,
+          page: { limit: -1 },
+        });
+
+        this.typeOptions.forEach((element) => {
+          this.options.push(element.modules);
+
           if (
-            typeof this.args.object[this.args.module.input_slug] === 'string' &&
-            element.modules.slug ==
-              this.args.object[this.args.module.input_slug]
+            typeof this.args.object[this.args.module.input_slug] !== 'undefined'
           ) {
-            this.selectedOption = element.modules;
-            this.selectedMultiOptions[0] = element.modules;
-          }
+            //selected option
+            if (
+              typeof this.args.object[this.args.module.input_slug] === 'string' &&
+              element.modules.slug ==
+                this.args.object[this.args.module.input_slug]
+            ) {
+              this.selectedOption = element.modules;
+              this.selectedMultiOptions[0] = element.modules;
+            }
 
-          //part of selected multi options
+            //part of selected multi options
+            if (
+              typeof this.args.object[this.args.module.input_slug] !== 'string' &&
+              inArray(
+                element.modules.slug,
+                this.args.object[this.args.module.input_slug]
+              )
+            ) {
+              this.selectedOption = element.modules;
+              this.selectedMultiOptions.push(element.modules);
+            }
+          }
+        });
+      }
+
+      if (this.inputOptions !== null) {
+        this.inputOptions.forEach((element) => {
+          this.options.push(element);
+
           if (
-            typeof this.args.object[this.args.module.input_slug] !== 'string' &&
-            inArray(
-              element.modules.slug,
-              this.args.object[this.args.module.input_slug]
-            )
+            typeof this.args.object[this.args.module.input_slug] !== 'undefined'
           ) {
-            this.selectedOption = element.modules;
-            this.selectedMultiOptions.push(element.modules);
-          }
-        }
-      });
+            //selected option
+            if (
+              typeof this.args.object[this.args.module.input_slug] === 'string' &&
+              element.slug ==
+                this.args.object[this.args.module.input_slug]
+            ) {
+              this.selectedOption = element;
+              this.selectedMultiOptions[0] = element;
+            }
 
-      this.options = this.options;
+            //part of selected multi options
+            if (
+              typeof this.args.object[this.args.module.input_slug] !== 'string' &&
+              inArray(
+                element.slug,
+                this.args.object[this.args.module.input_slug]
+              )
+            ) {
+              this.selectedOption = element;
+              this.selectedMultiOptions.push(element);
+            }
+          }
+        });
+      }
+
+      if (this.options)
+        this.options = this.options;
+
       this.selectedMultiOptions = this.selectedMultiOptions;
-
-      this.moduleisAlsoAType = true;
-    } else {
     }
 
     function inArray(needle, haystack) {
