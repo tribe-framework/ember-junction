@@ -1,5 +1,5 @@
 {{!-- Modal --}}
-<div class="modal fade" id="editObjectModal-{{if @object.id @object.id (concat @type.slug "-" "new")}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editObjectModalLabel" aria-hidden="true">
+<div class="modal fade" id="editObjectModal-{{if @object.id @object.id (concat @type.slug "-" (if @multiEdit "multi" "new"))}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editObjectModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -10,29 +10,34 @@
         {{yield}}
 
         {{#each @type.modules as |module|}}
-        	
-        	{{#if (eq module.input_type "checkbox")}}
-        		<InputFields::Checkbox @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
 
-        	{{else if (eq module.input_type "editorjs")}}
-        		<InputFields::Editorjs @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} @editorjsInstances={{this.editorjsInstances}} @initEditorJS={{this.initEditorJS}} />
-
-          {{else if (eq module.input_type "typeout")}}
-            <InputFields::Typeout @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
+          {{#unless (and @multiEdit module.input_primary)}}
         	
-        	{{else if (eq module.input_type "file_uploader")}}
-        		<InputFields::FileUploader @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
+          	{{#if (eq module.input_type "checkbox")}}
+          		<InputFields::Checkbox @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
 
-        	{{else if (eq module.input_type "select")}}
-        		<InputFields::Select @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
-        	
-        	{{else if (or (eq module.input_type "textarea") (eq module.input_type "json"))}}
-        		<InputFields::Textarea @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
-        	
-        	{{else}}
-            <InputFields::Text @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
+          	{{else if (eq module.input_type "editorjs")}}
+          		<InputFields::Editorjs @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} @editorjsInstances={{this.editorjsInstances}} @initEditorJS={{this.initEditorJS}} />
 
-        	{{/if}}
+            {{else if (eq module.input_type "typeout")}}
+              <InputFields::Typeout @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
+          	
+          	{{else if (eq module.input_type "file_uploader")}}
+          		<InputFields::FileUploader @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
+
+          	{{else if (eq module.input_type "select")}}
+          		<InputFields::Select @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
+          	
+          	{{else if (or (eq module.input_type "textarea") (eq module.input_type "json"))}}
+          		<InputFields::Textarea @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
+          	
+          	{{else}}
+              <InputFields::Text @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
+
+          	{{/if}}
+
+          {{/unless}}
+          
         {{/each}}
       </div>
       <div class="modal-footer">
@@ -56,9 +61,23 @@
             </div>
 
           {{else}}
+            {{#if @multiEdit}}
+              <button data-bs-dismiss="modal" type="button" class="btn btn-primary" {{on 'click' (fn this.pushObjects @selectedRowIDs)}}>Multi-edit save {{@type.name}}</button>
 
-            <button data-bs-dismiss="modal" type="button" class="btn btn-primary" {{on 'click' this.pushObject}}>Create new {{@type.name}}</button>
+              <div class="d-flex justify-content-start align-items-center" {{on 'click' this.areYouSure}}>
+                <div class="d-flex justify-content-start align-items-start">
+                  <button type="button" class="btn btn-danger text-light me-2"><FaIcon @icon="trash-alt" /></button>
+                </div>
+                <div class="{{this.deleteSurity}} justify-content-start align-items-center" id="deleteObjectConfirmation-{{@type.slug}}-multi">
+                  <div class="me-2">Delete ALL?</div>
+                  <button data-bs-dismiss="modal" type="button" class="btn btn-sm btn-danger me-1" {{on 'click' (fn this.deleteObjects @selectedRowIDs)}}>Yes, delete them</button>
+                  <button type="button" class="btn btn-sm btn-success me-1" {{on 'click' this.notSoSure}}>No, keep it</button>
+                </div>
+              </div>
 
+            {{else}}
+              <button data-bs-dismiss="modal" type="button" class="btn btn-primary" {{on 'click' this.pushObject}}>Create new {{@type.name}}</button>
+            {{/if}}
           {{/if}}
         </div>
       </div>

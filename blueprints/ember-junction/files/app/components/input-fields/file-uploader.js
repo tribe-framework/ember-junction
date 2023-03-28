@@ -3,7 +3,7 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
 import { Queue } from 'ember-file-upload';
-import ENV from 'junction/config/environment';
+import ENV from '<%= dasherizedPackageName %>/config/environment';
 import { later } from '@ember/runloop';
 
 export default class InputFieldsFileUploaderComponent extends Component {

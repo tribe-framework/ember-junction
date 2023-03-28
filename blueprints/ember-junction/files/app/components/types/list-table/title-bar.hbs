@@ -6,10 +6,13 @@
 				<Types::ListTable::PageLengthSelector @updatePageLength={{@updatePageLength}} />
 			</div>
 
-			<div class="order-2 order-lg-2 col-lg-6 px-0 col-12 my-1 d-flex justify-content-end">
+			<div class="order-2 order-lg-2 col-lg-4 px-0 col-12 my-1 d-flex justify-content-end">
 				<Types::ListTable::SearchBox @type={{@type}} @search={{@search}} @clearSearch={{@clearSearch}} />
 			</div>
-			<div class="order-1 order-lg-3 col-lg-3 px-0 col-12 my-1 d-flex justify-content-end">
+			<div class="order-1 order-lg-3 col-lg-5 px-0 col-12 my-1 d-flex justify-content-end">
+				{{#if (get @selectedRowIDs @type.slug)}}
+					<button data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@type.slug}}-multi" type="button" class="btn btn-info border-1 border-info fw-normal w-100"><FaIcon @icon="rectangle-vertical-history" @prefix="fa-light" />&nbsp;Multi-edit</button>
+				{{/if}}
 				<button data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@type.slug}}-new" type="button" class="btn btn-dark fw-normal w-100"><FaIcon @icon="plus" @prefix="fa-light" />&nbsp;New</button>
 			</div>
 		</div>

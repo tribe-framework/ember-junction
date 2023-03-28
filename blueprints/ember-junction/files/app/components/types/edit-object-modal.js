@@ -4,7 +4,7 @@ import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { later } from '@ember/runloop';
 import { A } from '@ember/array';
-import ENV from 'junction/config/environment';
+import ENV from '<%= dasherizedPackageName %>/config/environment';
 import EditorJS from '@editorjs/editorjs';
 import ImageTool from '@editorjs/image';
 import Header from '@editorjs/header';
@@ -23,6 +23,27 @@ export default class TypesEditObjectModalComponent extends Component {
   @tracked objectModules = this.args.object ? this.args.object.modules : A([]);
   @tracked objectID = this.args.object ? this.args.object.modules.id : 'new';
   @tracked editorjsInstances = [];
+
+  @action
+  pushObjects() {
+    let vvv = this.objectModules;
+
+    this.args.selectedRowIDs[this.args.type.slug].forEach((id)=>{
+      this.store
+        .findRecord(this.args.type.slug, id)
+        .then((obj) => {
+          obj.modules = { ...vvv };
+          obj.save();
+        });
+    });
+    
+    this.args.loadTypeObjects(this.args.type);
+  }
+
+  @action
+  async deleteObjects() {
+   this.args.loadTypeObjects(this.args.type);
+  }
 
   @action
   async pushObject() {

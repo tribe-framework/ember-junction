@@ -1,5 +1,5 @@
 import EmberRouter from '@ember/routing/router';
-import config from 'junction/config/environment';
+import config from '<%= dasherizedPackageName %>/config/environment';
 
 export default class Router extends EmberRouter {
   location = config.locationType;

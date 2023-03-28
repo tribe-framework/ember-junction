@@ -1,5 +1,5 @@
-<tr id="row-{{@object.id}}" class="border-dark">
-  <th class="border-end border-start border-1 border-dark" scope="row" {{on 'mouseover' this.showOptions}} {{on 'mouseout' this.hideOptions}} {{on 'touchend' this.toggleOptions}}>{{@object.id}}</th>
+<tr id="row-{{@object.id}}" class="border-dark {{if (this.inArray @object.id (get @selectedRowIDs @type.slug)) "bg-info"}}">
+  <th class="border-end border-start border-1 border-dark" scope="row" {{on 'click' this.toggleSelection}}>{{@object.id}}</th>
 
   {{#each @type.modules as |module|}}
     {{#if module.list_field}}

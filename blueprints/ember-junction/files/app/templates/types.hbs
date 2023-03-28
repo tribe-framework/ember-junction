@@ -5,11 +5,17 @@
 	<div class="row mt-3 row-cols-1 g-3">
 		<div class="col">
 			<PageSummaryCard @title="Types defined in types.json">
-				{{#each-in @model.modules as |key type|}}
-					{{#if type.plural}}
-				  		<button {{on 'click' (fn this.loadTypeObjects type)}} type="button" class="btn {{if (eq key this.currentType.slug) "btn-dark" "btn-outline-dark"}} me-2">{{type.plural}}</button>
-				  	{{/if}}
-				{{/each-in}}
+				{{#if @model.modules.webapp.interface_urls.<%= dasherizedPackageName %>.types}}
+					{{#each @model.modules.webapp.interface_urls.<%= dasherizedPackageName %>.types as |type_slug|}}
+				  		<button {{on 'click' (fn this.loadTypeObjects (get @model.modules type_slug))}} type="button" class="btn {{if (eq type_slug this.currentType.slug) "btn-dark" "btn-outline-dark"}} me-2">{{get (get @model.modules type_slug) "plural"}}</button>
+					{{/each}}
+				{{else}}
+					{{#each-in @model.modules as |key type|}}
+						{{#if (not-eq type.slug "webapp")}}
+					  		<button {{on 'click' (fn this.loadTypeObjects type)}} type="button" class="btn {{if (eq key this.currentType.slug) "btn-dark" "btn-outline-dark"}} me-2">{{type.plural}}</button>
+					  	{{/if}}
+					{{/each-in}}
+				{{/if}}
 			</PageSummaryCard>
 		</div>
 	</div>
@@ -18,18 +24,18 @@
 {{#if this.currentType}}
 	<div style="overflow-x:hidden" class="row mt-3 row-cols-1 g-3 {{if (lte this.modulesThatWillBeListed.length 5) "container mx-auto" "mx-0"}}">
 		<div class="col">
-			<Types::ListTable::TitleBar @type={{this.currentType}} @search={{this.search}} @clearSearch={{this.clearSearch}} @updatePageLength={{this.updatePageLength}} />
+			<Types::ListTable::TitleBar @type={{this.currentType}} @search={{this.search}} @clearSearch={{this.clearSearch}} @updatePageLength={{this.updatePageLength}} @selectedRowIDs={{this.selectedRowIDs}} />
 
 			<Types::ListTable::Pagination @type={{this.currentType}} @objects={{this.objectsInType}} @pageLength={{this.pageLength}} @pageOffset={{this.pageOffset}} @updatePageLength={{this.updatePageLength}} @updatePageOffset={{this.updatePageOffset}} @loadTypeObjects={{this.loadTypeObjects}} @numberOfPages={{this.numberOfPages}} @pageLinks={{this.pageLinks}} @updatePageLinks={{this.updatePageLinks}} />
 
-			<Types::ListTable @webapp={{@model}} @type={{this.currentType}} @loadTypeObjects={{this.loadTypeObjects}}>
+			<Types::ListTable @webapp={{@model}} @type={{this.currentType}} @loadTypeObjects={{this.loadTypeObjects}} @selectedRowIDs={{this.selectedRowIDs}}>
 
 				<Types::ListTable::Head @type={{this.currentType}} />
 
 				<tbody>
 					{{#each this.objectsInType as |object|}}
 						{{#if (not-eq object.id "0")}}
-							<Types::ListTable::Row @webapp={{@model}} @type={{this.currentType}} @object={{object}} @loadTypeObjects={{this.loadTypeObjects}} />
+							<Types::ListTable::Row @webapp={{@model}} @type={{this.currentType}} @object={{object}} @loadTypeObjects={{this.loadTypeObjects}} @selectedRowIDs={{this.selectedRowIDs}} @addToSelectedRowIDs={{this.addToSelectedRowIDs}} @removeFromSelectedRowIDs={{this.removeFromSelectedRowIDs}} />
 						{{else}}
 							<Types::ListTable::EmptyTableRow />
 						{{/if}}

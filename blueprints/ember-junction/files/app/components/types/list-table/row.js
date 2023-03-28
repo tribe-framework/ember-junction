@@ -4,6 +4,19 @@ import { tracked } from '@glimmer/tracking';
 
 export default class TypesListTableRowComponent extends Component {
   @tracked isShowing = false;
+  @tracked isSelected = false;
+
+  inArray = (needle, haysack)=>{
+    const index = haysack.indexOf(needle);
+    if (index > -1) {
+      this.isSelected = true;
+      return true;
+    }
+    else {
+      this.isSelected = false;
+      return false;
+    }
+  }
 
   @action
   showOptions() {
@@ -23,6 +36,23 @@ export default class TypesListTableRowComponent extends Component {
     document
       .querySelector('#row-options-' + this.args.object.id)
       .classList.remove('d-flex');
+  }
+
+  @action
+  toggleSelection() {
+    if (this.isSelected === false) {
+      document
+        .querySelector('#row-' + this.args.object.id)
+        .classList.add('bg-info');
+      this.isSelected = true;
+      this.args.addToSelectedRowIDs(this.args.type.slug, this.args.object.id);
+    } else {
+      document
+        .querySelector('#row-' + this.args.object.id)
+        .classList.remove('bg-info');
+      this.isSelected = false;
+      this.args.removeFromSelectedRowIDs(this.args.type.slug, this.args.object.id);
+    }
   }
 
   @action

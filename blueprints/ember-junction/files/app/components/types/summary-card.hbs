@@ -12,14 +12,27 @@
 	    </tr>
 	  </thead>
 	  <tbody>
-	  	{{#each-in @types as |key type|}}
-	  		{{#if (not-eq key "webapp")}}
-			    <tr>
-			      <td>{{key}}</td>
-			      <td>{{type.total_objects}}</td>
-			    </tr>
-			{{/if}}
-	    {{/each-in}}
+
+
+				{{#if @types.webapp.interface_urls.<%= dasherizedPackageName %>.types}}
+					{{#each @types.webapp.interface_urls.<%= dasherizedPackageName %>.types as |type_slug|}}
+					    <tr>
+					      <td>{{type_slug}}</td>
+					      <td>{{get (get @types type_slug) "total_objects"}}</td>
+					    </tr>
+					{{/each}}
+				{{else}}
+
+			  	{{#each-in @types as |key type|}}
+			  		{{#if (not-eq key "webapp")}}
+					    <tr>
+					      <td>{{key}}</td>
+					      <td>{{type.total_objects}}</td>
+					    </tr>
+						{{/if}}
+			    {{/each-in}}
+
+			  {{/if}}
 	  </tbody>
 	</table>
   </div>
