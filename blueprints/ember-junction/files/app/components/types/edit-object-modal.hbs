@@ -1,5 +1,5 @@
 {{!-- Modal --}}
-<div class="modal fade" id="editObjectModal-{{if @object.id @object.id (concat @type.slug "-" (if @multiEdit "multi" "new"))}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editObjectModalLabel" aria-hidden="true">
+<div class="modal fade" id="editObjectModal-{{if @object.id @object.id (concat @type.slug "-" (if @multiEdit "multi" "new"))}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editObjectModalLabel" aria-hidden="true" {{did-insert this.cleanVarsOnModalOpen}}>
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
     <div class="modal-content">
       <div class="modal-header">
@@ -11,7 +11,7 @@
 
         {{#each @type.modules as |module|}}
 
-          {{#unless (and @multiEdit module.input_primary)}}
+          {{#unless (or (and @multiEdit module.input_primary) (and @multiEdit (eq module.input_type "file_uploader")) (and @multiEdit (eq module.input_type "editorjs")))}}
         	
           	{{#if (eq module.input_type "checkbox")}}
           		<InputFields::Checkbox @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />

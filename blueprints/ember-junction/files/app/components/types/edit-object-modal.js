@@ -25,10 +25,10 @@ export default class TypesEditObjectModalComponent extends Component {
   @tracked editorjsInstances = [];
 
   @action
-  pushObjects() {
+  async pushObjects() {
     let vvv = this.objectModules;
 
-    this.args.selectedRowIDs[this.args.type.slug].forEach((id)=>{
+    await this.args.selectedRowIDs[this.args.type.slug].forEach((id)=>{
       this.store
         .findRecord(this.args.type.slug, id)
         .then((obj) => {
@@ -37,6 +37,7 @@ export default class TypesEditObjectModalComponent extends Component {
         });
     });
     
+    this.args.emptySelectedRowsInType(this.args.type.slug);
     this.args.loadTypeObjects(this.args.type);
   }
 
@@ -202,6 +203,10 @@ export default class TypesEditObjectModalComponent extends Component {
       this.objectModules[module_input_slug] = value;
     }
 
+    if (this.args.multiEdit === true && Array.isArray(this.objectModules[module_input_slug]) && this.objectModules[module_input_slug].length == 0) {
+      delete this.objectModules[module_input_slug];
+    }
+
     this.objectModules = this.objectModules;
   }
 
@@ -228,5 +233,21 @@ export default class TypesEditObjectModalComponent extends Component {
       this.objectModules[module_input_slug].filter((x) => x).join(', ');
     }
     this.objectModules = this.objectModules;
+  }
+
+  @action
+  cleanVarsOnModalOpen(e) {
+    const myModalEl = document.getElementById(e.id);
+    myModalEl.addEventListener('show.bs.modal', event => {
+      this.objectID = this.args.object ? this.args.object.modules.id : 'new';
+
+      if (this.objectID === 'new') {
+        this.objectModules = A([]);
+        this.objectModules = this.objectModules;
+
+        this.editorjsInstances = [];
+        this.editorjsInstances = this.editorjsInstances;
+      }
+    });
   }
 }

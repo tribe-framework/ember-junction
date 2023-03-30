@@ -2,17 +2,18 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
+import { A } from '@ember/array';
 
 export default class InputFieldsSelectComponent extends Component {
   @service store;
 
-  @tracked options = [];
+  @tracked options = A([]);
   @tracked inputOptions = this.args.module.input_options ?? null;
   @tracked typeOptions = null;
   @tracked selectedOption = null;
-  @tracked selectedMultiOptions = [];
+  @tracked selectedMultiOptions = A([]);
   @tracked moduleisAlsoAType = false;
-  @tracked selectedMultiOptionSlugs = [];
+  @tracked selectedMultiOptionSlugs = A([]);
 
   @action
   updateValue(e) {
@@ -24,6 +25,7 @@ export default class InputFieldsSelectComponent extends Component {
   @action
   updateMultiValue(e) {
     this.selectedMultiOptions = [];
+    this.selectedMultiOptionSlugs = [];
     this.selectedMultiOptions = this.selectedMultiOptions;
 
     e.forEach((f) => {

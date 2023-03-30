@@ -1,9 +1,9 @@
-<div class="container pb-2">
+<div class="container-xxl pb-2">
 	<div class="d-flex align-items-start justify-content-between row">
 		<h1 class="text-capitalize col-lg-3 px-0 d-flex align-items-start">{{@type.plural}}</h1>
 		<div class="row col-lg-9 mx-auto px-0 d-flex align-items-start">
 			<div class="order-3 order-lg-1 col-lg-3 px-0 col-12 my-1 d-flex justify-content-end">
-				<Types::ListTable::PageLengthSelector @updatePageLength={{@updatePageLength}} />
+				<Types::ListTable::PageLengthSelector @updatePageLength={{@updatePageLength}} @currentPageLength={{@currentPageLength}} @type={{@type}} />
 			</div>
 
 			<div class="order-2 order-lg-2 col-lg-4 px-0 col-12 my-1 d-flex justify-content-end">
@@ -11,7 +11,7 @@
 			</div>
 			<div class="order-1 order-lg-3 col-lg-5 px-0 col-12 my-1 d-flex justify-content-end">
 				{{#if (get @selectedRowIDs @type.slug)}}
-					<button data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@type.slug}}-multi" type="button" class="btn btn-info border-1 border-info fw-normal w-100"><FaIcon @icon="rectangle-vertical-history" @prefix="fa-light" />&nbsp;Multi-edit</button>
+					<button data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@type.slug}}-multi" type="button" class="btn btn-info border-1 border-dark fw-normal w-100"><FaIcon @icon="rectangle-vertical-history" @prefix="fa-light" />&nbsp;Multi-edit</button>
 				{{/if}}
 				<button data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@type.slug}}-new" type="button" class="btn btn-dark fw-normal w-100"><FaIcon @icon="plus" @prefix="fa-light" />&nbsp;New</button>
 			</div>
