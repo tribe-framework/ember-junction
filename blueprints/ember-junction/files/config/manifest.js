@@ -10,9 +10,14 @@ module.exports = function(/* environment, appConfig */) {
     description: "A content management system based on Types.json, by Postcode.",
     start_url: "/",
     scope: "/",
-    display: "standalone",
+    display: "fullscreen",
     background_color: "#e9ecef",
     theme_color: "#993399",
+    prefer_related_applications: true,
+    apple: {
+      statusBarStyle: 'black-translucent',
+      precomposed: 'true',
+    },
     icons: [
       {
         src: '/favicon.png',

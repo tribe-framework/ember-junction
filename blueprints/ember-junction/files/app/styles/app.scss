@@ -166,3 +166,7 @@ $ember-power-select-border-radius: 0;
 .page-link{
   cursor: pointer;
 }
+
+body {
+  overscroll-behavior: contain;
+}
