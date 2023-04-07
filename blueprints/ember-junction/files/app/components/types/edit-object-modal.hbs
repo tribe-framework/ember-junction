@@ -17,7 +17,7 @@
           		<InputFields::Checkbox @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
 
           	{{else if (eq module.input_type "editorjs")}}
-          		<InputFields::Editorjs @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} @editorjsInstances={{this.editorjsInstances}} @initEditorJS={{this.initEditorJS}} />
+          		<InputFields::Editorjs @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} @editorjsInstances={{this.editorjsInstances}} @initEditorJS={{this.initEditorJS}} @saveEditorData={{this.saveEditorData}} />
 
             {{else if (eq module.input_type "typeout")}}
               <InputFields::Typeout @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />

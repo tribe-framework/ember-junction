@@ -15,7 +15,7 @@ import Quote from '@editorjs/quote';
 import Delimiter from '@editorjs/delimiter';
 import List from '@editorjs/list';
 import AttachesTool from '@editorjs/attaches';
-import Embed from '@editorjs/embed';
+import FootnotesTune from '@editorjs/footnotes';
 
 export default class TypesEditObjectModalComponent extends Component {
   @service store;
@@ -48,35 +48,47 @@ export default class TypesEditObjectModalComponent extends Component {
 
   @action
   async pushObject() {
-    let vvv = this.objectModules;
-    if (
-      this.args.object !== null &&
-      this.args.object !== undefined &&
-      this.args.object.id !== null
-    ) {
-      this.store
-        .findRecord(this.args.object.modules.type, this.args.object.modules.id)
-        .then((obj) => {
-          obj.modules = vvv;
-          obj.save();
-          document.querySelector('#close-' + this.args.object.id).click();
-        });
-    } else {
-      let obj = await this.store.createRecord(this.args.type.slug, {
-        modules: { ...vvv },
-      });
-      await saveObj(obj);
 
-      this.args.loadTypeObjects(this.args.type);
-
-      this.objectModules = A([]);
-      this.objectID = 'new';
-      this.editorjsInstances = [];
-
-      async function saveObj(obj) {
-        await obj.save();
+    //save all modules that are type=editorjs in the object
+    //because image data does no auto-save in component input-fields/editorjs
+    this.args.type.modules.forEach((val)=>{
+      if (val.input_type == 'editorjs') {
+        this.saveEditorData(val.input_slug, this.objectID);
       }
-    }
+    });
+
+    //adding a delay of 1 sec so that editorjs data is saved before data is sent to server
+    later(this, async ()=>{
+      let vvv = this.objectModules;
+      if (
+        this.args.object !== null &&
+        this.args.object !== undefined &&
+        this.args.object.id !== null
+      ) {
+        this.store
+          .findRecord(this.args.object.modules.type, this.args.object.modules.id)
+          .then((obj) => {
+            obj.modules = vvv;
+            obj.save();
+            document.querySelector('#close-' + this.args.object.id).click();
+          });
+      } else {
+        let obj = await this.store.createRecord(this.args.type.slug, {
+          modules: { ...vvv },
+        });
+        await saveObj(obj);
+
+        this.args.loadTypeObjects(this.args.type);
+
+        this.objectModules = A([]);
+        this.objectID = 'new';
+        this.editorjsInstances = [];
+
+        async function saveObj(obj) {
+          await obj.save();
+        }
+      }
+    }, 1000);
   }
 
   @action
@@ -124,6 +136,9 @@ export default class TypesEditObjectModalComponent extends Component {
       placeholder: editor_object_in_type.input_placeholder,
 
       tools: {
+        paragraph: {
+          tunes: ['footnotes'],
+        },
         header: {
           class: Header,
           config: {
@@ -184,11 +199,29 @@ export default class TypesEditObjectModalComponent extends Component {
         },
         raw: RawTool,
         code: CodeTool,
-        embed: Embed,
+        footnotes: {
+          class: FootnotesTune,
+        }
       },
     });
 
     this.editorjsInstances = this.editorjsInstances;
+  }
+
+  @action
+  saveEditorData(module_input_slug, id) {
+    this.editorjsInstances[this.args.type.slug + '-' + module_input_slug + '-' + id]
+      .save()
+      .then((outputData) => {
+        this.mutObjectModuleValue(
+          module_input_slug,
+          outputData,
+          false
+        );
+      })
+      .catch((error) => {
+        console.log('Saving failed: ', error);
+      });
   }
 
   @action

@@ -40,7 +40,6 @@ export default class InputFieldsFileUploaderComponent extends Component {
       response.json().then((data) => {
         if (data.status == 'success') {
           let files = this.args.object[this.args.module.input_slug] ?? [];
-          console.log(data.file);
           files.push(data.file);
           this.args.mutObjectModuleValue(this.args.module.input_slug, files);
         } else if (data.status == 'error') {

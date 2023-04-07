@@ -15,7 +15,7 @@ module.exports = {
       { name: '@editorjs/quote' },
       { name: '@editorjs/list' },
       { name: '@editorjs/attaches' },
-      { name: '@editorjs/embed' },
+      { name: '@editorjs/footnotes' },
     ]);
   }
 };

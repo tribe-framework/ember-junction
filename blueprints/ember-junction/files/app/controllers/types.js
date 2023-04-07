@@ -107,7 +107,6 @@ export default class TypesController extends Controller {
     this.currentNumberOfPages[this.currentType.slug] = Math.ceil(Number(this.currentType.total_objects) / this.currentPageLength[this.currentType.slug]) ?? 1;
     let i = 1;
     this.pageLinks = A([]);
-    console.log(this.currentPageNumber[this.currentType.slug]);
     while (i <= this.currentNumberOfPages[this.currentType.slug]) {
       if (i === 1 || i === this.currentNumberOfPages[this.currentType.slug] || i <= (this.currentPageNumber[this.currentType.slug]+3) || i >= (this.currentPageNumber[this.currentType.slug]-3))
         this.pageLinks.push(i);
