@@ -43,52 +43,70 @@ export default class TypesEditObjectModalComponent extends Component {
 
   @action
   async deleteObjects() {
-   this.args.loadTypeObjects(this.args.type);
+    await this.args.selectedRowIDs[this.args.type.slug].forEach((id)=>{
+      this.store
+        .findRecord(this.args.type.slug, id)
+        .then(async (obj) => {
+          await obj.destroyRecord();
+        });
+    });
+
+    this.args.emptySelectedRowsInType(this.args.type.slug);
+    this.args.loadTypeObjects(this.args.type);
   }
 
   @action
   async pushObject() {
-
     //save all modules that are type=editorjs in the object
     //because image data does no auto-save in component input-fields/editorjs
-    this.args.type.modules.forEach((val)=>{
-      if (val.input_type == 'editorjs') {
-        this.saveEditorData(val.input_slug, this.objectID);
-      }
+
+    let promises = [];
+    this.args.type.modules.forEach((module) => {
+      const promise = new Promise((resolve, reject) => {
+        if (module.input_type !== 'editorjs') {
+          resolve();
+          return;
+        }
+
+        this.saveEditorData(module.input_slug, this.objectID).then(
+          (outputData) => {
+            this.mutObjectModuleValue(module.input_slug, outputData, false);
+            resolve();
+          }
+        );
+      });
+
+      promises.push(promise);
     });
 
-    //adding a delay of 1 sec so that editorjs data is saved before data is sent to server
-    later(this, async ()=>{
-      let vvv = this.objectModules;
-      if (
-        this.args.object !== null &&
-        this.args.object !== undefined &&
-        this.args.object.id !== null
-      ) {
-        this.store
-          .findRecord(this.args.object.modules.type, this.args.object.modules.id)
-          .then((obj) => {
-            obj.modules = vvv;
-            obj.save();
-            document.querySelector('#close-' + this.args.object.id).click();
-          });
-      } else {
-        let obj = await this.store.createRecord(this.args.type.slug, {
-          modules: { ...vvv },
+    await Promise.all(promises);
+
+    const vvv = this.objectModules;
+    if (
+      this.args.object !== null &&
+      this.args.object !== undefined &&
+      this.args.object.id !== null
+    ) {
+      this.store
+        .findRecord(this.args.object.modules.type, this.args.object.modules.id)
+        .then((obj) => {
+          obj.modules = vvv;
+          obj.save();
+          console.info('saved store');
+          document.querySelector('#close-' + this.args.object.id).click();
         });
-        await saveObj(obj);
+    } else {
+      let obj = await this.store.createRecord(this.args.type.slug, {
+        modules: { ...vvv },
+      });
 
-        this.args.loadTypeObjects(this.args.type);
+      await obj.save();
 
-        this.objectModules = A([]);
-        this.objectID = 'new';
-        this.editorjsInstances = [];
-
-        async function saveObj(obj) {
-          await obj.save();
-        }
-      }
-    }, 1000);
+      this.args.loadTypeObjects(this.args.type);
+      this.objectModules = A([]);
+      this.objectID = 'new';
+      this.editorjsInstances = [];
+    }
   }
 
   @action
@@ -209,19 +227,19 @@ export default class TypesEditObjectModalComponent extends Component {
   }
 
   @action
-  saveEditorData(module_input_slug, id) {
-    this.editorjsInstances[this.args.type.slug + '-' + module_input_slug + '-' + id]
-      .save()
-      .then((outputData) => {
-        this.mutObjectModuleValue(
-          module_input_slug,
-          outputData,
-          false
-        );
-      })
-      .catch((error) => {
-        console.log('Saving failed: ', error);
-      });
+  async saveEditorData(module_input_slug, id) {
+    const ejsId = `${this.args.type.slug}-${module_input_slug}-${id}`;
+
+    if (!this.editorjsInstances[ejsId]) {
+      console.error('editorJs save failed, editorjs instance not found');
+      return;
+    }
+
+    const output = await this.editorjsInstances[ejsId].save().catch((error) => {
+      console.log('Saving failed: ', error);
+    });
+
+    return output;
   }
 
   @action
@@ -277,9 +295,6 @@ export default class TypesEditObjectModalComponent extends Component {
       if (this.objectID === 'new') {
         this.objectModules = A([]);
         this.objectModules = this.objectModules;
-
-        this.editorjsInstances = [];
-        this.editorjsInstances = this.editorjsInstances;
       }
     });
   }
