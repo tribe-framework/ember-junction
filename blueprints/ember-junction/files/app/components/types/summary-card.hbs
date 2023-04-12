@@ -24,7 +24,7 @@
 				{{else}}
 
 			  	{{#each-in @types as |key type|}}
-			  		{{#if (not-eq key "webapp")}}
+			  		{{#if (and (not-eq key "webapp") (not-eq type.hidden true))}}
 					    <tr>
 					      <td>{{key}}</td>
 					      <td>{{type.total_objects}}</td>

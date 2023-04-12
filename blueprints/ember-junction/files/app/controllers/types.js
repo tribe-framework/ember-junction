@@ -20,6 +20,8 @@ export default class TypesController extends Controller {
   @tracked currentNumberOfPages = A([]);
   @tracked currentPageLength = A([]);
 
+  @tracked showClearSearchButton = false;
+
   @action
   loadTypeObjects(type) {
     var type_slug = type.slug;
@@ -112,6 +114,7 @@ export default class TypesController extends Controller {
       },
     });
 
+    this.showClearSearchButton = false;
     this.loadingSearchResults = false;
   }
 
@@ -157,5 +160,23 @@ export default class TypesController extends Controller {
     this.updatePageOffset(
       (pageNumber - 1) * this.currentPageLength[this.currentType.slug]
     );
+  }
+
+  @action
+  async advancedSearch(advancedSearchQuery) {
+    
+    this.loadingSearchResults = true;
+    this.objectsInType = null;
+    this.objectsInType = await this.store.query(this.currentType.slug, {
+      show_public_objects_only: false,
+      page: {
+        limit: this.currentPageLength[this.currentType.slug],
+        offset: this.currentPageOffset[this.currentType.slug],
+      },
+      filter: { ...advancedSearchQuery },
+    });
+
+    this.showClearSearchButton = true;
+    this.loadingSearchResults = false;
   }
 }

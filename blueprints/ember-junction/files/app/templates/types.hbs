@@ -11,7 +11,7 @@
 					{{/each}}
 				{{else}}
 					{{#each-in this.types.json.modules as |key type|}}
-						{{#if (and type.slug (not-eq type.slug "webapp"))}}
+						{{#if (and (and type.slug (not-eq type.slug "webapp")) (not-eq type.hidden true))}}
 					  		<button {{on 'click' (fn this.loadTypeObjects type)}} type="button" class="btn {{if (eq key this.currentType.slug) "btn-dark" "btn-outline-dark"}} me-2 mb-2">{{type.plural}}</button>
 					  	{{/if}}
 					{{/each-in}}
@@ -24,7 +24,7 @@
 {{#if this.currentType}}
 	<div style="overflow-x:hidden" class="row px-0 mt-3 row-cols-1 g-3 {{if (lte this.modulesThatWillBeListed.length 5) "container-xxl px-2 mx-auto" "mx-0"}}">
 		<div class="col px-0">
-			<Types::ListTable::TitleBar @type={{this.currentType}} @search={{this.search}} @clearSearch={{this.clearSearch}} @updatePageLength={{this.updatePageLength}} @currentPageLength={{this.currentPageLength}} @selectedRowIDs={{this.selectedRowIDs}} />
+			<Types::ListTable::TitleBar @type={{this.currentType}} @search={{this.search}} @clearSearch={{this.clearSearch}} @updatePageLength={{this.updatePageLength}} @currentPageLength={{this.currentPageLength}} @selectedRowIDs={{this.selectedRowIDs}} @advancedSearch={{this.advancedSearch}} @showClearSearchButton={{this.showClearSearchButton}} />
 
 			<Types::ListTable::Pagination @type={{get this.types.json.modules this.currentType.slug}} @numberOfPages={{get this.currentNumberOfPages this.currentType.slug}} @pageLinks={{this.pageLinks}} @changePageNumber={{this.changePageNumber}} @currentPageNumber={{this.currentPageNumber}} />
 

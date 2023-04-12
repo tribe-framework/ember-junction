@@ -1,5 +1,6 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
+import ENV from 'junction/config/environment';
 
 export default class ApplicationRoute extends Route {
   @service store;

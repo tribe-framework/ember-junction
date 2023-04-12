@@ -24,6 +24,7 @@ module.exports = function () {
       'external-link-alt',
       'copy',
       'pen-to-square',
+      'circle-bolt',
       'megaphone',
       'plus',
       'times',

@@ -218,10 +218,23 @@ export default class TypesEditObjectModalComponent extends Component {
             defaultStyle: 'unordered',
           },
         },
-        raw: RawTool,
-        code: CodeTool,
+        raw: {
+          class: RawTool,
+          config: {
+            placeholder: 'Embed code or any HTML code',
+          },
+        },
+        code: {
+          class: CodeTool,
+          config: {
+            placeholder: 'Inline code for display within text',
+          },
+        },
         footnotes: {
           class: FootnotesTune,
+          config: {
+            placeholder: 'Footnotes',
+          },
         },
       },
     });

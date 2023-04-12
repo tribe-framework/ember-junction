@@ -1,7 +1,32 @@
 <div class="input-group mx-0">
-  <Input @type="text" @value={{this.searchQuery}} class="border border-dark form-control" placeholder="Search within {{@type.plural}}" />
-  {{#if this.searchQuery}}
+  <Input @type="text" @value={{this.searchQuery}} class="border border-dark form-control" placeholder="Search within {{@type.plural}}" @enter={{fn @search this.searchQuery}} @escape-press={{fn @search ""}} />
+  {{#if (or this.searchQuery @showClearSearchButton)}}
     <button class="btn btn-outline-dark" type="button" {{on 'click' @clearSearch}} {{on 'click' this.clearSearchQuery}}><FaIcon @icon="times" @prefix="fa-light" /></button>
   {{/if}}
   <button class="btn btn-outline-dark" type="button" {{on 'click' (fn @search this.searchQuery)}}><FaIcon @icon="magnifying-glass" @prefix="fa-light" /></button>
+  <button class="btn btn-outline-dark" type="button" data-bs-toggle="modal" data-bs-target="#advancedSearchModal"><FaIcon @icon="circle-bolt" /></button>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="advancedSearchModal" tabindex="-1">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5">Advanced search</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {{#each @type.modules as |module|}}
+          {{#if module.list_searchable}}
+            <div class="mb-3">
+              <Input @type="text" @value={{mut (get this.advancedSearchQuery module.input_slug)}} placeholder="Keywords for {{module.input_slug}}" class="form-control" />
+            </div>
+          {{/if}}
+        {{/each}}
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" {{on 'click' (fn @advancedSearch this.advancedSearchQuery)}}>Search</button>
+      </div>
+    </div>
+  </div>
 </div>

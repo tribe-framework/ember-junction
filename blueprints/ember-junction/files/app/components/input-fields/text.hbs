@@ -1,4 +1,4 @@
-<div class="mb-3">
+<div class="mb-3 {{if (eq @module.input_type "hidden") "d-none"}}">
 	{{#if @module.input_multiple}}
 		{{#each (get @object @module.input_slug) as |field index|}}
 			{{#if field}}

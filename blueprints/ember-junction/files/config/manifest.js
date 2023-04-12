@@ -10,9 +10,9 @@ module.exports = function(/* environment, appConfig */) {
     description: "A content management system based on Types.json, by Postcode.",
     start_url: "/",
     scope: "/",
-    display: "fullscreen",
+    display: "standalone",
     background_color: "#e9ecef",
-    theme_color: "#993399",
+    theme_color: "#0A1119",
     prefer_related_applications: true,
     apple: {
       statusBarStyle: 'black-translucent',
@@ -25,7 +25,7 @@ module.exports = function(/* environment, appConfig */) {
       },
     ],
     ms: {
-      tileColor: '#993399'
+      tileColor: '#0A1119'
     }
   };
 }

@@ -40,43 +40,47 @@
           
         {{/each}}
       </div>
-      <div class="modal-footer">
-      	<InputFields::Text @module={{hash input_slug="id" input_type="hidden"}} @object={{this.objectModules}} />
+      <div class="modal-footer p-0">
       	<InputFields::Text @module={{hash input_slug="type" input_type="hidden"}} @object={{this.objectModules}} />
         <div class="w-100 d-flex align-items-center justify-content-between">
 
           {{#if @object.id}}
+            <InputFields::Text @module={{hash input_slug="id" input_type="hidden"}} @object={{this.objectModules}} />
 
-            <button type="button" class="btn btn-primary" {{on 'click' this.pushObject}}>Save changes</button>
-
-            <div class="d-flex justify-content-start align-items-center" {{on 'click' this.areYouSure}}>
+            <div class="d-flex justify-content-start align-items-center">
               <div class="d-flex justify-content-start align-items-start">
-                <button type="button" class="btn btn-danger text-light me-2"><FaIcon @icon="trash-alt" /></button>
+                <button {{on 'click' this.areYouSure}} type="button" class="btn btn-danger text-light"><FaIcon @icon="trash-alt" /></button>
               </div>
               <div class="{{this.deleteSurity}} justify-content-start align-items-center" id="deleteObjectConfirmation-{{@object.id}}">
-                <div class="me-2">Are you sure?</div>
+                <div class="mx-2">Are you sure?</div>
                 <button data-bs-dismiss="modal" type="button" class="btn btn-sm btn-danger me-1" {{on 'click' this.deleteObject}}>Yes, delete it</button>
                 <button type="button" class="btn btn-sm btn-success me-1" {{on 'click' this.notSoSure}}>No, keep it</button>
               </div>
             </div>
 
+            <button type="button" class="btn btn-primary" {{on 'click' this.pushObject}}>Save changes</button>
+
           {{else}}
             {{#if @multiEdit}}
-              <button data-bs-dismiss="modal" type="button" class="btn btn-primary" {{on 'click' (fn this.pushObjects @selectedRowIDs)}}>Multi-edit save {{@type.name}}</button>
 
-              <div class="d-flex justify-content-start align-items-center" {{on 'click' this.areYouSure}}>
+              <div class="d-flex justify-content-start align-items-center">
                 <div class="d-flex justify-content-start align-items-start">
-                  <button type="button" class="btn btn-danger text-light me-2"><FaIcon @icon="trash-alt" /></button>
+                  <button {{on 'click' this.areYouSure}} type="button" class="btn btn-danger text-light"><FaIcon @icon="trash-alt" /></button>
                 </div>
                 <div class="{{this.deleteSurity}} justify-content-start align-items-center" id="deleteObjectConfirmation-{{@type.slug}}-multi">
-                  <div class="me-2">Delete ALL?</div>
+                  <div class="mx-2">Delete ALL?</div>
                   <button data-bs-dismiss="modal" type="button" class="btn btn-sm btn-danger me-1" {{on 'click' (fn this.deleteObjects @selectedRowIDs)}}>Yes, delete them</button>
-                  <button type="button" class="btn btn-sm btn-success me-1" {{on 'click' this.notSoSure}}>No, keep it</button>
+                  <button type="button" class="btn btn-sm btn-success me-1" {{on 'click' this.notSoSure}}>No, keep them</button>
                 </div>
               </div>
 
+              <button data-bs-dismiss="modal" type="button" class="btn btn-primary" {{on 'click' (fn this.pushObjects @selectedRowIDs)}}>Multi-edit save {{@type.name}}</button>
+
             {{else}}
-              <button data-bs-dismiss="modal" type="button" class="btn btn-primary" {{on 'click' this.pushObject}}>Create new {{@type.name}}</button>
+            
+                <div>&nbsp;</div>
+                <button data-bs-dismiss="modal" type="button" class="btn btn-primary" {{on 'click' this.pushObject}}>Create new {{@type.name}}</button>
+
             {{/if}}
           {{/if}}
         </div>
