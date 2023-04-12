@@ -8,32 +8,13 @@
 
         <td class="position-relative border-end border-1 border-dark" {{on 'mouseover' this.showOptions}} {{on 'mouseout' this.hideOptions}}>
           <div class="text-ellipsis" {{on 'touchend' this.toggleOptions}}>{{get @object.modules module.input_slug}}</div>
-          <div class="w-100 bg-white border-top border-bottom border-5 border-muted p-1 d-none position-absolute bottom-0 end-0 justify-content-between align-items-center" id="row-options-{{@object.id}}">
-            <div class="d-flex align-items-center">
-              <span class="d-none d-md-inline-block" data-toggle="tooltip" data-placement="bottom" title="{{@object.modules.slug}}"><span class="ml-1 small text-dark slug-ellipsis">{{@object.modules.slug}}</span></span>
-            </div>
-            <div class="d-flex align-items-center">
-              <span class="badge badge-sm border-0 font-weight-bold text-uppercase text-dark">
-                {{#if (eq @object.modules.content_privacy "public")}}
-                  <span class="text-success"><FaIcon @icon="megaphone" /></span>
-                {{else if (eq @object.modules.content_privacy "private")}}
-                  <span class="text-danger"><FaIcon @icon="link-horizontal" @prefix="fa-light" /></span>
-                {{else if (eq @object.modules.content_privacy "pending")}}
-                  <span class="text-warning"><FaIcon @icon="hourglass-half" /></span>
-                {{else}}
-                  <span class="text-dark"><FaIcon @icon="paragraph" /></span>
-                {{/if}}
-                {{if @object.modules.content_privacy @object.modules.content_privacy "draft"}}
-              </span> 
-              <button class="badge badge-sm border border-1 border-dark text-dark font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@object.id}}" type="button"><span class="text-success"><FaIcon @icon="edit" /></span>&nbsp;Edit</button>
-            </div>
-          </div> 
+          <Types::ListTable::RowOptions @object={{@object}} @type={{@type}} @module={{module}} />
         </td>
 
       {{else}}
 
-        <td class="position-relative border-end border-1 border-dark">
-          <div class="text-ellipsis">{{get @object.modules module.input_slug}}</div> 
+        <td class="position-relative border-end border-1 border-dark" {{on 'mouseover' this.showOptions}} {{on 'mouseout' this.hideOptions}}>
+          <div class="text-ellipsis" {{on 'touchend' this.toggleOptions}}>{{get @object.modules module.input_slug}}</div> 
         </td>
 
       {{/if}}
@@ -42,4 +23,5 @@
   {{/each}}
 </tr>
 
-<Types::EditObjectModal @multiEdit={{false}} @webapp={{@webapp}} @type={{@type}} @object={{@object}} @loadTypeObjects={{@loadTypeObjects}} />
+<Types::CopyObjectModal @object={{@object}} @type={{@type}} @loadTypeObjects={{@loadTypeObjects}} />
+<Types::EditObjectModal @multiEdit={{false}} @webapp={{@webapp}} @type={{@type}} @object={{@object}} @loadTypeObjects={{@loadTypeObjects}} @selectedRowIDs={{@selectedRowIDs}} @emptySelectedRowsInType={{@emptySelectedRowsInType}} />

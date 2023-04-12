@@ -6,17 +6,16 @@ export default class TypesListTableRowComponent extends Component {
   @tracked isShowing = false;
   @tracked isSelected = false;
 
-  inArray = (needle, haysack)=>{
+  inArray = (needle, haysack) => {
     const index = haysack.indexOf(needle);
     if (index > -1) {
       this.isSelected = true;
       return true;
-    }
-    else {
+    } else {
       this.isSelected = false;
       return false;
     }
-  }
+  };
 
   @action
   showOptions() {
@@ -25,7 +24,7 @@ export default class TypesListTableRowComponent extends Component {
       .classList.remove('d-none');
     document
       .querySelector('#row-options-' + this.args.object.id)
-      .classList.add('d-flex');
+      .classList.add('d-block');
   }
 
   @action
@@ -35,7 +34,7 @@ export default class TypesListTableRowComponent extends Component {
       .classList.add('d-none');
     document
       .querySelector('#row-options-' + this.args.object.id)
-      .classList.remove('d-flex');
+      .classList.remove('d-block');
   }
 
   @action
@@ -51,7 +50,10 @@ export default class TypesListTableRowComponent extends Component {
         .querySelector('#row-' + this.args.object.id)
         .classList.remove('bg-info');
       this.isSelected = false;
-      this.args.removeFromSelectedRowIDs(this.args.type.slug, this.args.object.id);
+      this.args.removeFromSelectedRowIDs(
+        this.args.type.slug,
+        this.args.object.id
+      );
     }
   }
 
@@ -63,7 +65,7 @@ export default class TypesListTableRowComponent extends Component {
         .classList.remove('d-none');
       document
         .querySelector('#row-options-' + this.args.object.id)
-        .classList.add('d-flex');
+        .classList.add('d-block');
       this.isShowing = true;
     } else {
       document
@@ -71,7 +73,7 @@ export default class TypesListTableRowComponent extends Component {
         .classList.add('d-none');
       document
         .querySelector('#row-options-' + this.args.object.id)
-        .classList.remove('d-flex');
+        .classList.remove('d-block');
       this.isShowing = false;
     }
   }

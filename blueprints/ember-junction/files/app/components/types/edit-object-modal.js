@@ -20,6 +20,8 @@ import FootnotesTune from '@editorjs/footnotes';
 export default class TypesEditObjectModalComponent extends Component {
   @service store;
   @service router;
+  @service types;
+
   @tracked objectModules = this.args.object ? this.args.object.modules : A([]);
   @tracked objectID = this.args.object ? this.args.object.modules.id : 'new';
   @tracked editorjsInstances = [];
@@ -28,31 +30,28 @@ export default class TypesEditObjectModalComponent extends Component {
   async pushObjects() {
     let vvv = this.objectModules;
 
-    await this.args.selectedRowIDs[this.args.type.slug].forEach((id)=>{
-      this.store
-        .findRecord(this.args.type.slug, id)
-        .then((obj) => {
-          obj.modules = { ...vvv };
-          obj.save();
-        });
+    await this.args.selectedRowIDs[this.args.type.slug].forEach((id) => {
+      this.store.findRecord(this.args.type.slug, id).then((obj) => {
+        obj.modules = { ...vvv };
+        obj.save();
+      });
     });
-    
+
     this.args.emptySelectedRowsInType(this.args.type.slug);
     this.args.loadTypeObjects(this.args.type);
+    this.types.fetchAgain();
   }
 
   @action
   async deleteObjects() {
-    await this.args.selectedRowIDs[this.args.type.slug].forEach((id)=>{
-      this.store
-        .findRecord(this.args.type.slug, id)
-        .then(async (obj) => {
-          await obj.destroyRecord();
-        });
+    await this.args.selectedRowIDs[this.args.type.slug].forEach((id) => {
+      this.store.findRecord(this.args.type.slug, id).then(async (obj) => {
+        await obj.destroyRecord();
+      });
     });
 
     this.args.emptySelectedRowsInType(this.args.type.slug);
-    this.args.loadTypeObjects(this.args.type);
+    this.types.fetchAgain();
   }
 
   @action
@@ -107,6 +106,8 @@ export default class TypesEditObjectModalComponent extends Component {
       this.objectID = 'new';
       this.editorjsInstances = [];
     }
+
+    this.types.fetchAgain();
   }
 
   @action
@@ -121,8 +122,10 @@ export default class TypesEditObjectModalComponent extends Component {
         this.args.object.modules.id
       );
       await obj.destroyRecord();
-      this.args.loadTypeObjects(this.args.type);
     }
+
+    this.args.emptySelectedRowsInType(this.args.type.slug);
+    this.types.fetchAgain();
   }
 
   @tracked deleteSurity = 'd-none';
@@ -219,7 +222,7 @@ export default class TypesEditObjectModalComponent extends Component {
         code: CodeTool,
         footnotes: {
           class: FootnotesTune,
-        }
+        },
       },
     });
 
@@ -254,7 +257,11 @@ export default class TypesEditObjectModalComponent extends Component {
       this.objectModules[module_input_slug] = value;
     }
 
-    if (this.args.multiEdit === true && Array.isArray(this.objectModules[module_input_slug]) && this.objectModules[module_input_slug].length == 0) {
+    if (
+      this.args.multiEdit === true &&
+      Array.isArray(this.objectModules[module_input_slug]) &&
+      this.objectModules[module_input_slug].length == 0
+    ) {
       delete this.objectModules[module_input_slug];
     }
 
@@ -289,7 +296,7 @@ export default class TypesEditObjectModalComponent extends Component {
   @action
   cleanVarsOnModalOpen(e) {
     const myModalEl = document.getElementById(e.id);
-    myModalEl.addEventListener('show.bs.modal', event => {
+    myModalEl.addEventListener('show.bs.modal', (event) => {
       this.objectID = this.args.object ? this.args.object.modules.id : 'new';
 
       if (this.objectID === 'new') {

@@ -5,13 +5,13 @@
 	<div class="row mt-3 row-cols-1 g-3">
 		<div class="col">
 			<PageSummaryCard @title="Types defined in types.json">
-				{{#if @model.modules.webapp.interface_urls.<%= dasherizedPackageName %>.types}}
-					{{#each @model.modules.webapp.interface_urls.<%= dasherizedPackageName %>.types as |type_slug|}}
-				  		<button {{on 'click' (fn this.loadTypeObjects (get @model.modules type_slug))}} type="button" class="btn {{if (eq type_slug this.currentType.slug) "btn-dark" "btn-outline-dark"}} me-2 mb-2">{{get (get @model.modules type_slug) "plural"}}</button>
+				{{#if this.types.json.modules.webapp.interface_urls.<%= dasherizedPackageName %>.types}}
+					{{#each this.types.json.modules.webapp.interface_urls.<%= dasherizedPackageName %>.types as |type_slug|}}
+				  		<button {{on 'click' (fn this.loadTypeObjects (get this.types.json.modules type_slug))}} type="button" class="btn {{if (eq type_slug this.currentType.slug) "btn-dark" "btn-outline-dark"}} me-2 mb-2">{{get (get this.types.json.modules type_slug) "plural"}}</button>
 					{{/each}}
 				{{else}}
-					{{#each-in @model.modules as |key type|}}
-						{{#if (not-eq type.slug "webapp")}}
+					{{#each-in this.types.json.modules as |key type|}}
+						{{#if (and type.slug (not-eq type.slug "webapp"))}}
 					  		<button {{on 'click' (fn this.loadTypeObjects type)}} type="button" class="btn {{if (eq key this.currentType.slug) "btn-dark" "btn-outline-dark"}} me-2 mb-2">{{type.plural}}</button>
 					  	{{/if}}
 					{{/each-in}}
@@ -26,21 +26,29 @@
 		<div class="col px-0">
 			<Types::ListTable::TitleBar @type={{this.currentType}} @search={{this.search}} @clearSearch={{this.clearSearch}} @updatePageLength={{this.updatePageLength}} @currentPageLength={{this.currentPageLength}} @selectedRowIDs={{this.selectedRowIDs}} />
 
-			<Types::ListTable::Pagination @type={{this.currentType}} @numberOfPages={{get this.currentNumberOfPages this.currentType.slug}} @pageLinks={{this.pageLinks}} @changePageNumber={{this.changePageNumber}} @currentPageNumber={{this.currentPageNumber}} />
+			<Types::ListTable::Pagination @type={{get this.types.json.modules this.currentType.slug}} @numberOfPages={{get this.currentNumberOfPages this.currentType.slug}} @pageLinks={{this.pageLinks}} @changePageNumber={{this.changePageNumber}} @currentPageNumber={{this.currentPageNumber}} />
 
-			<Types::ListTable @webapp={{@model}} @type={{this.currentType}} @loadTypeObjects={{this.loadTypeObjects}} @selectedRowIDs={{this.selectedRowIDs}} @emptySelectedRowsInType={{this.emptySelectedRowsInType}}>
+			<Types::ListTable @webapp={{this.types.json}} @type={{this.currentType}} @loadTypeObjects={{this.loadTypeObjects}} @selectedRowIDs={{this.selectedRowIDs}} @emptySelectedRowsInType={{this.emptySelectedRowsInType}}>
 
 				<Types::ListTable::Head @type={{this.currentType}} />
 
 				<tbody>
 					{{#each this.objectsInType as |object|}}
 						{{#if (not-eq object.id "0")}}
-							<Types::ListTable::Row @webapp={{@model}} @type={{this.currentType}} @object={{object}} @loadTypeObjects={{this.loadTypeObjects}} @selectedRowIDs={{this.selectedRowIDs}} @addToSelectedRowIDs={{this.addToSelectedRowIDs}} @removeFromSelectedRowIDs={{this.removeFromSelectedRowIDs}} />
+							<Types::ListTable::Row @webapp={{this.types.json}} @type={{this.currentType}} @object={{object}} @loadTypeObjects={{this.loadTypeObjects}} @selectedRowIDs={{this.selectedRowIDs}} @addToSelectedRowIDs={{this.addToSelectedRowIDs}} @removeFromSelectedRowIDs={{this.removeFromSelectedRowIDs}} @emptySelectedRowsInType={{this.emptySelectedRowsInType}} />
 						{{else}}
-							<Types::ListTable::EmptyTableRow />
+							{{#if this.loadingSearchResults}}
+								<Types::ListTable::LoadingTableRow />
+							{{else}}
+								<Types::ListTable::EmptyTableRow />
+							{{/if}}
 						{{/if}}
 					{{else}}
-						<Types::ListTable::EmptyTableRow />
+							{{#if this.loadingSearchResults}}
+								<Types::ListTable::LoadingTableRow />
+							{{else}}
+								<Types::ListTable::EmptyTableRow />
+							{{/if}}
 					{{/each}}
 				</tbody>
 
@@ -48,5 +56,7 @@
 		</div>
 	</div>
 {{/if}}
+
+<GoToTop />
 
 {{outlet}}

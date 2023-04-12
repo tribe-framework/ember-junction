@@ -3,14 +3,32 @@ import { service } from '@ember/service';
 
 export default class ApplicationRoute extends Route {
   @service store;
+  @service types;
 
   async model() {
     return await this.store.findRecord('webapp', 0, {
       include: ['total_objects'],
     });
-    //findRecord for type+slug pair and findAll all objects in a type
-    //return await this.store.findRecord('types_json', 'webapp');
-    //this.store.findAll('film');
-    //this.store.query('film', {page: {limit: 2, offset: 0}});
+  }
+
+  afterModel(data) {
+    Object.entries(data.modules).forEach(([key, tp]) => {
+
+      if (key != 'webapp') {
+        tp.modules.forEach((e)=>{
+            if ( e.input_slug != 'content_privacy'
+              && e.input_type == 'select'
+              && Object.keys(data.modules).includes(e.input_slug) ) {
+              let vvv = this.store.query(e.input_slug, {
+                show_public_objects_only: false,
+                page: { limit: -1 },
+              });
+            }
+        });
+      }
+
+    });
+
+    document.querySelector('#loading').classList.add('d-none');
   }
 }

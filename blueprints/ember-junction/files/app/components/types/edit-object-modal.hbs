@@ -11,7 +11,7 @@
 
         {{#each @type.modules as |module|}}
 
-          {{#unless (or (and @multiEdit module.input_primary) (and @multiEdit (eq module.input_type "file_uploader")) (and @multiEdit (eq module.input_type "editorjs")))}}
+          {{#if (not (or (and @multiEdit module.input_primary) (and @multiEdit (eq module.input_type "file_uploader")) (and @multiEdit (eq module.input_type "editorjs"))))}}
         	
           	{{#if (eq module.input_type "checkbox")}}
           		<InputFields::Checkbox @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
@@ -36,7 +36,7 @@
 
           	{{/if}}
 
-          {{/unless}}
+          {{/if}}
           
         {{/each}}
       </div>

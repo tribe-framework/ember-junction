@@ -17,6 +17,11 @@
     {{content-for "head-footer"}}
   </head>
   <body class="bg-secondary" style="overflow-x: hidden;">
+    <div class="vh-100 w-100 d-flex align-items-center justify-content-center" id="loading">
+      <div class="spinner-border" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+    </div>
     {{content-for "body"}}
 
     <script src="{{rootURL}}assets/vendor.js"></script>

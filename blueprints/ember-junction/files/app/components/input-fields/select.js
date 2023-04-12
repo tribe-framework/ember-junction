@@ -51,15 +51,14 @@ export default class InputFieldsSelectComponent extends Component {
 
   @action
   async isModuleAlsoAType() {
-    if (this.args.webapp.modules[this.args.module.input_slug] !== undefined || this.args.module.input_slug == 'content_privacy') {
-
-
+    if (
+      this.args.webapp.modules[this.args.module.input_slug] !== undefined ||
+      this.args.module.input_slug == 'content_privacy'
+    ) {
       if (this.args.module.input_slug != 'content_privacy') {
-
-        this.typeOptions = await this.store.query(this.args.module.input_slug, {
-          show_public_objects_only: false,
-          page: { limit: -1 },
-        });
+        this.typeOptions = await this.store.peekAll(
+          this.args.module.input_slug
+        );
 
         this.typeOptions.forEach((element) => {
           this.options.push(element.modules);
@@ -69,7 +68,8 @@ export default class InputFieldsSelectComponent extends Component {
           ) {
             //selected option
             if (
-              typeof this.args.object[this.args.module.input_slug] === 'string' &&
+              typeof this.args.object[this.args.module.input_slug] ===
+                'string' &&
               element.modules.slug ==
                 this.args.object[this.args.module.input_slug]
             ) {
@@ -79,7 +79,8 @@ export default class InputFieldsSelectComponent extends Component {
 
             //part of selected multi options
             if (
-              typeof this.args.object[this.args.module.input_slug] !== 'string' &&
+              typeof this.args.object[this.args.module.input_slug] !==
+                'string' &&
               inArray(
                 element.modules.slug,
                 this.args.object[this.args.module.input_slug]
@@ -101,9 +102,9 @@ export default class InputFieldsSelectComponent extends Component {
           ) {
             //selected option
             if (
-              typeof this.args.object[this.args.module.input_slug] === 'string' &&
-              element.slug ==
-                this.args.object[this.args.module.input_slug]
+              typeof this.args.object[this.args.module.input_slug] ===
+                'string' &&
+              element.slug == this.args.object[this.args.module.input_slug]
             ) {
               this.selectedOption = element;
               this.selectedMultiOptions[0] = element;
@@ -111,7 +112,8 @@ export default class InputFieldsSelectComponent extends Component {
 
             //part of selected multi options
             if (
-              typeof this.args.object[this.args.module.input_slug] !== 'string' &&
+              typeof this.args.object[this.args.module.input_slug] !==
+                'string' &&
               inArray(
                 element.slug,
                 this.args.object[this.args.module.input_slug]
@@ -124,9 +126,7 @@ export default class InputFieldsSelectComponent extends Component {
         });
       }
 
-      if (this.options)
-        this.options = this.options;
-
+      this.options = this.options;
       this.selectedMultiOptions = this.selectedMultiOptions;
     }
 
