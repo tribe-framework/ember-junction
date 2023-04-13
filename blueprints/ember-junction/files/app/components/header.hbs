@@ -13,13 +13,11 @@
       </ul>
     </div>
     <div class="d-flex align-items-center justify-content-end">
-      <a class="fs-smaller fs-4 navbar-brand text-white"
-        target="_blank"
-        href={{@webapp.url}}
+      <div class="fs-smaller fs-4 navbar-brand text-white"
         data-bs-toggle="tooltip" data-bs-placement="bottom"
-        title="View front-end" rel="noopener noreferrer">
-        <FaIcon @icon="external-link-alt" @prefix="fa-light" />
-      </a>
+        title="Logout" {{on 'click' this.auth.logout}}>
+        <FaIcon @icon="arrow-right-from-bracket" @prefix="fa-light" />
+      </div>
     </div>
   </div>
 </nav>

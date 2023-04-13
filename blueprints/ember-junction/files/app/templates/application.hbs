@@ -1,13 +1,3 @@
 {{page-title "<%= classifiedPackageName %>"}}
 
-<div class="above-footer">
-
-	<Header @webapp={{@model.modules.webapp}} />
-
-	<main class="flex-shrink-0 page a4 d2 mb-5" style="min-height:75vh">
-		{{outlet}}
-	</main>
-
-	<Footer @webapp={{@model.modules.webapp}} />
-
-</div>
+{{outlet}}

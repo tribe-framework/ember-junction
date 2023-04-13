@@ -1,5 +1,11 @@
 {{page-title "Types"}}
 
+<div class="above-footer">
+
+	<Header @webapp={{this.types.json.modules.webapp}} />
+
+	<main class="flex-shrink-0 page a4 d2 mb-5" style="min-height:75vh">
+		
 <div class="container-xxl px-2 mx-auto">
 
 	<div class="row mt-3 row-cols-1 g-3">
@@ -59,4 +65,9 @@
 
 <GoToTop />
 
+	</main>
+
+	<Footer @webapp={{this.types.json.modules.webapp}} />
+
+</div>
 {{outlet}}

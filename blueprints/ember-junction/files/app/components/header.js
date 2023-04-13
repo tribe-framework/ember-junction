@@ -1,7 +1,10 @@
 import Component from '@glimmer/component';
 import { action } from '@ember/object';
+import { service } from '@ember/service';
 
 export default class HeaderComponent extends Component {
+  @service auth;
+  
   @action
   toggleBarsIcon() {
     let el = document.querySelector('#main-menu-toggler');

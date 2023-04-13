@@ -1,13 +1,25 @@
 {{page-title "Dashboard"}}
 
-<div class="container">
 
-	<div class="row mt-3 row-cols-1 g-3">
+<div class="above-footer">
 
-		<div class="col"><Types::SummaryCard @types={{this.types.json.modules}} /></div>
+	<Header @webapp={{@model.modules.webapp}} />
 
-	</div>
+	<main class="flex-shrink-0 page a4 d2 mb-5" style="min-height:75vh">
+
+		<div class="container">
+
+			<div class="row mt-3 row-cols-1 g-3">
+
+				<div class="col"><Types::SummaryCard @types={{this.types.json.modules}} /></div>
+
+			</div>
+
+		</div>
+
+	</main>
+
+	<Footer @webapp={{@model.modules.webapp}} />
 
 </div>
-
 {{outlet}}
