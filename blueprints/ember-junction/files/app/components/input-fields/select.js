@@ -52,83 +52,80 @@ export default class InputFieldsSelectComponent extends Component {
   @action
   async isModuleAlsoAType() {
     if (
-      this.args.webapp.modules[this.args.module.input_slug] !== undefined ||
-      this.args.module.input_slug == 'content_privacy'
+      this.args.webapp.modules[this.args.module.input_slug] !== undefined
     ) {
-      if (this.args.module.input_slug != 'content_privacy') {
-        this.typeOptions = await this.store.peekAll(
-          this.args.module.input_slug
-        );
+      this.typeOptions = await this.store.peekAll(
+        this.args.module.input_slug
+      );
 
-        this.typeOptions.forEach((element) => {
-          this.options.push(element.modules);
+      this.typeOptions.forEach((element) => {
+        this.options.push(element.modules);
 
+        if (
+          typeof this.args.object[this.args.module.input_slug] !== 'undefined'
+        ) {
+          //selected option
           if (
-            typeof this.args.object[this.args.module.input_slug] !== 'undefined'
+            typeof this.args.object[this.args.module.input_slug] ===
+              'string' &&
+            element.modules.slug ==
+              this.args.object[this.args.module.input_slug]
           ) {
-            //selected option
-            if (
-              typeof this.args.object[this.args.module.input_slug] ===
-                'string' &&
-              element.modules.slug ==
-                this.args.object[this.args.module.input_slug]
-            ) {
-              this.selectedOption = element.modules;
-              this.selectedMultiOptions[0] = element.modules;
-            }
-
-            //part of selected multi options
-            if (
-              typeof this.args.object[this.args.module.input_slug] !==
-                'string' &&
-              inArray(
-                element.modules.slug,
-                this.args.object[this.args.module.input_slug]
-              )
-            ) {
-              this.selectedOption = element.modules;
-              this.selectedMultiOptions.push(element.modules);
-            }
+            this.selectedOption = element.modules;
+            this.selectedMultiOptions[0] = element.modules;
           }
-        });
-      }
 
-      if (this.inputOptions !== null) {
-        this.inputOptions.forEach((element) => {
-          this.options.push(element);
-
+          //part of selected multi options
           if (
-            typeof this.args.object[this.args.module.input_slug] !== 'undefined'
+            typeof this.args.object[this.args.module.input_slug] !==
+              'string' &&
+            inArray(
+              element.modules.slug,
+              this.args.object[this.args.module.input_slug]
+            )
           ) {
-            //selected option
-            if (
-              typeof this.args.object[this.args.module.input_slug] ===
-                'string' &&
-              element.slug == this.args.object[this.args.module.input_slug]
-            ) {
-              this.selectedOption = element;
-              this.selectedMultiOptions[0] = element;
-            }
-
-            //part of selected multi options
-            if (
-              typeof this.args.object[this.args.module.input_slug] !==
-                'string' &&
-              inArray(
-                element.slug,
-                this.args.object[this.args.module.input_slug]
-              )
-            ) {
-              this.selectedOption = element;
-              this.selectedMultiOptions.push(element);
-            }
+            this.selectedOption = element.modules;
+            this.selectedMultiOptions.push(element.modules);
           }
-        });
-      }
-
-      this.options = this.options;
-      this.selectedMultiOptions = this.selectedMultiOptions;
+        }
+      });
     }
+
+    else if (this.inputOptions !== null) {
+      this.inputOptions.forEach((element) => {
+        this.options.push(element);
+
+        if (
+          typeof this.args.object[this.args.module.input_slug] !== 'undefined'
+        ) {
+          //selected option
+          if (
+            typeof this.args.object[this.args.module.input_slug] ===
+              'string' &&
+            element.slug == this.args.object[this.args.module.input_slug]
+          ) {
+            this.selectedOption = element;
+            this.selectedMultiOptions[0] = element;
+          }
+
+          //part of selected multi options
+          if (
+            typeof this.args.object[this.args.module.input_slug] !==
+              'string' &&
+            inArray(
+              element.slug,
+              this.args.object[this.args.module.input_slug]
+            )
+          ) {
+            this.selectedOption = element;
+            this.selectedMultiOptions.push(element);
+          }
+        }
+      });
+    }
+    
+    this.options = this.options;
+    this.selectedMultiOptions = this.selectedMultiOptions;
 
     function inArray(needle, haystack) {
       var length = haystack.length;
