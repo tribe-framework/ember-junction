@@ -28,11 +28,11 @@
 </div>
 
 {{#if this.currentType}}
-	<div style="overflow-x:hidden" class="row px-0 mt-3 row-cols-1 g-3 {{if (lte this.modulesThatWillBeListed.length 5) "container-xxl px-2 mx-auto" "mx-0"}}">
+	<div style="overflow-x:hidden" class="row px-0 mt-3 row-cols-1 g-3 px-2 {{if (lte this.modulesThatWillBeListed.length 5) "container-xxl mx-auto" "mx-0"}}">
 		<div class="col px-0">
-			<Types::ListTable::TitleBar @type={{this.currentType}} @search={{this.search}} @clearSearch={{this.clearSearch}} @updatePageLength={{this.updatePageLength}} @currentPageLength={{this.currentPageLength}} @selectedRowIDs={{this.selectedRowIDs}} @advancedSearch={{this.advancedSearch}} @showClearSearchButton={{this.showClearSearchButton}} />
+			<Types::ListTable::TitleBar @type={{this.currentType}} @search={{this.search}} @clearSearch={{this.clearSearch}} @updatePageLength={{this.updatePageLength}} @currentPageLength={{this.currentPageLength}} @selectedRowIDs={{this.selectedRowIDs}} @advancedSearch={{this.advancedSearch}} @showClearSearchButton={{this.showClearSearchButton}} @searchQuery={{this.searchQuery}} @advancedSearchQuery={{this.advancedSearchQuery}} @clearSearchQuery={{this.clearSearchQuery}} @changePageNumber={{this.changePageNumber}} />
 
-			<Types::ListTable::Pagination @type={{get this.types.json.modules this.currentType.slug}} @numberOfPages={{get this.currentNumberOfPages this.currentType.slug}} @pageLinks={{this.pageLinks}} @changePageNumber={{this.changePageNumber}} @currentPageNumber={{this.currentPageNumber}} />
+			<Types::ListTable::Pagination @type={{get this.types.json.modules this.currentType.slug}} @numberOfPages={{get this.currentNumberOfPages this.currentType.slug}} @pageLinks={{this.pageLinks}} @changePageNumber={{this.changePageNumber}} @currentPageNumber={{this.currentPageNumber}} @totalObjects={{this.totalObjects}} />
 
 			<Types::ListTable @webapp={{this.types.json}} @type={{this.currentType}} @loadTypeObjects={{this.loadTypeObjects}} @selectedRowIDs={{this.selectedRowIDs}} @emptySelectedRowsInType={{this.emptySelectedRowsInType}}>
 

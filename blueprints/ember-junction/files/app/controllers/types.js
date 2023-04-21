@@ -8,6 +8,11 @@ export default class TypesController extends Controller {
   @service store;
   @service types;
 
+  @tracked searchQuery = null;
+  @tracked advancedSearchQuery = A([]);
+
+  @tracked isAdvancedSearch = false;
+
   @tracked currentType = null;
   @tracked objectsInType = null;
   @tracked pageLinks = A([]);
@@ -21,9 +26,10 @@ export default class TypesController extends Controller {
   @tracked currentPageLength = A([]);
 
   @tracked showClearSearchButton = false;
+  @tracked totalObjects = this.currentType.total_objects;
 
   @action
-  loadTypeObjects(type) {
+  loadTypeObjects(type, searchResults = false) {
     var type_slug = type.slug;
 
     this.currentType = type;
@@ -45,8 +51,12 @@ export default class TypesController extends Controller {
     this.currentPageLength = this.currentPageLength;
     this.currentPageNumber = this.currentPageNumber;
 
-    this.updatePageLinks();
-    this.clearSearch();
+    if (searchResults === true) {
+      this.search();
+    } else {
+      this.clearSearch();
+      this.updatePageLinks();
+    }
   }
 
   @action
@@ -73,20 +83,24 @@ export default class TypesController extends Controller {
 
   @action
   updatePageLength(pageLength) {
+    this.currentPageNumber[this.currentType.slug] = 1;
     this.currentPageLength[this.currentType.slug] = pageLength;
     this.currentPageOffset[this.currentType.slug] = 0;
-    this.loadTypeObjects(this.currentType);
+    this.loadTypeObjects(this.currentType, true);
   }
 
   @action
   updatePageOffset(pageOffset) {
     this.currentPageOffset[this.currentType.slug] = pageOffset;
-    this.loadTypeObjects(this.currentType);
+    this.loadTypeObjects(this.currentType, true);
   }
 
   @action
-  async search(query) {
-    if (query != '') {
+  async search() {
+    if (this.isAdvancedSearch)
+      this.advancedSearch();
+    else if (this.searchQuery != '') {
+      this.isAdvancedSearch = false;
       this.loadingSearchResults = true;
       this.objectsInType = null;
       this.objectsInType = await this.store.query(this.currentType.slug, {
@@ -95,17 +109,22 @@ export default class TypesController extends Controller {
           limit: this.currentPageLength[this.currentType.slug],
           offset: this.currentPageOffset[this.currentType.slug],
         },
-        filter: { title: query },
+        filter: { title: this.searchQuery },
       });
       this.loadingSearchResults = false;
-    } else this.clearSearch();
+      if (this.objectsInType.meta.total_objects !== undefined)
+        this.totalObjects = this.objectsInType.meta.total_objects;
+    }
+    else this.clearSearch();
   }
 
   @action
   async clearSearch() {
+    this.isAdvancedSearch = false;
+    this.totalObjects = this.currentType.total_objects;
     this.loadingSearchResults = true;
     this.objectsInType = null;
-    
+
     this.objectsInType = await this.store.query(this.currentType.slug, {
       show_public_objects_only: false,
       page: {
@@ -116,6 +135,33 @@ export default class TypesController extends Controller {
 
     this.showClearSearchButton = false;
     this.loadingSearchResults = false;
+  }
+
+  @action
+  async advancedSearch() {
+    this.isAdvancedSearch = true;
+    this.loadingSearchResults = true;
+    this.objectsInType = null;
+    this.objectsInType = await this.store.query(this.currentType.slug, {
+      show_public_objects_only: false,
+      page: {
+        limit: this.currentPageLength[this.currentType.slug],
+        offset: this.currentPageOffset[this.currentType.slug],
+      },
+      filter: { ...this.advancedSearchQuery },
+    });
+
+    this.showClearSearchButton = true;
+    this.loadingSearchResults = false;
+    if (this.objectsInType.meta.total_objects !== undefined)
+      this.totalObjects = this.objectsInType.meta.total_objects;
+  }
+
+  @action
+  clearSearchQuery() {
+    this.clearSearch();
+    this.searchQuery = null;
+    this.advancedSearchQuery = A([]);
   }
 
   get modulesThatWillBeListed() {
@@ -132,7 +178,7 @@ export default class TypesController extends Controller {
   updatePageLinks() {
     this.currentNumberOfPages[this.currentType.slug] =
       Math.ceil(
-        Number(this.currentType.total_objects) /
+        Number(this.totalObjects) /
           this.currentPageLength[this.currentType.slug]
       ) ?? 1;
     this.currentNumberOfPages = this.currentNumberOfPages;
@@ -160,23 +206,5 @@ export default class TypesController extends Controller {
     this.updatePageOffset(
       (pageNumber - 1) * this.currentPageLength[this.currentType.slug]
     );
-  }
-
-  @action
-  async advancedSearch(advancedSearchQuery) {
-    
-    this.loadingSearchResults = true;
-    this.objectsInType = null;
-    this.objectsInType = await this.store.query(this.currentType.slug, {
-      show_public_objects_only: false,
-      page: {
-        limit: this.currentPageLength[this.currentType.slug],
-        offset: this.currentPageOffset[this.currentType.slug],
-      },
-      filter: { ...advancedSearchQuery },
-    });
-
-    this.showClearSearchButton = true;
-    this.loadingSearchResults = false;
   }
 }

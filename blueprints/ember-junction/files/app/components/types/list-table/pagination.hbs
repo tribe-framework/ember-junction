@@ -1,4 +1,4 @@
-<div class="fw-bold fst-italic w-100 text-center mb-2">Total {{@type.plural}}: {{get @type "total_objects"}}</div>
+<div class="fw-bold fst-italic w-100 text-center mb-2">Total {{@type.plural}}: {{@totalObjects}}</div>
 <nav class="px-0">
   <ul class="pagination px-0 border border-1 border-dark justify-content-center" style="overflow-x:scroll">
     <li class="page-item {{if (not (gt (get @currentPageNumber @type.slug) 1)) "disabled"}}">

@@ -1,9 +1,6 @@
 <div class="d-none position-absolute bottom-0 end-0 w-100 bg-white border-top" id="row-options-{{@object.id}}">
 	<div class="border-bottom position-relative w-100 border-5 border-muted p-1 d-flex justify-content-lg-between align-items-center" style="z-index:1">
 	  <div class="d-flex align-items-center">
-	    <span class="d-none d-md-inline-block" data-toggle="tooltip" data-placement="bottom" title="{{@object.modules.slug}}"><span class="ml-1 small text-dark slug-ellipsis">{{@object.modules.slug}}</span></span>
-	  </div>
-	  <div class="d-flex align-items-center">
 	    <span class="badge badge-sm border-0 font-weight-bold text-uppercase text-dark">
 	      {{#if (eq @object.modules.content_privacy "public")}}
 	        <span class="text-success"><FaIcon @icon="megaphone" /></span>

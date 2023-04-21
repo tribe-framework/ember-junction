@@ -2,8 +2,13 @@
 <div class="modal fade" id="editObjectModal-{{if @object.id @object.id (concat @type.slug "-" (if @multiEdit "multi" "new"))}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editObjectModalLabel" aria-hidden="true" {{did-insert this.cleanVarsOnModalOpen}}>
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
     <div class="modal-content">
-      <div class="modal-header">
-        <h1 class="modal-title fs-5 text-capitalize" id="editObjectModalLabel">{{@type.name}} #{{@object.id}}</h1>
+      <div class="modal-header align-items-center">
+        <div class="modal-title" id="editObjectModalLabel">
+          <div class="fs-5 text-capitalize">{{@type.name}} #{{@object.id}}</div>
+          {{#if @object.id}}
+            <p class="small text-muted fw-bold mb-0">{{@object.modules.slug}}</p>
+          {{/if}}
+        </div>
         <button type="button" id="close-{{this.objectID}}" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">

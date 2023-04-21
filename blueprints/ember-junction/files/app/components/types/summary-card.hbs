@@ -17,7 +17,7 @@
 				{{#if @types.webapp.interface_urls.<%= dasherizedPackageName %>.types}}
 					{{#each @types.webapp.interface_urls.<%= dasherizedPackageName %>.types as |type_slug|}}
 					    <tr>
-					      <td>{{type_slug}}</td>
+					      <td>{{get (get @types type_slug) "plural"}}&nbsp;&nbsp;&nbsp;<a href="#" target="_blank" class="text-decoration-none text-dark" rel="noopener noreferrer"><FaIcon @icon="file-csv" @prefix="fa-light" /></a></td>
 					      <td>{{get (get @types type_slug) "total_objects"}}</td>
 					    </tr>
 					{{/each}}
@@ -26,7 +26,7 @@
 			  	{{#each-in @types as |key type|}}
 			  		{{#if (and (not-eq key "webapp") (not-eq type.hidden true))}}
 					    <tr>
-					      <td>{{key}}</td>
+					      <td>{{get (get @types key) "plural"}}&nbsp;&nbsp;&nbsp;<a href="#" target="_blank" class="text-decoration-none text-dark" rel="noopener noreferrer"><FaIcon @icon="file-csv" @prefix="fa-light" /></a></td>
 					      <td>{{type.total_objects}}</td>
 					    </tr>
 						{{/if}}

@@ -18,14 +18,13 @@ export default class InputFieldsSelectComponent extends Component {
   @action
   updateValue(e) {
     this.selectedOption = e;
-
     this.args.mutObjectModuleValue(this.args.module.input_slug, e.slug, false);
   }
 
   @action
   updateMultiValue(e) {
-    this.selectedMultiOptions = [];
-    this.selectedMultiOptionSlugs = [];
+    this.selectedMultiOptions = A([]);
+    this.selectedMultiOptionSlugs = A([]);
     this.selectedMultiOptions = this.selectedMultiOptions;
 
     e.forEach((f) => {
@@ -51,12 +50,8 @@ export default class InputFieldsSelectComponent extends Component {
 
   @action
   async isModuleAlsoAType() {
-    if (
-      this.args.webapp.modules[this.args.module.input_slug] !== undefined
-    ) {
-      this.typeOptions = await this.store.peekAll(
-        this.args.module.input_slug
-      );
+    if (this.args.webapp.modules[this.args.module.input_slug] !== undefined) {
+      this.typeOptions = await this.store.peekAll(this.args.module.input_slug);
 
       this.typeOptions.forEach((element) => {
         this.options.push(element.modules);
@@ -66,8 +61,7 @@ export default class InputFieldsSelectComponent extends Component {
         ) {
           //selected option
           if (
-            typeof this.args.object[this.args.module.input_slug] ===
-              'string' &&
+            typeof this.args.object[this.args.module.input_slug] === 'string' &&
             element.modules.slug ==
               this.args.object[this.args.module.input_slug]
           ) {
@@ -77,8 +71,7 @@ export default class InputFieldsSelectComponent extends Component {
 
           //part of selected multi options
           if (
-            typeof this.args.object[this.args.module.input_slug] !==
-              'string' &&
+            typeof this.args.object[this.args.module.input_slug] !== 'string' &&
             inArray(
               element.modules.slug,
               this.args.object[this.args.module.input_slug]
@@ -89,9 +82,7 @@ export default class InputFieldsSelectComponent extends Component {
           }
         }
       });
-    }
-
-    else if (this.inputOptions !== null) {
+    } else if (this.inputOptions !== null) {
       this.inputOptions.forEach((element) => {
         this.options.push(element);
 
@@ -100,8 +91,7 @@ export default class InputFieldsSelectComponent extends Component {
         ) {
           //selected option
           if (
-            typeof this.args.object[this.args.module.input_slug] ===
-              'string' &&
+            typeof this.args.object[this.args.module.input_slug] === 'string' &&
             element.slug == this.args.object[this.args.module.input_slug]
           ) {
             this.selectedOption = element;
@@ -110,12 +100,8 @@ export default class InputFieldsSelectComponent extends Component {
 
           //part of selected multi options
           if (
-            typeof this.args.object[this.args.module.input_slug] !==
-              'string' &&
-            inArray(
-              element.slug,
-              this.args.object[this.args.module.input_slug]
-            )
+            typeof this.args.object[this.args.module.input_slug] !== 'string' &&
+            inArray(element.slug, this.args.object[this.args.module.input_slug])
           ) {
             this.selectedOption = element;
             this.selectedMultiOptions.push(element);
@@ -123,7 +109,7 @@ export default class InputFieldsSelectComponent extends Component {
         }
       });
     }
-    
+
     this.options = this.options;
     this.selectedMultiOptions = this.selectedMultiOptions;
 

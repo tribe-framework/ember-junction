@@ -1,13 +1,13 @@
 <div class="input-group mx-0">
-  <Input @type="text" @value={{this.searchQuery}} class="border border-dark form-control" placeholder="Search within {{@type.plural}}" @enter={{fn @search this.searchQuery}} @escape-press={{fn @search ""}} />
-  {{#if (or this.searchQuery @showClearSearchButton)}}
-    <button class="btn btn-outline-dark" type="button" {{on 'click' @clearSearch}} {{on 'click' this.clearSearchQuery}}><FaIcon @icon="times" @prefix="fa-light" /></button>
+  <Input @type="text" @value={{@searchQuery}} class="border border-dark form-control" placeholder="Search within {{@type.plural}}" @enter={{@search}} @escape-press={{@clearSearch}} />
+  {{#if (or @searchQuery @showClearSearchButton)}}
+    <button class="btn btn-outline-dark" type="button" {{on 'click' @clearSearch}} {{on 'click' @clearSearchQuery}}><FaIcon @icon="times" @prefix="fa-light" /></button>
   {{/if}}
-  <button class="btn btn-outline-dark" type="button" {{on 'click' (fn @search this.searchQuery)}}><FaIcon @icon="magnifying-glass" @prefix="fa-light" /></button>
+  <button class="btn btn-outline-dark" type="button" {{on 'click' @search}} {{on 'click' (fn @changePageNumber 1)}}><FaIcon @icon="magnifying-glass" @prefix="fa-light" /></button>
   <button class="btn btn-outline-dark" type="button" data-bs-toggle="modal" data-bs-target="#advancedSearchModal"><FaIcon @icon="circle-bolt" /></button>
 </div>
 
-<!-- Modal -->
+{{!-- Modal --}}
 <div class="modal fade" id="advancedSearchModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
@@ -16,16 +16,26 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
+
+        <div class="mb-3">
+          <Input @type="text" @value={{mut (get @advancedSearchQuery 'id')}} placeholder="Search by ID" class="form-control" />
+        </div>
+
         {{#each @type.modules as |module|}}
           {{#if module.list_searchable}}
             <div class="mb-3">
-              <Input @type="text" @value={{mut (get this.advancedSearchQuery module.input_slug)}} placeholder="Keywords for {{module.input_slug}}" class="form-control" />
+              <Input @type="text" @value={{mut (get @advancedSearchQuery module.input_slug)}} placeholder="Keywords for {{module.input_slug}}" class="form-control" />
             </div>
           {{/if}}
         {{/each}}
+
+        <div class="mb-3">
+          <Input @type="text" @value={{mut (get @advancedSearchQuery 'content_privacy')}} placeholder="Keywords for content_privacy" class="form-control" />
+        </div>
+
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" {{on 'click' (fn @advancedSearch this.advancedSearchQuery)}}>Search</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" {{on 'click' @advancedSearch}} {{on 'click' (fn @changePageNumber 1)}}>Search</button>
       </div>
     </div>
   </div>

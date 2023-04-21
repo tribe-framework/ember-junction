@@ -7,7 +7,7 @@
 			</div>
 
 			<div class="order-2 order-lg-2 col-lg-4 px-0 col-12 my-1 d-flex justify-content-end">
-				<Types::ListTable::SearchBox @type={{@type}} @search={{@search}} @clearSearch={{@clearSearch}} @advancedSearch={{@advancedSearch}} @showClearSearchButton={{@showClearSearchButton}} />
+				<Types::ListTable::SearchBox @type={{@type}} @search={{@search}} @clearSearch={{@clearSearch}} @advancedSearch={{@advancedSearch}} @showClearSearchButton={{@showClearSearchButton}} @searchQuery={{@searchQuery}} @advancedSearchQuery={{@advancedSearchQuery}} @clearSearchQuery={{@clearSearchQuery}} @changePageNumber={{@changePageNumber}} />
 			</div>
 			<div class="order-1 order-lg-3 col-lg-5 px-0 col-12 my-1 d-flex justify-content-end">
 				{{#if (get @selectedRowIDs @type.slug)}}

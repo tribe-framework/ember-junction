@@ -105,6 +105,7 @@ export default class TypesEditObjectModalComponent extends Component {
       this.objectModules = A([]);
       this.objectID = 'new';
       this.editorjsInstances = [];
+      this.objectModules = this.objectModules;
     }
 
     this.types.fetchAgain();
@@ -312,7 +313,7 @@ export default class TypesEditObjectModalComponent extends Component {
     myModalEl.addEventListener('show.bs.modal', (event) => {
       this.objectID = this.args.object ? this.args.object.modules.id : 'new';
 
-      if (this.objectID === 'new') {
+      if (this.objectID == 'new' || this.objectID == 'multi') {
         this.objectModules = A([]);
         this.objectModules = this.objectModules;
       }
