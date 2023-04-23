@@ -36,7 +36,7 @@
 
 			<Types::ListTable @webapp={{this.types.json}} @type={{this.currentType}} @loadTypeObjects={{this.loadTypeObjects}} @selectedRowIDs={{this.selectedRowIDs}} @emptySelectedRowsInType={{this.emptySelectedRowsInType}}>
 
-				<Types::ListTable::Head @type={{this.currentType}} />
+				<Types::ListTable::Head @updateSortField={{this.updateSortField}} @sortField={{this.sortField}} @type={{this.currentType}} @sortOrder={{this.sortOrder}} />
 
 				<tbody>
 					{{#each this.objectsInType as |object|}}
