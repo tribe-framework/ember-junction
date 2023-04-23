@@ -5,7 +5,10 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto text-end mb-lg-0 d-flex align-items-lg-center pe-5">
-        
+        <HeaderNavItem>
+          <img src="/favicon.png" height="36" width="36" class="rounded-2 mx-2" />
+        </HeaderNavItem>
+
         <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="gauge-high" @navtitle="Dashboard" @navroute="index" />
 
         <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="list-tree" @navtitle="Types" @navroute="types" />
