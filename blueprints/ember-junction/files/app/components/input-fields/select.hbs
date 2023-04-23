@@ -15,4 +15,12 @@
   {{/if}}
 
   <div class="form-text text-end text-dark">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
+
+  {{#if (eq @id "new")}}
+    <div class="d-none" {{did-insert this.cleanVarsOnNewModalOpen}}></div>
+  {{/if}}
+
+  {{#if (eq @id "multi")}}
+    <div class="d-none" {{did-insert this.cleanVarsOnMultiModalOpen}}></div>
+  {{/if}}
 </div>

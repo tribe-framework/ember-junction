@@ -16,6 +16,40 @@ export default class InputFieldsSelectComponent extends Component {
   @tracked selectedMultiOptionSlugs = A([]);
 
   @action
+  cleanVarsOnNewModalOpen() {
+    const myModalNew = document.getElementById(
+      'editObjectModal-' + this.args.type.slug + '-new'
+    );
+    myModalNew.addEventListener('show.bs.modal', (event) => {
+      if (this.args.id == 'new') {
+        this.selectedOption = null;
+        this.selectedMultiOptions = A([]);
+
+        this.selectedOption = this.selectedOption;
+        this.selectedMultiOptions = this.selectedMultiOptions;
+      } else {
+      }
+    });
+  }
+
+  @action
+  cleanVarsOnMultiModalOpen() {
+    const myModalMulti = document.getElementById(
+      'editObjectModal-' + this.args.type.slug + '-multi'
+    );
+    myModalMulti.addEventListener('show.bs.modal', (event) => {
+      if (this.args.id == 'multi') {
+        this.selectedOption = null;
+        this.selectedMultiOptions = A([]);
+
+        this.selectedOption = this.selectedOption;
+        this.selectedMultiOptions = this.selectedMultiOptions;
+      } else {
+      }
+    });
+  }
+
+  @action
   updateValue(e) {
     this.selectedOption = e;
     this.args.mutObjectModuleValue(this.args.module.input_slug, e.slug, false);
