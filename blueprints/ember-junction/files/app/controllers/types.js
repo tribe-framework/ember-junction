@@ -25,8 +25,37 @@ export default class TypesController extends Controller {
   @tracked currentNumberOfPages = A([]);
   @tracked currentPageLength = A([]);
 
+  @tracked sortField = A([]);
+  @tracked sortFieldQuery = A([]);
+  @tracked sortOrder = A([]);
+
   @tracked showClearSearchButton = false;
   @tracked totalObjects = this.currentType.total_objects;
+
+  @action
+  updateSortField(field) {
+    if (this.sortField[this.currentType.slug] != field) {
+      this.sortField[this.currentType.slug] = field;
+      this.sortFieldQuery[this.currentType.slug] = field;
+      this.sortOrder[this.currentType.slug] = 'asc';
+    }
+    else {
+      if (this.sortOrder[this.currentType.slug] == 'asc') {
+        this.sortFieldQuery[this.currentType.slug] = "-"+field;
+        this.sortOrder[this.currentType.slug] = 'desc';
+      }
+      else {
+        this.sortFieldQuery[this.currentType.slug] = field;
+        this.sortOrder[this.currentType.slug] = 'asc';
+      } 
+    }
+
+    this.sortField = this.sortField;
+    this.sortFieldQuery = this.sortFieldQuery;
+    this.sortOrder = this.sortOrder;
+
+    this.search();
+  }
 
   @action
   loadTypeObjects(type, searchResults = false) {
@@ -46,10 +75,23 @@ export default class TypesController extends Controller {
     if (this.currentPageNumber[type_slug] === undefined)
       this.currentPageNumber[type_slug] = 1;
 
+    if (this.sortField[type_slug] === undefined)
+      this.sortField[type_slug] = 'id';
+
+    if (this.sortFieldQuery[type_slug] === undefined)
+      this.sortFieldQuery[type_slug] = '-id';
+
+    if (this.sortOrder[type_slug] === undefined)
+      this.sortOrder[type_slug] = 'desc';
+
     this.selectedRowIDs = this.selectedRowIDs;
     this.currentPageOffset = this.currentPageOffset;
     this.currentPageLength = this.currentPageLength;
     this.currentPageNumber = this.currentPageNumber;
+
+    this.sortField = this.sortField;
+    this.sortFieldQuery = this.sortFieldQuery;
+    this.sortOrder = this.sortOrder;
 
     if (searchResults === true) {
       this.search();
@@ -97,14 +139,14 @@ export default class TypesController extends Controller {
 
   @action
   async search() {
-    if (this.isAdvancedSearch)
-      this.advancedSearch();
+    if (this.isAdvancedSearch) this.advancedSearch();
     else if (this.searchQuery != '') {
       this.isAdvancedSearch = false;
       this.loadingSearchResults = true;
       this.objectsInType = null;
       this.objectsInType = await this.store.query(this.currentType.slug, {
         show_public_objects_only: false,
+        sort: this.sortFieldQuery[this.currentType.slug],
         page: {
           limit: this.currentPageLength[this.currentType.slug],
           offset: this.currentPageOffset[this.currentType.slug],
@@ -114,8 +156,7 @@ export default class TypesController extends Controller {
       this.loadingSearchResults = false;
       if (this.objectsInType.meta.total_objects !== undefined)
         this.totalObjects = this.objectsInType.meta.total_objects;
-    }
-    else this.clearSearch();
+    } else this.clearSearch();
   }
 
   @action
@@ -127,6 +168,7 @@ export default class TypesController extends Controller {
 
     this.objectsInType = await this.store.query(this.currentType.slug, {
       show_public_objects_only: false,
+      sort: this.sortFieldQuery[this.currentType.slug],
       page: {
         limit: this.currentPageLength[this.currentType.slug],
         offset: this.currentPageOffset[this.currentType.slug],
@@ -144,6 +186,7 @@ export default class TypesController extends Controller {
     this.objectsInType = null;
     this.objectsInType = await this.store.query(this.currentType.slug, {
       show_public_objects_only: false,
+      sort: this.sortFieldQuery[this.currentType.slug],
       page: {
         limit: this.currentPageLength[this.currentType.slug],
         offset: this.currentPageOffset[this.currentType.slug],
