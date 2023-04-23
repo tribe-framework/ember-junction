@@ -1,16 +1,20 @@
 <thead>
 <tr class="border-dark border-start border-bottom border-top border-end border-2 bg-white fs-6 fst-italic">
-  <th scope="col">
-    <span>ID</span>
-    <FaIcon @icon="caret-down" />
+  <th scope="col" class="position-relative">
+    <span class="me-1 cursor-pointer" {{on 'click' (fn @updateSortField "id")}}>ID</span>
+    <span style="bottom:7px;" class="cursor-pointer position-absolute {{if (not-eq (get @sortField @type.slug) "id") "d-none"}}" {{on 'click' (fn @updateSortField "id")}}><FaIcon @icon="caret-{{if (eq (get @sortOrder @type.slug) "asc") "up" "down"}}" /></span>
   </th>
   {{#each @type.modules as |module|}}
     {{#if module.list_field}}
-      <th scope="col" class="{{if module.input_primary "min-width-primary-module"}}">
-        <span>{{module.input_slug}}</span>
+      <th scope="col" class="position-relative {{if module.input_primary "min-width-primary-module"}}">
+        
         {{#if module.list_sortable}}
-          <span class="d-none"><FaIcon @icon="caret-down" /></span>
+          <span class="me-1 cursor-pointer" {{on 'click' (fn @updateSortField module.input_slug)}}>{{module.input_slug}}</span>
+          <span style="bottom:7px;" class="cursor-pointer position-absolute {{if (not-eq (get @sortField @type.slug) module.input_slug) "d-none"}}" {{on 'click' (fn @updateSortField module.input_slug)}}><FaIcon @icon="caret-{{if (eq (get @sortOrder @type.slug) "asc") "up" "down"}}" /></span>
+        {{else}}
+          <span>{{module.input_slug}}</span>
         {{/if}}
+
       </th>
     {{/if}}
   {{/each}}
