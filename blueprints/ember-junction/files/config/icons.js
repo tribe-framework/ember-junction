@@ -33,6 +33,7 @@ module.exports = function () {
       'times',
       'trash-alt',
       'caret-down',
+      'caret-up',
       'circle-chevron-up',
       'chevrons-left',
       'chevrons-right',
