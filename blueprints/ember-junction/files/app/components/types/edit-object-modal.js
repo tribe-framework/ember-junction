@@ -62,17 +62,27 @@ export default class TypesEditObjectModalComponent extends Component {
     let promises = [];
     this.args.type.modules.forEach((module) => {
       const promise = new Promise((resolve, reject) => {
-        if (module.input_type !== 'editorjs') {
+        if (module.input_type == 'editorjs' || ((module.input_type == 'text' || module.input_type == 'textarea') && module.input_multiple === true)) {
+          if (module.input_type == 'editorjs') {
+            this.saveEditorData(module.input_slug, this.objectID).then(
+              (outputData) => {
+                this.mutObjectModuleValue(module.input_slug, outputData, false);
+                resolve();
+              }
+            );
+          } else {
+            const mtxtId = `${this.args.type.slug}-${module.input_slug}-${this.objectID}`;
+            const inputs = document.querySelectorAll("[name='"+mtxtId+"[]']");
+            for (let i = 0; i < inputs.length; i++) {
+              this.mutObjectModuleValue(module.input_slug, inputs[i].value, true, i);
+            }
+            resolve();
+          }
+        }
+        else {
           resolve();
           return;
         }
-
-        this.saveEditorData(module.input_slug, this.objectID).then(
-          (outputData) => {
-            this.mutObjectModuleValue(module.input_slug, outputData, false);
-            resolve();
-          }
-        );
       });
 
       promises.push(promise);
@@ -289,21 +299,23 @@ export default class TypesEditObjectModalComponent extends Component {
         this.objectModules[module_input_slug],
       ];
 
+    this.objectModules[module_input_slug] = this.objectModules[module_input_slug].filter(n => Boolean(n) === true);
+
     if (
       this.objectModules[module_input_slug][index + 1] === undefined ||
       this.objectModules[module_input_slug][index + 1] == null
     )
       this.objectModules[module_input_slug][index + 1] = ' ';
+    else {
+      this.objectModules[module_input_slug].splice((index+1), 0, ' ');
+    }
 
     this.objectModules = this.objectModules;
   }
 
   @action
   removeFromMultiField(module_input_slug, index = 0) {
-    delete this.objectModules[module_input_slug][index];
-    if (this.objectModules[module_input_slug]) {
-      this.objectModules[module_input_slug].filter((x) => x).join(', ');
-    }
+    this.objectModules[module_input_slug].splice(index, 1);
     this.objectModules = this.objectModules;
   }
 

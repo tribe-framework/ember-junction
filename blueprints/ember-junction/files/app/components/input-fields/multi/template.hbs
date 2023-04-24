@@ -2,26 +2,18 @@
 
 	{{#if @isTextarea}}
 	
-	  <Textarea @value={{this.fieldValue}} class="form-control border-dark" placeholder={{@module.input_placeholder}} autocomplete="off" {{on 'keydown' (fn this.setIsSaved false)}} />
+	  <Textarea @value={{this.fieldValue}} name="{{@type.slug}}-{{@module.input_slug}}-{{@id}}[]" class="form-control border-dark" placeholder={{@module.input_placeholder}} autocomplete="off" />
 	
 	{{else}}
 
-	  <Input @value={{this.fieldValue}} @type={{@module.input_type}} class="form-control border-dark {{if (eq @module.input_type "hidden") "d-none"}}" placeholder={{@module.input_placeholder}} min={{@module.input_min}} max={{@module.input_max}} autocomplete="off" {{on 'keydown' (fn this.setIsSaved false)}} />
+	  <Input @value={{this.fieldValue}} @type={{@module.input_type}} name="{{@type.slug}}-{{@module.input_slug}}-{{@id}}[]" class="form-control border-dark {{if (eq @module.input_type "hidden") "d-none"}}" placeholder={{@module.input_placeholder}} min={{@module.input_min}} max={{@module.input_max}} autocomplete="off" />
 
 	{{/if}}
+  
+  <span class="input-group-text text-dark" {{on 'click' (fn @addToMultiField @module.input_slug @index)}}><FaIcon @icon="circle-plus" /></span>
 
-  {{#if this.isSaved}}
-
-    <span class="input-group-text text-dark" {{on 'click' (fn @addToMultiField @module.input_slug @index)}}><FaIcon @icon="circle-plus" /></span>
-
-    {{#if (not-eq @index 0)}}
-      <span class="input-group-text text-danger" {{on 'click' (fn @removeFromMultiField @module.input_slug @index)}}><FaIcon @icon="circle-xmark" /></span>
-    {{/if}}
-
-  {{else}}
-
-    <span class="input-group-text text-success" {{on 'click' (fn this.setIsSaved true)}}><FaIcon @icon="circle-check" /></span>
-
-  {{/if}}
+  {{#if (not-eq @index 0)}}
+	  <span class="input-group-text text-danger" {{on 'click' (fn @removeFromMultiField @module.input_slug @index)}}><FaIcon @icon="circle-xmark" /></span>
+	{{/if}}
 
 </div>
