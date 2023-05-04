@@ -112,10 +112,8 @@ export default class TypesEditObjectModalComponent extends Component {
       await obj.save();
 
       this.args.loadTypeObjects(this.args.type);
-      this.objectModules = A([]);
       this.objectID = 'new';
-      this.editorjsInstances = [];
-      this.objectModules = this.objectModules;
+      this.cleanVarsIfNew();
     }
 
     this.types.fetchAgain();
@@ -320,14 +318,27 @@ export default class TypesEditObjectModalComponent extends Component {
   }
 
   @action
+  cleanVarsIfNew() {
+    this.args.type.modules.forEach((module) => {
+      if (module.input_type == 'editorjs') {
+        if (this.editorjsInstances[this.args.type.slug + '-' + module.input_slug + '-new'] !== undefined)
+        this.editorjsInstances[this.args.type.slug + '-' + module.input_slug + '-new'].blocks.clear();
+      }
+    });
+
+    this.objectModules = A([]);
+    this.objectModules = this.objectModules;
+    this.editorjsInstances = this.editorjsInstances;
+  }
+
+  @action
   cleanVarsOnModalOpen(e) {
     const myModalEl = document.getElementById(e.id);
     myModalEl.addEventListener('show.bs.modal', (event) => {
       this.objectID = this.args.object ? this.args.object.modules.id : 'new';
 
       if (this.objectID == 'new' || this.objectID == 'multi') {
-        this.objectModules = A([]);
-        this.objectModules = this.objectModules;
+        this.cleanVarsIfNew();
       }
     });
   }
