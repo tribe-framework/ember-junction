@@ -292,20 +292,17 @@ export default class TypesEditObjectModalComponent extends Component {
 
   @action
   addToMultiField(module_input_slug, index = 0) {
-    if (!Array.isArray(this.objectModules[module_input_slug]))
-      this.objectModules[module_input_slug] = [
-        this.objectModules[module_input_slug],
-      ];
 
-    this.objectModules[module_input_slug] = this.objectModules[module_input_slug].filter(n => Boolean(n) === true);
+    if (this.objectModules[module_input_slug] === undefined) {
+      this.objectModules[module_input_slug] = A([" "]);
+    }
+    else if (!Array.isArray(this.objectModules[module_input_slug])) {
+      this.objectModules[module_input_slug] = A([this.objectModules[module_input_slug]]);
+    }
 
-    if (
-      this.objectModules[module_input_slug][index + 1] === undefined ||
-      this.objectModules[module_input_slug][index + 1] == null
-    )
-      this.objectModules[module_input_slug][index + 1] = ' ';
     else {
-      this.objectModules[module_input_slug].splice((index+1), 0, ' ');
+      this.objectModules[module_input_slug] = this.objectModules[module_input_slug].filter(n => Boolean(n) === true);
+      this.objectModules[module_input_slug].splice((index+1), 0, " ");
     }
 
     this.objectModules = this.objectModules;
