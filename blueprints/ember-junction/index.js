@@ -16,6 +16,7 @@ module.exports = {
       { name: '@editorjs/list' },
       { name: '@editorjs/attaches' },
       { name: '@editorjs/footnotes' },
+      { name: '@editorjs/table' },
     ]);
   }
 };

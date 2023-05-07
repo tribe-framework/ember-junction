@@ -16,6 +16,7 @@ import Delimiter from '@editorjs/delimiter';
 import List from '@editorjs/list';
 import AttachesTool from '@editorjs/attaches';
 import FootnotesTune from '@editorjs/footnotes';
+import Table from '@editorjs/table';
 
 export default class TypesEditObjectModalComponent extends Component {
   @service store;
@@ -216,6 +217,7 @@ export default class TypesEditObjectModalComponent extends Component {
                 : "Quote's author",
           },
         },
+        table: Table,
         delimiter: Delimiter,
         Marker: {
           class: Marker,
