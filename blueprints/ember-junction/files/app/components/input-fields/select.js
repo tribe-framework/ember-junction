@@ -84,8 +84,14 @@ export default class InputFieldsSelectComponent extends Component {
 
   @action
   async isModuleAlsoAType() {
-    if (this.args.webapp.modules[this.args.module.input_slug] !== undefined) {
-      this.typeOptions = await this.store.peekAll(this.args.module.input_slug);
+    if (this.args.webapp.modules[this.args.module.input_slug] !== undefined || this.args.webapp.modules[this.args.module.linked_type] !== undefined) {
+
+      if (this.args.webapp.modules[this.args.module.input_slug] !== undefined)
+        var linked_type = this.args.module.input_slug;
+      else if (this.args.webapp.modules[this.args.module.linked_type] !== undefined)
+        var linked_type = this.args.module.linked_type;
+
+      this.typeOptions = await this.store.peekAll(linked_type);
 
       this.typeOptions.forEach((element) => {
         this.options.push(element.modules);
