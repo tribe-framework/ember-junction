@@ -41,11 +41,25 @@
 	  	{{else}}
 
 	  		<div class="my-1 d-flex align-items-center justify-content-start">
-	  			{{#if file.xs.url}}
-	  				<div class="me-2"><img src="{{file.xs.url}}" height="31" /></div>
+
+	  			{{#if file.cloudflare_stream}}
+
+		  			{{#if (get (get file.cloudflare_stream "result") "thumbnail")}}
+		  				<div class="me-2"><img src="{{get (get file.cloudflare_stream "result") "thumbnail"}}" height="31" /></div>
+		  			{{/if}}
+	  				<a href="{{file.url}}" class="me-2 btn btn-sm btn-outline-dark" target="new">View file <FaIcon @icon="external-link-alt" @prefix="fa-light" /></a>
+						<button {{on 'click' (fn this.copyLink (get (get (get file.cloudflare_stream "result") "playback") "hls") index)}} type="button" class="me-2 btn btn-sm btn-outline-dark" target="new"><span id="copy-{{index}}">Copy link</span> <FaIcon @icon="copy" @prefix="fa-light" /></button>
+
+					{{else}}
+
+		  			{{#if file.xs.url}}
+		  				<div class="me-2"><img src="{{file.xs.url}}" height="31" /></div>
+		  			{{/if}}
+	  				<a href="{{file.url}}" class="me-2 btn btn-sm btn-outline-dark" target="new">View file <FaIcon @icon="external-link-alt" @prefix="fa-light" /></a>
+	  				<button {{on 'click' (fn this.copyLink file.url index)}} type="button" class="me-2 btn btn-sm btn-outline-dark" target="new"><span id="copy-{{index}}">Copy link</span> <FaIcon @icon="copy" @prefix="fa-light" /></button>
+
 	  			{{/if}}
-	  			<a href="{{file.url}}" class="me-2 btn btn-sm btn-outline-dark" target="new">View file <FaIcon @icon="external-link-alt" @prefix="fa-light" /></a>
-	  			<button {{on 'click' (fn this.copyLink file.url index)}} type="button" class="me-2 btn btn-sm btn-outline-dark" target="new"><span id="copy-{{index}}">Copy link</span> <FaIcon @icon="copy" @prefix="fa-light" /></button>
+
 	  			<span class="me-3 text-danger cursor-pointer" {{on 'click' (fn this.deleteFile index)}}><FaIcon @icon="circle-xmark" /></span>
 	  			<span class="text-muted">{{this.explodeFilename file.url}}</span>
 	  		</div>
