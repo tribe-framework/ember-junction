@@ -1,6 +1,7 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import ENV from '<%= dasherizedPackageName %>/config/environment';
+import * as bootstrap from 'bootstrap';
 
 export default class ApplicationRoute extends Route {
   @service store;
