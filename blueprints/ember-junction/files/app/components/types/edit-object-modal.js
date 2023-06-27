@@ -17,6 +17,7 @@ import List from '@editorjs/list';
 import AttachesTool from '@editorjs/attaches';
 import FootnotesTune from '@editorjs/footnotes';
 import Table from '@editorjs/table';
+import fetch from 'fetch';
 
 export default class TypesEditObjectModalComponent extends Component {
   @service store;
@@ -35,6 +36,17 @@ export default class TypesEditObjectModalComponent extends Component {
       this.store.findRecord(this.args.type.slug, id).then((obj) => {
         obj.modules = { ...vvv };
         obj.save();
+
+        if (this.args.type.api_hooks.on_update !== undefined
+           && this.args.type.api_hooks.on_update != "") {
+          fetch(this.args.type.api_hooks.on_update, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"id": obj.id})
+          });
+        }
       });
     });
 
@@ -47,7 +59,20 @@ export default class TypesEditObjectModalComponent extends Component {
   async deleteObjects() {
     await this.args.selectedRowIDs[this.args.type.slug].forEach((id) => {
       this.store.findRecord(this.args.type.slug, id).then(async (obj) => {
+        
         await obj.destroyRecord();
+        
+        if (this.args.type.api_hooks.on_delete !== undefined
+           && this.args.type.api_hooks.on_delete != ""
+           && id !== undefined) {
+          fetch(this.args.type.api_hooks.on_delete, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({"id": id})
+          });
+        }
       });
     });
 
@@ -63,7 +88,11 @@ export default class TypesEditObjectModalComponent extends Component {
     let promises = [];
     this.args.type.modules.forEach((module) => {
       const promise = new Promise((resolve, reject) => {
-        if (module.input_type == 'editorjs' || ((module.input_type == 'text' || module.input_type == 'textarea') && module.input_multiple === true)) {
+        if (
+          module.input_type == 'editorjs' ||
+          ((module.input_type == 'text' || module.input_type == 'textarea') &&
+            module.input_multiple === true)
+        ) {
           if (module.input_type == 'editorjs') {
             this.saveEditorData(module.input_slug, this.objectID).then(
               (outputData) => {
@@ -73,14 +102,20 @@ export default class TypesEditObjectModalComponent extends Component {
             );
           } else {
             const mtxtId = `${this.args.type.slug}-${module.input_slug}-${this.objectID}`;
-            const inputs = document.querySelectorAll("[name='"+mtxtId+"[]']");
+            const inputs = document.querySelectorAll(
+              "[name='" + mtxtId + "[]']"
+            );
             for (let i = 0; i < inputs.length; i++) {
-              this.mutObjectModuleValue(module.input_slug, inputs[i].value, true, i);
+              this.mutObjectModuleValue(
+                module.input_slug,
+                inputs[i].value,
+                true,
+                i
+              );
             }
             resolve();
           }
-        }
-        else {
+        } else {
           resolve();
           return;
         }
@@ -97,12 +132,26 @@ export default class TypesEditObjectModalComponent extends Component {
       this.args.object !== undefined &&
       this.args.object.id !== null
     ) {
+
       this.store
         .findRecord(this.args.object.modules.type, this.args.object.modules.id)
         .then((obj) => {
           obj.modules = vvv;
+
           obj.save();
-          console.info('saved store');
+
+          if (this.args.type.api_hooks.on_update !== undefined
+             && this.args.type.api_hooks.on_update != ""
+             && obj.id !== undefined) {
+            fetch(this.args.type.api_hooks.on_update, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({"id": obj.id})
+            });
+          }
+
           document.querySelector('#close-' + this.args.object.id).click();
         });
     } else {
@@ -111,6 +160,18 @@ export default class TypesEditObjectModalComponent extends Component {
       });
 
       await obj.save();
+
+      if (this.args.type.api_hooks.on_create !== undefined
+         && this.args.type.api_hooks.on_create != ""
+         && obj.id !== undefined) {
+        fetch(this.args.type.api_hooks.on_create, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({"id": obj.id})
+        });
+      }
 
       this.args.loadTypeObjects(this.args.type);
       this.objectID = 'new';
@@ -131,7 +192,20 @@ export default class TypesEditObjectModalComponent extends Component {
         this.args.object.modules.type,
         this.args.object.modules.id
       );
+      var id = this.args.object.modules.id;
       await obj.destroyRecord();
+
+      if (this.args.type.api_hooks.on_delete !== undefined
+         && this.args.type.api_hooks.on_delete != ""
+         && id !== undefined) {
+        fetch(this.args.type.api_hooks.on_delete, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({"id": id})
+        });
+      }
     }
 
     this.args.emptySelectedRowsInType(this.args.type.slug);
@@ -294,17 +368,17 @@ export default class TypesEditObjectModalComponent extends Component {
 
   @action
   addToMultiField(module_input_slug, index = 0) {
-
     if (this.objectModules[module_input_slug] === undefined) {
-      this.objectModules[module_input_slug] = A([" "]);
-    }
-    else if (!Array.isArray(this.objectModules[module_input_slug])) {
-      this.objectModules[module_input_slug] = A([this.objectModules[module_input_slug]]);
-    }
-
-    else {
-      this.objectModules[module_input_slug] = this.objectModules[module_input_slug].filter(n => Boolean(n) === true);
-      this.objectModules[module_input_slug].splice((index+1), 0, " ");
+      this.objectModules[module_input_slug] = A([' ']);
+    } else if (!Array.isArray(this.objectModules[module_input_slug])) {
+      this.objectModules[module_input_slug] = A([
+        this.objectModules[module_input_slug],
+      ]);
+    } else {
+      this.objectModules[module_input_slug] = this.objectModules[
+        module_input_slug
+      ].filter((n) => Boolean(n) === true);
+      this.objectModules[module_input_slug].splice(index + 1, 0, ' ');
     }
 
     this.objectModules = this.objectModules;
@@ -320,8 +394,14 @@ export default class TypesEditObjectModalComponent extends Component {
   cleanVarsIfNew() {
     this.args.type.modules.forEach((module) => {
       if (module.input_type == 'editorjs') {
-        if (this.editorjsInstances[this.args.type.slug + '-' + module.input_slug + '-new'] !== undefined)
-        this.editorjsInstances[this.args.type.slug + '-' + module.input_slug + '-new'].blocks.clear();
+        if (
+          this.editorjsInstances[
+            this.args.type.slug + '-' + module.input_slug + '-new'
+          ] !== undefined
+        )
+          this.editorjsInstances[
+            this.args.type.slug + '-' + module.input_slug + '-new'
+          ].blocks.clear();
       }
     });
 

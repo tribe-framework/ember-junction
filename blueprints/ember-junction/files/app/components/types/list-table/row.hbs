@@ -8,7 +8,11 @@
 
         <td class="position-relative border-end border-1 border-dark" {{on 'mouseover' this.showOptions}} {{on 'mouseout' this.hideOptions}}>
           <div class="text-ellipsis" {{on 'touchend' this.toggleOptions}}>{{get @object.modules module.input_slug}}</div>
+
+          <Hooks::RowOptions @object={{@object}} @type={{@type}} @module={{module}} />
+
           <Types::ListTable::RowOptions @object={{@object}} @type={{@type}} @module={{module}} />
+          
         </td>
 
       {{else}}
