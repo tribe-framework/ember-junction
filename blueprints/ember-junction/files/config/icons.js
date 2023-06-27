@@ -19,6 +19,9 @@ module.exports = function () {
       'plus',
       'times',
       'link-horizontal',
+      'paper-plane',
+      'eye',
+      'timer',
     ],
     'pro-solid-svg-icons': [
       'heart',
