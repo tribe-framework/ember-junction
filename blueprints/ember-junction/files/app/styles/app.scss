@@ -174,3 +174,7 @@ $ember-power-select-border-radius: 0;
 body {
   overscroll-behavior: contain;
 }
+
+.table > :not(caption) > * > * {
+  background-color: rgba(0,0,0,0);
+}
