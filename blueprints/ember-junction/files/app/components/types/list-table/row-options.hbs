@@ -6,6 +6,8 @@
 	        <span class="text-success"><FaIcon @icon="megaphone" /></span>
 	      {{else if (eq @object.modules.content_privacy "private")}}
 	        <span class="text-danger"><FaIcon @icon="link-horizontal" @prefix="fa-light" /></span>
+	      {{else if (eq @object.modules.content_privacy "sent")}}
+	        <span class="text-primary"><FaIcon @icon="paper-plane" @prefix="fa-light" /></span>
 	      {{else if (eq @object.modules.content_privacy "pending")}}
 	        <span class="text-warning"><FaIcon @icon="hourglass-half" /></span>
 	      {{else}}
@@ -14,11 +16,13 @@
 	      {{if @object.modules.content_privacy @object.modules.content_privacy "draft"}}
 	    </span> 
 
-	    {{#if @module.input_unique}}
-	      <div class="badge badge-sm border border-1 border-muted text-muted font-weight-bold text-uppercase"><FaIcon @icon="copy" /><span class="d-none d-lg-inline">&nbsp;Copy</span></div>
-	    {{else}}
-	      <button class="badge badge-sm border border-1 border-dark bg-white text-dark font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#copyObjectModal-{{@object.id}}" type="button"><FaIcon @icon="copy" /><span class="d-none d-lg-inline">&nbsp;Copy</span></button>
-	    {{/if}}
+	    {{#unless @type.sendable}}
+		    {{#if (or (eq @module.input_unique true) (eq @type.readonly true))}}
+		      <div class="badge badge-sm border border-1 border-muted text-muted font-weight-bold text-uppercase"><FaIcon @icon="copy" /><span class="d-none d-lg-inline">&nbsp;Copy</span></div>
+		    {{else}}
+		      <button class="badge badge-sm border border-1 border-dark bg-white text-dark font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#copyObjectModal-{{@object.id}}" type="button"><FaIcon @icon="copy" /><span class="d-none d-lg-inline">&nbsp;Copy</span></button>
+		    {{/if}}
+		{{/unless}}
 
 	    {{#if @type.url}}
 	      <a class="badge badge-sm border border-1 border-dark bg-white text-dark font-weight-bold text-uppercase text-decoration-none" href="{{concat @type.url "/" @object.modules.slug}}" target="new"><FaIcon @icon="external-link-alt" /><span class="d-none d-lg-inline">&nbsp;View</span></a>
@@ -26,7 +30,17 @@
 	      <div class="badge badge-sm border border-1 border-muted text-muted font-weight-bold text-uppercase"><FaIcon @icon="external-link-alt" /><span class="d-none d-lg-inline">&nbsp;View</span></div>
 	    {{/if}}
 
-	    <button class="badge badge-sm border border-1 border-dark bg-white text-dark font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@object.id}}" type="button"><FaIcon @icon="pen-to-square" />&nbsp;Edit</button>
+	    {{#if (or (is-empty @object.modules.content_privacy) (eq @object.modules.content_privacy "draft"))}}
+	    	<button class="badge badge-sm border border-1 border-dark bg-white text-dark font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@object.id}}" type="button"><FaIcon @icon="pen-to-square" />&nbsp;Edit</button>
+	   	{{else}}
+		   	{{#if (or @type.readonly (eq @type.editable false))}}
+			    <div class="badge badge-sm border border-1 border-muted text-muted font-weight-bold text-uppercase"><FaIcon @icon="pen-to-square" />&nbsp;Edit</div>
+			{{else}}
+			    <button class="badge badge-sm border border-1 border-dark bg-white text-dark font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@object.id}}" type="button"><FaIcon @icon="pen-to-square" />&nbsp;Edit</button>
+			{{/if}}
+		{{/if}}
+
+
 	  </div>
 	</div>
 </div>
