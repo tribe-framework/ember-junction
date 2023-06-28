@@ -37,7 +37,8 @@ export default class TypesEditObjectModalComponent extends Component {
         obj.modules = { ...vvv };
         obj.save();
 
-        if (this.args.type.api_hooks.on_update !== undefined
+        if (this.args.type.api_hooks !== undefined
+           && this.args.type.api_hooks.on_update !== undefined
            && this.args.type.api_hooks.on_update != "") {
           fetch(this.args.type.api_hooks.on_update, {
             method: 'POST',
@@ -62,7 +63,8 @@ export default class TypesEditObjectModalComponent extends Component {
         
         await obj.destroyRecord();
         
-        if (this.args.type.api_hooks.on_delete !== undefined
+        if (this.args.type.api_hooks !== undefined
+           && this.args.type.api_hooks.on_delete !== undefined
            && this.args.type.api_hooks.on_delete != ""
            && id !== undefined) {
           fetch(this.args.type.api_hooks.on_delete, {
@@ -140,7 +142,8 @@ export default class TypesEditObjectModalComponent extends Component {
 
           obj.save();
 
-          if (this.args.type.api_hooks.on_update !== undefined
+          if (this.args.type.api_hooks !== undefined
+             && this.args.type.api_hooks.on_update !== undefined
              && this.args.type.api_hooks.on_update != ""
              && obj.id !== undefined) {
             fetch(this.args.type.api_hooks.on_update, {
@@ -161,7 +164,8 @@ export default class TypesEditObjectModalComponent extends Component {
 
       await obj.save();
 
-      if (this.args.type.api_hooks.on_create !== undefined
+      if (this.args.type.api_hooks !== undefined
+         && this.args.type.api_hooks.on_create !== undefined
          && this.args.type.api_hooks.on_create != ""
          && obj.id !== undefined) {
         fetch(this.args.type.api_hooks.on_create, {
@@ -195,7 +199,8 @@ export default class TypesEditObjectModalComponent extends Component {
       var id = this.args.object.modules.id;
       await obj.destroyRecord();
 
-      if (this.args.type.api_hooks.on_delete !== undefined
+      if (this.args.type.api_hooks !== undefined
+         && this.args.type.api_hooks.on_delete !== undefined
          && this.args.type.api_hooks.on_delete != ""
          && id !== undefined) {
         fetch(this.args.type.api_hooks.on_delete, {
