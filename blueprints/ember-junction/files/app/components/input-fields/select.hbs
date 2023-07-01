@@ -3,13 +3,21 @@
   {{#if @module.input_multiple}}
 
       <PowerSelectMultiple class="form-control border-dark" @selected={{this.selectedMultiOptions}} @searchEnabled={{true}} @searchField="title" @placeholder={{@module.input_placeholder}} @options={{this.options}} @onChange={{this.updateMultiValue}} as |opt|>
-        {{opt.title}}
+        {{#if (eq opt.type "user")}}
+          {{opt.name}}
+        {{else}}
+          {{opt.title}}
+        {{/if}}
       </PowerSelectMultiple>
 
   {{else}}
 
       <PowerSelect class="form-control border-dark" @selected={{this.selectedOption}} @searchEnabled={{true}} @searchField="title" @placeholder={{@module.input_placeholder}} @options={{this.options}} @onChange={{this.updateValue}} as |opt|>
-        {{opt.title}}
+        {{#if (eq opt.type "user")}}
+          {{opt.name}}
+        {{else}}
+          {{opt.title}}
+        {{/if}}
       </PowerSelect>
 
   {{/if}}
