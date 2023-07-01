@@ -1,43 +1,39 @@
-<div class="d-none position-absolute bottom-0 end-0 w-100 bg-white border-top" id="row-options-{{@object.id}}">
-	<div class="border-bottom position-relative w-100 border-5 border-muted p-1 d-flex justify-content-lg-between align-items-center" style="z-index:1">
+<div class="d-none position-absolute bottom-0 end-0 bg-none" id="row-options-{{@object.id}}">
+	<div class="position-relative w-100 p-1 d-flex justify-content-lg-between align-items-center" style="z-index:1">
 	  <div class="d-flex align-items-center">
-	    <span class="badge badge-sm border-0 font-weight-bold text-uppercase text-dark">
-	      {{#if (eq @object.modules.content_privacy "public")}}
-	        <span class="text-success"><FaIcon @icon="megaphone" /></span>
-	      {{else if (eq @object.modules.content_privacy "private")}}
-	        <span class="text-danger"><FaIcon @icon="link-horizontal" @prefix="fa-light" /></span>
-	      {{else if (eq @object.modules.content_privacy "sent")}}
-	        <span class="text-primary"><FaIcon @icon="paper-plane" @prefix="fa-light" /></span>
-	      {{else if (eq @object.modules.content_privacy "pending")}}
-	        <span class="text-warning"><FaIcon @icon="hourglass-half" /></span>
-	      {{else}}
-	        <span class="text-dark"><FaIcon @icon="paragraph" /></span>
-	      {{/if}}
-	      {{if @object.modules.content_privacy @object.modules.content_privacy "draft"}}
-	    </span> 
+	  	{{#unless (eq @type.slug "user")}}
+		    <span class="small mb-n1 me-1 bg-none border-0 font-weight-bold text-uppercase text-dark">
+		      {{#if (eq @object.modules.content_privacy "public")}}
+		        <span class="text-success"><FaIcon @icon="megaphone" /></span>
+		      {{else if (eq @object.modules.content_privacy "private")}}
+		        <span class="text-danger"><FaIcon @icon="link-horizontal" @prefix="fa-light" /></span>
+		      {{else if (eq @object.modules.content_privacy "sent")}}
+		        <span class="text-primary"><FaIcon @icon="paper-plane" @prefix="fa-light" /></span>
+		      {{else if (eq @object.modules.content_privacy "pending")}}
+		        <span class="text-warning"><FaIcon @icon="hourglass-half" /></span>
+		      {{else}}
+		        <span class="text-dark"><FaIcon @icon="paragraph" /></span>
+		      {{/if}}
+		      <span class="d-none d-lg-inline">{{if @object.modules.content_privacy @object.modules.content_privacy "draft"}}</span>
+		    </span>
+		{{/unless}}
 
 	    {{#unless @type.sendable}}
-		    {{#if (or (eq @module.input_unique true) (eq @type.readonly true))}}
-		      <div class="badge badge-sm border border-1 border-muted text-muted font-weight-bold text-uppercase"><FaIcon @icon="copy" /><span class="d-none d-lg-inline">&nbsp;Copy</span></div>
-		    {{else}}
+		    {{#unless (or (eq @module.input_unique true) (eq @type.readonly true))}}
 		      <button class="badge badge-sm border border-1 border-dark bg-white text-dark font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#copyObjectModal-{{@object.id}}" type="button"><FaIcon @icon="copy" /><span class="d-none d-lg-inline">&nbsp;Copy</span></button>
-		    {{/if}}
+		    {{/unless}}
 		{{/unless}}
 
 	    {{#if @type.url}}
 	      <a class="badge badge-sm border border-1 border-dark bg-white text-dark font-weight-bold text-uppercase text-decoration-none" href="{{concat @type.url "/" @object.modules.slug}}" target="new"><FaIcon @icon="external-link-alt" /><span class="d-none d-lg-inline">&nbsp;View</span></a>
-	    {{else}}
-	      <div class="badge badge-sm border border-1 border-muted text-muted font-weight-bold text-uppercase"><FaIcon @icon="external-link-alt" /><span class="d-none d-lg-inline">&nbsp;View</span></div>
 	    {{/if}}
 
 	    {{#if (or (is-empty @object.modules.content_privacy) (eq @object.modules.content_privacy "draft"))}}
 	    	<button class="badge badge-sm border border-1 border-dark bg-white text-dark font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@object.id}}" type="button"><FaIcon @icon="pen-to-square" />&nbsp;Edit</button>
 	   	{{else}}
-		   	{{#if (or @type.readonly (eq @type.editable false))}}
-			    <div class="badge badge-sm border border-1 border-muted text-muted font-weight-bold text-uppercase"><FaIcon @icon="pen-to-square" />&nbsp;Edit</div>
-			{{else}}
+		   	{{#unless (or @type.readonly (eq @type.editable false))}}
 			    <button class="badge badge-sm border border-1 border-dark bg-white text-dark font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@object.id}}" type="button"><FaIcon @icon="pen-to-square" />&nbsp;Edit</button>
-			{{/if}}
+			{{/unless}}
 		{{/if}}
 
 
