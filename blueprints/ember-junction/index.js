@@ -17,6 +17,7 @@ module.exports = {
       { name: '@editorjs/attaches' },
       { name: '@editorjs/footnotes' },
       { name: '@editorjs/table' },
+      { name: 'editorjs-hyperlink' },
       { name: 'miragejs' },
     ]);
   }

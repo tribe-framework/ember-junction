@@ -17,6 +17,7 @@ import List from '@editorjs/list';
 import AttachesTool from '@editorjs/attaches';
 import FootnotesTune from '@editorjs/footnotes';
 import Table from '@editorjs/table';
+import Hyperlink from 'editorjs-hyperlink';
 import fetch from 'fetch';
 
 export default class TypesEditObjectModalComponent extends Component {
@@ -232,6 +233,7 @@ export default class TypesEditObjectModalComponent extends Component {
 
   @action
   initEditorJS(module_input_slug, id) {
+
     var editor_object_in_type = Object(this.args.type.modules).find(function (
       element
     ) {
@@ -261,6 +263,7 @@ export default class TypesEditObjectModalComponent extends Component {
             defaultLevel: 4,
           },
         },
+        hyperlink: Hyperlink,
         image: {
           class: ImageTool,
           config: {
