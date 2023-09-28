@@ -13,9 +13,9 @@
 
 				<div class="col px-0"><Types::SummaryCard @types={{this.types.json.modules}} /></div>
 
-				{{#if (and this.plausibleURL this.plausibleAuth)}}
+				{{#if (and this.plausibleDomain this.plausibleAuth)}}
 					<div class="col px-0 border border-1 border-dark">
-						<iframe plausible-embed src="https://plausible.io/share/{{this.plausibleURL}}?auth={{this.plausibleAuth}}&embed=true&theme=light" scrolling="yes" frameborder="0" loading="lazy" style="width: 1px; min-width: 100%; min-height: 1600px;"></iframe>
+						<iframe plausible-embed src="https://plausible.io/share/{{this.plausibleDomain}}?auth={{this.plausibleAuth}}&embed=true&theme=light" scrolling="yes" frameborder="0" loading="lazy" style="width: 1px; min-width: 100%; min-height: 1600px;"></iframe>
 					</div>
 				{{/if}}
 				

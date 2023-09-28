@@ -9,7 +9,7 @@ export default class IndexController extends Controller {
     return ENV.PLAUSIBLE_AUTH;
   }
 
-  get plausibleURL() {
-    return ENV.PLAUSIBLE_URL;
+  get plausibleDomain() {
+    return ENV.PLAUSIBLE_DOMAIN;
   }
 }
