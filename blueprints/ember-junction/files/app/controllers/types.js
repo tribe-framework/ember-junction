@@ -9,7 +9,7 @@ export default class TypesController extends Controller {
   @service types;
 
   @tracked searchQuery = null;
-  @tracked advancedSearchQuery = A([]);
+  @tracked advancedSearchQuery = [];
 
   @tracked isAdvancedSearch = false;
 
@@ -204,7 +204,7 @@ export default class TypesController extends Controller {
   clearSearchQuery() {
     this.clearSearch();
     this.searchQuery = null;
-    this.advancedSearchQuery = A([]);
+    this.advancedSearchQuery = [];
   }
 
   get modulesThatWillBeListed() {
