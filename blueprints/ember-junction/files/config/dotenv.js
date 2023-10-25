@@ -6,7 +6,7 @@ const path = require('path');
 
 module.exports = function (/* env */) {
   return {
-    clientAllowedKeys: ['JUNCTION_PASSWORD', 'PLAUSIBLE_AUTH', 'PLAUSIBLE_DOMAIN'],
+    clientAllowedKeys: ['JUNCTION_PASSWORD', 'PLAUSIBLE_AUTH', 'PLAUSIBLE_DOMAIN', 'PUSHER_API_KEY', 'PUSHER_CLUSTER'],
     fastbootAllowedKeys: [],
     failOnMissingKey: false,
     path: path.join(path.dirname(__dirname), '.env'),
