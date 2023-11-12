@@ -10,6 +10,14 @@
 		<div class="form-text text-end text-dark">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
 	{{else}}
 		<Input id={{concat @type.slug "-" @module.input_slug "-" @id}} @value={{mut (get @object @module.input_slug)}} @type={{@module.input_type}} class="form-control border-dark {{if (eq @module.input_type "hidden") "d-none"}}" placeholder={{@module.input_placeholder}} min={{@module.input_min}} max={{@module.input_max}} autocomplete="off" />
-		<div class="form-text text-end text-dark {{if (eq @module.input_type "hidden") "d-none"}}">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
+		<div class="form-text text-end text-dark {{if (eq @module.input_type "hidden") "d-none" "d-flex w-100 align-items-center justify-content-end"}}">
+			{{#if @module.input_primary}}
+				{{#unless (and (get @object @module.input_slug) (not-eq @id "new"))}}
+					<div {{on 'click' this.generateTitle}} class="text-decoration-underline text-end mt-0 cursor-pointer">Generate text</div>
+					<div class="mx-1"> or </div>
+				{{/unless}}
+			{{/if}}
+			<div>{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
+		</div>
 	{{/if}}
 </div>
