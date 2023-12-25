@@ -3,8 +3,11 @@ import { service } from '@ember/service';
 
 export default class AuthRoute extends Route {
   @service auth;
+  @service router;
 
   afterModel() {
-    this.auth.checkIfLoggedIn();
+    if (this.auth.checkIfLoggedIn()) {
+      this.router.transitionTo('index');
+    }
   }
 }

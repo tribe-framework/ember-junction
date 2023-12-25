@@ -12,7 +12,8 @@ export default class AuthService extends Service {
 	@action
 	checkPassword() {
 	    if (this.inputPassword == ENV.JUNCTION_PASSWORD) {
-	    	this.login();
+        this.login();
+        this.router.transitionTo('index');
 	    } else {
 	      alert('Incorrect password.');
 	    }
@@ -20,20 +21,24 @@ export default class AuthService extends Service {
 
 	@action
 	checkIfLoggedIn() {
-	    if (getCookie('junction_logged_in') == ENV.JUNCTION_PASSWORD)
-	    	this.login();
+    if (this.getCookie('junction_logged_in') == ENV.JUNCTION_PASSWORD) {
+      this.login();
+      return true;
+    } else {
+      return false;
+    }
+  }
 
-	    function getCookie(name) {
-	      var nameEQ = name + '=';
-	      var ca = document.cookie.split(';');
-	      for (var i = 0; i < ca.length; i++) {
-	        var c = ca[i];
-	        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
-	        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
-	      }
-	      return null;
-	    }
-	}
+  getCookie(name) {
+    var nameEQ = name + '=';
+    var ca = document.cookie.split(';');
+    for (var i = 0; i < ca.length; i++) {
+      var c = ca[i];
+      while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
 
 	@action
 	login() {
@@ -43,7 +48,6 @@ export default class AuthService extends Service {
 		date.setTime(date.getTime() + 365 * 24 * 60 * 60 * 1000);
 		expires = '; expires=' + date.toUTCString();
 		document.cookie = 'junction_logged_in=' + ENV.JUNCTION_PASSWORD + expires + '; path=/';
-		this.router.transitionTo('index');
 	}
 
 	@action
