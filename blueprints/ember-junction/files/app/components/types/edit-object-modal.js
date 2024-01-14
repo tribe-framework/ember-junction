@@ -28,6 +28,7 @@ export default class TypesEditObjectModalComponent extends Component {
   @tracked objectModules = this.args.object ? this.args.object.modules : A([]);
   @tracked objectID = this.args.object ? this.args.object.modules.id : 'new';
   @tracked editorjsInstances = [];
+  @tracked doUpdateSlug = false;
 
   @action
   async pushObjects() {
@@ -130,6 +131,14 @@ export default class TypesEditObjectModalComponent extends Component {
     await Promise.all(promises);
 
     const vvv = this.objectModules;
+          
+    delete vvv.slug_update;
+
+    if (this.doUpdateSlug == true) {
+      vvv.slug_update = true;
+      this.doUpdateSlug = false;
+    }
+
     if (
       this.args.object !== null &&
       this.args.object !== undefined &&
@@ -139,6 +148,7 @@ export default class TypesEditObjectModalComponent extends Component {
       this.store
         .findRecord(this.args.object.modules.type, this.args.object.modules.id)
         .then((obj) => {
+
           obj.modules = vvv;
 
           obj.save();
@@ -430,5 +440,14 @@ export default class TypesEditObjectModalComponent extends Component {
         this.cleanVarsIfNew();
       }
     });
+  }
+
+  @action
+  updateSlug() {
+    if (confirm("Are you sure you wish to update the slug? It will impact all linked objects.") == true) {
+      this.doUpdateSlug = true;
+    } else {
+      this.doUpdateSlug = false;
+    }
   }
 }
