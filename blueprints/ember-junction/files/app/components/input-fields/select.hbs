@@ -2,7 +2,15 @@
 
   {{#if @module.input_multiple}}
 
-      <PowerSelectMultiple class="form-control border-dark" @selected={{this.selectedMultiOptions}} @searchEnabled={{true}} @searchField="title" @placeholder={{@module.input_placeholder}} @options={{this.options}} @onChange={{this.updateMultiValue}} as |opt|>
+      <PowerSelectMultiple
+        class="form-control border-dark"
+        @selected={{this.selectedMultiOptions}}
+        @searchEnabled={{true}}
+        @searchField="title"
+        @placeholder={{@module.input_placeholder}}
+        @options={{this.options}}
+        @dropdownClass="in-modal-dropdown"
+        @onChange={{this.updateMultiValue}} as |opt|>
         {{#if (eq opt.type "user")}}
           {{opt.name}}
         {{else}}
@@ -12,7 +20,15 @@
 
   {{else}}
 
-      <PowerSelect class="form-control border-dark" @selected={{this.selectedOption}} @searchEnabled={{true}} @searchField="title" @placeholder={{@module.input_placeholder}} @options={{this.options}} @onChange={{this.updateValue}} as |opt|>
+      <PowerSelect
+        class="form-control border-dark"
+        @selected={{this.selectedOption}}
+        @searchEnabled={{true}}
+        @searchField="title"
+        @placeholder={{@module.input_placeholder}}
+        @options={{this.options}}
+        @dropdownClass="in-modal-dropdown"
+        @onChange={{this.updateValue}} as |opt|>
         {{#if (eq opt.type "user")}}
           {{opt.name}}
         {{else}}

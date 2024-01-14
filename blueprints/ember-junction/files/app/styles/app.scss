@@ -76,10 +76,10 @@ $ember-power-select-border-radius: 0;
 
 @import "node_modules/bootstrap/scss/bootstrap";
 
-.ember-power-select-dropdown, .ember-power-select-search {
-  z-index: 1100 !important;
-  position: relative;
-}
+// .ember-power-select-dropdown, .ember-power-select-search {
+//   z-index: 1100 !important;
+//   position: relative;
+// }
 
 #ember-basic-dropdown-wormhole {
   position: absolute;
@@ -154,13 +154,14 @@ $ember-power-select-border-radius: 0;
 }
 
 .codex-editor__redactor {
-  padding-bottom: 0 !important;
+  padding-bottom: 80px !important;
 }
 
-.ce-toolbar__content, .ce-block__content {
-  max-width: 84% !important;
-  margin-left: 10px !important;
-  margin-right: auto !important;
+.ce-toolbar__content,
+.ce-block__content {
+  max-width: unset;
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
 }
 
 .page-link{
@@ -183,4 +184,8 @@ body {
   content: '🔗';
   margin-left: -17px;
   font-size: 14px;
+}
+
+.in-modal-dropdown {
+  z-index: 1057;
 }
