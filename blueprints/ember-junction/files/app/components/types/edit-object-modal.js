@@ -181,6 +181,8 @@ export default class TypesEditObjectModalComponent extends Component {
       this.args.loadTypeObjects(this.args.type);
       this.objectID = 'new';
       this.cleanVarsIfNew();
+      
+      document.querySelector('#close-' + this.objectID).click();
     }
 
     this.types.fetchAgain();
