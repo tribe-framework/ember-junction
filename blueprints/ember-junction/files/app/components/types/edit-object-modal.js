@@ -62,9 +62,9 @@ export default class TypesEditObjectModalComponent extends Component {
   async deleteObjects() {
     await this.args.selectedRowIDs[this.args.type.slug].forEach((id) => {
       this.store.findRecord(this.args.type.slug, id).then(async (obj) => {
-        
+
         await obj.destroyRecord();
-        
+
         if (this.args.type.api_hooks !== undefined
            && this.args.type.api_hooks.on_delete !== undefined
            && this.args.type.api_hooks.on_delete != ""
@@ -131,7 +131,7 @@ export default class TypesEditObjectModalComponent extends Component {
     await Promise.all(promises);
 
     const vvv = this.objectModules;
-          
+
     delete vvv.slug_update;
 
     if (this.doUpdateSlug == true) {
@@ -191,7 +191,7 @@ export default class TypesEditObjectModalComponent extends Component {
       this.args.loadTypeObjects(this.args.type);
       this.objectID = 'new';
       this.cleanVarsIfNew();
-      
+
       document.querySelector('#close-' + this.objectID).click();
     }
 
@@ -252,13 +252,12 @@ export default class TypesEditObjectModalComponent extends Component {
       if (element['input_slug'] == module_input_slug) return element;
     });
 
-    this.editorjsInstances[
-      this.args.type.slug + '-' + module_input_slug + '-' + id
-    ] = new EditorJS({
-      holder: this.args.type.slug + '-' + module_input_slug + '-' + id,
+    const ejsTarget = `${this.args.type.slug}-${module_input_slug}-${id}`;
+
+    const ejsInstance = new EditorJS({
+      holder: ejsTarget,
       data: this.args.object ? this.args.object.modules[module_input_slug] : {},
       placeholder: editor_object_in_type.input_placeholder,
-
       tools: {
         paragraph: {
           tunes: ['footnotes'],
@@ -344,7 +343,24 @@ export default class TypesEditObjectModalComponent extends Component {
       },
     });
 
-    this.editorjsInstances = this.editorjsInstances;
+    const ejsInstances = this.editorjsInstances;
+    ejsInstances[ejsTarget] = ejsInstance;
+
+    ejsInstance.isReady
+      .then(() => {
+        const editors = document.querySelectorAll(`#editObjectModal-${id} .codex-editor`);
+        const editorsCount = editors.length;
+
+        editors.forEach((el, id) => {
+          const zIndexValue = editorsCount - id;
+          el.style.zIndex = zIndexValue;
+        });
+      })
+      .catch((e) => {
+        console.error('Error during Editor.js initialization:', e);
+      });
+
+    this.editorjsInstances = ejsInstances;
   }
 
   @action
