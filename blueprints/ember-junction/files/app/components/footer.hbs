@@ -1,6 +1,7 @@
 <footer class="mt-auto bg-secondary border-top border-dark pt-5 pb-4 mb-0">
 
 	<div class="container">
+		{{#unless this.hidePostcodeAttribution}}
 		<div class="row">
 			<div class="col-md small">
 				<p class="text-black small text-center text-lg-start fw-light">
@@ -19,6 +20,7 @@
 				</ul>
 			</div>
 		</div>
+		{{/unless}}
 	</div>
 </footer>
 {{yield}}
