@@ -6,12 +6,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto text-end mb-lg-0 d-flex align-items-lg-center pe-5">
         <HeaderNavItem>
-          <img src="/favicon.png" height="36" width="36" class="rounded-2 mx-2" />
+          <img src="/favicon.png" height="36" width="36" class="rounded-0 mx-2" />
         </HeaderNavItem>
 
         <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="gauge-high" @navtitle="Dashboard" @navroute="index" />
 
-        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="sitemap" @navtitle="Types" @navroute="types" />
+        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="circle-nodes" @navtitle="Types" @navroute="types" />
+
+        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="layer-group" @navtitle="Files" @navroute="files" />
 
       </ul>
     </div>
