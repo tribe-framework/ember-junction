@@ -9,10 +9,10 @@ export default class HeaderComponent extends Component {
   toggleBarsIcon() {
     let el = document.querySelector('#main-menu-toggler');
     if (el.attributes['aria-expanded'].value == 'true')
-      el.innerHTML = '<i class="fa-light fa-xmark-large text-white"></i>';
+      el.innerHTML = '<i class="fa-solid fa-xmark text-white fs-1"></i>';
     else
       el.innerHTML =
-        '<i class="fa-light fa-bars-staggered text-white fs-1"></i>';
+        '<i class="fa-solid fa-bars-staggered text-white fs-1"></i>';
   }
 
   @action

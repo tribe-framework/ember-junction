@@ -8,10 +8,10 @@
 		
 		<div class="container mx-auto px-2">
 		  <div class="py-3 px-3 mt-4 border border-1 border-dark text-center bg-body-tertiary rounded-0">
-		    <h2 class="text-body-emphasis"><FaIcon @icon="files" @prefix="fa-light" class="me-2" /><span>Files Archive</span></h2>
+		    <h2 class="text-body-emphasis"><i class="fa-solid fa-folder-tree"></i> <span>Files Archive</span></h2>
 		    <div class="input-group mt-4">
 			  <Input @value={{this.query}} @type="text" class="form-control form-control-lg" placeholder="Type query (use re::phrase for complex search)" {{on-key "Enter" this.search}} />
-			  <button {{on 'click' this.search}} type="button" class="btn btn-light btn-lg"><FaIcon @icon="magnifying-glass" @prefix="fa-light" class="me-1" /> Search</button>
+			  <button {{on 'click' this.search}} type="button" class="btn btn-light btn-lg"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
 			</div>
 			<div class="text-start mb-3 mt-2">
 				<a href="https://github.com/tribe-framework/rephrase" target="new" class="ms-3 fst-italic text-decoration-underline text-muted">Learn more about re::phrase</a>
@@ -39,7 +39,7 @@
 					{{#each-in this.results.by_file_name as |name link|}}
 					<tr>
 					  <td>{{name}}</td>
-					  <td><a href="{{link}}" target="new" class="bt btn-sm btn-outline-primary">View <FaIcon @icon="arrow-up-right-from-square" @prefix="fa-light" /></a></td>
+					  <td><a href="{{link}}" target="new" class="bt btn-sm btn-outline-primary">View <i class="fa-solid fa-up-right-from-square"></i></a></td>
 					</tr>
 					{{/each-in}}
 				</tbody>
@@ -56,7 +56,7 @@
 					{{#each-in this.results.by_file_content as |name link|}}
 					<tr>
 					  <td>{{name}}</td>
-					  <td><a href="{{link}}" target="new" class="bt btn-sm btn-outline-primary">View <FaIcon @icon="arrow-up-right-from-square" @prefix="fa-light" /></a></td>
+					  <td><a href="{{link}}" target="new" class="bt btn-sm btn-outline-primary">View <i class="fa-solid fa-up-right-from-square"></i></a></td>
 					</tr>
 					{{/each-in}}
 				</tbody>
