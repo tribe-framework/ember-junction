@@ -6,7 +6,7 @@
         <div class="modal-title" id="editObjectModalLabel">
           <div class="fs-5 text-capitalize">{{@type.name}} #{{@object.id}}</div>
           {{#if @object.id}}
-            <p class="small text-muted fw-bold mb-0">{{@object.modules.slug}} <span {{on 'click' this.updateSlug}}><FaIcon @icon="arrows-rotate" /></span></p>
+            <p class="small text-muted fw-bold mb-0">{{@object.modules.slug}} <span {{on 'click' this.updateSlug}}><i class="fa-solid fa-arrows-rotate"></i></span></p>
           {{/if}}
         </div>
         <button type="button" id="close-{{this.objectID}}" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -54,7 +54,7 @@
 
             <div class="d-flex justify-content-start align-items-center">
               <div class="d-flex justify-content-start align-items-start">
-                <button {{on 'click' this.areYouSure}} type="button" class="btn btn-danger text-light"><FaIcon @icon="trash-alt" /></button>
+                <button {{on 'click' this.areYouSure}} type="button" class="btn btn-danger text-light"><i class="fa-solid fa-trash"></i></button>
               </div>
               <div class="{{this.deleteSurity}} justify-content-start align-items-center" id="deleteObjectConfirmation-{{@object.id}}">
                 <div class="mx-2">Are you sure?</div>
@@ -70,7 +70,7 @@
 
               <div class="d-flex justify-content-start align-items-center">
                 <div class="d-flex justify-content-start align-items-start">
-                  <button {{on 'click' this.areYouSure}} type="button" class="btn btn-danger text-light"><FaIcon @icon="trash-alt" /></button>
+                  <button {{on 'click' this.areYouSure}} type="button" class="btn btn-danger text-light"><i class="fa-solid fa-trash"></i></button>
                 </div>
                 <div class="{{this.deleteSurity}} justify-content-start align-items-center" id="deleteObjectConfirmation-{{@type.slug}}-multi">
                   <div class="mx-2">Delete ALL?</div>

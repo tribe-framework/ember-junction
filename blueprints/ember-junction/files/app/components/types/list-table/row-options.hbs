@@ -4,15 +4,15 @@
 	  	{{#unless (eq @type.slug "user")}}
 		    <span class="small mb-n1 me-1 bg-none border-0 font-weight-bold text-uppercase text-dark">
 		      {{#if (eq @object.modules.content_privacy "public")}}
-		        <span class="text-success"><FaIcon @icon="megaphone" /></span>
+		        <span class="text-success"><i class="fa-solid fa-bullhorn"></i></span>
 		      {{else if (eq @object.modules.content_privacy "private")}}
-		        <span class="text-danger"><FaIcon @icon="link-horizontal" @prefix="fa-light" /></span>
+		        <span class="text-danger"><i class="fa-solid fa-lock"></i></span>
 		      {{else if (eq @object.modules.content_privacy "sent")}}
-		        <span class="text-primary"><FaIcon @icon="paper-plane" @prefix="fa-light" /></span>
+		        <span class="text-primary"><i class="fa-solid fa-paper-plane"></i></span>
 		      {{else if (eq @object.modules.content_privacy "pending")}}
-		        <span class="text-warning"><FaIcon @icon="hourglass-half" /></span>
+		        <span class="text-warning"><i class="fa-solid fa-hourglass-half"></i></span>
 		      {{else}}
-		        <span class="text-dark"><FaIcon @icon="paragraph" /></span>
+		        <span class="text-dark"><i class="fa-solid fa-paragraph"></i></span>
 		      {{/if}}
 		      <span class="d-none d-lg-inline">{{if @object.modules.content_privacy @object.modules.content_privacy "draft"}}</span>
 		    </span>
@@ -20,19 +20,19 @@
 
 	    {{#unless @type.sendable}}
 		    {{#unless (or (eq @module.input_unique true) (eq @type.readonly true))}}
-		      <button class="badge badge-sm border border-1 border-dark bg-white text-dark font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#copyObjectModal-{{@object.id}}" type="button"><FaIcon @icon="copy" /><span class="d-none d-lg-inline">&nbsp;Copy</span></button>
+		      <button class="badge badge-sm border border-1 border-dark bg-white text-dark font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#copyObjectModal-{{@object.id}}" type="button"><i class="fa-solid fa-copy"></i><span class="d-none d-lg-inline">&nbsp;Copy</span></button>
 		    {{/unless}}
 		{{/unless}}
 
 	    {{#if @type.url}}
-	      <a class="badge badge-sm border border-1 border-dark bg-white text-dark font-weight-bold text-uppercase text-decoration-none" href="{{concat @type.url "/" @object.modules.slug}}" target="new"><FaIcon @icon="external-link-alt" /><span class="d-none d-lg-inline">&nbsp;View</span></a>
+	      <a class="badge badge-sm border border-1 border-dark bg-white text-dark font-weight-bold text-uppercase text-decoration-none" href="{{concat @type.url "/" @object.modules.slug}}" target="new"><i class="fa-solid fa-up-right-from-square"></i><span class="d-none d-lg-inline">&nbsp;View</span></a>
 	    {{/if}}
 
 	    {{#if (or (is-empty @object.modules.content_privacy) (eq @object.modules.content_privacy "draft"))}}
-	    	<button class="badge badge-sm border border-1 border-dark bg-white text-dark font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@object.id}}" type="button"><FaIcon @icon="pen-to-square" />&nbsp;Edit</button>
+	    	<button class="badge badge-sm border border-1 border-dark bg-white text-dark font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@object.id}}" type="button"><i class="fa-solid fa-pen-to-square"></i>&nbsp;Edit</button>
 	   	{{else}}
 		   	{{#unless (or @type.readonly (eq @type.editable false))}}
-			    <button class="badge badge-sm border border-1 border-dark bg-white text-dark font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@object.id}}" type="button"><FaIcon @icon="pen-to-square" />&nbsp;Edit</button>
+			    <button class="badge badge-sm border border-1 border-dark bg-white text-dark font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@object.id}}" type="button"><i class="fa-solid fa-pen-to-square"></i>&nbsp;Edit</button>
 			{{/unless}}
 		{{/if}}
 

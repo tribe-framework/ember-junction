@@ -13,14 +13,14 @@
 		</div>
 		<FileDropzone @queue={{queue}} as |dropzone|>
 		    {{#if dropzone.active}}
-		      <div class="text-center text-dark w-100 fs-4 p-3" style="border: 6px dashed #000;"><FaIcon @icon="wand-magic-sparkles" @spin={{true}} @pulse={{true}} @prefix="fa-light" />&nbsp;&nbsp;Drop to upload</div>
+		      <div class="text-center text-dark w-100 fs-4 p-3" style="border: 6px dashed #000;"><i class="fa-solid fa-wand-magic-sparkles fa-spin"></i>&nbsp;&nbsp;Drop to upload</div>
 		    {{else if queue.files.length}}
-		      <div class="text-center text-dark w-100 fs-4 p-3" style="border: 6px dashed #eee;"><FaIcon @icon="timer" @prefix="fa-light" />&nbsp;Uploading {{queue.files.length}} file(s) ({{queue.progress}}% done).</div>
+		      <div class="text-center text-dark w-100 fs-4 p-3" style="border: 6px dashed #eee;"><i class="fa-solid fa-clock"></i>&nbsp;Uploading {{queue.files.length}} file(s) ({{queue.progress}}% done).</div>
 		      	<div class="progress" role="progressbar" aria-valuenow="{{queue.progress}}" aria-valuemin="0" aria-valuemax="100">
 				  <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: {{queue.progress}}%"></div>
 				</div>
 		    {{else if dropzone.supported}}
-		      <div class="text-center text-muted w-100 fs-4 p-3" style="border: 6px dashed #eee;"><FaIcon @icon="cloud-arrow-up" @prefix="fa-light" />&nbsp;&nbsp;Drag and drop files here to upload them</div>
+		      <div class="text-center text-muted w-100 fs-4 p-3" style="border: 6px dashed #eee;"><i class="fa-solid fa-cloud-arrow-up"></i>&nbsp;&nbsp;Drag and drop files here to upload them</div>
 		    {{/if}}
 	  	</FileDropzone>
 	{{/let}}
@@ -32,9 +32,9 @@
 	  	{{#if (this.isString file)}}
 
 	  		<div class="my-1 d-flex align-items-center justify-content-start">
-	  			<a href="{{file}}" class="me-2 btn btn-sm btn-outline-dark" target="new">View file <FaIcon @icon="external-link-alt" @prefix="fa-light" /></a>
-	  			<button {{on 'click' (fn this.copyLink file index)}} type="button" class="me-2 btn btn-sm btn-outline-dark" target="new"><span id="copy-{{index}}">Copy link</span> <FaIcon @icon="copy" @prefix="fa-light" /></button>
-	  			<span class="me-3 text-danger cursor-pointer" {{on 'click' (fn this.deleteFile index)}}><FaIcon @icon="circle-xmark" /></span>
+	  			<a href="{{file}}" class="me-2 btn btn-sm btn-outline-dark" target="new">View file <i class="fa-solid fa-up-right-from-square"></i></a>
+	  			<button {{on 'click' (fn this.copyLink file index)}} type="button" class="me-2 btn btn-sm btn-outline-dark" target="new"><span id="copy-{{index}}">Copy link</span> <i class="fa-solid fa-copy"></i></button>
+	  			<span class="me-3 text-danger cursor-pointer" {{on 'click' (fn this.deleteFile index)}}><i class="fa-solid fa-circle-xmark"></i></span>
 	  			<span class="text-muted">{{this.explodeFilename file}}</span>
 	  		</div>
 
@@ -47,20 +47,20 @@
 		  			{{#if (get (get file.cloudflare_stream "result") "thumbnail")}}
 		  				<div class="me-2"><img src="{{get (get file.cloudflare_stream "result") "thumbnail"}}" height="31" /></div>
 		  			{{/if}}
-	  				<a href="{{file.url}}" class="me-2 btn btn-sm btn-outline-dark" target="new">View file <FaIcon @icon="external-link-alt" @prefix="fa-light" /></a>
-						<button {{on 'click' (fn this.copyLink (get (get (get file.cloudflare_stream "result") "playback") "hls") index)}} type="button" class="me-2 btn btn-sm btn-outline-dark" target="new"><span id="copy-{{index}}">Copy link</span> <FaIcon @icon="copy" @prefix="fa-light" /></button>
+	  				<a href="{{file.url}}" class="me-2 btn btn-sm btn-outline-dark" target="new">View file <i class="fa-solid fa-up-right-from-square"></i></a>
+						<button {{on 'click' (fn this.copyLink (get (get (get file.cloudflare_stream "result") "playback") "hls") index)}} type="button" class="me-2 btn btn-sm btn-outline-dark" target="new"><span id="copy-{{index}}">Copy link</span> <i class="fa-solid fa-copy"></i></button>
 
 					{{else}}
 
 		  			{{#if file.xs.url}}
 		  				<div class="me-2"><img src="{{file.xs.url}}" height="31" /></div>
 		  			{{/if}}
-	  				<a href="{{file.url}}" class="me-2 btn btn-sm btn-outline-dark" target="new">View file <FaIcon @icon="external-link-alt" @prefix="fa-light" /></a>
-	  				<button {{on 'click' (fn this.copyLink file.url index)}} type="button" class="me-2 btn btn-sm btn-outline-dark" target="new"><span id="copy-{{index}}">Copy link</span> <FaIcon @icon="copy" @prefix="fa-light" /></button>
+	  				<a href="{{file.url}}" class="me-2 btn btn-sm btn-outline-dark" target="new">View file <i class="fa-solid fa-up-right-from-square"></i></a>
+	  				<button {{on 'click' (fn this.copyLink file.url index)}} type="button" class="me-2 btn btn-sm btn-outline-dark" target="new"><span id="copy-{{index}}">Copy link</span> <i class="fa-solid fa-copy"></i></button>
 
 	  			{{/if}}
 
-	  			<span class="me-3 text-danger cursor-pointer" {{on 'click' (fn this.deleteFile index)}}><FaIcon @icon="circle-xmark" /></span>
+	  			<span class="me-3 text-danger cursor-pointer" {{on 'click' (fn this.deleteFile index)}}><i class="fa-solid fa-circle-xmark"></i></span>
 	  			<span class="text-muted">{{this.explodeFilename file.url}}</span>
 	  		</div>
 

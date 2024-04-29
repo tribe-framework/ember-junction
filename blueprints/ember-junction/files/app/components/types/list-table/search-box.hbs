@@ -1,10 +1,10 @@
 <div class="input-group mx-0">
   <Input @type="text" @value={{@searchQuery}} class="border border-dark form-control" placeholder="Search within {{@type.plural}}" @enter={{@search}} @escape-press={{@clearSearch}} />
   {{#if (or @searchQuery @showClearSearchButton)}}
-    <button class="btn btn-outline-dark" type="button" {{on 'click' @clearSearch}} {{on 'click' @clearSearchQuery}}><FaIcon @icon="times" @prefix="fa-light" /></button>
+    <button class="btn btn-outline-dark" type="button" {{on 'click' @clearSearch}} {{on 'click' @clearSearchQuery}}><i class="fa-solid fa-xmark"></i></button>
   {{/if}}
-  <button class="btn btn-outline-dark" type="button" {{on 'click' @search}} {{on 'click' (fn @changePageNumber 1)}}><FaIcon @icon="magnifying-glass" @prefix="fa-light" /></button>
-  <button class="btn btn-outline-dark" type="button" data-bs-toggle="modal" data-bs-target="#advancedSearchModal"><FaIcon @icon="circle-bolt" /></button>
+  <button class="btn btn-outline-dark" type="button" {{on 'click' @search}} {{on 'click' (fn @changePageNumber 1)}}><i class="fa-solid fa-magnifying-glass"></i></button>
+  <button class="btn btn-outline-dark" type="button" data-bs-toggle="modal" data-bs-target="#advancedSearchModal"><i class="fa-solid fa-filter"></i></button>
 </div>
 
 {{!-- Modal --}}

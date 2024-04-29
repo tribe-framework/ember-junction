@@ -10,10 +10,10 @@
 
 	{{/if}}
   
-  <span class="input-group-text text-dark" {{on 'click' (fn @addToMultiField @module.input_slug @index)}}><FaIcon @icon="circle-plus" /></span>
+  <span class="input-group-text text-dark" {{on 'click' (fn @addToMultiField @module.input_slug @index)}}><i class="fa-solid fa-circle-plus"></i></span>
 
   	{{#if (not-eq @index 0)}}
-		<span class="input-group-text text-danger" {{on 'click' (fn @removeFromMultiField @module.input_slug @index)}}><FaIcon @icon="circle-xmark" /></span>
+		<span class="input-group-text text-danger" {{on 'click' (fn @removeFromMultiField @module.input_slug @index)}}><i class="fa-solid fa-circle-xmark"></i></span>
 	{{/if}}
 
 	{{#if (eq @index 0)}}

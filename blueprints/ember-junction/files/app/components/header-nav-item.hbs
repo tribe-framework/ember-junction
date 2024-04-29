@@ -1,7 +1,7 @@
 {{#if @navtitle}}
 	<li class="fs-smaller nav-item">
       <LinkTo {{on 'click' @collapseMenu}} class="nav-link text-white px-3 d-flex align-items-center justify-content-start" @route="{{@navroute}}">
-      	<FaIcon @icon="{{@icon}}" @prefix="fa-light" />
+      	<i class="fa-solid fa-{{@icon}}"></i>
       	<span class="ps-1">{{@navtitle}}</span>
       </LinkTo>
     </li>

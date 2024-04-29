@@ -11,7 +11,7 @@
 
         <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="gauge-high" @navtitle="Dashboard" @navroute="index" />
 
-        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="list-tree" @navtitle="Types" @navroute="types" />
+        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="circle-nodes" @navtitle="Types" @navroute="types" />
 
       </ul>
     </div>
@@ -19,7 +19,7 @@
       <div class="fs-smaller fs-4 navbar-brand text-white"
         data-bs-toggle="tooltip" data-bs-placement="bottom"
         title="Logout" {{on 'click' this.auth.logout}}>
-        <FaIcon @icon="arrow-right-from-bracket" @prefix="fa-light" />
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
       </div>
     </div>
   </div>
