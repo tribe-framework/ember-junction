@@ -19,9 +19,23 @@ export default class FilesController extends Controller {
   async search() {
     this.results = null;
   	this.loading = true;
-  	const response = await fetch(ENV.TribeENV.API_URL + '/custom/junction/files/search.php?q='+encodeURI(this.query));
-  	this.results = await response.json();
-    console.log(this.results);
-  	this.loading = false;
+    await fetch(ENV.TribeENV.API_URL + '/uploads.php', {
+      method: "post",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        search: true,
+        q: encodeURI(this.query)
+      })
+    })
+    .then((response) => { 
+      return response.json();
+    })
+    .then((response) => {
+      this.results = response;
+      this.loading = false;
+    });
   }
 }
