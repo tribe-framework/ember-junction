@@ -10,6 +10,7 @@ export default class FilesController extends Controller {
   @tracked query = "";
   @tracked results = null;
   @tracked loading = false;
+  @tracked deepSearch = false;
 
   getLength = (e)=>{
     return Object.keys(e).length;
@@ -27,7 +28,8 @@ export default class FilesController extends Controller {
       },
       body: JSON.stringify({
         search: true,
-        q: encodeURI(this.query)
+        q: encodeURI(this.query),
+        deep_search: this.deepSearch,
       })
     })
     .then((response) => { 
