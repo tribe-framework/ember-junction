@@ -18,7 +18,7 @@ export default class InputFieldsSelectComponent extends Component {
   @action
   cleanVarsOnNewModalOpen() {
     const myModalNew = document.getElementById(
-      'editObjectModal-' + this.args.type.slug + '-new'
+      'editObjectModal-' + this.args.type.slug + '-new',
     );
     myModalNew.addEventListener('show.bs.modal', (event) => {
       if (this.args.id == 'new') {
@@ -35,7 +35,7 @@ export default class InputFieldsSelectComponent extends Component {
   @action
   cleanVarsOnMultiModalOpen() {
     const myModalMulti = document.getElementById(
-      'editObjectModal-' + this.args.type.slug + '-multi'
+      'editObjectModal-' + this.args.type.slug + '-multi',
     );
     myModalMulti.addEventListener('show.bs.modal', (event) => {
       if (this.args.id == 'multi') {
@@ -78,17 +78,21 @@ export default class InputFieldsSelectComponent extends Component {
     this.args.mutObjectModuleValue(
       this.args.module.input_slug,
       this.selectedMultiOptionSlugs,
-      false
+      false,
     );
   }
 
   @action
   async isModuleAlsoAType() {
-    if (this.args.webapp.modules[this.args.module.input_slug] !== undefined || this.args.webapp.modules[this.args.module.linked_type] !== undefined) {
-
+    if (
+      this.args.webapp.modules[this.args.module.input_slug] !== undefined ||
+      this.args.webapp.modules[this.args.module.linked_type] !== undefined
+    ) {
       if (this.args.webapp.modules[this.args.module.input_slug] !== undefined)
         var linked_type = this.args.module.input_slug;
-      else if (this.args.webapp.modules[this.args.module.linked_type] !== undefined)
+      else if (
+        this.args.webapp.modules[this.args.module.linked_type] !== undefined
+      )
         var linked_type = this.args.module.linked_type;
 
       this.typeOptions = await this.store.peekAll(linked_type);
@@ -114,7 +118,7 @@ export default class InputFieldsSelectComponent extends Component {
             typeof this.args.object[this.args.module.input_slug] !== 'string' &&
             inArray(
               element.modules.slug,
-              this.args.object[this.args.module.input_slug]
+              this.args.object[this.args.module.input_slug],
             )
           ) {
             this.selectedOption = element.modules;

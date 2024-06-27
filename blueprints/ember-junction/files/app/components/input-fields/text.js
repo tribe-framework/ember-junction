@@ -2,12 +2,12 @@ import Component from '@glimmer/component';
 import { action } from '@ember/object';
 
 export default class InputFieldsTextComponent extends Component {
-	@action
-	async generateTitle() {
-		let Passphrase = window.Passphrase;
-		let passphrase = await Passphrase.generate(36);
-		this.args.mutObjectModuleValue(this.args.module.input_slug, passphrase);
-	}
+  @action
+  async generateTitle() {
+    let Passphrase = window.Passphrase;
+    let passphrase = await Passphrase.generate(36);
+    this.args.mutObjectModuleValue(this.args.module.input_slug, passphrase);
+  }
 
   inputType = (type) => {
     if (type === 'number') {
@@ -15,7 +15,7 @@ export default class InputFieldsTextComponent extends Component {
     }
 
     return type;
-  }
+  };
 
   inputMode = (type) => {
     switch (type) {
@@ -32,5 +32,5 @@ export default class InputFieldsTextComponent extends Component {
     }
 
     return type;
-  }
+  };
 }

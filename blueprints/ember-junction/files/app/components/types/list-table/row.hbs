@@ -27,5 +27,6 @@
   {{/each}}
 </tr>
 
+<Types::BlueprintObjectModal @object={{@object}} @type={{@type}} />
 <Types::CopyObjectModal @object={{@object}} @type={{@type}} @loadTypeObjects={{@loadTypeObjects}} />
 <Types::EditObjectModal @multiEdit={{false}} @webapp={{@webapp}} @type={{@type}} @object={{@object}} @loadTypeObjects={{@loadTypeObjects}} @selectedRowIDs={{@selectedRowIDs}} @emptySelectedRowsInType={{@emptySelectedRowsInType}} />

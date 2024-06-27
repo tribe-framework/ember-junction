@@ -11,13 +11,17 @@
 
         <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="gauge-high" @navtitle="Dashboard" @navroute="index" />
 
-        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="circle-nodes" @navtitle="Types" @navroute="types" />
+        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="circle-nodes" @navtitle="Tracks" @navroute="types" />
 
         <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="layer-group" @navtitle="Files" @navroute="files" />
 
       </ul>
     </div>
     <div class="d-flex align-items-center justify-content-end">
+      <div class="fs-smaller fs-4 navbar-brand text-white"
+        data-bs-toggle="modal" data-bs-target="#typesWebapp">
+        <i class="fa-solid fa-gear"></i>
+      </div>
       <div class="fs-smaller fs-4 navbar-brand text-white"
         data-bs-toggle="tooltip" data-bs-placement="bottom"
         title="Logout" {{on 'click' this.auth.logout}}>

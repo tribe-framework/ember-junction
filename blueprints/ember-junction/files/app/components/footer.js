@@ -8,7 +8,6 @@ export default class FooterComponent extends Component {
   get hidePostcodeAttribution() {
     if (ENV.HIDE_POSTCODE_ATTRIBUTION !== undefined)
       return ENV.HIDE_POSTCODE_ATTRIBUTION;
-    else
-      return false;
+    else return false;
   }
 }

@@ -13,7 +13,7 @@ export default class InputFieldsMultiComponent extends Component {
         ? Array.isArray(this.args.object[this.args.module.input_slug])
           ? this.args.object[this.args.module.input_slug][this.args.index]
           : this.args.object[this.args.module.input_slug]
-        : [" "];
+        : [' '];
     this.fieldValue = this.fieldValue;
   }
 }

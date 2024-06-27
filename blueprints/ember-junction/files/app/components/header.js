@@ -4,7 +4,7 @@ import { service } from '@ember/service';
 
 export default class HeaderComponent extends Component {
   @service auth;
-  
+
   @action
   toggleBarsIcon() {
     let el = document.querySelector('#main-menu-toggler');

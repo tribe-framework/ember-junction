@@ -189,3 +189,17 @@ body {
 .in-modal-dropdown {
   z-index: 1057;
 }
+
+.json-key {
+  color: var(--bs-danger);
+  font-weight: bolder;
+}
+
+.json-link {
+  color: var(--bs-light);
+  text-decoration: underline;
+}
+
+.json-mark {
+  color: var(--bs-gray-700);
+}

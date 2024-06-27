@@ -1,6 +1,6 @@
 <div class="card px-0 border-dark">
   <div class="card-header border-0 text-uppercase">
-    Types defined in types.json
+    Your Tracks
   </div>
   <div class="card-body">
     {{#if this.types.json.modules.webapp.interface_urls.<%= dasherizedPackageName %>.types}}
@@ -9,10 +9,17 @@
       {{/each}}
     {{else}}
       {{#each-in this.types.json.modules as |key type|}}
-        {{#if (and (and type.slug (not-eq type.slug "webapp")) (not-eq type.hidden true))}}
+        {{#if (eq type.slug "deleted_record")}}
+          {{#if this.types.json.modules.webapp.soft_delete_records}}
+            <button {{on 'click' (fn this.changeType type)}} type="button" class="btn btn-outline-danger me-2 mb-2">{{type.plural}}</button>
+          {{/if}}
+        {{else}}
+          {{#if (and (and type.slug (not-eq type.slug "webapp")) (not-eq type.hidden true))}}
             <button {{on 'click' (fn this.changeType type)}} type="button" class="btn btn-outline-dark me-2 mb-2">{{type.plural}}</button>
           {{/if}}
+        {{/if}}
       {{/each-in}}
     {{/if}}
+    <button type="button" data-bs-toggle="modal" data-bs-target="#newModel" class="btn btn-dark me-2 mb-2"><i class="fa-solid fa-plus"></i></button>
   </div>
 </div>

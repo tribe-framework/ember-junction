@@ -39,15 +39,17 @@ export default class TypesEditObjectModalComponent extends Component {
         obj.modules = { ...vvv };
         obj.save();
 
-        if (this.args.type.api_hooks !== undefined
-           && this.args.type.api_hooks.on_update !== undefined
-           && this.args.type.api_hooks.on_update != "") {
+        if (
+          this.args.type.api_hooks !== undefined &&
+          this.args.type.api_hooks.on_update !== undefined &&
+          this.args.type.api_hooks.on_update != ''
+        ) {
           fetch(this.args.type.api_hooks.on_update, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
             },
-            body: JSON.stringify({"id": obj.id})
+            body: JSON.stringify({ id: obj.id }),
           });
         }
       });
@@ -62,19 +64,20 @@ export default class TypesEditObjectModalComponent extends Component {
   async deleteObjects() {
     await this.args.selectedRowIDs[this.args.type.slug].forEach((id) => {
       this.store.findRecord(this.args.type.slug, id).then(async (obj) => {
-
         await obj.destroyRecord();
 
-        if (this.args.type.api_hooks !== undefined
-           && this.args.type.api_hooks.on_delete !== undefined
-           && this.args.type.api_hooks.on_delete != ""
-           && id !== undefined) {
+        if (
+          this.args.type.api_hooks !== undefined &&
+          this.args.type.api_hooks.on_delete !== undefined &&
+          this.args.type.api_hooks.on_delete != '' &&
+          id !== undefined
+        ) {
           fetch(this.args.type.api_hooks.on_delete, {
             method: 'POST',
             headers: {
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
             },
-            body: JSON.stringify({"id": id})
+            body: JSON.stringify({ id: id }),
           });
         }
       });
@@ -102,19 +105,19 @@ export default class TypesEditObjectModalComponent extends Component {
               (outputData) => {
                 this.mutObjectModuleValue(module.input_slug, outputData, false);
                 resolve();
-              }
+              },
             );
           } else {
             const mtxtId = `${this.args.type.slug}-${module.input_slug}-${this.objectID}`;
             const inputs = document.querySelectorAll(
-              "[name='" + mtxtId + "[]']"
+              "[name='" + mtxtId + "[]']",
             );
             for (let i = 0; i < inputs.length; i++) {
               this.mutObjectModuleValue(
                 module.input_slug,
                 inputs[i].value,
                 true,
-                i
+                i,
               );
             }
             resolve();
@@ -144,25 +147,25 @@ export default class TypesEditObjectModalComponent extends Component {
       this.args.object !== undefined &&
       this.args.object.id !== null
     ) {
-
       this.store
         .findRecord(this.args.object.modules.type, this.args.object.modules.id)
         .then((obj) => {
-
           obj.modules = vvv;
 
           obj.save();
 
-          if (this.args.type.api_hooks !== undefined
-             && this.args.type.api_hooks.on_update !== undefined
-             && this.args.type.api_hooks.on_update != ""
-             && obj.id !== undefined) {
+          if (
+            this.args.type.api_hooks !== undefined &&
+            this.args.type.api_hooks.on_update !== undefined &&
+            this.args.type.api_hooks.on_update != '' &&
+            obj.id !== undefined
+          ) {
             fetch(this.args.type.api_hooks.on_update, {
               method: 'POST',
               headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
               },
-              body: JSON.stringify({"id": obj.id})
+              body: JSON.stringify({ id: obj.id }),
             });
           }
 
@@ -175,16 +178,18 @@ export default class TypesEditObjectModalComponent extends Component {
 
       await obj.save();
 
-      if (this.args.type.api_hooks !== undefined
-         && this.args.type.api_hooks.on_create !== undefined
-         && this.args.type.api_hooks.on_create != ""
-         && obj.id !== undefined) {
+      if (
+        this.args.type.api_hooks !== undefined &&
+        this.args.type.api_hooks.on_create !== undefined &&
+        this.args.type.api_hooks.on_create != '' &&
+        obj.id !== undefined
+      ) {
         fetch(this.args.type.api_hooks.on_create, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify({"id": obj.id})
+          body: JSON.stringify({ id: obj.id }),
         });
       }
 
@@ -207,21 +212,23 @@ export default class TypesEditObjectModalComponent extends Component {
     ) {
       let obj = this.store.peekRecord(
         this.args.object.modules.type,
-        this.args.object.modules.id
+        this.args.object.modules.id,
       );
       var id = this.args.object.modules.id;
       await obj.destroyRecord();
 
-      if (this.args.type.api_hooks !== undefined
-         && this.args.type.api_hooks.on_delete !== undefined
-         && this.args.type.api_hooks.on_delete != ""
-         && id !== undefined) {
+      if (
+        this.args.type.api_hooks !== undefined &&
+        this.args.type.api_hooks.on_delete !== undefined &&
+        this.args.type.api_hooks.on_delete != '' &&
+        id !== undefined
+      ) {
         fetch(this.args.type.api_hooks.on_delete, {
           method: 'POST',
           headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
           },
-          body: JSON.stringify({"id": id})
+          body: JSON.stringify({ id: id }),
         });
       }
     }
@@ -245,12 +252,11 @@ export default class TypesEditObjectModalComponent extends Component {
 
   @action
   initEditorJS(module_input_slug, id) {
-
-    var editor_object_in_type = Object(this.args.type.modules).find(function (
-      element
-    ) {
-      if (element['input_slug'] == module_input_slug) return element;
-    });
+    var editor_object_in_type = Object(this.args.type.modules).find(
+      function (element) {
+        if (element['input_slug'] == module_input_slug) return element;
+      },
+    );
 
     const ejsTarget = `${this.args.type.slug}-${module_input_slug}-${id}`;
 
@@ -348,7 +354,9 @@ export default class TypesEditObjectModalComponent extends Component {
 
     ejsInstance.isReady
       .then(() => {
-        const editors = document.querySelectorAll(`#editObjectModal-${id} .codex-editor`);
+        const editors = document.querySelectorAll(
+          `#editObjectModal-${id} .codex-editor`,
+        );
         const editorsCount = editors.length;
 
         editors.forEach((el, id) => {
@@ -460,7 +468,11 @@ export default class TypesEditObjectModalComponent extends Component {
 
   @action
   updateSlug() {
-    if (confirm("Are you sure you wish to update the slug? It will impact all linked objects.") == true) {
+    if (
+      confirm(
+        'Are you sure you wish to update the slug? It will impact all linked objects.',
+      ) == true
+    ) {
       this.doUpdateSlug = true;
     } else {
       this.doUpdateSlug = false;

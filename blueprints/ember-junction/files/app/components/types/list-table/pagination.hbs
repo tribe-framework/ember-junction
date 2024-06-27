@@ -1,11 +1,11 @@
 <div class="fw-bold fst-italic w-100 text-center mb-2">Total {{@type.plural}}: {{@totalObjects}}</div>
 <nav class="px-0">
   <ul class="pagination px-0 border border-1 border-dark justify-content-center" style="overflow-x:scroll">
-    <li class="page-item {{if (not (gt (get @currentPageNumber @type.slug) 1)) "disabled"}}">
+    <li class="page-item {{if (lte (get @currentPageNumber @type.slug) 1) "disabled"}}">
       {{#if (gt (get @currentPageNumber @type.slug) 1)}}
-        <div class="page-link bg-secondary border-1 border-top-0 border-bottom-0 border-dark {{if (not (gt (get @currentPageNumber @type.slug) 1)) "text-light" "text-dark"}}" {{on 'click' (fn @changePageNumber (dec (get @currentPageNumber @type.slug)))}}><i class="fa-solid fa-chevron-left"></i></div>
+        <div class="page-link bg-secondary border-1 border-top-0 border-bottom-0 border-dark {{if (lte (get @currentPageNumber @type.slug) 1) "text-light" "text-dark"}}" {{on 'click' (fn @changePageNumber (dec (get @currentPageNumber @type.slug)))}}><i class="fa-solid fa-chevron-left"></i></div>
       {{else}}
-        <div class="page-link bg-secondary border-1 border-top-0 border-bottom-0 border-dark {{if (not (gt (get @currentPageNumber @type.slug) 1)) "text-light" "text-dark"}}"><i class="fa-solid fa-chevron-left"></i></div>
+        <div class="page-link bg-secondary border-1 border-top-0 border-bottom-0 border-dark {{if (lte (get @currentPageNumber @type.slug) 1) "text-light" "text-dark"}}"><i class="fa-solid fa-chevron-left"></i></div>
       {{/if}}
     </li>
 

@@ -7,7 +7,7 @@
   	<table class="table">
 	  <thead>
 	    <tr>
-	      <th scope="col">Types</th>
+	      <th scope="col">Tracks</th>
 	      <th scope="col">#</th>
 	    </tr>
 	  </thead>
@@ -24,12 +24,21 @@
 				{{else}}
 
 			  	{{#each-in @types as |key type|}}
-			  		{{#if (and (not-eq key "webapp") (not-eq type.hidden true))}}
-					    <tr>
-					      <td><span class="text-decoration-none cursor-pointer" {{on 'click' (fn this.changeType type)}}>{{get (get @types key) "plural"}}</span></td>
-					      <td>{{type.total_objects}}</td>
-					    </tr>
-						{{/if}}
+		        {{#if (eq type.slug "deleted_record")}}
+		          {{#if this.types.json.modules.webapp.soft_delete_records}}
+						    <tr>
+						      <td><span class="text-decoration-none text-danger cursor-pointer" {{on 'click' (fn this.changeType type)}}>{{get (get @types key) "plural"}}</span></td>
+						      <td>{{type.total_objects}}</td>
+						    </tr>
+		          {{/if}}
+		        {{else}}
+				  		{{#if (and (not-eq key "webapp") (not-eq type.hidden true))}}
+						    <tr>
+						      <td><span class="text-decoration-none cursor-pointer" {{on 'click' (fn this.changeType type)}}>{{get (get @types key) "plural"}}</span></td>
+						      <td>{{type.total_objects}}</td>
+						    </tr>
+							{{/if}}
+		        {{/if}}
 			    {{/each-in}}
 
 			  {{/if}}

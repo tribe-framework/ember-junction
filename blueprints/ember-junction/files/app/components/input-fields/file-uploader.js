@@ -17,6 +17,7 @@ export default class InputFieldsFileUploaderComponent extends Component {
   };
 
   @service fileQueue;
+  @service store;
 
   get queue() {
     return this.fileQueue.findOrCreate(
@@ -24,7 +25,7 @@ export default class InputFieldsFileUploaderComponent extends Component {
         '-' +
         this.args.module.input_slug +
         '-' +
-        this.args.id
+        this.args.id,
     );
   }
 
@@ -37,11 +38,22 @@ export default class InputFieldsFileUploaderComponent extends Component {
   async uploadFile(file) {
     try {
       const response = await file.upload(ENV.TribeENV.API_URL + '/uploads.php');
-      response.json().then((data) => {
+      response.json().then(async (data) => {
         if (data.status == 'success') {
           let files = this.args.object[this.args.module.input_slug] ?? [];
           files.push(data.file);
           this.args.mutObjectModuleValue(this.args.module.input_slug, files);
+
+          let obj = this.store.createRecord('file_record', {
+            modules: {
+              title: data.file.name,
+              mime: data.file.mime,
+              url: data.file.url,
+              file: data.file,
+              content_privacy: 'private',
+            },
+          });
+          await obj.save();
         } else if (data.status == 'error') {
           alert(data.error_message);
         }
@@ -71,7 +83,7 @@ export default class InputFieldsFileUploaderComponent extends Component {
       () => {
         document.querySelector('#copy-' + index).innerHTML = 'Copy link';
       },
-      2000
+      2000,
     );
   }
 }

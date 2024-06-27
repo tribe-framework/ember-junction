@@ -52,7 +52,7 @@ export default class TypesListTableRowComponent extends Component {
       this.isSelected = false;
       this.args.removeFromSelectedRowIDs(
         this.args.type.slug,
-        this.args.object.id
+        this.args.object.id,
       );
     }
   }
