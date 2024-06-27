@@ -1,0 +1,20 @@
+{{!-- Modal --}}
+<div class="modal fade" id="typesWebapp" tabindex="-1" aria-labelledby="typesWebappLabel" aria-hidden="true" {{did-insert this.initWebapp}}>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="typesWebappLabel"><i class="fa-solid fa-gear"></i> Settings</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+      	<Types::Editor::Text @typeKey="name" @typeSlug="webapp" @helpText="A name for this Junction." />
+      	<Types::Editor::Textarea @typeKey="description" @typeSlug="webapp" @helpText="Short description." />
+      	<Types::Editor::Checkbox @typeKey="soft_delete_records" @typeSlug="webapp" @helpText="To make sure your records never get fully deleted." />
+      </div>
+      <div class="modal-footer p-1 d-flex align-items-center justify-content-between">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close without saving</button>
+        <button type="button" {{on 'click' this.save}} class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

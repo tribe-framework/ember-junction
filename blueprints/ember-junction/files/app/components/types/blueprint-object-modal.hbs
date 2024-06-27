@@ -1,0 +1,21 @@
+{{!-- Modal --}}
+<div data-bs-theme="dark" class="modal fade text-light" id="blueprintObjectModal-{{@object.id}}" tabindex="-1" aria-labelledby="blueprintObjectModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 text-light" id="blueprintObjectModalLabel"><span class="text-danger">{ object-blueprint }</span> {{@type.name}} #{{@object.id}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <Types::Blueprint::JsonDisplay @jsondata={{@object.modules}} @theme="dark" />
+      </div>
+      <div class="modal-footer d-flex align-items-center justify-content-between p-0">
+        <button type="button" class="btn btn-sm btn-danger"><i class="fa-solid fa-plus"></i> New track using this blueprint</button>
+        <div class="d-flex align-items-center justify-content-end">
+          <button type="button" class="btn btn-sm btn-outline-secondary ms-2"><i class="fa-solid fa-copy"></i> Copy blueprint</button>
+          <button type="button" class="btn btn-sm btn-secondary ms-2"><i class="fa-solid fa-copy"></i> Copy object</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

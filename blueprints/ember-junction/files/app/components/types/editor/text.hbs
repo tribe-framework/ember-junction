@@ -1,0 +1,11 @@
+<div class="row g-3 align-items-center my-3 border-bottom border-1 border-muted pb-3">
+	<div class="my-1 py-0 col-12 col-md-2">
+		<label class="fst-italic col-form-label fw-bold">{{@typeKey}}</label>
+	</div>
+	<div class="my-1 col-12 col-md-7">
+		<Input @type="text" @value={{mut (get (get this.types.json.modules @typeSlug) @typeKey)}} class="form-control" />
+	</div>
+	<div class="my-1 col-12 col-md-3">
+		<span class="form-text">{{@helpText}}</span>
+	</div>
+</div>
