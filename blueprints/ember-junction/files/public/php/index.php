@@ -10,15 +10,15 @@
     <link rel="manifest" href="/manifest.webmanifest">
     <meta name="msapplication-config" content="/browserconfig.xml">
 
-    <meta name="junction/config/environment" content="%7B%22modulePrefix%22%3A%22junction%22%2C%22environment%22%3A%22production%22%2C%22rootURL%22%3A%22%2F%22%2C%22locationType%22%3A%22history%22%2C%22EmberENV%22%3A%7B%22EXTEND_PROTOTYPES%22%3Afalse%2C%22FEATURES%22%3A%7B%7D%2C%22_APPLICATION_TEMPLATE_WRAPPER%22%3Afalse%2C%22_DEFAULT_ASYNC_OBSERVERS%22%3Atrue%2C%22_JQUERY_INTEGRATION%22%3Afalse%2C%22_NO_IMPLICIT_ROUTE_MODEL%22%3Atrue%2C%22_TEMPLATE_ONLY_GLIMMER_COMPONENTS%22%3Atrue%7D%2C%22APP%22%3A%7B%22name%22%3A%22junction%22%2C%22version%22%3A%220.0.0%2Bce96e795%22%7D%2C%22JUNCTION_PASSWORD%22%3A%22<?php echo urlencode($_ENV['JUNCTION_PASSWORD']); ?>%22%2C%22PLAUSIBLE_AUTH%22%3A%22%22%2C%22PLAUSIBLE_DOMAIN%22%3A%22%22%2C%22PUSHER_API_KEY%22%3A%22%22%2C%22PUSHER_CLUSTER%22%3A%22ap2%22%2C%22TribeENV%22%3A%7B%22API_URL%22%3A%22<?php echo urlencode($_ENV['TRIBE_API_URL_LOCAL']); ?>%22%7D%7D" />
+    <meta name="junction/config/environment" content="%7B%22modulePrefix%22%3A%22junction%22%2C%22environment%22%3A%22production%22%2C%22rootURL%22%3A%22%2F%22%2C%22locationType%22%3A%22history%22%2C%22EmberENV%22%3A%7B%22EXTEND_PROTOTYPES%22%3Afalse%2C%22FEATURES%22%3A%7B%7D%2C%22_APPLICATION_TEMPLATE_WRAPPER%22%3Afalse%2C%22_DEFAULT_ASYNC_OBSERVERS%22%3Atrue%2C%22_JQUERY_INTEGRATION%22%3Afalse%2C%22_NO_IMPLICIT_ROUTE_MODEL%22%3Atrue%2C%22_TEMPLATE_ONLY_GLIMMER_COMPONENTS%22%3Atrue%7D%2C%22APP%22%3A%7B%22name%22%3A%22junction%22%2C%22version%22%3A%220.0.0%2Bce96e795%22%7D%2C%22JUNCTION_PASSWORD%22%3A%22<?php echo urlencode($_ENV['JUNCTION_PASSWORD']); ?>%22%2C%22PLAUSIBLE_AUTH%22%3A%22%22%2C%22PLAUSIBLE_DOMAIN%22%3A%22%22%2C%22PUSHER_API_KEY%22%3A%22%22%2C%22PUSHER_CLUSTER%22%3A%22ap2%22%2C%22TribeENV%22%3A%7B%22API_URL%22%3A%22<?php echo urlencode($_ENV['LOCAL_URL']); ?>%22%7D%7D" />
 <meta name="theme-color" content="#0A1119">
 <link rel="apple-touch-icon-precomposed" href="/favicon.png" sizes="512x512">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Junction">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
-    <link integrity="" rel="stylesheet" href="/assets/vendor-6dbaff760ea716cec172e2899b33f4a8.css">
-    <link integrity="" rel="stylesheet" href="/assets/junction-650a86e3f9aafebea4835b13110f9f89.css">
+    <link integrity="" rel="stylesheet" href="/assets/vendor.css">
+    <link integrity="" rel="stylesheet" href="/assets/junction.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/fontawesome.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.1.2/tinymce.min.js"></script>
 
@@ -83,10 +83,10 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/js/all.min.js"></script>
     <script src="https://unpkg.com/@root/passphrase"></script>
-    <script src="/assets/vendor-aef33731e3d75a0d9cb297384ca1828d.js" integrity="sha256-DHGofZOkZl6EjXMhEI1AH/IOX9UCWMocULaLlw6k1CE= sha512-u/+ozFs9H88qBADNV26FihLba9j/UhB2y0vnqk7pUvk+b1jq5KK1oVihaWMkK3BouxIVqKlZ6c3fkkvziEH6FQ==" ></script>
-<script src="/assets/chunk.4599.cbab82f5fb90d375cc5d.js" integrity="sha256-4nOCMMb5VE/2G6k2y56HDit3tlFNwM/KdNSljrAU+Hs= sha512-rl4jCXQ6kjukPEF4W6iZ4LCOrup3z/fjB0XPy5pF5h8qN+BfmDlZv34o48ZN7l+LtySbWLCCR6PcQxlUwfAPGg==" ></script>
-<script src="/assets/chunk.3524.7722aca482c18868d7f3.js" integrity="sha256-lRyyPkdXSJTy4Ok2b6kxmQXGp+7fJMtbDX8t+QRLDfc= sha512-it+igv5q5oWRa1ZGvq2RExOcRvssilYd9xzlq8/BPHtHXvwZJQULRPsmRl7FdwM3M4sW4uYfNaioErxXM0pvEA==" ></script>
-    <script src="/assets/junction.js.php" integrity="sha256-oo2pzTVHPL4FIIAXDy37rrXXhTYCO6ABq2rac/75C0c= sha512-ZsIghyeWQgYkQwfXZXHwJkYGcx4gDnrnId5WCzluk1aFMrV02nma+2S5dJ9KVIJ0D1StPKbfHbDnWc1O70T5iw==" ></script>
+    <script src="/assets/vendor.js" integrity="" ></script>
+<script src="/assets/chunk.4599.2b730ab586143dcaf24c.js" integrity="" ></script>
+<script src="/assets/chunk.3524.e279719a5ebf926b8c6d.js" integrity="" ></script>
+    <script src="/assets/junction.js.php" integrity="" ></script>
     <script>
     document.addEventListener('focusin', (e) => {
       if (e.target.closest(".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root") !== null) {
