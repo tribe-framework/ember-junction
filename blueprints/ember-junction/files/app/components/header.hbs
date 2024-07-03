@@ -1,28 +1,24 @@
-<nav class="fs-2 border-bottom border-danger border-5 fs-light navbar navbar-expand bg-dark sticky-top py-0">
-  <div class="container-fluid px-0" style="overflow-x:scroll">
+<nav class="fs-4 fs-light border-bottom border-3 border-success navbar navbar-expand bg-black sticky-top py-0">
+  <div class="container-fluid px-0">
     <button id="main-menu-toggler" {{on 'click' this.toggleBarsIcon}} class="shadow-none navbar-toggler p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <i class="bars-staggered text-white fs-1"></i>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto text-end mb-lg-0 d-flex align-items-lg-center pe-5">
-        <HeaderNavItem>
-          <img src="/favicon.png" height="36" width="36" class="rounded-0 mx-2" />
+      <ul class="navbar-nav me-auto text-end d-flex align-items-stretch">
+        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @navroute="index">
+          <div class="py-1"><Logo::Icon @width="100" @color="var(--bs-white)" /></div>
         </HeaderNavItem>
 
-        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="gauge-high" @navtitle="Dashboard" @navroute="index" />
-
         <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="circle-nodes" @navtitle="Tracks" @navroute="types" />
-
-        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @icon="layer-group" @navtitle="Files" @navroute="files" />
 
       </ul>
     </div>
     <div class="d-flex align-items-center justify-content-end">
-      <div class="fs-smaller fs-4 navbar-brand text-white"
+      <div class="fs-4 ms-2 navbar-brand text-white"
         data-bs-toggle="modal" data-bs-target="#typesWebapp">
         <i class="fa-solid fa-gear"></i>
       </div>
-      <div class="fs-smaller fs-4 navbar-brand text-white"
+      <div class="fs-4 ms-2 navbar-brand text-white"
         data-bs-toggle="tooltip" data-bs-placement="bottom"
         title="Logout" {{on 'click' this.auth.logout}}>
         <i class="fa-solid fa-arrow-right-from-bracket"></i>

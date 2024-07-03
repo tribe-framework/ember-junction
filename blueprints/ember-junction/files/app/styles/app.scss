@@ -1,34 +1,24 @@
-@import url("https://use.typekit.net/xkh7dxd.css");
+@import url("https://use.typekit.net/irr0nqg.css");
 
-$font-family-sans-serif: effra, sans-serif !default;
+$font-family-sans-serif: "Museo Sans", sans-serif !default;
+$display-font-family: "Museo Sans Display", sans-serif !default;
 
-// scss-docs-start gray-color-variables
 $gray-200: #e9ecef !default;
 $gray-600: #d4cfd2 !default;
 $gray-900: #0A1119 !default;
-$black:    #000 !default;
-// scss-docs-end gray-color-variables
 
-// scss-docs-start color-variables
-$purple:  #993399 !default;
-$pink:    #ff0066 !default;
-$red:     #ff0033 !default;
-$yellow:  #eeaa00 !default;
-// scss-docs-end color-variables
-
-// scss-docs-start theme-color-variables
-$primary:       $purple !default;
+$primary:       #0022ff !default;
 $secondary:     $gray-600 !default;
-$info:          #d5bdaf !default;
-$warning:       $yellow !default;
-$danger:        $red !default;
+$success:       #14d921 !default;
+$info:          #00FFFE !default;
+$warning:       #ffdd00 !default;
+$danger:        #D92114 !default;
 $light:         $gray-200 !default;
 $dark:          $gray-900 !default;
-// scss-docs-end theme-color-variables
 
 $enable-caret:                false !default;
 $enable-rounded:              false !default;
-$enable-gradients:            true !default;
+$enable-gradients:            false !default;
 $enable-cssgrid:              true !default;
 $enable-negative-margins:     true !default;
 
@@ -124,7 +114,9 @@ $ember-power-select-border-radius: 0;
 }
 
 .nav-link.active {
-  background: linear-gradient(0deg, rgba(255,0,51,1) 0%, rgba(255,0,102,1) 100%);
+  background-color: var(--bs-success);
+  color: var(--bs-black) !important;
+  fill: var(--bs-black) !important;
 }
 
 .text-ellipsis {
@@ -191,7 +183,7 @@ body {
 }
 
 .json-key {
-  color: var(--bs-danger);
+  color: var(--bs-primary);
   font-weight: bolder;
 }
 
@@ -201,5 +193,5 @@ body {
 }
 
 .json-mark {
-  color: var(--bs-gray-700);
+  color: var(--bs-gray-200);
 }

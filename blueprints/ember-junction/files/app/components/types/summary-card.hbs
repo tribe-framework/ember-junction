@@ -1,5 +1,5 @@
-<div class="card px-0 border-dark">
-  <div class="card-header border-0 text-uppercase">
+<div class="card px-0 border-success">
+  <div class="card-header border-0 text-uppercase bg-success">
     <i class="fa-solid fa-list"></i>
     <span class="ms-1">Summary</span>
   </div>
@@ -27,7 +27,7 @@
 		        {{#if (eq type.slug "deleted_record")}}
 		          {{#if this.types.json.modules.webapp.soft_delete_records}}
 						    <tr>
-						      <td><span class="text-decoration-none text-danger cursor-pointer" {{on 'click' (fn this.changeType type)}}>{{get (get @types key) "plural"}}</span></td>
+						      <td><span class="text-decoration-none text-dark cursor-pointer" {{on 'click' (fn this.changeType type)}}>{{get (get @types key) "plural"}}</span></td>
 						      <td>{{type.total_objects}}</td>
 						    </tr>
 		          {{/if}}

@@ -18,7 +18,7 @@
 		    </span>
 		{{/if}}
 
-		<button class="badge badge-sm border text-danger bg-dark border-1 border-dark font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#blueprintObjectModal-{{@object.id}}" type="button"><i class="fa-solid fa-circle-nodes"></i></button>
+		<button class="badge badge-sm border text-white bg-dark border-1 border-dark font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#blueprintObjectModal-{{@object.id}}" type="button"><i class="fa-solid fa-circle-nodes"></i></button>
 
 	    {{#unless @type.sendable}}
 		    {{#if (not (or (eq @module.input_unique true) (eq @type.readonly true)))}}

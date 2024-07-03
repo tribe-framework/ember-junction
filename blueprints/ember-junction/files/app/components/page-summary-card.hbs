@@ -1,8 +1,5 @@
-<div class="card px-0 border-dark">
-  <div class="card-header border-0 text-uppercase">
-    Your Tracks
-  </div>
-  <div class="card-body">
+<div class="card px-0 border-3 border-success mx-0 my-5">
+  <div class="card-body p-4">
     {{#if this.types.json.modules.webapp.interface_urls.<%= dasherizedPackageName %>.types}}
       {{#each this.types.json.modules.webapp.interface_urls.<%= dasherizedPackageName %>.types as |type_slug|}}
           <button {{on 'click' (fn this.changeType (get this.types.json.modules type_slug))}} type="button" class="btn btn-outline-dark me-2 mb-2">{{get (get this.types.json.modules type_slug) "plural"}}</button>
@@ -11,7 +8,7 @@
       {{#each-in this.types.json.modules as |key type|}}
         {{#if (eq type.slug "deleted_record")}}
           {{#if this.types.json.modules.webapp.soft_delete_records}}
-            <button {{on 'click' (fn this.changeType type)}} type="button" class="btn btn-outline-danger me-2 mb-2">{{type.plural}}</button>
+            <button {{on 'click' (fn this.changeType type)}} type="button" class="btn btn-outline-dark me-2 mb-2">{{type.plural}}</button>
           {{/if}}
         {{else}}
           {{#if (and (and type.slug (not-eq type.slug "webapp")) (not-eq type.hidden true))}}
