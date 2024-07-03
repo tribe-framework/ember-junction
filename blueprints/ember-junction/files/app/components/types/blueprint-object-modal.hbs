@@ -1,13 +1,13 @@
 {{!-- Modal --}}
-<div data-bs-theme="dark" class="modal fade text-light" id="blueprintObjectModal-{{@object.id}}" tabindex="-1" aria-labelledby="blueprintObjectModalLabel" aria-hidden="true">
+<div data-bs-theme="dark" class="modal fade text-light" id="blueprintObjectModal" tabindex="-1" aria-labelledby="blueprintObjectModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-xl modal-dialog-scrollable">
     <div class="modal-content bg-black">
       <div class="modal-header">
-        <h1 class="modal-title fs-5 text-light" id="blueprintObjectModalLabel"><span class="text-primary">{ object-blueprint }</span> {{@type.name}} #{{@object.id}}</h1>
+        <h1 class="modal-title fs-5 text-light" id="blueprintObjectModalLabel"><span class="text-primary">{ object-blueprint }</span> {{this.object.currentType.name}} #{{this.object.currentObject.id}}</h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <Types::Blueprint::JsonDisplay @jsondata={{@object.modules}} @theme="dark" />
+        <Types::Blueprint::JsonDisplay @jsondata={{this.object.currentObject.modules}} @theme="dark" />
       </div>
       <div class="modal-footer d-flex align-items-center justify-content-between p-0">
         <button type="button" class="btn btn-sm btn-primary"><i class="fa-solid fa-plus"></i> New track using this blueprint</button>

@@ -1,4 +1,8 @@
 import Component from '@glimmer/component';
+import { action } from '@ember/object';
+import { service } from '@ember/service';
+import { tracked } from '@glimmer/tracking';
+import { Modal } from 'bootstrap';
 
 export default class TypesListTableRowOptionsComponent extends Component {
   isLastSlashOrEquals = (id) => {
@@ -6,4 +10,14 @@ export default class TypesListTableRowOptionsComponent extends Component {
     if (last == '/' || last == '=') return true;
     else return false;
   };
+
+  @service object;
+
+  @action
+  openBlueprintModal() {
+    this.object.currentObject = this.args.object;
+    this.object.currentType = this.args.type;
+    let bp = new Modal(document.getElementById('blueprintObjectModal'), {});
+    bp.show();
+  }
 }

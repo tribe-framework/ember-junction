@@ -1,7 +1,6 @@
 {{#if @navtitle}}
 	<li class="nav-item d-flex align-items-stretch">
       <LinkTo {{on 'click' @collapseMenu}} class="nav-link text-white px-3 px-lg-4 d-flex align-items-center justify-content-start" @route="{{@navroute}}">
-      	<i class="fa-solid fa-{{@icon}}"></i>
       	<span class="ps-1">{{@navtitle}}</span>
       </LinkTo>
     </li>
