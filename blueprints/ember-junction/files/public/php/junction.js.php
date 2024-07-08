@@ -1,4 +1,5 @@
 <?php
+require __DIR__ . '/../../../_init.php';
 $types = json_decode(file_get_contents($_ENV['DOCKER_INTERNAL_TRIBE_URL'].'/api.php/webapp/0'), true)['data']['attributes']['modules'];
 $models = '';
 foreach (array_keys($types) as $type) {

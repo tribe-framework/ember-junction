@@ -1,4 +1,6 @@
 <?php
+require __DIR__ . '/../../../_init.php';
+
 //Website's title, description, twitter handle and cover image link
 $meta_title = "Junction";
 $meta_description = "Frame your data.";
