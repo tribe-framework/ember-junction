@@ -61,12 +61,12 @@
 
             <div class="d-flex justify-content-start align-items-center">
               <div class="d-flex justify-content-start align-items-start">
-                <button {{on 'click' this.areYouSure}} type="button" class="btn btn-danger text-light"><i class="fa-solid fa-trash"></i></button>
+                <button {{on 'click' this.areYouSure}} type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
               </div>
               <div class="{{this.deleteSurity}} justify-content-start align-items-center" id="deleteObjectConfirmation-{{@object.id}}">
                 <div class="mx-2">Are you sure?</div>
                 <button data-bs-dismiss="modal" type="button" class="btn btn-sm btn-danger me-1" {{on 'click' this.deleteObject}}>Yes, delete it</button>
-                <button type="button" class="btn btn-sm btn-success me-1" {{on 'click' this.notSoSure}}>No, keep it</button>
+                <button type="button" class="btn btn-sm btn-secondary me-1" {{on 'click' this.notSoSure}}>No, keep it</button>
               </div>
             </div>
 
@@ -81,12 +81,12 @@
 
               <div class="d-flex justify-content-start align-items-center">
                 <div class="d-flex justify-content-start align-items-start">
-                  <button {{on 'click' this.areYouSure}} type="button" class="btn btn-danger text-light"><i class="fa-solid fa-trash"></i></button>
+                  <button {{on 'click' this.areYouSure}} type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                 </div>
                 <div class="{{this.deleteSurity}} justify-content-start align-items-center" id="deleteObjectConfirmation-{{@type.slug}}-multi">
                   <div class="mx-2">Delete ALL selected objects?</div>
                   <button data-bs-dismiss="modal" type="button" class="btn btn-sm btn-danger me-1" {{on 'click' (fn this.deleteObjects @selectedRowIDs)}}>Yes, delete them</button>
-                  <button type="button" class="btn btn-sm btn-success me-1" {{on 'click' this.notSoSure}}>No, keep them</button>
+                  <button type="button" class="btn btn-sm btn-secondary me-1" {{on 'click' this.notSoSure}}>No, keep them</button>
                 </div>
               </div>
 

@@ -4,6 +4,7 @@ import { action } from '@ember/object';
 
 export default class TypeController extends Controller {
   @service type;
+  @service colormodes;
 
   @action
   changeType() {

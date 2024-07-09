@@ -3,24 +3,21 @@
 $font-family-sans-serif: "Museo Sans", sans-serif !default;
 $display-font-family: "Museo Sans Display", sans-serif !default;
 
-$gray-200: #e9ecef !default;
-$gray-600: #d4cfd2 !default;
-$gray-900: #0A1119 !default;
-
-$primary:       #0022ff !default;
-$secondary:     $gray-600 !default;
-$success:       #14d921 !default;
-$info:          #00FFFE !default;
-$warning:       #ffdd00 !default;
-$danger:        #D92114 !default;
-$light:         $gray-200 !default;
-$dark:          $gray-900 !default;
+$primary:       #41B3FF !default;
+$secondary:     #E1B582 !default;
+$success:       #81AE86 !default;
+$info:          #FE7F2D !default;
+$warning:       #FCCA46 !default;
+$danger:        #BB3324 !default;
+$light:         #FFF8F0 !default;
+$dark:          #021724 !default;
 
 $enable-caret:                false !default;
 $enable-rounded:              false !default;
 $enable-gradients:            false !default;
 $enable-cssgrid:              true !default;
 $enable-negative-margins:     true !default;
+$enable-smooth-scroll:        true !default;
 
 // scss-docs-start spacer-variables-maps
 $spacer: 1rem !default;
@@ -56,25 +53,12 @@ $position-values: (
 ) !default;
 // scss-docs-end position-map
 
-$modal-backdrop-opacity: .8;
-
-$ember-power-select-border-color: var(--bs-dark);
 $ember-power-select-border-radius: 0;
 
 @import 'ember-power-select/themes/bootstrap';
 @import "ember-power-select";
-
+@import "node_modules/animate.css/animate";
 @import "node_modules/bootstrap/scss/bootstrap";
-
-// .ember-power-select-dropdown, .ember-power-select-search {
-//   z-index: 1100 !important;
-//   position: relative;
-// }
-
-#ember-basic-dropdown-wormhole {
-  position: absolute;
-  top:0;
-}
 
 .page-loading {
   height: 100vh;
@@ -85,38 +69,12 @@ $ember-power-select-border-radius: 0;
   min-height: calc(100vh - 300px);
 }
 
-.bg-primary-flame {
-  background: linear-gradient(0deg, rgba(153,51,153,1) 0%, rgba(255,51,153,1) 100%);
-  background-color: rgba(0, 0, 0, 0);
-  background-position-x: 0%;
-  background-position-y: 0%;
-  background-repeat: repeat;
-  background-attachment: scroll;
-  background-size: auto;
-  background-origin: padding-box;
-  background-clip: border-box;
-}
-
-.bg-info-flame {
-  background: linear-gradient(0deg, rgba(255,0,102,1) 0%, rgba(255,0,51,1) 100%);
-  background-color: rgba(0, 0, 0, 0);
-  background-position-x: 0%;
-  background-position-y: 0%;
-  background-repeat: repeat;
-  background-attachment: scroll;
-  background-size: auto;
-  background-origin: padding-box;
-  background-clip: border-box;
-}
-
-.fs-smaller {
-  font-size: 0.64em;
-}
-
 .nav-link.active {
-  background-color: var(--bs-success);
-  color: var(--bs-black) !important;
-  fill: var(--bs-black) !important;
+  background-color: var(--bs-primary);
+}
+
+small {
+  line-height: 1.7em;
 }
 
 .text-ellipsis {
@@ -188,10 +146,32 @@ body {
 }
 
 .json-link {
-  color: var(--bs-light);
+  color: var(--bs-secondary);
   text-decoration: underline;
 }
 
 .json-mark {
-  color: var(--bs-gray-200);
+  color: var(--bs-gray-600);
+}
+
+.ember-power-select-placeholder {
+  margin-left:2px;
+}
+
+@include color-mode(dark) {
+  .ember-power-select-dropdown {
+    color: var(--bs-dark);
+  }
+  .ember-power-select-placeholder {
+    color: var(--bs-gray-300);
+  }
+}
+
+@include color-mode(light) {
+  .ember-power-select-dropdown {
+    color: var(--bs-dark);
+  }
+  .ember-power-select-placeholder {
+    color: var(--bs-gray-600);
+  }
 }

@@ -18,6 +18,7 @@ export default class InputFieldsFileUploaderComponent extends Component {
 
   @service fileQueue;
   @service store;
+  @service colormodes;
 
   get queue() {
     return this.fileQueue.findOrCreate(

@@ -9,6 +9,7 @@ import { later } from '@ember/runloop';
 export default class FilesUploaderComponent extends Component {
   @service fileQueue;
   @service store;
+  @service colormodes;
 
   explodeFilename = (filename) => {
     var base = new String(filename).substring(filename.lastIndexOf('/') + 1);

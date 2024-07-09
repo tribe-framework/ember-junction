@@ -1,6 +1,6 @@
-<div class="mb-3"><div class="card px-0 border-dark">
+<div class="mb-3"><div class="card px-0">
   
-  <div class="card-header border-0 text-uppercase bg-success">
+  <div class="card-header border-0 text-uppercase">
     <i class="fa-solid fa-file-import"></i>
     <span class="ms-1">{{if @module.input_placeholder @module.input_placeholder "File Uploader"}}</span>
   </div>
@@ -13,14 +13,14 @@
 		</div>
 		<FileDropzone @queue={{queue}} as |dropzone|>
 		    {{#if dropzone.active}}
-		      <div class="text-center text-dark w-100 fs-4 p-3" style="border: 6px dashed #000;"><i class="fa-solid fa-wand-magic-sparkles fa-spin"></i>&nbsp;&nbsp;Drop to upload</div>
+		      <div class="text-center w-100 fs-4 p-3" style="border: 2px dashed #000;"><i class="fa-solid fa-wand-magic-sparkles fa-spin"></i>&nbsp;&nbsp;Drop to upload</div>
 		    {{else if queue.files.length}}
-		      <div class="text-center text-dark w-100 fs-4 p-3" style="border: 6px dashed #eee;"><i class="fa-solid fa-clock"></i>&nbsp;Uploading {{queue.files.length}} file(s) ({{queue.progress}}% done).</div>
+		      <div class="text-center w-100 fs-4 p-3" style="border: 2px dashed #eee;"><i class="fa-solid fa-clock"></i>&nbsp;Uploading {{queue.files.length}} file(s) ({{queue.progress}}% done).</div>
 		      	<div class="progress" role="progressbar" aria-valuenow="{{queue.progress}}" aria-valuemin="0" aria-valuemax="100">
 				  <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: {{queue.progress}}%"></div>
 				</div>
 		    {{else if dropzone.supported}}
-		      <div class="text-center text-muted w-100 fs-4 p-3" style="border: 6px dashed #eee;"><i class="fa-solid fa-cloud-arrow-up"></i>&nbsp;&nbsp;Drag and drop files here to upload them</div>
+		      <div class="text-center text-muted w-100 fs-4 p-3" style="border: 2px dashed #eee;"><i class="fa-solid fa-cloud-arrow-up"></i>&nbsp;&nbsp;Drag and drop files here to upload them</div>
 		    {{/if}}
 	  	</FileDropzone>
 	{{/let}}
@@ -32,8 +32,8 @@
 	  	{{#if (this.isString file)}}
 
 	  		<div class="my-1 d-flex align-items-center justify-content-start">
-	  			<a href="{{file}}" class="me-2 btn btn-sm btn-outline-dark" target="new">View file <i class="fa-solid fa-up-right-from-square"></i></a>
-	  			<button {{on 'click' (fn this.copyLink file index)}} type="button" class="me-2 btn btn-sm btn-outline-dark" target="new"><span id="copy-{{index}}">Copy link</span> <i class="fa-solid fa-copy"></i></button>
+	  			<a href="{{file}}" class="me-2 btn btn-sm btn-outline-{{this.colormodes.inverseMode}}" target="new">View file <i class="fa-solid fa-up-right-from-square"></i></a>
+	  			<button {{on 'click' (fn this.copyLink file index)}} type="button" class="me-2 btn btn-sm btn-outline-{{this.colormodes.inverseMode}}" target="new"><span id="copy-{{index}}">Copy link</span> <i class="fa-solid fa-copy"></i></button>
 	  			<span class="me-3 text-danger cursor-pointer" {{on 'click' (fn this.deleteFile index)}}><i class="fa-solid fa-circle-xmark"></i></span>
 	  			<span class="text-muted">{{this.explodeFilename file}}</span>
 	  		</div>
@@ -47,16 +47,16 @@
 		  			{{#if (get (get file.cloudflare_stream "result") "thumbnail")}}
 		  				<div class="me-2"><img src="{{get (get file.cloudflare_stream "result") "thumbnail"}}" height="31" /></div>
 		  			{{/if}}
-	  				<a href="{{file.url}}" class="me-2 btn btn-sm btn-outline-dark" target="new">View file <i class="fa-solid fa-up-right-from-square"></i></a>
-						<button {{on 'click' (fn this.copyLink (get (get (get file.cloudflare_stream "result") "playback") "hls") index)}} type="button" class="me-2 btn btn-sm btn-outline-dark" target="new"><span id="copy-{{index}}">Copy link</span> <i class="fa-solid fa-copy"></i></button>
+	  				<a href="{{file.url}}" class="me-2 btn btn-sm btn-outline-{{this.colormodes.inverseMode}}" target="new">View file <i class="fa-solid fa-up-right-from-square"></i></a>
+						<button {{on 'click' (fn this.copyLink (get (get (get file.cloudflare_stream "result") "playback") "hls") index)}} type="button" class="me-2 btn btn-sm btn-outline-{{this.colormodes.inverseMode}}" target="new"><span id="copy-{{index}}">Copy link</span> <i class="fa-solid fa-copy"></i></button>
 
 					{{else}}
 
 		  			{{#if file.xs.url}}
 		  				<div class="me-2"><img src="{{file.xs.url}}" height="31" /></div>
 		  			{{/if}}
-	  				<a href="{{file.url}}" class="me-2 btn btn-sm btn-outline-dark" target="new">View file <i class="fa-solid fa-up-right-from-square"></i></a>
-	  				<button {{on 'click' (fn this.copyLink file.url index)}} type="button" class="me-2 btn btn-sm btn-outline-dark" target="new"><span id="copy-{{index}}">Copy link</span> <i class="fa-solid fa-copy"></i></button>
+	  				<a href="{{file.url}}" class="me-2 btn btn-sm btn-outline-{{this.colormodes.inverseMode}}" target="new">View file <i class="fa-solid fa-up-right-from-square"></i></a>
+	  				<button {{on 'click' (fn this.copyLink file.url index)}} type="button" class="me-2 btn btn-sm btn-outline-{{this.colormodes.inverseMode}}" target="new"><span id="copy-{{index}}">Copy link</span> <i class="fa-solid fa-copy"></i></button>
 
 	  			{{/if}}
 
@@ -69,5 +69,5 @@
   </div>
 
 </div>
-  <div class="form-text text-end text-dark">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
+  <div class="form-text text-end">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
 </div>

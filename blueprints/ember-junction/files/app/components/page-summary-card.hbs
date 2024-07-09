@@ -1,22 +1,23 @@
-<div class="card px-0 border-3 border-success mx-0 my-5">
-  <div class="card-body p-4">
+<h2 class="text-uppercase text-primary mt-4 pt-2 px-0">Data Tracks</h2>
+<div class="card px-0 mt-0 border-top border-5 border-primary">
+  <div class="card-body d-flex align-items-center justify-content-center flex-wrap p-4">
     {{#if this.types.json.modules.webapp.interface_urls.<%= dasherizedPackageName %>.types}}
       {{#each this.types.json.modules.webapp.interface_urls.<%= dasherizedPackageName %>.types as |type_slug|}}
-          <button {{on 'click' (fn this.changeType (get this.types.json.modules type_slug))}} type="button" class="btn btn-outline-dark me-2 mb-2">{{get (get this.types.json.modules type_slug) "plural"}}</button>
+          <button {{on 'click' (fn this.changeType (get this.types.json.modules type_slug))}} type="button" class="btn btn-outline-{{this.colormodes.inverseMode}} me-2 mb-2">{{get (get this.types.json.modules type_slug) "plural"}}</button>
       {{/each}}
     {{else}}
       {{#each-in this.types.json.modules as |key type|}}
         {{#if (eq type.slug "deleted_record")}}
           {{#if this.types.json.modules.webapp.soft_delete_records}}
-            <button {{on 'click' (fn this.changeType type)}} type="button" class="btn btn-outline-dark me-2 mb-2">{{type.plural}}</button>
+            <button {{on 'click' (fn this.changeType type)}} type="button" class="btn btn-outline-{{this.colormodes.inverseMode}} me-2 mb-2">{{type.plural}}</button>
           {{/if}}
         {{else}}
           {{#if (and (and type.slug (not-eq type.slug "webapp")) (not-eq type.hidden true))}}
-            <button {{on 'click' (fn this.changeType type)}} type="button" class="btn btn-outline-dark me-2 mb-2">{{type.plural}}</button>
+            <button {{on 'click' (fn this.changeType type)}} type="button" class="btn btn-outline-{{this.colormodes.inverseMode}} me-2 mb-2">{{type.plural}}</button>
           {{/if}}
         {{/if}}
       {{/each-in}}
     {{/if}}
-    <button type="button" data-bs-toggle="modal" data-bs-target="#newModel" class="btn btn-dark me-2 mb-2"><i class="fa-solid fa-plus"></i></button>
+    <button type="button" data-bs-toggle="modal" data-bs-target="#newModel" class="btn btn-outline-{{this.colormodes.inverseMode}} me-2 mb-2"><i class="fa-solid fa-plus"></i></button>
   </div>
 </div>

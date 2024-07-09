@@ -1,6 +1,7 @@
 import Service from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import ENV from '<%= dasherizedPackageName %>/config/environment';
 
 export default class CookiesService extends Service {
   @tracked days = 365;
@@ -13,7 +14,12 @@ export default class CookiesService extends Service {
     date.setTime(date.getTime() + this.days * 24 * 60 * 60 * 1000);
     expires = '; expires=' + date.toUTCString();
 
-    document.cookie = name + '=' + (value || '') + expires + '; path=/';
+    if (ENV.environment == 'development') {
+      document.cookie = name + '=' + (value || '') + expires + '; path=/';
+    }
+    else {
+      document.cookie = name + '=' + (value || '') + expires + '; path=/; domain=.junction.express';
+    }
   }
 
   @action
@@ -30,7 +36,13 @@ export default class CookiesService extends Service {
 
   @action
   eraseCookie(name) {
-    document.cookie =
-      name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    if (ENV.environment == 'development') {
+      document.cookie =
+        name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
+    else {
+      document.cookie =
+        name + '=; Path=/; domain=.junction.express; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    }
   }
 }

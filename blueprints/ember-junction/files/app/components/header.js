@@ -4,15 +4,14 @@ import { service } from '@ember/service';
 
 export default class HeaderComponent extends Component {
   @service auth;
+  @service colormodes;
 
   @action
   toggleBarsIcon() {
     let el = document.querySelector('#main-menu-toggler');
     if (el.attributes['aria-expanded'].value == 'true')
-      el.innerHTML = '<i class="fa-solid fa-xmark text-white fs-1"></i>';
-    else
-      el.innerHTML =
-        '<i class="fa-solid fa-bars-staggered text-white fs-1"></i>';
+      el.innerHTML = '<i class="fa-solid fa-xmark fs-1"></i>';
+    else el.innerHTML = '<i class="fa-solid fa-bars-staggered fs-1"></i>';
   }
 
   @action

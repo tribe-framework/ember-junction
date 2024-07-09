@@ -1,18 +1,8 @@
-<div class="card px-0 border-success">
-  <div class="card-header border-0 text-uppercase bg-success">
-    <i class="fa-solid fa-list"></i>
-    <span class="ms-1">Summary</span>
-  </div>
+<h2 class="text-uppercase text-primary mt-4">Summary</h2>
+<div class="card px-0 border-top border-5 border-primary">
   <div class="card-body">
   	<table class="table">
-	  <thead>
-	    <tr>
-	      <th scope="col">Tracks</th>
-	      <th scope="col">#</th>
-	    </tr>
-	  </thead>
 	  <tbody>
-
 
 				{{#if @types.webapp.interface_urls.<%= dasherizedPackageName %>.types}}
 					{{#each @types.webapp.interface_urls.<%= dasherizedPackageName %>.types as |type_slug|}}
@@ -27,7 +17,7 @@
 		        {{#if (eq type.slug "deleted_record")}}
 		          {{#if this.types.json.modules.webapp.soft_delete_records}}
 						    <tr>
-						      <td><span class="text-decoration-none text-dark cursor-pointer" {{on 'click' (fn this.changeType type)}}>{{get (get @types key) "plural"}}</span></td>
+						      <td><span class="text-decoration-none cursor-pointer" {{on 'click' (fn this.changeType type)}}>{{get (get @types key) "plural"}}</span></td>
 						      <td>{{type.total_objects}}</td>
 						    </tr>
 		          {{/if}}

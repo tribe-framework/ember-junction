@@ -7,6 +7,7 @@ export default class PageSummaryCardComponent extends Component {
   @service types;
   @service type;
   @service router;
+  @service colormodes;
 
   @action
   changeType(type) {

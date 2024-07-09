@@ -2,7 +2,7 @@
 
 <main class="vh-100 w-100 d-flex align-items-center justify-content-center">
   <form class="col-10 col-md-7 col-lg-4 col-xxl-3 text-center" {{on 'submit' this.auth.checkPassword}}>
-    <Logo::Full @color="var(--bs-success)" @width="360" />
+    <Logo::Full @color="var(--bs-primary)" @width="360" />
 
     <div class="form-floating my-5">
       <Input
@@ -15,7 +15,7 @@
       <label for="floatingPassword">Password</label>
     </div>
 
-    <button class="w-100 btn btn-lg btn-outline-success" type="submit">Sign in</button>
+    <button class="w-100 btn btn-lg btn-outline-primary" type="submit">Sign in</button>
   </form>
 </main>
 

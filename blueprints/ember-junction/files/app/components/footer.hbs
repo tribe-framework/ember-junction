@@ -1,13 +1,11 @@
-<footer class="mt-auto bg-black border-0 pt-6 pb-5 mb-0">
+<footer class="mt-auto bg-{{this.colormodes.mode}} border-0 pt-6 pb-5 mb-0">
 
 	<div class="container">
 		{{#unless (eq this.hidePostcodeAttribution "true")}}
 		<div class="row">
 			<div class="col-md small">
-				<p class="text-light small text-center text-lg-start fw-light">
-					<span>This is <span class="fw-bold text-light"><em><%= classifiedPackageName %></em></span>. Built and maintained with <span class="text-light"><i class="fa-solid fa-heart"></i></span> at <span class="fw-bold"><em><a href="https://wildfiretech.co" class="text-light" target="_blank" rel="noopener noreferrer">Wildfire</a></em></span>.</span>
-					<br>
-					Wildfire is a digital tech consultancy based in Gurugram, India. Junction and Wildfire are registered trademarks of Samanvay Web Private Limited.
+				<p class="small text-center text-lg-start fw-light">
+					<span>This is <span class="fw-bold"><em><%= classifiedPackageName %></em></span>. Built and maintained with <span class=""><i class="fa-solid fa-heart"></i></span> at <span class="fw-bold"><em><a href="https://wildfiretech.co" class="text-{{this.colormodes.inverseMode}}" target="_blank" rel="noopener noreferrer">Wildfire</a></em></span>.</span>
 					<br>
 					&copy;2022 - {{this.yearNow}}
 				</p>
@@ -15,8 +13,8 @@
 			
 			<div class="col-md small">
 				<ul class="list-unstyled small text-center text-lg-end fw-light">
-					<li><a class="text-light" href="mailto:info@wildfire.world" title="">Report a bug, Suggest a feature or Get in touch</a></li>
-					<li><a class="text-light" href="https://junction.express" title="">Data privacy and Energy policy</a></li>
+					<li><a class="text-{{this.colormodes.inverseMode}}" href="mailto:info@wildfire.world" title="">Report a bug, Suggest a feature or Get in touch</a></li>
+					<li><a class="text-{{this.colormodes.inverseMode}}" href="https://junction.express" title="">Data privacy and Energy policy</a></li>
 				</ul>
 			</div>
 		</div>

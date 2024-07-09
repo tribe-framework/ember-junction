@@ -7,9 +7,9 @@
 		{{else}}
 			<InputFields::Multi @isTextarea={{true}} @mutObjectModuleValue={{@mutObjectModuleValue}} @type={{@type}} @module={{@module}} @id={{@id}} @object={{@object}} @addToMultiField={{@addToMultiField}} @removeFromMultiField={{@removeFromMultiField}} @index={{0}} />
 		{{/each}}
-		<div class="form-text text-end text-dark">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
+		<div class="form-text text-end">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
 	{{else}}
-		<Textarea id={{concat @type.slug "-" @module.input_slug "-" @id}} @value={{mut (get @object @module.input_slug)}} class="form-control border-dark" placeholder={{@module.input_placeholder}} autocomplete="off" />
-		<div class="form-text text-end text-dark">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
+		<Textarea id={{concat @type.slug "-" @module.input_slug "-" @id}} @value={{mut (get @object @module.input_slug)}} class="form-control" placeholder={{@module.input_placeholder}} autocomplete="off" />
+		<div class="form-text text-end">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
 	{{/if}}
 </div>

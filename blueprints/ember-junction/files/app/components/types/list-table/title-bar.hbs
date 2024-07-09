@@ -1,40 +1,40 @@
-<div class="container-xxl pb-2">
-	<div class="d-flex align-items-start justify-content-between row">
-		<h1 class="text-capitalize col-lg-3 px-0 d-flex align-items-center {{if (eq @type.slug "deleted_record") "text-danger"}}">
-			{{@type.plural}}
-			{{#unless (eq @type.slug "deleted_record")}}
-				<button type="button" data-bs-toggle="modal" data-bs-target="#deleteModel" class="text-danger fs-6 ms-4 border-1 border-danger p-2 border"><i class="fa-solid fa-trash-alt"></i></button>
-			{{/unless}}
-		</h1>
-		<div class="row col-lg-9 mx-auto px-0 d-flex align-items-start justify-content-end">
-			<div class="order-3 order-lg-1 col-lg-3 px-0 col-12 my-1 d-flex justify-content-end">
-				<Types::ListTable::PageLengthSelector @updatePageLength={{@updatePageLength}} @currentPageLength={{@currentPageLength}} @type={{@type}} />
-			</div>
+{{#unless (or (eq @type.slug "deleted_record") (eq @type.slug "file_record"))}}
+	<button type="button" data-bs-toggle="modal" data-bs-target="#deleteModel" class="btn btn-outline-danger btn-sm position-absolute top-0 end-0"><i class="fa-solid fa-trash-alt"></i> Delete Track</button>
+{{/unless}}
 
-			<div class="order-2 order-lg-2 col-lg-4 px-0 col-12 my-1 d-flex justify-content-end">
-				<Types::ListTable::SearchBox @type={{@type}} @search={{@search}} @clearSearch={{@clearSearch}} @advancedSearch={{@advancedSearch}} @showClearSearchButton={{@showClearSearchButton}} @searchQuery={{@searchQuery}} @advancedSearchQuery={{@advancedSearchQuery}} @clearSearchQuery={{@clearSearchQuery}} @changePageNumber={{@changePageNumber}} />
-			</div>
+	<div class="container-xxl pb-2">
 
-
-			{{#unless @type.readonly}}
-				<div class="order-1 order-lg-3 col-lg-5 px-0 col-12 my-1 d-flex justify-content-end">
-					{{#if (and (get @selectedRowIDs @type.slug) (not-eq @type.editable false))}}
-						<button data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@type.slug}}-multi" type="button" class="btn btn-info border-1 border-dark fw-normal w-100"><i class="fa-solid fa-layer-group"></i>&nbsp;Multi-edit</button>
-					{{/if}}
-
-					<button data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@type.slug}}-new" type="button" class="btn btn-dark fw-normal w-100"><i class="fa-solid fa-plus"></i>&nbsp;New</button>
-				</div>
-			{{/unless}}
-
-			{{#if (eq @type.slug "deleted_record")}}
-				<div class="order-1 order-lg-3 col-lg-5 px-0 col-12 my-1 d-flex justify-content-end">
-					{{#if (get @selectedRowIDs @type.slug)}}
-						<button data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@type.slug}}-multi" type="button" class="btn btn-danger border-1 border-dark fw-normal w-100"><i class="fa-solid fa-trash-alt"></i>&nbsp;Delete permanently</button>
-					{{else}}
-						<button type="button" class="btn btn-outline-dark border-1 border-dark fw-normal w-100"><i class="fa-solid fa-trash-alt"></i>&nbsp;Select objects to delete permanently</button>
-					{{/if}}
-				</div>
-			{{/if}}
+	<h1 class="text-capitalize text-center mt-5 px-0 display-2 mb-5 {{if (eq @type.slug "deleted_record") "text-danger"}}">
+		{{@type.plural}}
+	</h1>
+	<div class="row col-lg-9 mx-auto px-0 mb-5">
+		<div class="order-3 order-lg-1 col-lg-3 px-0 col-12 my-1 d-flex justify-content-end">
+			<Types::ListTable::PageLengthSelector @updatePageLength={{@updatePageLength}} @currentPageLength={{@currentPageLength}} @type={{@type}} />
 		</div>
+
+		<div class="order-2 order-lg-2 col-lg-4 px-0 col-12 my-1 d-flex justify-content-end">
+			<Types::ListTable::SearchBox @type={{@type}} @search={{@search}} @clearSearch={{@clearSearch}} @advancedSearch={{@advancedSearch}} @showClearSearchButton={{@showClearSearchButton}} @searchQuery={{@searchQuery}} @advancedSearchQuery={{@advancedSearchQuery}} @clearSearchQuery={{@clearSearchQuery}} @changePageNumber={{@changePageNumber}} />
+		</div>
+
+
+		{{#unless @type.readonly}}
+			<div class="order-1 order-lg-3 col-lg-5 px-0 col-12 my-1 d-flex justify-content-end">
+				{{#if (and (get @selectedRowIDs @type.slug) (not-eq @type.editable false))}}
+					<button data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@type.slug}}-multi" type="button" class="btn btn-info fw-normal w-100"><i class="fa-solid fa-layer-group"></i>&nbsp;Multi-edit</button>
+				{{/if}}
+
+				<button data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@type.slug}}-new" type="button" class="btn btn-{{this.colormodes.inverseMode}} fw-normal w-100"><i class="fa-solid fa-plus"></i>&nbsp;New</button>
+			</div>
+		{{/unless}}
+
+		{{#if (eq @type.slug "deleted_record")}}
+			<div class="order-1 order-lg-3 col-lg-5 px-0 col-12 my-1 d-flex justify-content-end">
+				{{#if (get @selectedRowIDs @type.slug)}}
+					<button data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@type.slug}}-multi" type="button" class="btn btn-danger fw-normal w-100"><i class="fa-solid fa-trash-alt"></i>&nbsp;Delete permanently</button>
+				{{else}}
+					<button type="button" class="btn btn-outline-{{this.colormodes.inverseMode}} fw-normal w-100"><i class="fa-solid fa-trash-alt"></i>&nbsp;Select objects to delete permanently</button>
+				{{/if}}
+			</div>
+		{{/if}}
 	</div>
 </div>

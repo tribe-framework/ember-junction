@@ -3,7 +3,7 @@
   {{#if @module.input_multiple}}
 
       <PowerSelectMultiple
-        class="form-control border-dark"
+        class="form-control"
         @selected={{this.selectedMultiOptions}}
         @searchEnabled={{true}}
         @searchField="title"
@@ -21,7 +21,7 @@
   {{else}}
 
       <PowerSelect
-        class="form-control border-dark"
+        class="form-control"
         @selected={{this.selectedOption}}
         @searchEnabled={{true}}
         @searchField="title"
@@ -38,7 +38,7 @@
 
   {{/if}}
 
-  <div class="form-text text-end text-dark">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
+  <div class="form-text text-end">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
 
   {{#if (eq @id "new")}}
     <div class="d-none" {{did-insert this.cleanVarsOnNewModalOpen}}></div>

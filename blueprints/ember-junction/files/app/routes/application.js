@@ -31,7 +31,8 @@ export default class ApplicationRoute extends Route {
           if (
             e.input_slug != 'content_privacy' &&
             (e.input_type == 'select' || e.input_type == 'key-value-pair') &&
-            (Object.keys(data.modules).includes(e.input_slug) || Object.keys(data.modules).includes(e.linked_type))
+            (Object.keys(data.modules).includes(e.input_slug) ||
+              Object.keys(data.modules).includes(e.linked_type))
           ) {
             if (Object.keys(data.modules).includes(e.input_slug)) {
               let vvv = this.store.query(e.input_slug, {

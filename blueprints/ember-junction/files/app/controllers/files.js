@@ -6,6 +6,7 @@ import ENV from '<%= dasherizedPackageName %>/config/environment';
 
 export default class FilesController extends Controller {
   @service types;
+  @service colormodes;
 
   @tracked query = '';
   @tracked results = null;

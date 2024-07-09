@@ -4,6 +4,6 @@ import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
 
 export default class ObjectService extends Service {
-	@tracked currentType = null;
-	@tracked currentObject = null;
+  @tracked currentType = null;
+  @tracked currentObject = null;
 }

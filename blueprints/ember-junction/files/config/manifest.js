@@ -1,18 +1,19 @@
 'use strict';
 
-module.exports = function(/* environment, appConfig */) {
+module.exports = function (/* environment, appConfig */) {
   // See https://zonkyio.github.io/ember-web-app for a list of
   // supported properties
 
   return {
-    name: "<%= classifiedPackageName %>",
-    short_name: "<%= classifiedPackageName %>",
-    description: "A content management system based on Types.json, by Postcode.",
-    start_url: "/",
-    scope: "/",
-    display: "standalone",
-    background_color: "#e9ecef",
-    theme_color: "#0A1119",
+    name: '<%= classifiedPackageName %>',
+    short_name: '<%= classifiedPackageName %>',
+    description:
+      'A data management system by Wildfire.',
+    start_url: '/',
+    scope: '/',
+    display: 'standalone',
+    background_color: '#FFF8F0',
+    theme_color: '#41B3FF',
     prefer_related_applications: true,
     apple: {
       statusBarStyle: 'black-translucent',
@@ -25,7 +26,7 @@ module.exports = function(/* environment, appConfig */) {
       },
     ],
     ms: {
-      tileColor: '#0A1119'
-    }
+      tileColor: '#41B3FF',
+    },
   };
-}
+};
