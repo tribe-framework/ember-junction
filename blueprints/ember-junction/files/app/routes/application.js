@@ -9,7 +9,8 @@ export default class ApplicationRoute extends Route {
   @service auth;
   @service router;
 
-  beforeModel() {
+  async beforeModel() {
+    await this.auth.getJunctionPassword();
     if (
       this.router.currentRouteName != 'auth' &&
       !this.auth.checkIfLoggedIn()

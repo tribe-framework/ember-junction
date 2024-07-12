@@ -6,7 +6,7 @@ import { service } from '@ember/service';
 export default class ColormodesService extends Service {
   @service cookies;
 
-  @tracked mode = this.cookies.getCookie('junction_color_mode');
+  @tracked mode = this.cookies.getCookie('junction_color_mode') ?? 'dark';
 
   @action
   changeMode() {
