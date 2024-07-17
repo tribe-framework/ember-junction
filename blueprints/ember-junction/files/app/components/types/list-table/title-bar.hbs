@@ -2,12 +2,12 @@
 	<button type="button" data-bs-toggle="modal" data-bs-target="#deleteModel" class="btn btn-outline-warning btn-sm position-absolute top-0 end-0"><i class="fa-solid fa-triangle-exclamation"></i> Disable Track</button>
 {{/if}}
 
-	<div class="container-xxl pb-2">
+	<div class="container-xxl">
 
-	<h1 class="text-capitalize text-center mt-5 px-0 display-2 mb-5 {{if (eq @type.slug "deleted_record") "text-danger"}}">
+	<h1 class="text-capitalize text-center mt-5 px-0 display-2 mb-4 {{if (eq @type.slug "deleted_record") "text-danger"}}">
 		{{@type.plural}}
 	</h1>
-	<div class="row col-lg-9 mx-auto px-0 mb-5">
+	<div class="row col-lg-9 mx-auto px-0 mb-4">
 		<div class="order-3 order-lg-1 col-lg-3 px-0 col-12 my-1 d-flex justify-content-end">
 			<Types::ListTable::PageLengthSelector @updatePageLength={{@updatePageLength}} @currentPageLength={{@currentPageLength}} @type={{@type}} />
 		</div>

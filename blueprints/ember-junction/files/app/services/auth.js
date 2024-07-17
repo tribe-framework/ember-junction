@@ -12,53 +12,63 @@ export default class AuthService extends Service {
   @tracked isLoggedIn = false;
   @tracked junctionPassword = '';
 
-  checkIfLoggedIn = ()=>{
+  checkIfLoggedIn = () => {
     let cookiePassword = this.cookies.getCookie(ENV.JUNCTION_SLUG);
 
-    if (cookiePassword !== "" && this.junctionPassword !== "" && (cookiePassword == this.junctionPassword)) {
+    if (
+      cookiePassword !== '' &&
+      this.junctionPassword !== '' &&
+      cookiePassword == this.junctionPassword
+    ) {
       return true;
-    } else if (cookiePassword !== null && ENV.JUNCTION_SLUG !== undefined && ENV.JUNCTION_SLUG != '' && this.junctionPassword == '') {
+    } else if (
+      cookiePassword !== null &&
+      ENV.JUNCTION_SLUG !== undefined &&
+      ENV.JUNCTION_SLUG != '' &&
+      this.junctionPassword == ''
+    ) {
       this.inputPassword = cookiePassword;
       this.submitPassword();
     } else {
       return false;
     }
-  }
+  };
 
   @action
   async submitPassword() {
-    if (ENV.JUNCTION_SLUG == 'junction' && this.inputPassword !== "" && this.junctionPassword !== "" && (this.inputPassword == this.junctionPassword)) {
+    if (
+      ENV.JUNCTION_SLUG == 'junction' &&
+      this.inputPassword !== '' &&
+      this.junctionPassword !== '' &&
+      this.inputPassword == this.junctionPassword
+    ) {
       this.cookies.setCookie(ENV.JUNCTION_SLUG, this.inputPassword);
       this.router.transitionTo('index');
-
     } else if (ENV.JUNCTION_SLUG !== undefined && ENV.JUNCTION_SLUG != '') {
-      await fetch(
-        'https://tribe.junction.express/custom/auth/access.php',
-          {
-            method: 'post',
-            headers: {
-              Accept: 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              slug: ENV.JUNCTION_SLUG,
-              password: this.inputPassword,
-            }),
-          },
-      )
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
+      await fetch('https://tribe.junction.express/custom/auth/access.php', {
+        method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          slug: ENV.JUNCTION_SLUG,
+          password: this.inputPassword,
+        }),
       })
-      .then(async (response) => {
-        if (response.authenticated === true) {
-          this.cookies.setCookie(ENV.JUNCTION_SLUG, this.inputPassword);
-          this.router.transitionTo('index');
-        } else {
-          alert('Incorrect password.');
-        }
-      });
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+        })
+        .then(async (response) => {
+          if (response.authenticated === true) {
+            this.cookies.setCookie(ENV.JUNCTION_SLUG, this.inputPassword);
+            this.router.transitionTo('index');
+          } else {
+            alert('Incorrect password.');
+          }
+        });
     }
   }
 

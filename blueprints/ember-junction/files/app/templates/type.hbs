@@ -21,6 +21,8 @@
 	<div style="overflow-x:hidden" class="mt-5 position-relative min-vh-100 row pb-5 mb-5 border border-1 border-{{this.colormodes.inverseMode}}  {{if (lte this.type.modulesThatWillBeListed.length 5) "container-xxl mx-auto" "mx-0"}}">
 		<div class="col px-0">
 			<Types::ListTable::TitleBar @type={{this.type.currentType}} @search={{this.type.search}} @clearSearch={{this.type.clearSearch}} @updatePageLength={{this.type.updatePageLength}} @currentPageLength={{this.type.currentPageLength}} @selectedRowIDs={{this.type.selectedRowIDs}} @advancedSearch={{this.type.advancedSearch}} @showClearSearchButton={{this.type.showClearSearchButton}} @searchQuery={{this.type.searchQuery}} @advancedSearchQuery={{this.type.advancedSearchQuery}} @clearSearchQuery={{this.type.clearSearchQuery}} @changePageNumber={{this.type.changePageNumber}} />
+			
+			<Types::Modules::List />
 
 			<Types::ListTable::Pagination @type={{get this.type.types.json.modules this.type.currentType.slug}} @numberOfPages={{get this.type.currentNumberOfPages this.type.currentType.slug}} @pageLinks={{this.type.pageLinks}} @changePageNumber={{this.type.changePageNumber}} @currentPageNumber={{this.type.currentPageNumber}} @totalObjects={{this.type.totalObjects}} />
 

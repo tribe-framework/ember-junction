@@ -23,9 +23,11 @@ export default class TypesBlueprintObjectModalComponent extends Component {
   }
 
   @action
-  copyAPILink(id, e) {
+  copyAPILink(type, id, e) {
     e.target.innerHTML = 'Copied!';
-    navigator.clipboard.writeText(ENV.TribeENV.API_URL + '/custom/json/object.php?id=' + id);
+    navigator.clipboard.writeText(
+      ENV.TribeENV.API_URL + '/api.php/' + type + '/' + id,
+    );
 
     later(
       this,

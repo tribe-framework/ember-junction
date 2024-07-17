@@ -1,0 +1,28 @@
+{{!-- Modal --}}
+<div class="modal fade" id="moduleModal" tabindex="-1" aria-labelledby="moduleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="moduleModalLabel">{{this.module.currentModule.input_slug}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row g-3 align-items-center my-3 border-bottom border-1 border-muted pb-3">
+          <div class="my-1 py-0 col-12 col-md-2">
+            <label class="fst-italic col-form-label fw-bold">input_name</label>
+          </div>
+          <div class="my-1 col-12 col-md-7">
+            <Input @type="text" @value={{this.inputName}} class="form-control" />
+          </div>
+          <div class="my-1 col-12 col-md-3">
+            <span class="form-text">Name of the field</span>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer justify-content-between p-1 d-flex align-items-center">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-trash"></i></button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

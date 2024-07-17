@@ -1,0 +1,18 @@
+{{!-- Modal --}}
+<div class="modal fade" id="trackAPIModal" tabindex="-1" aria-labelledby="trackAPIModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="trackAPIModalLabel">{ {{this.type.currentType.name}} } API</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <p>Our APIs are written strictly to JSON:API v1.1 standards. Copy the API URL below to use it in your applications. Visit <a href="https://jsonapi.org" target="new">jsonapi.org</a> to know how to write detailed queries.</p>
+      </div>
+      <div class="modal-footer justify-content-between p-1 d-flex align-items-center">
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
+      	<button {{on 'click' this.copyAPILink}} type="button" class="btn btn-sm btn-secondary ms-2"><i class="fa-solid fa-copy"></i> Copy Track API URL</button>
+      </div>
+    </div>
+  </div>
+</div>

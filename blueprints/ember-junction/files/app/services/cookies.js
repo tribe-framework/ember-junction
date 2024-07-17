@@ -16,9 +16,13 @@ export default class CookiesService extends Service {
 
     if (ENV.environment == 'development') {
       document.cookie = name + '=' + (value || '') + expires + '; path=/';
-    }
-    else {
-      document.cookie = name + '=' + (value || '') + expires + '; path=/; domain=.junction.express';
+    } else {
+      document.cookie =
+        name +
+        '=' +
+        (value || '') +
+        expires +
+        '; path=/; domain=.junction.express';
     }
   }
 
@@ -39,10 +43,10 @@ export default class CookiesService extends Service {
     if (ENV.environment == 'development') {
       document.cookie =
         name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
-    }
-    else {
+    } else {
       document.cookie =
-        name + '=; Path=/; domain=.junction.express; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+        name +
+        '=; Path=/; domain=.junction.express; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
   }
 }

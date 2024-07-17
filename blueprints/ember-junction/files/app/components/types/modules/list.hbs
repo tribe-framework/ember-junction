@@ -1,0 +1,15 @@
+{{#if this.type.currentType}}
+	{{#if (and (not-eq this.type.currentType.slug "deleted_record") (not-eq this.type.currentType.slug "file_record"))}}
+		<div class="d-flex align-items-center justify-content-center mb-5">
+		{{#each this.type.currentType.modules as |module|}}
+			{{#unless (eq module.input_slug "content_privacy")}}
+				<button {{on 'click' (fn this.module.changeModule module)}} data-bs-target="#moduleModal" data-bs-toggle="modal" class="rounded-pill btn btn-outline-{{this.colormodes.inverseMode}} btn-sm m-2" type="button">{{module.input_slug}}</button>
+			{{/unless}}
+		{{/each}}
+		<button data-bs-target="#trackAPIModal" data-bs-toggle="modal" class="rounded-pill btn btn-outline-{{this.colormodes.inverseMode}} btn-sm m-2" type="button"><i class="fa-solid fa-circle-nodes"></i></button>
+		<button data-bs-target="#newModuleModal" data-bs-toggle="modal" class="rounded-pill btn btn-{{this.colormodes.inverseMode}} btn-sm m-2" type="button"><i class="fa-solid fa-plus"></i></button>
+		</div>
+	{{else}}
+		<div class="d-flex align-items-center justify-content-center mb-4"></div>
+	{{/if}}
+{{/if}}
