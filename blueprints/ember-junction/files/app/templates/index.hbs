@@ -10,12 +10,11 @@
 		<div class="container">
 
 			<div class="row mt-1 row-cols-1 g-3">
-
-				<div class="col px-0"><Types::SummaryCard @types={{this.types.json.modules}} /></div>
+				<PageSummaryCard />
 
 				{{#if (and this.plausibleDomain this.plausibleAuth)}}
-					<div class="col px-0 border border-1 border-secondary">
-						<iframe plausible-embed src="https://plausible.io/share/{{this.plausibleDomain}}?auth={{this.plausibleAuth}}&embed=true&theme=light" scrolling="yes" frameborder="0" loading="lazy" style="width: 1px; min-width: 100%; min-height: 1600px;"></iframe>
+					<div class="col px-0 border border-5 border-primary mt-5">
+						<iframe plausible-embed src="https://plausible.io/share/{{this.plausibleDomain}}?auth={{this.plausibleAuth}}&embed=true&theme={{this.colormodes.mode}}" scrolling="yes" frameborder="0" loading="lazy" style="width: 1px; min-width: 100%; min-height: 1600px;"></iframe>
 					</div>
 				{{/if}}
 				

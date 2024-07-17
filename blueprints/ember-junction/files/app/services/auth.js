@@ -61,6 +61,7 @@ export default class AuthService extends Service {
               },
               body: JSON.stringify({
                 slug: junctionSlug,
+                password: this.inputPassword,
               }),
             },
         )

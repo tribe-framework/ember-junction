@@ -4,6 +4,7 @@ import ENV from '<%= dasherizedPackageName %>/config/environment';
 
 export default class IndexController extends Controller {
   @service types;
+  @service colormodes;
 
   get plausibleAuth() {
     return ENV.PLAUSIBLE_AUTH;

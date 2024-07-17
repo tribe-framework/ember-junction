@@ -3,16 +3,16 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="deleteModelLabel"><i class="fa-solid fa-trash"></i> Delete Track: <strong>{{this.type.currentType.slug}}</strong></h1>
+        <h1 class="modal-title fs-5" id="deleteModelLabel"><i class="fa-solid fa-triangle-exclamation"></i> Disable Track: <strong>{{this.type.currentType.slug}}</strong></h1>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      	<h4>Are you sure you wish to delete this track?</h4>
-      	<h4 class="text-danger">{{this.type.currentType.slug}}</h4>
+      	<h4>Are you sure you wish to disable this track? The objects in the track do NOT get deleted.</h4>
+      	<h4 class="text-warning">{{this.type.currentType.slug}}</h4>
       </div>
       <div class="modal-footer p-1 d-flex align-items-center justify-content-between">
-        <button type="button" {{on 'click' this.delete}} class="btn btn-danger">Confirm delete track</button>
-        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close without saving</button>
+        <button type="button" {{on 'click' this.delete}} class="btn btn-warning">Confirm disable track</button>
+        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

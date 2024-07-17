@@ -9,13 +9,15 @@
       <div class="modal-body">
         <Types::Blueprint::JsonDisplay @jsondata={{this.object.currentObject.modules}} />
       </div>
-      <div class="modal-footer d-flex align-items-center justify-content-between p-0">
-        <button type="button" class="btn btn-sm btn-primary"><i class="fa-solid fa-plus"></i> New track using this blueprint</button>
+
+      {{#if this.object.currentObject}}
+      <div class="modal-footer d-flex align-items-center justify-content-end p-0">
         <div class="d-flex align-items-center justify-content-end">
-          <button type="button" class="btn btn-sm btn-outline-secondary ms-2"><i class="fa-solid fa-copy"></i> Copy blueprint</button>
-          <button type="button" class="btn btn-sm btn-secondary ms-2"><i class="fa-solid fa-copy"></i> Copy object</button>
+          <button {{on 'click' (fn this.copyAPILink this.object.currentObject.id)}} type="button" class="btn btn-sm btn-secondary ms-2"><i class="fa-solid fa-copy"></i> Copy API URL</button>
+          <button {{on 'click' (fn this.copyJSON this.object.currentObject.modules)}} type="button" class="btn btn-sm btn-secondary ms-2"><i class="fa-solid fa-copy"></i> Copy JSON</button>
         </div>
       </div>
+      {{/if}}
     </div>
   </div>
 </div>

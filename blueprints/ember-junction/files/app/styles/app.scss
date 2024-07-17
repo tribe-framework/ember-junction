@@ -19,6 +19,8 @@ $enable-cssgrid:              true !default;
 $enable-negative-margins:     true !default;
 $enable-smooth-scroll:        true !default;
 
+$modal-backdrop-opacity:            .8;
+
 // scss-docs-start spacer-variables-maps
 $spacer: 1rem !default;
 $spacers: (
