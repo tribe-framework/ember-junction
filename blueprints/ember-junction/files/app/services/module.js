@@ -24,7 +24,7 @@ export default class ModuleService extends Service {
     { title: 'Date and time', slug: 'datetime-local', var: 'string', multi: false },
     { title: 'Date only', slug: 'date', var: 'string', multi: false },
     { title: 'Time only', slug: 'time', var: 'string', multi: false },
-    { title: 'File uploader', slug: 'files', var: 'json', multi: false },
+    { title: 'File uploader', slug: 'file_uploader', var: 'json', multi: false },
     { title: 'Color', slug: 'color', var: 'string', multi: false },
     { title: 'Checkbox', slug: 'checkbox', var: 'bool', multi: false },
   ];
