@@ -67,7 +67,7 @@ export default class TypesNewModelComponent extends Component {
               input_primary: true,
               input_type: 'text',
               var_type: 'string',
-              input_placeholder: 'Title',
+              input_placeholder: 'Enter title',
               input_unique: false,
               list_field: true,
               list_searchable: true,

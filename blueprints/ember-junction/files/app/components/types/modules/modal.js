@@ -5,8 +5,7 @@ import { tracked } from '@glimmer/tracking';
 
 export default class TypesModulesModalComponent extends Component {
   @service type;
+  @service types;
   @service module;
   @service colormodes;
-
-  @tracked inputName;
 }

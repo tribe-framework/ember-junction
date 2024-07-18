@@ -1,5 +1,5 @@
 {{!-- Modal --}}
-<div class="modal fade" id="moduleModal" tabindex="-1" aria-labelledby="moduleModalLabel" aria-hidden="true">
+<div class="modal fade" id="moduleModal" tabindex="-1" aria-labelledby="moduleModalLabel" aria-hidden="true" {{did-insert this.module.initModel}}>
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
@@ -9,19 +9,127 @@
       <div class="modal-body">
         <div class="row g-3 align-items-center my-3 border-bottom border-1 border-muted pb-3">
           <div class="my-1 py-0 col-12 col-md-2">
-            <label class="fst-italic col-form-label fw-bold">input_name</label>
+            <label class="fst-italic col-form-label fw-bold">slug</label>
           </div>
           <div class="my-1 col-12 col-md-7">
-            <Input @type="text" @value={{this.inputName}} class="form-control" />
+            <Input disabled @type="text" @value={{this.module.currentModule.input_slug}} class="form-control" />
           </div>
           <div class="my-1 col-12 col-md-3">
-            <span class="form-text">Name of the field</span>
+            <span class="form-text">Non-editable identifier.</span>
           </div>
         </div>
+
+        <div class="row g-3 align-items-center my-3 border-bottom border-1 border-muted pb-3">
+          <div class="my-1 py-0 col-12 col-md-2">
+            <label class="fst-italic col-form-label fw-bold">placeholder</label>
+          </div>
+          <div class="my-1 col-12 col-md-7">
+            <Input @type="text" @value={{mut this.module.currentModule.input_placeholder}} class="form-control" />
+          </div>
+          <div class="my-1 col-12 col-md-3">
+            <span class="form-text">Descriptor for the field.</span>
+          </div>
+        </div>
+
+      {{#if (not-eq this.module.currentModule.input_slug "title")}}
+        <div class="row g-3 align-items-center my-3 border-bottom border-1 border-muted pb-3">
+          <div class="my-1 py-0 col-12 col-md-2">
+            <label class="fst-italic col-form-label fw-bold">type</label>
+          </div>
+          <div class="my-1 col-12 col-md-7">
+            <PowerSelect @selected={{this.module.selectedInputType}} @options={{this.module.inputTypes}} @onChange={{this.module.changeInputType}} @dropdownClass="in-modal-dropdown" class="rounded-0 px-2 border-muted" @placeholder="Select input type" as |ip|>
+              {{ip.title}}
+            </PowerSelect>
+          </div>
+          <div class="my-1 col-12 col-md-3">
+            <span class="form-text">Form input type.</span>
+          </div>
+        </div>
+
+        {{#if (eq this.module.selectedInputType.slug "select")}}
+          <div class="row g-3 align-items-center my-3 border-bottom border-1 border-muted pb-3">
+            <div class="my-1 py-0 col-12 col-md-2">
+              <label class="fst-italic col-form-label fw-bold">linked track</label>
+            </div>
+            <div class="my-1 col-12 col-md-7">
+              <PowerSelect @selected={{this.module.linkedType}} @options={{this.module.linkedTypesAvailable}} @onChange={{this.module.changeLinkedType}} @dropdownClass="in-modal-dropdown" class="rounded-0 px-2 border-muted" @placeholder="Select linked track" as |tp|>
+                {{tp}}
+              </PowerSelect>
+            </div>
+            <div class="my-1 col-12 col-md-3">
+              <span class="form-text">Dynamically links objects of another track.</span>
+            </div>
+          </div>
+
+          <div class="row g-3 align-items-center my-3 border-bottom border-1 border-muted pb-3">
+            <div class="my-1 py-0 col-12 col-md-2">
+              <label class="fst-italic col-form-label fw-bold">multiple</label>
+            </div>
+            <div class="my-1 col-12 col-md-7">
+              <XToggle
+                @value={{this.module.inputMultiple}}
+                @onToggle={{fn (mut this.module.inputMultiple)}}
+              />
+            </div>
+            <div class="my-1 col-12 col-md-3">
+              <span class="form-text">Allow multiple entries.</span>
+            </div>
+          </div>
+        {{/if}}
+        <div class="row g-3 align-items-center my-3 border-bottom border-1 border-muted pb-3">
+          <div class="my-1 py-0 col-12 col-md-2">
+            <label class="fst-italic col-form-label fw-bold">list</label>
+          </div>
+          <div class="my-1 col-12 col-md-7">
+            <XToggle
+              @value={{this.module.listField}}
+              @onToggle={{fn (mut this.module.listField)}}
+            />
+          </div>
+          <div class="my-1 col-12 col-md-3">
+            <span class="form-text">List this field in the table view.</span>
+          </div>
+        </div>
+
+        <div class="row g-3 align-items-center my-3 border-bottom border-1 border-muted pb-3">
+          <div class="my-1 py-0 col-12 col-md-2">
+            <label class="fst-italic col-form-label fw-bold">searchable</label>
+          </div>
+          <div class="my-1 col-12 col-md-7">
+            <XToggle
+              @value={{this.module.listSearchable}}
+              @onToggle={{fn (mut this.module.listSearchable)}}
+            />
+          </div>
+          <div class="my-1 col-12 col-md-3">
+            <span class="form-text">Searchable field in table view.</span>
+          </div>
+        </div>
+
+        <div class="row g-3 align-items-center my-3 border-bottom border-1 border-muted pb-3">
+          <div class="my-1 py-0 col-12 col-md-2">
+            <label class="fst-italic col-form-label fw-bold">sort-able</label>
+          </div>
+          <div class="my-1 col-12 col-md-7">
+            <XToggle
+              @value={{this.module.listSortable}}
+              @onToggle={{fn (mut this.module.listSortable)}}
+            />
+          </div>
+          <div class="my-1 col-12 col-md-3">
+            <span class="form-text">Sort-able field in table view.</span>
+          </div>
+        </div>
+      {{/if}}
+
       </div>
       <div class="modal-footer justify-content-between p-1 d-flex align-items-center">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal"><i class="fa-solid fa-trash"></i></button>
-        <button type="button" class="btn btn-primary">Save changes</button>
+        {{#if (not-eq this.module.currentModule.input_slug "title")}}
+          <button {{on 'click' this.module.delete}} type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+        {{else}}
+          <div></div>
+        {{/if}}
+        <button {{on 'click' this.module.save}} type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>

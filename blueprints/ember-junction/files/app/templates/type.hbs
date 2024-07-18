@@ -6,11 +6,8 @@
 
 	<main class="flex-shrink-0 page a4 d2 mb-5" {{did-insert this.changeType}}>
 
-		<div class="container">
-
-			<div class="row mt-1 row-cols-1 g-3">
-				<PageSummaryCard />
-			</div>
+		<div class="container-xxl mx-auto px-0">
+			<PageSummaryCard />
 
 			{{#if (eq this.type.currentType.slug "file_record")}}
 				<Files::Uploader @reload={{this.changeType}} />
