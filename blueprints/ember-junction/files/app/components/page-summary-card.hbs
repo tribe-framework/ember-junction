@@ -3,17 +3,17 @@
   <div id="track-names" class="card-body d-flex align-items-center justify-content-start flex-wrap p-4 pb-2">
     {{#if this.types.json.modules.webapp.interface_urls.<%= dasherizedPackageName %>.types}}
       {{#each this.types.json.modules.webapp.interface_urls.<%= dasherizedPackageName %>.types as |type_slug|}}
-          <div class="btn-group me-4 mb-4 track-name-btn" data-type-slug={{type_slug}} role="group"><button id="track-{{type_slug}}" {{on 'click' (fn this.changeType (get this.types.json.modules type_slug))}} type="button" class="text-capitalize btn-lg fw-normal btn btn-{{if (eq type_slug this.type.currentType.slug) "primary" (concat "outline-" this.colormodes.inverseMode)}}">{{get (get this.types.json.modules type_slug) "plural"}}</button><button title="Hold and drag to reorder" class="drag-icon px-2 btn border-start-0 border-1 btn-lg fw-normal"><i class="fa-solid fa-grip-lines-vertical"></i></button></div>
+          <div class="btn-group me-4 mb-4 track-name-btn" data-type-slug={{type_slug}} role="group"><button title="Hold and drag to reorder" id="track-{{type_slug}}" {{on 'click' (fn this.changeType (get this.types.json.modules type_slug))}} type="button" class="text-capitalize btn-lg fw-normal btn btn-{{if (eq type_slug this.type.currentType.slug) "primary" (concat "outline-" this.colormodes.inverseMode)}}">{{get (get this.types.json.modules type_slug) "plural"}}</button></div>
       {{/each}}
     {{else}}
       {{#each-in this.types.json.modules as |key type|}}
         {{#if (eq type.slug "deleted_record")}}
           {{#if this.types.json.modules.webapp.soft_delete_records}}
-            <div class="btn-group me-4 mb-4 track-name-btn" data-type-slug={{type.slug}} role="group"><button id="track-deleted_record" {{on 'click' (fn this.changeType type)}} type="button" class="text-capitalize btn-lg fw-normal btn btn-{{if (eq type.slug this.type.currentType.slug) "primary" (concat "outline-" this.colormodes.inverseMode)}}">{{type.plural}} <span class="badge text-bg-light fw-light rounded-2 small">{{type.total_objects}}</span></button><button title="Hold and drag to reorder" class="drag-icon px-2 btn border-start-0 border-1 btn-lg fw-normal"><i class="fa-solid fa-grip-lines-vertical"></i></button></div>
+            <div class="btn-group me-4 mb-4 track-name-btn" data-type-slug={{type.slug}} role="group"><button title="Hold and drag to reorder" id="track-deleted_record" {{on 'click' (fn this.changeType type)}} type="button" class="text-capitalize btn-lg fw-normal btn btn-{{if (eq type.slug this.type.currentType.slug) "primary" (concat "outline-" this.colormodes.inverseMode)}}">{{type.plural}} <span class="badge text-bg-light fw-light rounded-2 small">{{type.total_objects}}</span></button></div>
           {{/if}}
         {{else}}
           {{#if (and (and type.slug (not-eq type.slug "webapp")) (not-eq type.hidden true))}}
-            <div class="btn-group me-4 mb-4 track-name-btn" data-type-slug={{type.slug}} role="group"><button id="track-{{type.slug}}" {{on 'click' (fn this.changeType type)}} type="button" class="text-capitalize btn-lg fw-normal btn btn-{{if (eq type.slug this.type.currentType.slug) "primary" (concat "outline-" this.colormodes.inverseMode)}}">{{type.plural}} <span class="badge text-bg-light fw-light rounded-2 small">{{type.total_objects}}</span></button><button title="Hold and drag to reorder" class="drag-icon px-2 btn border-start-0 border-1 btn-lg fw-normal"><i class="fa-solid fa-grip-lines-vertical"></i></button></div>
+            <div class="btn-group me-4 mb-4 track-name-btn" data-type-slug={{type.slug}} role="group"><button title="Hold and drag to reorder" id="track-{{type.slug}}" {{on 'click' (fn this.changeType type)}} type="button" class="text-capitalize btn-lg fw-normal btn btn-{{if (eq type.slug this.type.currentType.slug) "primary" (concat "outline-" this.colormodes.inverseMode)}}">{{type.plural}} <span class="badge text-bg-light fw-light rounded-2 small">{{type.total_objects}}</span></button></div>
           {{/if}}
         {{/if}}
       {{/each-in}}
@@ -23,7 +23,7 @@
 
   {{#if this.activateReordering}}
     <div class="w-100 bg-{{this.colormodes.inverseMode}} p-1 d-flex align-items-center justify-content-between">
-      <button class="btn btn-lg btn-outline-secondary" type="button" {{on 'click' this.ignoreReordering}}>Do not save changes</button>
+      <button class="btn btn-lg btn-outline-{{this.colormodes.mode}}" type="button" {{on 'click' this.ignoreReordering}}>Do not save changes</button>
       <button class="btn btn-lg btn-primary" type="button" {{on 'click' this.saveReordering}}>Save reordering</button>
     </div>
   {{/if}}

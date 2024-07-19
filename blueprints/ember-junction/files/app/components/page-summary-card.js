@@ -33,7 +33,7 @@ export default class PageSummaryCardComponent extends Component {
       store: null,  // @see Store
       animation: 150,  // ms, animation speed moving items when sorting, `0` — without animation
       easing: "cubic-bezier(1, 0, 0, 1)", // Easing for animation. Defaults to null. See https://easings.net/ for examples.
-      handle: ".drag-icon",  // Drag handle selector within list items
+      handle: ".track-name-btn",  // Drag handle selector within list items
       filter: ".ignore-elements",  // Selectors that do not lead to dragging (String or Function)
       preventOnFilter: true, // Call `event.preventDefault()` when triggered `filter`
       draggable: ".track-name-btn",  // Specifies which items inside the element should be draggable

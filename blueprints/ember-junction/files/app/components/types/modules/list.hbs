@@ -3,13 +3,13 @@
 	<div id="module-names" class="d-flex align-items-center flex-wrap justify-content-center mb-5 col-lg-7 col-md-10 mx-auto">
 		{{#each this.type.currentType.modules as |module|}}
 			{{#unless (eq module.input_slug "content_privacy")}}
-				<div class="btn-group mx-2 my-1 module-name-btn" data-module-slug={{module.input_slug}} role="group"><button {{on 'click' (fn this.module.changeModule module)}} data-bs-target="#moduleModal" data-bs-toggle="modal" class="rounded-pill btn btn-outline-{{this.colormodes.inverseMode}} px-3" id="module-{{module.input_slug}}" type="button">{{module.input_slug}}</button><button title="Hold and drag to reorder" class="drag-icon px-1 btn border-start-0 border-1 fw-normal ms-1"><i class="fa-solid fa-grip-lines-vertical"></i></button></div>
+				<div class="btn-group mx-1 my-1 module-name-btn" data-module-slug={{module.input_slug}} role="group"><button title="Hold and drag to reorder" {{on 'click' (fn this.module.changeModule module)}} data-bs-target="#moduleModal" data-bs-toggle="modal" class="rounded-pill btn btn-outline-{{this.colormodes.inverseMode}} px-3" id="module-{{module.input_slug}}" type="button">{{module.input_slug}}</button></div>
 			{{else}}
-				<div class="btn-group mx-2 my-1 module-name-btn" data-module-slug={{module.input_slug}} role="group"><button class="rounded-pill btn btn-outline-{{this.colormodes.inverseMode}} px-3" id="module-{{module.input_slug}}" type="button">{{module.input_slug}}</button><button title="Hold and drag to reorder" class="drag-icon px-1 btn border-start-0 border-1 fw-normal ms-1"><i class="fa-solid fa-grip-lines-vertical"></i></button></div>
+				<div class="btn-group mx-1 my-1 module-name-btn" data-module-slug={{module.input_slug}} role="group"><button title="Hold and drag to reorder" class="rounded-pill btn btn-outline-{{this.colormodes.inverseMode}} px-3" id="module-{{module.input_slug}}" type="button">{{module.input_slug}}</button></div>
 			{{/unless}}
 		{{/each}}
-		<button data-bs-target="#trackAPIModal" data-bs-toggle="modal" class="rounded-pill mx-2 btn btn-outline-{{this.colormodes.inverseMode}} my-1" type="button"><i class="fa-solid fa-circle-nodes"></i></button>
-		<button data-bs-target="#newModuleModel" data-bs-toggle="modal" class="rounded-pill mx-2 btn btn-{{this.colormodes.inverseMode}} my-1" type="button"><i class="fa-solid fa-plus"></i></button>
+		<button data-bs-target="#trackAPIModal" data-bs-toggle="modal" class="rounded-pill mx-1 btn btn-outline-{{this.colormodes.inverseMode}} my-1" type="button"><i class="fa-solid fa-circle-nodes"></i></button>
+		<button data-bs-target="#newModuleModel" data-bs-toggle="modal" class="rounded-pill mx-1 btn btn-{{this.colormodes.inverseMode}} my-1" type="button"><i class="fa-solid fa-plus"></i></button>
 	</div>
 	<div class="d-none" {{did-insert this.initDragDrop}}></div>
 	{{else}}
@@ -19,7 +19,7 @@
 
 {{#if this.activateReordering}}
 <div class="w-75 mt-n4 mb-5 mx-auto rounded-pill bg-{{this.colormodes.inverseMode}} p-1 d-flex align-items-center justify-content-between">
-  <button class="btn btn-sm btn-outline-secondary rounded-pill" type="button" {{on 'click' this.ignoreReordering}}>Do not save</button>
+  <button class="btn btn-sm btn-outline-{{this.colormodes.mode}} rounded-pill" type="button" {{on 'click' this.ignoreReordering}}>Do not save</button>
   <button class="btn btn-sm btn-primary rounded-pill" type="button" {{on 'click' this.saveReordering}}>Save reordering</button>
 </div>
 {{/if}}
