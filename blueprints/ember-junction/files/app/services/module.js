@@ -21,10 +21,20 @@ export default class ModuleService extends Service {
     { title: 'Email address', slug: 'email', var: 'string', multi: false },
     { title: 'Phone number', slug: 'tel', var: 'string', multi: false },
     { title: 'Number', slug: 'number', var: 'int', multi: false },
-    { title: 'Date and time', slug: 'datetime-local', var: 'string', multi: false },
+    {
+      title: 'Date and time',
+      slug: 'datetime-local',
+      var: 'string',
+      multi: false,
+    },
     { title: 'Date only', slug: 'date', var: 'string', multi: false },
     { title: 'Time only', slug: 'time', var: 'string', multi: false },
-    { title: 'File uploader', slug: 'file_uploader', var: 'json', multi: false },
+    {
+      title: 'File uploader',
+      slug: 'file_uploader',
+      var: 'json',
+      multi: false,
+    },
     { title: 'Color', slug: 'color', var: 'string', multi: false },
     { title: 'Checkbox', slug: 'checkbox', var: 'bool', multi: false },
   ];
@@ -33,7 +43,7 @@ export default class ModuleService extends Service {
   @tracked listField = null;
   @tracked listSearchable = null;
   @tracked listSortable = null;
-  @tracked linkedType = "";
+  @tracked linkedType = '';
   @tracked linkedTypesAvailable = [];
   @tracked inputMultiple = false;
   @tracked inputPrimary = false;
@@ -41,17 +51,15 @@ export default class ModuleService extends Service {
 
   @action
   changeLinkedType(e) {
-    if (e == "Select linked track")
-      this.linkedType = "";
-    else
-      this.linkedType = e;
+    if (e == 'Select linked track') this.linkedType = '';
+    else this.linkedType = e;
   }
 
   @action
   changeModule(module) {
-    this.linkedTypesAvailable.push("Select linked track");
+    this.linkedTypesAvailable.push('Select linked track');
 
-    Object.entries(this.types.json.modules).forEach((tp)=>{
+    Object.entries(this.types.json.modules).forEach((tp) => {
       if (tp[1].slug != 'webapp' && tp[1].slug.includes('_record') === false) {
         this.linkedTypesAvailable.push(tp[1].slug);
       }
@@ -61,32 +69,26 @@ export default class ModuleService extends Service {
     this.currentModule = module;
 
     this.inputMultiple = this.currentModule.input_multiple;
-    
-    this.inputTypes.forEach((i)=>{
-      if (i.slug == this.currentModule.input_type)
-        this.selectedInputType = i;
+
+    this.inputTypes.forEach((i) => {
+      if (i.slug == this.currentModule.input_type) this.selectedInputType = i;
     });
 
     if (this.currentModule.linked_type !== undefined)
       this.linkedType = this.currentModule.linked_type;
-    else
-      this.linkedType = "";
+    else this.linkedType = '';
 
     if (this.currentModule.list_field !== undefined)
       this.listField = this.currentModule.list_field;
-    else
-      this.listField = false;
+    else this.listField = false;
 
     if (this.currentModule.list_searchable !== undefined)
       this.listSearchable = this.currentModule.list_searchable;
-    else
-      this.listSearchable = false;
+    else this.listSearchable = false;
 
     if (this.currentModule.list_sortable !== undefined)
       this.listSortable = this.currentModule.list_sortable;
-    else
-      this.listSortable = false;
-
+    else this.listSortable = false;
   }
 
   @action
@@ -97,17 +99,19 @@ export default class ModuleService extends Service {
   @action
   async save() {
     if (this.selectedInputType != null) {
-      if (this.currentModule.input_placeholder === undefined || this.currentModule.input_placeholder == '')
-        this.currentModule.input_placeholder = 'Enter ' + this.currentModule.input_slug;
+      if (
+        this.currentModule.input_placeholder === undefined ||
+        this.currentModule.input_placeholder == ''
+      )
+        this.currentModule.input_placeholder =
+          'Enter ' + this.currentModule.input_slug;
 
       let slug = this.type.currentType.slug;
       var exists = false;
       var ii = 0;
 
       this.types.json.modules[slug].modules.forEach((module) => {
-        if (
-          module.input_slug == this.currentModule.input_slug
-        ) {
+        if (module.input_slug == this.currentModule.input_slug) {
           exists = ii;
         }
         ii++;
@@ -133,12 +137,12 @@ export default class ModuleService extends Service {
           list_field: this.listField,
           list_searchable: this.listSearchable,
           list_sortable: this.listSortable,
-          var_type: this.selectedInputType.var
+          var_type: this.selectedInputType.var,
         };
         await this.types.json.save();
         this.modelBox.hide();
         this.types.fetchAgain();
-        document.querySelector('#track-'+slug).click();
+        document.querySelector('#track-' + slug).click();
       }
     } else {
       alert('Form Input Type field is compulsory.');
@@ -157,28 +161,34 @@ export default class ModuleService extends Service {
 
   @action
   async delete() {
-    if (confirm("Are you sure you wish to deactivate the field "+this.currentModule.input_slug) == true) {
+    if (
+      confirm(
+        'Are you sure you wish to deactivate the field ' +
+          this.currentModule.input_slug,
+      ) == true
+    ) {
       let slug = this.type.currentType.slug;
       var ii = 0;
 
       await this.types.json.modules[slug].modules.forEach(async (module) => {
-        if (
-          module.input_slug == this.currentModule.input_slug
-        ) {
+        if (module.input_slug == this.currentModule.input_slug) {
           delete this.types.json.modules[slug].modules[ii];
           console.log(this.types.json.modules[slug].modules);
         }
-        ii++
+        ii++;
       });
 
-      this.types.json.modules[slug].modules = this.types.json.modules[slug].modules.filter(element => {
+      this.types.json.modules[slug].modules = this.types.json.modules[
+        slug
+      ].modules.filter((element) => {
         return element;
       });
 
       await this.types.json.save();
       this.modelBox.hide();
       this.types.fetchAgain();
-      document.querySelector('#track-'+slug).click();
-    } else {}
+      document.querySelector('#track-' + slug).click();
+    } else {
+    }
   }
 }

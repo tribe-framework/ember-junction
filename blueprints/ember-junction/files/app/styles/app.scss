@@ -269,3 +269,7 @@ table tbody th {
     }
   }
 }
+
+.x-toggle:checked + label > .x-toggle-ios.x-toggle-btn {
+  background-color: var(--bs-primary) !important;
+}

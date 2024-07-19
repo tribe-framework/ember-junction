@@ -2,11 +2,11 @@
 	{{#if (and (not-eq this.type.currentType.slug "deleted_record") (not-eq this.type.currentType.slug "file_record"))}}
 	<div id="module-names" class="d-flex align-items-center flex-wrap justify-content-center mb-5 col-lg-7 col-md-10 mx-auto">
 		{{#each this.type.currentType.modules as |module|}}
-			{{#unless (eq module.input_slug "content_privacy")}}
-				<div class="btn-group mx-1 my-1 module-name-btn" data-module-slug={{module.input_slug}} role="group"><button title="Hold and drag to reorder" {{on 'click' (fn this.module.changeModule module)}} data-bs-target="#moduleModal" data-bs-toggle="modal" class="rounded-pill btn btn-outline-{{this.colormodes.inverseMode}} px-3" id="module-{{module.input_slug}}" type="button">{{module.input_slug}}</button></div>
+			{{#if (eq module.input_slug "content_privacy")}}
+				<div class="btn-group mx-1 my-1 module-name-btn" data-module-slug={{module.input_slug}} role="group"><button disabled title="Hold and drag to reorder" class="rounded-pill btn btn-outline-{{this.colormodes.inverseMode}} px-3" id="module-{{module.input_slug}}" type="button">{{module.input_slug}}</button></div>
 			{{else}}
-				<div class="btn-group mx-1 my-1 module-name-btn" data-module-slug={{module.input_slug}} role="group"><button title="Hold and drag to reorder" class="rounded-pill btn btn-outline-{{this.colormodes.inverseMode}} px-3" id="module-{{module.input_slug}}" type="button">{{module.input_slug}}</button></div>
-			{{/unless}}
+				<div class="btn-group mx-1 my-1 module-name-btn" data-module-slug={{module.input_slug}} role="group"><button title="Hold and drag to reorder" {{on 'click' (fn this.module.changeModule module)}} data-bs-target="#moduleModal" data-bs-toggle="modal" class="rounded-pill btn btn-outline-{{this.colormodes.inverseMode}} px-3" id="module-{{module.input_slug}}" type="button">{{module.input_slug}}</button></div>
+			{{/if}}
 		{{/each}}
 		<button data-bs-target="#trackAPIModal" data-bs-toggle="modal" class="rounded-pill mx-1 btn btn-outline-{{this.colormodes.inverseMode}} my-1" type="button"><i class="fa-solid fa-circle-nodes"></i></button>
 		<button data-bs-target="#newModuleModel" data-bs-toggle="modal" class="rounded-pill mx-1 btn btn-{{this.colormodes.inverseMode}} my-1" type="button"><i class="fa-solid fa-plus"></i></button>

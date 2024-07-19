@@ -37,9 +37,7 @@ export default class TypesModulesNewComponent extends Component {
       var exists = false;
 
       this.types.json.modules[slug].modules.forEach((module) => {
-        if (
-          module.input_slug == this.convertToSlug(this.moduleName)
-        ) {
+        if (module.input_slug == this.convertToSlug(this.moduleName)) {
           exists = true;
         }
       });
@@ -54,13 +52,13 @@ export default class TypesModulesNewComponent extends Component {
           list_field: false,
           list_searchable: false,
           list_sortable: false,
-          var_type: 'string'
+          var_type: 'string',
         });
         await this.types.json.save();
         this.modelBox.hide();
-        this.moduleName = "";
+        this.moduleName = '';
         this.types.fetchAgain();
-        document.querySelector('#track-'+slug).click();
+        document.querySelector('#track-' + slug).click();
       }
     } else {
       alert('Module name field is compulsory.');
