@@ -93,14 +93,8 @@ export default class TypesModulesListComponent extends Component {
   @action
   async saveReordering() {    
     await this.types.json.save();
-    this.types.json = await this.store.findRecord('webapp', 0, {
-      include: ['total_objects'],
-    });
-    this.types.json = this.types.json;
-    let t = this.type.currentType;
-    this.type.currentType = null;
     later(this, async ()=>{
-      this.type.currentType = t;
+      window.location.reload(true);
     }, 500);
   }
 }

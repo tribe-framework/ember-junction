@@ -9,6 +9,7 @@ export default class TypesNewModelComponent extends Component {
   @tracked trackName = '';
   @tracked trackPlural = '';
   @tracked trackDescription = '';
+  @tracked trackPrimary = 'title';
   @service types;
   @tracked modelBox = null;
 
@@ -63,11 +64,11 @@ export default class TypesNewModelComponent extends Component {
           description: this.trackDescription,
           modules: [
             {
-              input_slug: 'title',
+              input_slug: this.convertToSlug(this.trackPrimary),
               input_primary: true,
               input_type: 'text',
               var_type: 'string',
-              input_placeholder: 'Enter title',
+              input_placeholder: 'Enter ' + this.trackPrimary,
               input_unique: false,
               list_field: true,
               list_searchable: true,
