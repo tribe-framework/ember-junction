@@ -1,5 +1,10 @@
 <tr id="row-{{@object.id}}" class="border-dark {{if (this.inArray @object.id (get @selectedRowIDs @type.slug)) "bg-secondary"}}">
-  <th class="border-end border-start border-1 border-dark" scope="row" {{on 'click' this.toggleSelection}}>{{@object.id}}</th>
+  <th class="border-end border-start border-1 border-dark" scope="row" {{on 'click' this.toggleSelection}}>
+    {{@object.id}}
+    {{#if this.isSelected}}
+      <i class="fa-solid fa-circle-check"></i>
+    {{/if}}
+  </th>
 
   {{#each @type.modules as |module|}}
     {{#if module.list_field}}

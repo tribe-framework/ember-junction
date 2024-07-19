@@ -184,3 +184,7 @@ body {
     color: var(--bs-gray-600);
   }
 }
+
+table tbody th {
+  cursor: pointer;
+}

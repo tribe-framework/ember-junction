@@ -1,8 +1,8 @@
 {{page-title "Files"}}
 
-<div class="above-footer">
+<Header @webapp={{this.types.json.modules.webapp}} />
 
-	<Header @webapp={{this.types.json.modules.webapp}} />
+<div class="above-footer px-2">
 
 	<main class="flex-shrink-0 page a4 d2 mb-5" style="min-height:75vh">
 		
@@ -72,8 +72,8 @@
 
 	</main>
 
-	<Footer @webapp={{this.types.json.modules.webapp}} />
-
 </div>
+
+<Footer @webapp={{this.types.json.modules.webapp}} />
 
 {{outlet}}

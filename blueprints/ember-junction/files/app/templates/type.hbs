@@ -1,8 +1,8 @@
 {{page-title "Type"}}
 
-<div class="above-footer">
+<Header @webapp={{this.type.types.json.modules.webapp}} />
 
-	<Header @webapp={{this.type.types.json.modules.webapp}} />
+<div class="above-footer px-2">
 
 	<main class="flex-shrink-0 page a4 d2 mb-5" {{did-insert this.changeType}}>
 
@@ -56,8 +56,8 @@
 
 	</main>
 
-	<Footer @webapp={{this.type.types.json.modules.webapp}} />
-
 </div>
+
+<Footer @webapp={{this.type.types.json.modules.webapp}} />
 
 {{outlet}}
