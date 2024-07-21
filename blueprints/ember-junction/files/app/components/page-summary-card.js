@@ -13,7 +13,7 @@ export default class PageSummaryCardComponent extends Component {
   @service colormodes;
   @tracked sortable = null;
   @tracked activateReordering = false;
-  @tracked modules;
+  @tracked modules = Object.entries(this.types.json.modules);
   @tracked reloadTypes = false;
 
   @action
