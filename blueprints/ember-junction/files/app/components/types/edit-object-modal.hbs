@@ -1,12 +1,13 @@
+{{#unless this.object.reloadingVars}}
 {{!-- Modal --}}
-<div class="modal fade" id="editObjectModal-{{if @object.id @object.id (concat @type.slug "-" (if @multiEdit "multi" "new"))}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editObjectModalLabel" aria-hidden="true" {{did-insert this.cleanVarsOnModalOpen}}>
+<div class="modal fade" id="editObjectModal{{if @newEdit (concat "-" this.type.currentType.slug "-new")}}{{if @multiEdit (concat "-" this.type.currentType.slug "-multi")}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="editObjectModalLabel" aria-hidden="true" {{did-insert this.cleanVarsOnModalOpen}}>
   <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-xl">
     <div class="modal-content">
       <div class="modal-header align-items-center">
         <div class="modal-title" id="editObjectModalLabel">
-          <div class="fs-5 text-capitalize">{{@type.name}} #{{@object.id}}</div>
-          {{#if @object.id}}
-            <p class="small text-muted fw-bold mb-0">{{@object.modules.slug}} <span {{on 'click' this.updateSlug}}><i class="fa-solid fa-arrows-rotate"></i></span></p>
+          <div class="fs-5 text-capitalize">{{this.type.currentType.name}} #{{this.object.currentObject.id}}</div>
+          {{#if this.object.currentObject.id}}
+            <p class="small text-muted fw-bold mb-0">{{this.object.currentObject.modules.slug}} <span {{on 'click' this.updateSlug}}><i class="fa-solid fa-arrows-rotate"></i></span></p>
           {{/if}}
         </div>
         <button type="button" id="close-{{this.objectID}}" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -14,36 +15,36 @@
       <div class="modal-body">
         {{yield}}
 
-        {{#if (eq @type.slug "deleted_record")}}
+        {{#if (eq this.type.currentType.slug "deleted_record")}}
 
           <h4>Are you sure you wish the permanently delete the selected record(s)?</h4>
 
         {{else}}
 
-          {{#each @type.modules as |module|}}
+          {{#each this.type.currentType.modules as |module|}}
 
             {{#if (not (or (and @multiEdit module.input_primary) (and @multiEdit (eq module.input_type "file_uploader")) (and @multiEdit (eq module.input_type "editorjs"))))}}
           	
             	{{#if (eq module.input_type "checkbox")}}
-            		<InputFields::Checkbox @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
+            		<InputFields::Checkbox @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{this.type.currentType}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
 
             	{{else if (eq module.input_type "editorjs")}}
-            		<InputFields::Editorjs @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} @editorjsInstances={{this.editorjsInstances}} @initEditorJS={{this.initEditorJS}} @saveEditorData={{this.saveEditorData}} />
+            		<InputFields::Editorjs @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{this.type.currentType}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} @editorjsInstances={{this.editorjsInstances}} @initEditorJS={{this.initEditorJS}} @saveEditorData={{this.saveEditorData}} />
 
               {{else if (eq module.input_type "typeout")}}
-                <InputFields::Typeout @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
+                <InputFields::Typeout @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{this.type.currentType}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
             	
             	{{else if (eq module.input_type "file_uploader")}}
-            		<InputFields::FileUploader @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
+            		<InputFields::FileUploader @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{this.type.currentType}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
 
             	{{else if (eq module.input_type "select")}}
-            		<InputFields::Select @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
+            		<InputFields::Select @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{this.type.currentType}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
             	
             	{{else if (or (eq module.input_type "textarea") (eq module.input_type "json"))}}
-            		<InputFields::Textarea @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
+            		<InputFields::Textarea @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{this.type.currentType}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
             	
             	{{else}}
-                <InputFields::Text @webapp={{@webapp}} @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{@type}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
+                <InputFields::Text @mutObjectModuleValue={{this.mutObjectModuleValue}} @type={{this.type.currentType}} @module={{module}} @id={{this.objectID}} @object={{this.objectModules}} @addToMultiField={{this.addToMultiField}} @removeFromMultiField={{this.removeFromMultiField}} />
 
             	{{/if}}
 
@@ -56,21 +57,21 @@
       	<InputFields::Text @module={{hash input_slug="type" input_type="hidden"}} @object={{this.objectModules}} />
         <div class="w-100 d-flex align-items-center justify-content-between">
 
-          {{#if @object.id}}
+          {{#if this.object.currentObject.id}}
             <InputFields::Text @module={{hash input_slug="id" input_type="hidden"}} @object={{this.objectModules}} />
 
             <div class="d-flex justify-content-start align-items-center">
               <div class="d-flex justify-content-start align-items-start">
                 <button {{on 'click' this.areYouSure}} type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
               </div>
-              <div class="{{this.deleteSurity}} justify-content-start align-items-center" id="deleteObjectConfirmation-{{@object.id}}">
+              <div class="{{this.deleteSurity}} justify-content-start align-items-center" id="deleteObjectConfirmation-{{this.object.currentObject.id}}">
                 <div class="mx-2">Are you sure?</div>
                 <button data-bs-dismiss="modal" type="button" class="btn btn-sm btn-danger me-1" {{on 'click' this.deleteObject}}>Yes, delete it</button>
                 <button type="button" class="btn btn-sm btn-secondary me-1" {{on 'click' this.notSoSure}}>No, keep it</button>
               </div>
             </div>
 
-            {{#if (eq @type.slug "deleted_record")}}
+            {{#if (eq this.type.currentType.slug "deleted_record")}}
               <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close without deleting</button>
             {{else}}
               <button type="button" class="btn btn-primary" {{on 'click' this.pushObject}}>Save changes</button>
@@ -83,22 +84,22 @@
                 <div class="d-flex justify-content-start align-items-start">
                   <button {{on 'click' this.areYouSure}} type="button" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                 </div>
-                <div class="{{this.deleteSurity}} justify-content-start align-items-center" id="deleteObjectConfirmation-{{@type.slug}}-multi">
+                <div class="{{this.deleteSurity}} justify-content-start align-items-center" id="deleteObjectConfirmation-{{this.type.currentType.slug}}-multi">
                   <div class="mx-2">Delete ALL selected objects?</div>
-                  <button data-bs-dismiss="modal" type="button" class="btn btn-sm btn-danger me-1" {{on 'click' (fn this.deleteObjects @selectedRowIDs)}}>Yes, delete them</button>
+                  <button data-bs-dismiss="modal" type="button" class="btn btn-sm btn-danger me-1" {{on 'click' (fn this.deleteObjects this.type.selectedRowIDs)}}>Yes, delete them</button>
                   <button type="button" class="btn btn-sm btn-secondary me-1" {{on 'click' this.notSoSure}}>No, keep them</button>
                 </div>
               </div>
 
-              {{#if (eq @type.slug "deleted_record")}}
+              {{#if (eq this.type.currentType.slug "deleted_record")}}
                 <button type="button" class="btn btn-outline-primary" data-bs-dismiss="modal">Close without deleting</button>
               {{else}}
-                <button data-bs-dismiss="modal" type="button" class="btn btn-primary" {{on 'click' (fn this.pushObjects @selectedRowIDs)}}>Multi-edit save {{@type.name}}</button>
+                <button data-bs-dismiss="modal" type="button" class="btn btn-primary" {{on 'click' (fn this.pushObjects this.type.selectedRowIDs)}}>Multi-edit save {{this.type.currentType.name}}</button>
               {{/if}}
             {{else}}
             
                 <div>&nbsp;</div>
-                <button type="button" class="btn btn-primary" {{on 'click' this.pushObject}}>Create new {{@type.name}}</button>
+                <button type="button" class="btn btn-primary" {{on 'click' this.pushObject}}>Create new {{this.type.currentType.name}}</button>
 
             {{/if}}
           {{/if}}
@@ -107,3 +108,4 @@
     </div>
   </div>
 </div>
+{{/unless}}

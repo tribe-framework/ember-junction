@@ -11,6 +11,7 @@ export default class AuthService extends Service {
   @tracked inputPassword;
   @tracked isLoggedIn = false;
   @tracked junctionPassword = '';
+  @tracked goToRouteAfterLogin = 'index';
 
   checkIfLoggedIn = () => {
     let cookiePassword = this.cookies.getCookie(ENV.JUNCTION_SLUG);
@@ -43,7 +44,7 @@ export default class AuthService extends Service {
       this.inputPassword == this.junctionPassword
     ) {
       this.cookies.setCookie(ENV.JUNCTION_SLUG, this.inputPassword);
-      this.router.transitionTo('index');
+      this.router.transitionTo(this.goToRouteAfterLogin);
     } else if (ENV.JUNCTION_SLUG !== undefined && ENV.JUNCTION_SLUG != '') {
       await fetch('https://tribe.junction.express/custom/auth/access.php', {
         method: 'post',
@@ -64,7 +65,7 @@ export default class AuthService extends Service {
         .then(async (response) => {
           if (response.authenticated === true) {
             this.cookies.setCookie(ENV.JUNCTION_SLUG, this.inputPassword);
-            this.router.transitionTo('index');
+            this.router.transitionTo(this.goToRouteAfterLogin);
           } else {
             alert('Incorrect password.');
           }

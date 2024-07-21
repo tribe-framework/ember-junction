@@ -1,0 +1,8 @@
+<div class="{{if this.type.loadingSearchResults "d-flex" "d-none"}} align-items-center justify-content-center vh-100 w-100 position-fixed animate__animated animate__fadeIn animate__faster" id="loading" style="z-index:11001">
+	<div class="position-relative" role="status" style="z-index:1"> 
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">Loading...</span>
+      </div>
+	</div>
+	<div style="z-index:0;" class="position-absolute vh-100 w-100 bg-{{this.colormodes.mode}} opacity-75"></div>
+</div>

@@ -24,9 +24,11 @@ export default class TypesEditObjectModalComponent extends Component {
   @service store;
   @service router;
   @service types;
+  @service type;
+  @service object;
 
-  @tracked objectModules = this.args.object ? this.args.object.modules : A([]);
-  @tracked objectID = this.args.object ? this.args.object.modules.id : 'new';
+  @tracked objectModules = this.object.currentObject ? this.object.currentObject.modules : A([]);
+  @tracked objectID = this.object.currentObject ? this.object.currentObject.modules.id : 'new';
   @tracked editorjsInstances = [];
   @tracked doUpdateSlug = false;
 
@@ -34,17 +36,17 @@ export default class TypesEditObjectModalComponent extends Component {
   async pushObjects() {
     let vvv = this.objectModules;
 
-    await this.args.selectedRowIDs[this.args.type.slug].forEach((id) => {
-      this.store.findRecord(this.args.type.slug, id).then((obj) => {
+    await this.type.selectedRowIDs[this.type.currentType.slug].forEach((id) => {
+      this.store.findRecord(this.type.currentType.slug, id).then((obj) => {
         obj.modules = { ...vvv };
         obj.save();
 
         if (
-          this.args.type.api_hooks !== undefined &&
-          this.args.type.api_hooks.on_update !== undefined &&
-          this.args.type.api_hooks.on_update != ''
+          this.type.currentType.api_hooks !== undefined &&
+          this.type.currentType.api_hooks.on_update !== undefined &&
+          this.type.currentType.api_hooks.on_update != ''
         ) {
-          fetch(this.args.type.api_hooks.on_update, {
+          fetch(this.type.currentType.api_hooks.on_update, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -55,24 +57,24 @@ export default class TypesEditObjectModalComponent extends Component {
       });
     });
 
-    this.args.emptySelectedRowsInType(this.args.type.slug);
-    this.args.loadTypeObjects(this.args.type);
+    this.type.emptySelectedRowsInType(this.type.currentType.slug);
+    this.type.loadTypeObjects(this.type.currentType);
     this.types.fetchAgain();
   }
 
   @action
   async deleteObjects() {
-    await this.args.selectedRowIDs[this.args.type.slug].forEach((id) => {
-      this.store.findRecord(this.args.type.slug, id).then(async (obj) => {
+    await this.type.selectedRowIDs[this.type.currentType.slug].forEach((id) => {
+      this.store.findRecord(this.type.currentType.slug, id).then(async (obj) => {
         await obj.destroyRecord();
 
         if (
-          this.args.type.api_hooks !== undefined &&
-          this.args.type.api_hooks.on_delete !== undefined &&
-          this.args.type.api_hooks.on_delete != '' &&
+          this.type.currentType.api_hooks !== undefined &&
+          this.type.currentType.api_hooks.on_delete !== undefined &&
+          this.type.currentType.api_hooks.on_delete != '' &&
           id !== undefined
         ) {
-          fetch(this.args.type.api_hooks.on_delete, {
+          fetch(this.type.currentType.api_hooks.on_delete, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -83,7 +85,7 @@ export default class TypesEditObjectModalComponent extends Component {
       });
     });
 
-    this.args.emptySelectedRowsInType(this.args.type.slug);
+    this.type.emptySelectedRowsInType(this.type.currentType.slug);
     this.types.fetchAgain();
   }
 
@@ -93,7 +95,7 @@ export default class TypesEditObjectModalComponent extends Component {
     //because image data does no auto-save in component input-fields/editorjs
 
     let promises = [];
-    this.args.type.modules.forEach((module) => {
+    this.type.currentType.modules.forEach((module) => {
       const promise = new Promise((resolve, reject) => {
         if (
           module.input_type == 'editorjs' ||
@@ -108,7 +110,7 @@ export default class TypesEditObjectModalComponent extends Component {
               },
             );
           } else {
-            const mtxtId = `${this.args.type.slug}-${module.input_slug}-${this.objectID}`;
+            const mtxtId = `${this.type.currentType.slug}-${module.input_slug}-${this.objectID}`;
             const inputs = document.querySelectorAll(
               "[name='" + mtxtId + "[]']",
             );
@@ -143,24 +145,24 @@ export default class TypesEditObjectModalComponent extends Component {
     }
 
     if (
-      this.args.object !== null &&
-      this.args.object !== undefined &&
-      this.args.object.id !== null
+      this.object.currentObject !== null &&
+      this.object.currentObject !== undefined &&
+      this.object.currentObject.id !== null
     ) {
       this.store
-        .findRecord(this.args.object.modules.type, this.args.object.modules.id)
+        .findRecord(this.object.currentObject.modules.type, this.object.currentObject.modules.id)
         .then((obj) => {
           obj.modules = vvv;
 
           obj.save();
 
           if (
-            this.args.type.api_hooks !== undefined &&
-            this.args.type.api_hooks.on_update !== undefined &&
-            this.args.type.api_hooks.on_update != '' &&
+            this.type.currentType.api_hooks !== undefined &&
+            this.type.currentType.api_hooks.on_update !== undefined &&
+            this.type.currentType.api_hooks.on_update != '' &&
             obj.id !== undefined
           ) {
-            fetch(this.args.type.api_hooks.on_update, {
+            fetch(this.type.currentType.api_hooks.on_update, {
               method: 'POST',
               headers: {
                 'Content-Type': 'application/json',
@@ -169,22 +171,22 @@ export default class TypesEditObjectModalComponent extends Component {
             });
           }
 
-          document.querySelector('#close-' + this.args.object.id).click();
+          document.querySelector('#close-' + this.object.currentObject.id).click();
         });
     } else {
-      let obj = await this.store.createRecord(this.args.type.slug, {
+      let obj = await this.store.createRecord(this.type.currentType.slug, {
         modules: { ...vvv },
       });
 
       await obj.save();
 
       if (
-        this.args.type.api_hooks !== undefined &&
-        this.args.type.api_hooks.on_create !== undefined &&
-        this.args.type.api_hooks.on_create != '' &&
+        this.type.currentType.api_hooks !== undefined &&
+        this.type.currentType.api_hooks.on_create !== undefined &&
+        this.type.currentType.api_hooks.on_create != '' &&
         obj.id !== undefined
       ) {
-        fetch(this.args.type.api_hooks.on_create, {
+        fetch(this.type.currentType.api_hooks.on_create, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -193,7 +195,7 @@ export default class TypesEditObjectModalComponent extends Component {
         });
       }
 
-      this.args.loadTypeObjects(this.args.type);
+      this.type.loadTypeObjects(this.type.currentType);
       this.objectID = 'new';
       this.cleanVarsIfNew();
 
@@ -206,24 +208,24 @@ export default class TypesEditObjectModalComponent extends Component {
   @action
   async deleteObject() {
     if (
-      this.args.object !== null &&
-      this.args.object !== undefined &&
-      this.args.object.id !== null
+      this.object.currentObject !== null &&
+      this.object.currentObject !== undefined &&
+      this.object.currentObject.id !== null
     ) {
       let obj = this.store.peekRecord(
-        this.args.object.modules.type,
-        this.args.object.modules.id,
+        this.object.currentObject.modules.type,
+        this.object.currentObject.modules.id,
       );
-      var id = this.args.object.modules.id;
+      var id = this.object.currentObject.modules.id;
       await obj.destroyRecord();
 
       if (
-        this.args.type.api_hooks !== undefined &&
-        this.args.type.api_hooks.on_delete !== undefined &&
-        this.args.type.api_hooks.on_delete != '' &&
+        this.type.currentType.api_hooks !== undefined &&
+        this.type.currentType.api_hooks.on_delete !== undefined &&
+        this.type.currentType.api_hooks.on_delete != '' &&
         id !== undefined
       ) {
-        fetch(this.args.type.api_hooks.on_delete, {
+        fetch(this.type.currentType.api_hooks.on_delete, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -233,7 +235,7 @@ export default class TypesEditObjectModalComponent extends Component {
       }
     }
 
-    this.args.emptySelectedRowsInType(this.args.type.slug);
+    this.type.emptySelectedRowsInType(this.type.currentType.slug);
     this.types.fetchAgain();
   }
 
@@ -252,17 +254,17 @@ export default class TypesEditObjectModalComponent extends Component {
 
   @action
   initEditorJS(module_input_slug, id) {
-    var editor_object_in_type = Object(this.args.type.modules).find(
+    var editor_object_in_type = Object(this.type.currentType.modules).find(
       function (element) {
         if (element['input_slug'] == module_input_slug) return element;
       },
     );
 
-    const ejsTarget = `${this.args.type.slug}-${module_input_slug}-${id}`;
+    const ejsTarget = `${this.type.currentType.slug}-${module_input_slug}-${id}`;
 
     const ejsInstance = new EditorJS({
       holder: ejsTarget,
-      data: this.args.object ? this.args.object.modules[module_input_slug] : {},
+      data: this.object.currentObject ? this.object.currentObject.modules[module_input_slug] : {},
       placeholder: editor_object_in_type.input_placeholder,
       tools: {
         paragraph: {
@@ -355,7 +357,7 @@ export default class TypesEditObjectModalComponent extends Component {
     ejsInstance.isReady
       .then(() => {
         const editors = document.querySelectorAll(
-          `#editObjectModal-${id} .codex-editor`,
+          `#editObjectModal .codex-editor`,
         );
         const editorsCount = editors.length;
 
@@ -373,7 +375,7 @@ export default class TypesEditObjectModalComponent extends Component {
 
   @action
   async saveEditorData(module_input_slug, id) {
-    const ejsId = `${this.args.type.slug}-${module_input_slug}-${id}`;
+    const ejsId = `${this.type.currentType.slug}-${module_input_slug}-${id}`;
 
     if (!this.editorjsInstances[ejsId]) {
       console.error('editorJs save failed, editorjs instance not found');
@@ -436,15 +438,15 @@ export default class TypesEditObjectModalComponent extends Component {
 
   @action
   cleanVarsIfNew() {
-    this.args.type.modules.forEach((module) => {
+    this.type.currentType.modules.forEach((module) => {
       if (module.input_type == 'editorjs') {
         if (
           this.editorjsInstances[
-            this.args.type.slug + '-' + module.input_slug + '-new'
+            this.type.currentType.slug + '-' + module.input_slug + '-new'
           ] !== undefined
         )
           this.editorjsInstances[
-            this.args.type.slug + '-' + module.input_slug + '-new'
+            this.type.currentType.slug + '-' + module.input_slug + '-new'
           ].blocks.clear();
       }
     });
@@ -458,7 +460,9 @@ export default class TypesEditObjectModalComponent extends Component {
   cleanVarsOnModalOpen(e) {
     const myModalEl = document.getElementById(e.id);
     myModalEl.addEventListener('show.bs.modal', (event) => {
-      this.objectID = this.args.object ? this.args.object.modules.id : 'new';
+      this.objectID = this.object.currentObject ? this.object.currentObject.modules.id : 'new';
+      this.objectModules = this.object.currentObject ? this.object.currentObject.modules : A([]);
+      this.editorjsInstances = [];
 
       if (this.objectID == 'new' || this.objectID == 'multi') {
         this.cleanVarsIfNew();

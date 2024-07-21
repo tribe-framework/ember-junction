@@ -273,3 +273,16 @@ table tbody th {
 .x-toggle:checked + label > .x-toggle-ios.x-toggle-btn {
   background-color: var(--bs-primary) !important;
 }
+
+@keyframes wobble {
+  0% { transform: rotate(0deg); }
+  25% { transform: rotate(1deg); }
+  50% { transform: rotate(0eg); }
+  75% { transform: rotate(-1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.wobble {
+  animation: wobble 0.25s infinite;
+  cursor: move;
+}

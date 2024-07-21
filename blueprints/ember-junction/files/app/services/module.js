@@ -57,6 +57,7 @@ export default class ModuleService extends Service {
 
   @action
   changeModule(module) {
+    this.linkedTypesAvailable = [];
     this.linkedTypesAvailable.push('Select linked track');
 
     Object.entries(this.types.json.modules).forEach((tp) => {

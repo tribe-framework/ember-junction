@@ -22,7 +22,7 @@
 
 	    {{#unless @type.sendable}}
 		    {{#if (not (or (eq @module.input_unique true) (eq @type.readonly true)))}}
-		      <button class="badge badge-sm border border-1 border-{{this.colormodes.mode}} bg-{{this.colormodes.inverseMode}} text-{{this.colormodes.mode}} font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#copyObjectModal-{{@object.id}}" type="button"><i class="fa-solid fa-copy"></i><span class="d-none d-lg-inline">&nbsp;Copy</span></button>
+		      <button class="badge badge-sm border border-1 border-{{this.colormodes.mode}} bg-{{this.colormodes.inverseMode}} text-{{this.colormodes.mode}} font-weight-bold text-uppercase" {{on 'click' this.openCopyModal}} type="button"><i class="fa-solid fa-copy"></i><span class="d-none d-lg-inline">&nbsp;Copy</span></button>
 		    {{/if}}
 		{{/unless}}
 
@@ -33,11 +33,7 @@
 	    {{/if}}
 
 	    {{#if (not (or @type.readonly (eq @type.editable false)))}}
-		    {{#if (or (is-empty @object.modules.content_privacy) (eq @object.modules.content_privacy "draft"))}}
-		    	<button class="badge badge-sm border border-1 border-{{this.colormodes.mode}} bg-{{this.colormodes.inverseMode}} text-{{this.colormodes.mode}} font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@object.id}}" type="button"><i class="fa-solid fa-pen-to-square"></i>&nbsp;Edit</button>
-		   	{{else}}
-			   	<button class="badge badge-sm border border-1 border-{{this.colormodes.mode}} bg-{{this.colormodes.inverseMode}} text-{{this.colormodes.mode}} font-weight-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#editObjectModal-{{@object.id}}" type="button"><i class="fa-solid fa-pen-to-square"></i>&nbsp;Edit</button>
-			{{/if}}
+		    <button class="badge badge-sm border border-1 border-{{this.colormodes.mode}} bg-{{this.colormodes.inverseMode}} text-{{this.colormodes.mode}} font-weight-bold text-uppercase" {{on 'click' this.openEditModal}} type="button"><i class="fa-solid fa-pen-to-square"></i>&nbsp;Edit</button>
 		{{/if}}
 
 	  </div>

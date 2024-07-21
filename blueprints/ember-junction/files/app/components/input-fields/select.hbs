@@ -1,4 +1,4 @@
-<div class="mb-3" {{did-insert this.isModuleAlsoAType}}>
+<div class="mb-3" {{did-insert this.isModuleAlsoATypeModal}}>
 
   {{#if @module.input_multiple}}
 
@@ -11,11 +11,7 @@
         @options={{this.options}}
         @dropdownClass="in-modal-dropdown"
         @onChange={{this.updateMultiValue}} as |opt|>
-        {{#if (eq opt.type "user")}}
-          {{opt.name}}
-        {{else}}
-          {{opt.title}}
-        {{/if}}
+          {{get opt this.titleSlug}}
       </PowerSelectMultiple>
 
   {{else}}
@@ -29,11 +25,7 @@
         @options={{this.options}}
         @dropdownClass="in-modal-dropdown"
         @onChange={{this.updateValue}} as |opt|>
-        {{#if (eq opt.type "user")}}
-          {{opt.name}}
-        {{else}}
-          {{opt.title}}
-        {{/if}}
+          {{get opt this.titleSlug}}
       </PowerSelect>
 
   {{/if}}

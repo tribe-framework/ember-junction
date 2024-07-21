@@ -3,9 +3,11 @@ import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
 import { service } from '@ember/service';
 import { A } from '@ember/array';
+import { Modal } from 'bootstrap';
 
 export default class InputFieldsSelectComponent extends Component {
   @service store;
+  @service types;
 
   @tracked options = A([]);
   @tracked inputOptions = this.args.module.input_options ?? null;
@@ -14,19 +16,22 @@ export default class InputFieldsSelectComponent extends Component {
   @tracked selectedMultiOptions = A([]);
   @tracked moduleisAlsoAType = false;
   @tracked selectedMultiOptionSlugs = A([]);
+  @tracked titleSlug = 'title';
 
   @action
   cleanVarsOnNewModalOpen() {
     const myModalNew = document.getElementById(
       'editObjectModal-' + this.args.type.slug + '-new',
     );
-    myModalNew.addEventListener('show.bs.modal', (event) => {
+    myModalNew.addEventListener('show.bs.modal', async (event) => {
       if (this.args.id == 'new') {
         this.selectedOption = null;
         this.selectedMultiOptions = A([]);
 
         this.selectedOption = this.selectedOption;
         this.selectedMultiOptions = this.selectedMultiOptions;
+
+        await this.isModuleAlsoAType();
       } else {
       }
     });
@@ -37,13 +42,15 @@ export default class InputFieldsSelectComponent extends Component {
     const myModalMulti = document.getElementById(
       'editObjectModal-' + this.args.type.slug + '-multi',
     );
-    myModalMulti.addEventListener('show.bs.modal', (event) => {
+    myModalMulti.addEventListener('show.bs.modal', async (event) => {
       if (this.args.id == 'multi') {
         this.selectedOption = null;
         this.selectedMultiOptions = A([]);
 
         this.selectedOption = this.selectedOption;
         this.selectedMultiOptions = this.selectedMultiOptions;
+
+        await this.isModuleAlsoAType();
       } else {
       }
     });
@@ -83,19 +90,35 @@ export default class InputFieldsSelectComponent extends Component {
   }
 
   @action
+  isModuleAlsoATypeModal() {
+    const myModalNew = document.getElementById(
+      'editObjectModal',
+    );
+    myModalNew.addEventListener('show.bs.modal', async (event) => {
+      await this.isModuleAlsoAType();
+    });
+  }
+
+  @action
   async isModuleAlsoAType() {
     if (
-      this.args.webapp.modules[this.args.module.input_slug] !== undefined ||
-      this.args.webapp.modules[this.args.module.linked_type] !== undefined
+      this.types.json.modules[this.args.module.input_slug] !== undefined ||
+      this.types.json.modules[this.args.module.linked_type] !== undefined
     ) {
-      if (this.args.webapp.modules[this.args.module.input_slug] !== undefined)
+      if (this.types.json.modules[this.args.module.input_slug] !== undefined)
         var linked_type = this.args.module.input_slug;
       else if (
-        this.args.webapp.modules[this.args.module.linked_type] !== undefined
+        this.types.json.modules[this.args.module.linked_type] !== undefined
       )
         var linked_type = this.args.module.linked_type;
 
+      this.types.json.modules[linked_type].modules.forEach(async (m) => {
+        if (m.input_primary !== undefined && m.input_primary !== false)
+          this.titleSlug = await m.input_slug;
+      });
+
       this.typeOptions = await this.store.peekAll(linked_type);
+      this.options = [];
 
       this.typeOptions.forEach((element) => {
         this.options.push(element.modules);
@@ -127,6 +150,8 @@ export default class InputFieldsSelectComponent extends Component {
         }
       });
     } else if (this.inputOptions !== null) {
+      this.options = [];
+
       this.inputOptions.forEach((element) => {
         this.options.push(element);
 

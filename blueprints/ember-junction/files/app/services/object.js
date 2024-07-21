@@ -6,4 +6,6 @@ import { service } from '@ember/service';
 export default class ObjectService extends Service {
   @tracked currentType = null;
   @tracked currentObject = null;
+  @tracked reloadingVars = false;
+  @service type;
 }

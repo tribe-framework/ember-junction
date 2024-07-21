@@ -7,7 +7,7 @@ export default class AuthRoute extends Route {
 
   afterModel() {
     if (this.auth.checkIfLoggedIn()) {
-      this.router.transitionTo('index');
+      this.router.transitionTo(this.auth.goToRouteAfterLogin);
     }
   }
 }

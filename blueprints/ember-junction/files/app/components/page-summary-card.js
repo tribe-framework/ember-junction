@@ -9,7 +9,12 @@ export default class PageSummaryCardComponent extends Component {
   @service types;
   @service type;
   @service router;
+  @service store;
   @service colormodes;
+  @tracked sortable = null;
+  @tracked activateReordering = false;
+  @tracked modules;
+  @tracked reloadTypes = false;
 
   @action
   changeType(type) {
@@ -18,11 +23,26 @@ export default class PageSummaryCardComponent extends Component {
     this.router.transitionTo('type', type);
   }
 
-  @tracked activateReordering = false;
+  @action
+  startWobble() {
+    this.activateReordering = true;
+    this.initDragDrop();
+  }
+
+  @action
+  stopWobble() {
+    this.activateReordering = false;
+    this.stopDragDrop();
+  }
+
+  @action
+  stopDragDrop() {
+    this.sortable = null;
+  }
 
   @action
   initDragDrop() {
-    var sortable = new Sortable(document.querySelector('#track-names'), {
+    this.sortable = new Sortable(document.querySelector('#track-names'), {
       group: 'track-names', // or { name: "...", pull: [true, false, 'clone', array], put: [true, false, array] }
       sort: true, // sorting inside list
       delay: 0, // time in milliseconds to define when the sorting should start
@@ -60,11 +80,8 @@ export default class PageSummaryCardComponent extends Component {
 
       // Element dragging ended
       onEnd: async (evt) => {
-        let modules = Object.entries(this.types.json.modules);
-        modules = await array_move(modules, evt.oldIndex + 1, evt.newIndex + 1);
-        this.types.json.modules = await Object.fromEntries(modules);
-
-        this.activateReordering = true;
+        this.modules = Object.entries(this.types.json.modules);
+        this.modules = await array_move(this.modules, evt.oldIndex + 1, evt.newIndex + 1);
 
         function array_move(arr, old_index, new_index) {
           if (new_index >= arr.length) {
@@ -78,15 +95,40 @@ export default class PageSummaryCardComponent extends Component {
         }
       },
     });
+
+    this.initialOrder = this.sortable.toArray();
   }
 
   @action
-  ignoreReordering() {
-    window.location.reload(true);
+  async ignoreReordering() {
+    if (this.activateReordering === true) {
+      this.type.loadingSearchResults = true;
+      this.stopWobble();
+      this.reloadTypes = true;
+
+      later(
+        this,
+        () => {
+          this.reloadTypes = false;
+        },
+        1,
+      );
+
+      later(
+        this,
+        () => {
+          this.type.loadingSearchResults = false;
+        },
+        500,
+      );
+    }
   }
 
   @action
   async saveReordering() {
+    this.type.loadingSearchResults = true;
+    this.types.json.modules = await Object.fromEntries(this.modules);
+
     await this.types.json.save();
     later(
       this,

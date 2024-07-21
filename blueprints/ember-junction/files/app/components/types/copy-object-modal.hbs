@@ -1,5 +1,6 @@
+{{#unless this.object.reloadingVars}}
 {{!-- Modal --}}
-<div class="modal fade" id="copyObjectModal-{{@object.id}}" tabindex="-1">
+<div class="modal fade" id="copyObjectModal" tabindex="-1">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
@@ -7,7 +8,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body fw-bold">
-        {{@object.modules.title}}
+        {{this.object.currentObject.modules.title}}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -16,3 +17,4 @@
     </div>
   </div>
 </div>
+{{/unless}}

@@ -1,11 +1,14 @@
 import Route from '@ember/routing/route';
 import { service } from '@ember/service';
+import { later } from '@ember/runloop';
+import { action } from '@ember/object';
 import ENV from '<%= dasherizedPackageName %>/config/environment';
 import * as bootstrap from 'bootstrap';
 
 export default class ApplicationRoute extends Route {
   @service store;
   @service types;
+  @service type;
   @service auth;
   @service router;
 
@@ -15,6 +18,7 @@ export default class ApplicationRoute extends Route {
       this.router.currentRouteName != 'auth' &&
       !this.auth.checkIfLoggedIn()
     ) {
+      this.auth.goToRouteAfterLogin = this.router.currentRouteName;
       this.router.transitionTo('auth');
     }
   }
@@ -23,6 +27,23 @@ export default class ApplicationRoute extends Route {
     return await this.store.findRecord('webapp', 0, {
       include: ['total_objects'],
     });
+  }
+
+  @action
+  didTransition() {
+    later(
+      this,
+      () => {
+        if (this.router.currentRouteName != 'type')
+          this.type.loadingSearchResults = false;
+      },
+      200,
+    );
+  }
+
+  @action
+  willTransition() {
+    this.type.loadingSearchResults = true;
   }
 
   afterModel(data) {
@@ -51,6 +72,6 @@ export default class ApplicationRoute extends Route {
       }
     });
 
-    document.querySelector('#loading').classList.add('d-none');
+    document.querySelector('#loadingHTML').classList.add('d-none');
   }
 }
