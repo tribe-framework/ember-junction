@@ -18,7 +18,6 @@ export default class ApplicationRoute extends Route {
       this.router.currentRouteName != 'auth' &&
       !this.auth.checkIfLoggedIn()
     ) {
-      this.auth.goToRouteAfterLogin = this.router.currentRouteName;
       this.router.transitionTo('auth');
     }
   }
@@ -34,6 +33,11 @@ export default class ApplicationRoute extends Route {
     later(
       this,
       () => {
+        if (this.router.currentRouteName != 'auth')
+          this.auth.goToRouteAfterLogin = this.router.currentRouteName;
+        else
+          this.auth.goToRouteAfterLogin = 'index';
+
         if (this.router.currentRouteName != 'type')
           this.type.loadingSearchResults = false;
       },
