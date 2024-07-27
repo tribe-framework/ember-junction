@@ -1,6 +1,6 @@
-<div class="w-100 mb-3" {{did-insert (fn @initEditorJS @module.input_slug @id)}}>
+<div class="w-100 mb-3">
 	<div class="border border-1 w-100 py-3 px-n3"
-		id={{concat @type.slug "-" @module.input_slug "-" @id}}></div>
+		id="{{concat @type.slug "-" @module.input_slug}}"></div>
 
 	<div class="d-flex justify-content-end">
 	  	<div class="form-text text-end">
@@ -8,3 +8,4 @@
 	  	</div>
 	</div>
 </div>
+<div class="d-none" {{did-insert (fn this.cleanVarsOnNewModalOpen @module.input_slug)}}></div>

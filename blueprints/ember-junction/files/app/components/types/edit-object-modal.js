@@ -27,8 +27,12 @@ export default class TypesEditObjectModalComponent extends Component {
   @service type;
   @service object;
 
-  @tracked objectModules = this.object.currentObject ? this.object.currentObject.modules : A([]);
-  @tracked objectID = this.object.currentObject ? this.object.currentObject.modules.id : 'new';
+  @tracked objectModules = this.object.currentObject
+    ? this.object.currentObject.modules
+    : A([]);
+  @tracked objectID = this.object.currentObject
+    ? this.object.currentObject.modules.id
+    : 'new';
   @tracked editorjsInstances = [];
   @tracked doUpdateSlug = false;
 
@@ -65,24 +69,26 @@ export default class TypesEditObjectModalComponent extends Component {
   @action
   async deleteObjects() {
     await this.type.selectedRowIDs[this.type.currentType.slug].forEach((id) => {
-      this.store.findRecord(this.type.currentType.slug, id).then(async (obj) => {
-        await obj.destroyRecord();
+      this.store
+        .findRecord(this.type.currentType.slug, id)
+        .then(async (obj) => {
+          await obj.destroyRecord();
 
-        if (
-          this.type.currentType.api_hooks !== undefined &&
-          this.type.currentType.api_hooks.on_delete !== undefined &&
-          this.type.currentType.api_hooks.on_delete != '' &&
-          id !== undefined
-        ) {
-          fetch(this.type.currentType.api_hooks.on_delete, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ id: id }),
-          });
-        }
-      });
+          if (
+            this.type.currentType.api_hooks !== undefined &&
+            this.type.currentType.api_hooks.on_delete !== undefined &&
+            this.type.currentType.api_hooks.on_delete != '' &&
+            id !== undefined
+          ) {
+            fetch(this.type.currentType.api_hooks.on_delete, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ id: id }),
+            });
+          }
+        });
     });
 
     this.type.emptySelectedRowsInType(this.type.currentType.slug);
@@ -107,10 +113,13 @@ export default class TypesEditObjectModalComponent extends Component {
               (outputData) => {
                 this.mutObjectModuleValue(module.input_slug, outputData, false);
                 resolve();
+                var ejsTarget = `${this.type.currentType.slug}-${module.input_slug}`;
+                if (this.editorjsInstances != [] && this.editorjsInstances[ejsTarget] !== undefined)
+                  this.editorjsInstances[ejsTarget].destroy();
               },
             );
           } else {
-            const mtxtId = `${this.type.currentType.slug}-${module.input_slug}-${this.objectID}`;
+            const mtxtId = `${this.type.currentType.slug}-${module.input_slug}`;
             const inputs = document.querySelectorAll(
               "[name='" + mtxtId + "[]']",
             );
@@ -150,7 +159,10 @@ export default class TypesEditObjectModalComponent extends Component {
       this.object.currentObject.id !== null
     ) {
       this.store
-        .findRecord(this.object.currentObject.modules.type, this.object.currentObject.modules.id)
+        .findRecord(
+          this.object.currentObject.modules.type,
+          this.object.currentObject.modules.id,
+        )
         .then((obj) => {
           obj.modules = vvv;
 
@@ -171,7 +183,7 @@ export default class TypesEditObjectModalComponent extends Component {
             });
           }
 
-          document.querySelector('#close-' + this.object.currentObject.id).click();
+          document.querySelector('#editObjectModal-close').click();
         });
     } else {
       let obj = await this.store.createRecord(this.type.currentType.slug, {
@@ -199,7 +211,7 @@ export default class TypesEditObjectModalComponent extends Component {
       this.objectID = 'new';
       this.cleanVarsIfNew();
 
-      document.querySelector('#close-' + this.objectID).click();
+      document.querySelector('#editObjectModal-close').click();
     }
 
     this.types.fetchAgain();
@@ -253,18 +265,33 @@ export default class TypesEditObjectModalComponent extends Component {
   }
 
   @action
-  initEditorJS(module_input_slug, id) {
+  async uninitEditorJS(module_input_slug) {
+    var ejsTarget = `${this.type.currentType.slug}-${module_input_slug}`;
+    if (this.editorjsInstances != [] && this.editorjsInstances[ejsTarget] !== undefined && this.editorjsInstances[ejsTarget].blocks !== undefined)
+      this.editorjsInstances[ejsTarget].destroy();
+  }
+
+  @action
+  async initEditorJS(module_input_slug) {
+    var ejsTarget = `${this.type.currentType.slug}-${module_input_slug}`;
+
+    if (this.objectID == 'new' && this.editorjsInstances != [] && this.editorjsInstances[ejsTarget] !== undefined)
+      this.editorjsInstances[ejsTarget].destroy();
+
     var editor_object_in_type = Object(this.type.currentType.modules).find(
       function (element) {
         if (element['input_slug'] == module_input_slug) return element;
       },
     );
 
-    const ejsTarget = `${this.type.currentType.slug}-${module_input_slug}-${id}`;
+    let primaryPlaceholder = (editor_object_in_type !== undefined && editor_object_in_type.input_placeholder !== undefined) ? editor_object_in_type.input_placeholder : "Type here...";
 
-    const ejsInstance = new EditorJS({
+      
+    var ejsInstance = new EditorJS({
       holder: ejsTarget,
-      data: this.object.currentObject ? this.object.currentObject.modules[module_input_slug] : {},
+      data: this.object.currentObject
+        ? this.object.currentObject.modules[module_input_slug]
+        : {},
       placeholder: editor_object_in_type.input_placeholder,
       tools: {
         paragraph: {
@@ -350,32 +377,28 @@ export default class TypesEditObjectModalComponent extends Component {
         },
       },
     });
-
-    const ejsInstances = this.editorjsInstances;
-    ejsInstances[ejsTarget] = ejsInstance;
-
+    
     ejsInstance.isReady
-      .then(() => {
+      .then((i) => {
         const editors = document.querySelectorAll(
           `#editObjectModal .codex-editor`,
         );
         const editorsCount = editors.length;
 
-        editors.forEach((el, id) => {
-          const zIndexValue = editorsCount - id;
-          el.style.zIndex = zIndexValue;
-        });
+        this.editorjsInstances[ejsTarget] = ejsInstance;
+
+        if (this.objectID == 'new')
+          this.editorjsInstances[ejsTarget].blocks.clear();
       })
       .catch((e) => {
         console.error('Error during Editor.js initialization:', e);
       });
 
-    this.editorjsInstances = ejsInstances;
   }
 
   @action
   async saveEditorData(module_input_slug, id) {
-    const ejsId = `${this.type.currentType.slug}-${module_input_slug}-${id}`;
+    var ejsId = `${this.type.currentType.slug}-${module_input_slug}`;
 
     if (!this.editorjsInstances[ejsId]) {
       console.error('editorJs save failed, editorjs instance not found');
@@ -438,31 +461,21 @@ export default class TypesEditObjectModalComponent extends Component {
 
   @action
   cleanVarsIfNew() {
-    this.type.currentType.modules.forEach((module) => {
-      if (module.input_type == 'editorjs') {
-        if (
-          this.editorjsInstances[
-            this.type.currentType.slug + '-' + module.input_slug + '-new'
-          ] !== undefined
-        )
-          this.editorjsInstances[
-            this.type.currentType.slug + '-' + module.input_slug + '-new'
-          ].blocks.clear();
-      }
-    });
-
     this.objectModules = A([]);
     this.objectModules = this.objectModules;
-    this.editorjsInstances = this.editorjsInstances;
+    this.editorjsInstances = [];
   }
 
   @action
   cleanVarsOnModalOpen(e) {
     const myModalEl = document.getElementById(e.id);
     myModalEl.addEventListener('show.bs.modal', (event) => {
-      this.objectID = this.object.currentObject ? this.object.currentObject.modules.id : 'new';
-      this.objectModules = this.object.currentObject ? this.object.currentObject.modules : A([]);
-      this.editorjsInstances = [];
+      this.objectID = this.object.currentObject
+        ? this.object.currentObject.modules.id
+        : 'new';
+      this.objectModules = this.object.currentObject
+        ? this.object.currentObject.modules
+        : A([]);
 
       if (this.objectID == 'new' || this.objectID == 'multi') {
         this.cleanVarsIfNew();

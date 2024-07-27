@@ -14,7 +14,12 @@ export default class TypesListTableTitleBarComponent extends Component {
     this.object.reloadingVars = true;
     this.object.currentObject = null;
     this.object.reloadingVars = false;
-    let bp = new Modal(document.getElementById('editObjectModal-'+this.type.currentType.slug+'-multi'), {});
+    let bp = new Modal(
+      document.getElementById(
+        'editObjectModal-' + this.type.currentType.slug + '-multi',
+      ),
+      {},
+    );
     bp.show();
   }
 
@@ -23,7 +28,12 @@ export default class TypesListTableTitleBarComponent extends Component {
     this.object.reloadingVars = true;
     this.object.currentObject = null;
     this.object.reloadingVars = false;
-    let bp = new Modal(document.getElementById('editObjectModal-'+this.type.currentType.slug+'-new'), {});
+    let bp = new Modal(
+      document.getElementById(
+        'editObjectModal',
+      ),
+      {},
+    );
     bp.show();
   }
 }

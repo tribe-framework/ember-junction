@@ -35,8 +35,7 @@ export default class ApplicationRoute extends Route {
       () => {
         if (this.router.currentRouteName != 'auth')
           this.auth.goToRouteAfterLogin = this.router.currentRouteName;
-        else
-          this.auth.goToRouteAfterLogin = 'index';
+        else this.auth.goToRouteAfterLogin = 'index';
 
         if (this.router.currentRouteName != 'type')
           this.type.loadingSearchResults = false;

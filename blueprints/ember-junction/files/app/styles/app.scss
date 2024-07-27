@@ -214,7 +214,8 @@ table tbody th {
   .ce-block {
     color: var(--bs-light);
   }
-
+  
+  .ce-inline-tool,
   .ce-inline-toolbar,
   .ce-conversion-tool__icon,
   .ce-popover-item__icon,
@@ -285,4 +286,9 @@ table tbody th {
 .wobble {
   animation: wobble 0.25s infinite;
   cursor: move;
+}
+
+.min-width-primary-module {
+  min-width: 300px;
+  max-width: 70vw;
 }

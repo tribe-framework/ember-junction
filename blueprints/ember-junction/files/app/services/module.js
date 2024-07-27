@@ -133,7 +133,7 @@ export default class ModuleService extends Service {
           input_primary: this.inputPrimary,
           input_unique: this.inputUnique,
           input_type: this.selectedInputType.slug,
-          input_multiple: this.selectedInputType.multi,
+          input_multiple: this.inputMultiple,
           input_placeholder: this.currentModule.input_placeholder,
           list_field: this.listField,
           list_searchable: this.listSearchable,

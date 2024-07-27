@@ -19,21 +19,18 @@ export default class InputFieldsSelectComponent extends Component {
   @tracked titleSlug = 'title';
 
   @action
-  cleanVarsOnNewModalOpen() {
+  async cleanVarsOnNewModalOpen() {
     const myModalNew = document.getElementById(
-      'editObjectModal-' + this.args.type.slug + '-new',
+      'editObjectModal',
     );
-    myModalNew.addEventListener('show.bs.modal', async (event) => {
-      if (this.args.id == 'new') {
-        this.selectedOption = null;
-        this.selectedMultiOptions = A([]);
+    await myModalNew.addEventListener('show.bs.modal', async (event) => {
+      this.selectedOption = null;
+      this.selectedMultiOptions = A([]);
 
-        this.selectedOption = this.selectedOption;
-        this.selectedMultiOptions = this.selectedMultiOptions;
+      this.selectedOption = this.selectedOption;
+      this.selectedMultiOptions = this.selectedMultiOptions;
 
-        await this.isModuleAlsoAType();
-      } else {
-      }
+      await this.isModuleAlsoAType();
     });
   }
 
@@ -91,9 +88,7 @@ export default class InputFieldsSelectComponent extends Component {
 
   @action
   isModuleAlsoATypeModal() {
-    const myModalNew = document.getElementById(
-      'editObjectModal',
-    );
+    const myModalNew = document.getElementById('editObjectModal');
     myModalNew.addEventListener('show.bs.modal', async (event) => {
       await this.isModuleAlsoAType();
     });

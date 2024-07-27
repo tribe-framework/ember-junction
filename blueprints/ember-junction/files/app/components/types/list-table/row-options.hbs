@@ -12,7 +12,7 @@
 		      {{else if (eq @object.modules.content_privacy "pending")}}
 		        <span class="text-warning"><i class="fa-solid fa-hourglass-half"></i></span>
 		      {{else}}
-		        <span class="text-{{this.colormodes.mode}}"><i class="fa-solid fa-paragraph"></i></span>
+		        <span class="text-{{this.colormodes.inverseMode}}"><i class="fa-solid fa-paragraph"></i></span>
 		      {{/if}}
 		      <span class="d-none d-lg-inline">{{if @object.modules.content_privacy @object.modules.content_privacy "draft"}}</span>
 		    </span>

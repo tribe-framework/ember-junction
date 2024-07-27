@@ -1,0 +1,20 @@
+{{!-- Modal --}}
+<div class="modal fade" id="publicFormModal" tabindex="-1" aria-labelledby="publicFormModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 text-capitalize" id="publicFormModalLabel">Public form for {{this.type.currentType.name}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body py-4">
+      </div>
+      <div class="modal-footer justify-content-between p-1 d-flex align-items-center">
+        <button type="button" data-bs-dismiss="modal" class="btn btn-outline-{{this.colormodes.inverseMode}}">Ignore changes</button>
+        <div class="d-flex align-items-center justify-content-end">
+          <button {{on 'click' this.copyFormLink}} type="button" class="btn btn-sm btn-secondary ms-2"><i class="fa-solid fa-copy"></i> Copy Form Link</button>
+          <button type="button" class="btn btn-sm btn-secondary ms-2"><i class="fa-solid fa-save"></i> Save Changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

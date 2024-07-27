@@ -81,7 +81,11 @@ export default class PageSummaryCardComponent extends Component {
       // Element dragging ended
       onEnd: async (evt) => {
         this.modules = Object.entries(this.types.json.modules);
-        this.modules = await array_move(this.modules, evt.oldIndex + 1, evt.newIndex + 1);
+        this.modules = await array_move(
+          this.modules,
+          evt.oldIndex + 1,
+          evt.newIndex + 1,
+        );
 
         function array_move(arr, old_index, new_index) {
           if (new_index >= arr.length) {

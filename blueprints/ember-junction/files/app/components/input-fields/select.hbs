@@ -1,4 +1,10 @@
-<div class="mb-3" {{did-insert this.isModuleAlsoATypeModal}}>
+{{#if (eq @id "multi")}}
+  <div class="d-none" {{did-insert this.cleanVarsOnMultiModalOpen}}></div>
+{{else}}
+  <div class="d-none" {{did-insert this.cleanVarsOnNewModalOpen}}></div>
+{{/if}}
+
+<div class="mb-3">
 
   {{#if @module.input_multiple}}
 
@@ -32,11 +38,4 @@
 
   <div class="form-text text-end">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</div>
 
-  {{#if (eq @id "new")}}
-    <div class="d-none" {{did-insert this.cleanVarsOnNewModalOpen}}></div>
-  {{/if}}
-
-  {{#if (eq @id "multi")}}
-    <div class="d-none" {{did-insert this.cleanVarsOnMultiModalOpen}}></div>
-  {{/if}}
 </div>

@@ -11,4 +11,5 @@ Router.map(function () {
   this.route('auth');
   this.route('type', { path: '/type/:slug' });
   this.route('files');
+  this.route('public', { path: '/:slug/public/form' });
 });
