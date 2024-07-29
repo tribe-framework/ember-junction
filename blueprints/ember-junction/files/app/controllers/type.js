@@ -14,6 +14,7 @@ export default class TypeController extends Controller {
 
   @action
   changeType() {
+    this.type.editorJSOnTypeChange();
     this.type.currentType = this.model;
     this.type.loadTypeObjects();
   }

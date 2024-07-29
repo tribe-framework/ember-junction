@@ -7,15 +7,22 @@ import { Modal } from 'bootstrap';
 
 export default class InputFieldsEditorjsComponent extends Component {
   @service object;
+  @service type;
 
   @action
   async cleanVarsOnNewModalOpen(input_slug) {
-    const myModal = document.getElementById('editObjectModal');
-    myModal.addEventListener('show.bs.modal', async (event) => {
+
+    let i = async (event) => {
       await this.args.initEditorJS(input_slug);
-    });
-    myModal.addEventListener('hidden.bs.modal', async (event) => {
+    };
+    this.type.showModalEvents.push(i);
+
+    let u = async (event) => {
       await this.args.uninitEditorJS(input_slug);
-    });
+    };
+    this.type.hideModalEvents.push(u);
+
+    this.type.editObjectModal.addEventListener('show.bs.modal', i);
+    this.type.editObjectModal.addEventListener('hidden.bs.modal', u);
   }
 }

@@ -470,6 +470,8 @@ export default class TypesEditObjectModalComponent extends Component {
   cleanVarsOnModalOpen(e) {
     const myModalEl = document.getElementById(e.id);
     myModalEl.addEventListener('show.bs.modal', (event) => {
+      this.deleteSurity = 'd-none';
+
       this.objectID = this.object.currentObject
         ? this.object.currentObject.modules.id
         : 'new';

@@ -11,6 +11,7 @@ export default class TypesSummaryCardComponent extends Component {
 
   @action
   changeType(type) {
+    this.type.editorJSOnTypeChange();
     this.type.currentType = type;
     this.type.loadTypeObjects();
     this.router.transitionTo('type', type);

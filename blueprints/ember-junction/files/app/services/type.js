@@ -33,6 +33,10 @@ export default class TypeService extends Service {
   @tracked showClearSearchButton = false;
   @tracked totalObjects = this.currentType.total_objects;
 
+  @tracked editObjectModal = document.getElementById('editObjectModal');
+  @tracked showModalEvents = A([]);
+  @tracked hideModalEvents = A([]);
+
   @action
   updateSortField(field) {
     if (this.sortField[this.currentType.slug] != field) {
@@ -54,6 +58,17 @@ export default class TypeService extends Service {
     this.sortOrder = this.sortOrder;
 
     this.search();
+  }
+
+  @action
+  editorJSOnTypeChange() {
+    this.hideModalEvents.forEach((u)=>{
+      this.editObjectModal.removeEventListener('hidden.bs.modal', u);
+    });
+
+    this.showModalEvents.forEach((i)=>{
+      this.editObjectModal.removeEventListener('show.bs.modal', i);
+    });
   }
 
   @action
