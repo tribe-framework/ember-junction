@@ -71,9 +71,77 @@ export default class TypeService extends Service {
     });
   }
 
+  @tracked title = '';
+  @tracked isLive = false;
+  @tracked description = '';
+  @tracked coverURL = '';
+  @tracked buttonText = '';
+  @tracked thankyouText = '';
+  @tracked modules = {};
+
+  @action
+  async savePublicForm() {
+    var type_slug = this.currentType.slug;
+
+    this.types.json.modules[type_slug].public_form.is_live = this.isLive;
+    this.types.json.modules[type_slug].public_form.title = this.title;
+    this.types.json.modules[type_slug].public_form.button_text = this.buttonText;
+    this.types.json.modules[type_slug].public_form.thankyou_text = this.thankyouText;
+    this.types.json.modules[type_slug].public_form.description = this.description;
+    this.types.json.modules[type_slug].public_form.cover_url = this.coverURL;
+    this.types.json.modules[type_slug].public_form.modules = JSON.stringify(this.modules);
+
+    await this.types.json.save();
+  }
+
+  @action
+  initPublicForm() {
+    var type_slug = this.currentType.slug;
+
+    if (this.types.json.modules[type_slug].public_form === undefined)
+      this.types.json.modules[type_slug].public_form = {};
+
+    if (this.types.json.modules[type_slug].public_form.is_live === undefined)
+      this.isLive = false;
+    else
+      this.isLive = this.types.json.modules[type_slug].public_form.is_live;
+
+    if (this.types.json.modules[type_slug].public_form.title === undefined)
+      this.title = '';
+    else
+      this.title = this.types.json.modules[type_slug].public_form.title;
+
+    if (this.types.json.modules[type_slug].public_form.description === undefined)
+      this.description = '';
+    else
+      this.description = this.types.json.modules[type_slug].public_form.description;
+
+    if (this.types.json.modules[type_slug].public_form.button_text === undefined)
+      this.buttonText = '';
+    else
+      this.buttonText = this.types.json.modules[type_slug].public_form.button_text;
+
+    if (this.types.json.modules[type_slug].public_form.thankyou_text === undefined)
+      this.thankyouText = '';
+    else
+      this.thankyouText = this.types.json.modules[type_slug].public_form.thankyou_text;
+
+    if (this.types.json.modules[type_slug].public_form.cover_url === undefined)
+      this.coverURL = '';
+    else
+      this.coverURL = this.types.json.modules[type_slug].public_form.cover_url;
+
+    if (this.types.json.modules[type_slug].public_form.modules === undefined)
+      this.modules = {};
+    else
+      this.modules = JSON.parse(this.types.json.modules[type_slug].public_form.modules);
+  }
+
   @action
   async loadTypeObjects(searchResults = false) {
     var type_slug = this.currentType.slug;
+
+    this.initPublicForm();
 
     if (this.selectedRowIDs[type_slug] === undefined)
       this.selectedRowIDs[type_slug] = [];

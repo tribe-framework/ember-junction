@@ -16,7 +16,7 @@
 					  <div class="progress-bar progress-bar-striped progress-bar-animated" style="width: {{queue.progress}}%"></div>
 					</div>
 			    {{else if dropzone.supported}}
-			      <div class="text-center text-muted w-100 fs-4 p-5" style="border: 2px dashed #eee;"><i class="fa-solid fa-cloud-arrow-up"></i>&nbsp;&nbsp;Drag and drop files here to upload them</div>
+			      <div class="text-center text-muted w-100 fs-4 p-5" style="border: 2px dashed #eee;"><i class="fa-solid fa-cloud-arrow-up"></i>&nbsp;&nbsp;{{if @placeholder @placeholder "Drag and drop files here to upload them"}}</div>
 			    {{/if}}
 		  	</FileDropzone>
 		{{/let}}

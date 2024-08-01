@@ -1,60 +1,90 @@
 <nav class="fs-4 fs-light border-bottom border-5 border-primary navbar navbar-expand bg-{{this.colormodes.mode}} sticky-top py-0" {{did-insert this.colormodes.initMode}}>
-  <div class="container-fluid px-0">
-    <button id="main-menu-toggler" {{on 'click' this.toggleBarsIcon}} class="shadow-none navbar-toggler p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <i class="bars-staggered fs-1"></i>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav me-auto text-end d-flex align-items-stretch">
-        <HeaderNavItem @collapseMenu={{this.collapseMenu}} @navroute="index">
+  {{#unless @public}}
+    <div class="container-fluid px-0">
+      <button id="main-menu-toggler" {{on 'click' this.toggleBarsIcon}} class="shadow-none navbar-toggler p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bars-staggered fs-1"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto text-end d-flex align-items-stretch">
+          <HeaderNavItem @collapseMenu={{this.collapseMenu}} @navroute="index">
+            {{#if (eq this.colormodes.mode "light")}}
+              <div class="py-1"><Logo::Icon @width="100" @color="var(--bs-black)" /></div>
+            {{else}}
+              <div class="py-1"><Logo::Icon @width="100" @color="var(--bs-white)" /></div>
+            {{/if}}
+          </HeaderNavItem>
+        </ul>
+      </div>
+      <div class="d-flex align-items-center justify-content-end">
+
+          <HeaderNavItem>
+            <div class="d-none btn-group align-items-center justify-content-end me-lg-3">
+              <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Blueprints <i class="fa-solid fa-caret-down"></i>
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end">
+                <li><h6 class="dropdown-header">Blueprints available</h6></li>
+                {{#each this.junctionBlueprints as |blueprint|}}
+                  <li><a class="dropdown-item" href="#">Separated link</a></li>
+                {{/each}}
+
+                <li><hr class="dropdown-divider"></li>
+
+                <li><h6 class="dropdown-header">Blueprint used by you</h6></li>
+                {{#each this.myBlueprints as |blueprint|}}
+                  <li><a class="dropdown-item" href="#">Separated link</a></li>
+                {{/each}}
+              </ul>
+            </div>
+          </HeaderNavItem>
+        <div class="fs-4 px-2"
+          {{on 'click' this.colormodes.changeMode}}>
+          {{#if (eq this.colormodes.mode "dark")}}
+            <i class="fa-solid fa-sun"></i>
+          {{else}}
+            <i class="fa-solid fa-moon"></i>
+          {{/if}}
+        </div>
+        <div class="fs-4 mx-2"
+          data-bs-toggle="modal" data-bs-target="#typesWebapp">
+          <i class="fa-solid fa-gear"></i>
+        </div>
+        <div class="fs-4 mx-2"
+          data-bs-toggle="tooltip" data-bs-placement="bottom"
+          title="Logout" {{on 'click' this.auth.logout}}>
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </div>
+      </div>
+    </div>
+
+  {{else}}
+
+    <div class="p-3 container-fluid">
+      <button id="main-menu-toggler" class="shadow-none navbar-toggler p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <i class="bars-staggered fs-1"></i>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto text-end d-flex align-items-stretch">
           {{#if (eq this.colormodes.mode "light")}}
             <div class="py-1"><Logo::Icon @width="100" @color="var(--bs-black)" /></div>
           {{else}}
             <div class="py-1"><Logo::Icon @width="100" @color="var(--bs-white)" /></div>
           {{/if}}
-        </HeaderNavItem>
-      </ul>
-    </div>
-    <div class="d-flex align-items-center justify-content-end">
-
-        <HeaderNavItem>
-          <div class="d-none btn-group align-items-center justify-content-end me-lg-3">
-            <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-              Blueprints <i class="fa-solid fa-caret-down"></i>
-            </button>
-            <ul class="dropdown-menu dropdown-menu-end">
-              <li><h6 class="dropdown-header">Blueprints available</h6></li>
-              {{#each this.junctionBlueprints as |blueprint|}}
-                <li><a class="dropdown-item" href="#">Separated link</a></li>
-              {{/each}}
-
-              <li><hr class="dropdown-divider"></li>
-
-              <li><h6 class="dropdown-header">Blueprint used by you</h6></li>
-              {{#each this.myBlueprints as |blueprint|}}
-                <li><a class="dropdown-item" href="#">Separated link</a></li>
-              {{/each}}
-            </ul>
-          </div>
-        </HeaderNavItem>
-      <div class="fs-4 px-2"
-        {{on 'click' this.colormodes.changeMode}}>
-        {{#if (eq this.colormodes.mode "dark")}}
-          <i class="fa-solid fa-sun"></i>
-        {{else}}
-          <i class="fa-solid fa-moon"></i>
-        {{/if}}
+        </ul>
       </div>
-      <div class="fs-4 mx-2"
-        data-bs-toggle="modal" data-bs-target="#typesWebapp">
-        <i class="fa-solid fa-gear"></i>
-      </div>
-      <div class="fs-4 mx-2"
-        data-bs-toggle="tooltip" data-bs-placement="bottom"
-        title="Logout" {{on 'click' this.auth.logout}}>
-        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+      <div class="d-flex align-items-center justify-content-end">
+        <div class="fs-4 px-2"
+          {{on 'click' this.colormodes.changeMode}}>
+          {{#if (eq this.colormodes.mode "dark")}}
+            <i class="fa-solid fa-sun"></i>
+          {{else}}
+            <i class="fa-solid fa-moon"></i>
+          {{/if}}
+        </div>
       </div>
     </div>
-  </div>
+
+  {{/unless}}
 </nav>
 
 {{yield}}

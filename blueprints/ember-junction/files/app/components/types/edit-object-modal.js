@@ -27,6 +27,14 @@ export default class TypesEditObjectModalComponent extends Component {
   @service type;
   @service object;
 
+  indexOf = (arr, slug)=>{
+    let publicModules = JSON.parse(arr);
+    if (publicModules[slug] !== undefined && publicModules[slug] !== false)
+      return true;
+    else
+      return false
+  }
+
   @tracked objectModules = this.object.currentObject
     ? this.object.currentObject.modules
     : A([]);

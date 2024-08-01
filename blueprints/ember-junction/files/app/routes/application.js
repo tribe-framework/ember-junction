@@ -16,6 +16,7 @@ export default class ApplicationRoute extends Route {
     await this.auth.getJunctionPassword();
     if (
       this.router.currentRouteName != 'auth' &&
+      this.router.currentRouteName != 'public' &&
       !this.auth.checkIfLoggedIn()
     ) {
       this.router.transitionTo('auth');

@@ -43,7 +43,11 @@ export default class FilesUploaderComponent extends Component {
             },
           });
           await obj.save();
-          this.args.reload();
+          
+          if (this.args.updateOnUpload !== undefined)
+            this.args.updateOnUpload(data.file);
+          else
+            this.args.reload();
         } else if (data.status == 'error') {
           alert(data.error_message);
         }

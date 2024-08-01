@@ -11,6 +11,11 @@ export default class TypesPublicModalComponent extends Component {
   @service colormodes;
 
   @action
+  updateOnUpload(e) {
+    this.type.coverURL = e.lg.url;
+  }
+
+  @action
   copyFormLink(e) {
     e.target.innerHTML = 'Copied!';
     navigator.clipboard.writeText(
