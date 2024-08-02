@@ -18,21 +18,21 @@
       <div class="d-flex align-items-center justify-content-end">
 
           <HeaderNavItem>
-            <div class="d-none btn-group align-items-center justify-content-end me-lg-3">
+            <div class="btn-group align-items-center justify-content-end me-lg-3">
               <button type="button" class="btn btn-outline-primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 Blueprints <i class="fa-solid fa-caret-down"></i>
               </button>
-              <ul class="dropdown-menu dropdown-menu-end">
+              <ul class="dropdown-menu dropdown-menu-end" {{did-insert this.getBlueprints}}>
                 <li><h6 class="dropdown-header">Blueprints available</h6></li>
                 {{#each this.junctionBlueprints as |blueprint|}}
-                  <li><a class="dropdown-item" href="#">Separated link</a></li>
+                  <li><a {{on 'click' (fn this.changeBlueprint blueprint.attributes.modules.link)}} href="#" class="dropdown-item">{{blueprint.attributes.modules.title}}</a></li>
                 {{/each}}
 
                 <li><hr class="dropdown-divider"></li>
 
-                <li><h6 class="dropdown-header">Blueprint used by you</h6></li>
+                <li><h6 class="dropdown-header">Recently used blueprints</h6></li>
                 {{#each this.myBlueprints as |blueprint|}}
-                  <li><a class="dropdown-item" href="#">Separated link</a></li>
+                  <li><a {{on 'click' (fn this.revertBlueprint blueprint.modules.types_json)}} class="dropdown-item" href="#">{{blueprint.modules.title}}</a></li>
                 {{/each}}
               </ul>
             </div>
