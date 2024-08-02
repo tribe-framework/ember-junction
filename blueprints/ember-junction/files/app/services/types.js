@@ -16,4 +16,20 @@ export default class TypesService extends Service {
     });
     this.json = this.json;
   }
+
+  @action
+  async saveCurrentTypes(t) {
+    let d = (new Date()).toLocaleString();
+    let obj = this.store.createRecord('deleted_record', { modules: {
+      title: 'Last used on ' + d,
+      is_types: true,
+      deleted_type: 'type',
+      types_json: t,
+      content_privacy: 'public'
+    }});
+    await obj.save();
+
+    obj.modules.deleted_slug = obj.slug;
+    await obj.save();
+  }
 }
