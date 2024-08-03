@@ -1,11 +1,17 @@
 <div class="input-group mx-0">
   <Input @type="text" @value={{@searchQuery}} class="border border-{{this.colormodes.inverseMode}} form-control" placeholder="Quick search" @enter={{@search}} @escape-press={{@clearSearch}} />
+
   {{#if (or @searchQuery @showClearSearchButton)}}
     <button class="btn btn-outline-{{this.colormodes.inverseMode}}" type="button" {{on 'click' @clearSearch}} {{on 'click' @clearSearchQuery}}><i class="fa-solid fa-xmark"></i></button>
   {{/if}}
+
   <button class="btn btn-outline-{{this.colormodes.inverseMode}}" type="button" {{on 'click' @search}} {{on 'click' (fn @changePageNumber 1)}}><i class="fa-solid fa-magnifying-glass"></i></button>
   <button class="btn btn-outline-{{this.colormodes.inverseMode}}" type="button" data-bs-toggle="modal" data-bs-target="#advancedSearchModal"><i class="fa-solid fa-filter"></i></button>
-  <button class="btn btn-outline-{{this.colormodes.inverseMode}}" type="button" data-bs-toggle="modal" data-bs-target="#publicFormModal"><i class="fa-solid fa-share-nodes"></i></button>
+
+  {{#unless (eq this.type.currentType.slug "deleted_record")}}
+    <button class="btn btn-outline-{{this.colormodes.inverseMode}}" type="button" data-bs-toggle="modal" data-bs-target="#publicFormModal"><i class="fa-solid fa-share-nodes"></i></button>
+    <button {{on 'click' this.papaUnparse}} type="button" class="btn btn-outline-{{this.colormodes.inverseMode}}"><i class="fa-solid fa-download"></i></button>
+  {{/unless}}
 </div>
 
 {{!-- Modal --}}
