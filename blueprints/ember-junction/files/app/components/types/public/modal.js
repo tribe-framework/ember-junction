@@ -28,7 +28,7 @@ export default class TypesPublicModalComponent extends Component {
     later(
       this,
       () => {
-        e.target.innerHTML = '<i class="fa-solid fa-copy"></i> Copy API URL';
+        e.target.innerHTML = '<i class="fa-solid fa-copy"></i> Copy Form Link';
       },
       2000,
     );

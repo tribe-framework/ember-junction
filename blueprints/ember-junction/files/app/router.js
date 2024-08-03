@@ -9,7 +9,7 @@ export default class Router extends EmberRouter {
 Router.map(function () {
   this.route('types');
   this.route('auth');
-  this.route('type', { path: '/type/:slug' });
+  this.route('type', { path: '/track/:slug' });
   this.route('files');
   this.route('public', { path: '/:slug/public/form' });
 });

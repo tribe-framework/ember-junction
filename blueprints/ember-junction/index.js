@@ -19,6 +19,7 @@ module.exports = {
       { name: '@editorjs/table' },
       { name: 'editorjs-hyperlink' },
       { name: 'miragejs' },
+      { name: 'papaparse' },
       { name: 'sortablejs' },
       { name: 'pretty-print-json' },
     ]);

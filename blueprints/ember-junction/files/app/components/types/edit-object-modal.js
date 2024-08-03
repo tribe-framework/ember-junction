@@ -161,68 +161,90 @@ export default class TypesEditObjectModalComponent extends Component {
       this.doUpdateSlug = false;
     }
 
-    if (
-      this.object.currentObject !== null &&
-      this.object.currentObject !== undefined &&
-      this.object.currentObject.id !== null
-    ) {
-      this.store
-        .findRecord(
-          this.object.currentObject.modules.type,
-          this.object.currentObject.modules.id,
-        )
-        .then((obj) => {
-          obj.modules = vvv;
-
-          obj.save();
-
-          if (
-            this.type.currentType.api_hooks !== undefined &&
-            this.type.currentType.api_hooks.on_update !== undefined &&
-            this.type.currentType.api_hooks.on_update != '' &&
-            obj.id !== undefined
-          ) {
-            fetch(this.type.currentType.api_hooks.on_update, {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ id: obj.id }),
-            });
-          }
-
-          document.querySelector('#editObjectModal-close').click();
-        });
-    } else {
-      let obj = await this.store.createRecord(this.type.currentType.slug, {
-        modules: { ...vvv },
-      });
-
-      await obj.save();
-
-      if (
-        this.type.currentType.api_hooks !== undefined &&
-        this.type.currentType.api_hooks.on_create !== undefined &&
-        this.type.currentType.api_hooks.on_create != '' &&
-        obj.id !== undefined
-      ) {
-        fetch(this.type.currentType.api_hooks.on_create, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ id: obj.id }),
-        });
-      }
-
-      this.type.loadTypeObjects(this.type.currentType);
-      this.objectID = 'new';
-      this.cleanVarsIfNew();
-
-      document.querySelector('#editObjectModal-close').click();
+    if (this.object.viaPublicForm === true && !vvv.content_privacy) {
+      vvv.content_privacy = 'private';
     }
 
-    this.types.fetchAgain();
+    //if mandatory fields have not been filled
+    let stop = false;
+    if (!this.type.currentType.sendable && vvv.content_privacy !== undefined && !(vvv.content_privacy == '' || vvv.content_privacy == 'draft')) {
+      this.type.currentType.modules.forEach((module) => {
+        if (module.input_required === true) {
+          let slg = module.input_slug;
+          if (!vvv[slg]) {
+            stop = true;
+          }
+        }
+      });
+    }
+
+    if (stop === true) {
+      alert('Please fill all mandatory fields.');
+    } else {
+      if (
+        this.object.currentObject !== null &&
+        this.object.currentObject !== undefined &&
+        this.object.currentObject.id !== null
+      ) {
+        this.store
+          .findRecord(
+            this.object.currentObject.modules.type,
+            this.object.currentObject.modules.id,
+          )
+          .then((obj) => {
+            obj.modules = vvv;
+
+            obj.save();
+
+            if (
+              this.type.currentType.api_hooks !== undefined &&
+              this.type.currentType.api_hooks.on_update !== undefined &&
+              this.type.currentType.api_hooks.on_update != '' &&
+              obj.id !== undefined
+            ) {
+              fetch(this.type.currentType.api_hooks.on_update, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ id: obj.id }),
+              });
+            }
+
+            document.querySelector('#editObjectModal-close').click();
+          });
+      } else {
+        let obj = await this.store.createRecord(this.type.currentType.slug, {
+          modules: { ...vvv },
+        });
+
+        await obj.save();
+
+        if (
+          this.type.currentType.api_hooks !== undefined &&
+          this.type.currentType.api_hooks.on_create !== undefined &&
+          this.type.currentType.api_hooks.on_create != '' &&
+          obj.id !== undefined
+        ) {
+          fetch(this.type.currentType.api_hooks.on_create, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ id: obj.id }),
+          });
+        }
+
+        this.type.loadTypeObjects(this.type.currentType);
+        this.objectID = 'new';
+        this.cleanVarsIfNew();
+        this.object.currentObject = obj;
+
+        document.querySelector('#editObjectModal-close').click();
+      }
+
+      this.types.fetchAgain();
+    }
   }
 
   @action

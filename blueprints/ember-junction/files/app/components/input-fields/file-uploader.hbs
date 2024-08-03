@@ -2,7 +2,7 @@
   
   <div class="card-header border-0 text-uppercase">
     <i class="fa-solid fa-file-import"></i>
-    <span class="ms-1">{{if @module.input_placeholder @module.input_placeholder "File Uploader"}}</span>
+    <span class="ms-1">{{if @module.input_placeholder @module.input_placeholder "File Uploader"}} {{if @module.input_required (html-safe "<span class=\"text-danger\">*</span>")}}</span>
   </div>
 
   <div class="card-body p-0" {{on 'click' (fn this.triggerSelectFile (concat @type.slug '-' @module.input_slug '-' @id '-uploader'))}}>

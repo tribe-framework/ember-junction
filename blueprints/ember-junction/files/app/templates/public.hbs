@@ -8,51 +8,62 @@
 
 	<div class="above-footer px-2">
 
-		<main class="flex-shrink-0 page a4 d2 mb-5" style="min-height:75vh">
+		<main class="flex-shrink-0 page a4 d2" style="min-height:75vh">
 
-			<div class="container-xxl px-0 mx-auto text-center my-5">
+			<div class="container mx-auto text-center my-5">
 				
-			{{#if this.type.currentType.public_form.cover_url}}
-				<img src="{{this.type.currentType.public_form.cover_url}}" class="img-fluid my-5 mx-auto" />
-			{{/if}}
-
-			{{#if this.object.currentObject.id}}
-
-				<div class="position-relative p-5 text-center text-muted bg-body border border-dashed rounded-5">
-				    <div class="text-center"><i class="fa-solid fa-circle-check fa-3x text-success"></i></div>
-				    <h1 class="text-body-emphasis">{{this.type.currentType.public_form.title}}</h1>
-				    <p class="col-lg-6 mx-auto mb-4">
-				      {{this.type.currentType.public_form.thankyou_text}}
-				    </p>
-			  	</div>
-
-			{{else}}
-
-				{{#if this.type.currentType.public_form.title}}
-					<h1 class="my-5 text-center">{{this.type.currentType.public_form.title}}</h1>
+				{{#if this.type.currentType.public_form.cover_url}}
+					<img src="{{this.type.currentType.public_form.cover_url}}" class="img-fluid mx-auto rounded-5" />
 				{{/if}}
 
-				{{#if this.type.currentType.public_form.description}}
-					<p class="my-5 lead text-center">{{this.type.currentType.public_form.description}}</p>
+				{{#if this.object.currentObject.id}}
+
+					<div class="col-lg-6 mx-auto p-5 my-5 text-center text-muted bg-body border border-dashed rounded-5 bg-success">
+					    <div class="text-center mb-3"><i class="fa-solid fa-circle-check fa-5x text-success"></i></div>
+					    <p class="fs-5 display-6">
+					      {{this.type.currentType.public_form.thankyou_text}}
+					    </p>
+				  	</div>
+
+				{{else}}
+
+					{{#if this.type.currentType.public_form.title}}
+						<h1 class="my-5 text-primary">{{this.type.currentType.public_form.title}}</h1>
+					{{/if}}
+
+					{{#if this.type.currentType.public_form.description}}
+						<p class="col-lg-6 mx-auto fs-5 display-6">{{this.type.currentType.public_form.description}}</p>
+					{{/if}}
+
+				    {{#unless this.type.currentType.readonly}}
+				    	{{#if this.type.currentType.public_form.button_text}}
+							<div class="d-flex align-items-center justify-content-center my-5">
+								<button {{on 'click' this.openNewModal}} type="button" style="letter-spacing:1.4px" class="text-uppercase fw-bolder btn btn-primary btn-lg">{{this.type.currentType.public_form.button_text}} <Logo::Arrows @width="42" @color="#000" /></button>
+							</div>
+				    	{{else}}
+							<div class="d-flex align-items-center justify-content-center my-5">
+								<button {{on 'click' this.openNewModal}} type="button" style="letter-spacing:1.4px" class="text-uppercase fw-bolder btn btn-primary btn-lg">New {{this.type.currentType.name}} <Logo::Arrows @width="42" @color="#000" /></button>
+							</div>
+				    	{{/if}}
+					{{/unless}}
+
 				{{/if}}
 
-			    {{#unless this.type.currentType.readonly}}
-			    	{{#if this.type.currentType.public_form.button_text}}
-						<div class="my-5"><button {{on 'click' this.openNewModal}} type="button" class="btn btn-lg btn-{{this.colormodes.inverseMode}} fw-normal text-capitalize">{{this.type.currentType.public_form.button_text}}</button></div>
-			    	{{else}}
-						<div class="my-5"><button {{on 'click' this.openNewModal}} type="button" class="btn btn-lg btn-{{this.colormodes.inverseMode}} fw-normal text-capitalize"><i class="fa-solid fa-plus"></i>&nbsp;New {{this.type.currentType.name}}</button></div>
-			    	{{/if}}
-				{{/unless}}
-
-			{{/if}}
+				<div class="my-5">
+			        <div class="col-lg-5 mx-auto mt-5 py-5 text-center">
+			        	<img src="https://junction.express/assets/img/auth.png" class="img-fluid" width="180" />
+			        </div>
+			        <a href="https://junction.express" target="new" class="col-3 col-md-2 col-lg-1 d-block mx-auto text-center text-decoration-none">
+			        	<div class="smaller text-uppercase text-{{this.colormodes.inverseMode}}" style="font-size:0.64em">Powered by</div>
+			        	<Logo::Wordmark @color="var(--bs-primary)" />
+			        </a>
+				</div>
 
 			</div>
 
 		</main>
 
 	</div>
-
-	<Footer @webapp={{@model.modules.webapp}} />
 
 {{/if}}
 

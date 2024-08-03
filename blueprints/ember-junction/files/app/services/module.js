@@ -46,6 +46,7 @@ export default class ModuleService extends Service {
   @tracked linkedType = '';
   @tracked linkedTypesAvailable = [];
   @tracked inputMultiple = false;
+  @tracked inputRequired = false;
   @tracked inputPrimary = false;
   @tracked inputUnique = false;
 
@@ -69,7 +70,8 @@ export default class ModuleService extends Service {
 
     this.currentModule = module;
 
-    this.inputMultiple = this.currentModule.input_multiple;
+    this.inputMultiple = (this.currentModule.input_multiple !== undefined ? this.currentModule.input_multiple : false);
+    this.inputRequired = (this.currentModule.input_required !== undefined ? this.currentModule.input_required : false);
 
     this.inputTypes.forEach((i) => {
       if (i.slug == this.currentModule.input_type) this.selectedInputType = i;
@@ -134,6 +136,7 @@ export default class ModuleService extends Service {
           input_unique: this.inputUnique,
           input_type: this.selectedInputType.slug,
           input_multiple: this.inputMultiple,
+          input_required: this.inputRequired,
           input_placeholder: this.currentModule.input_placeholder,
           list_field: this.listField,
           list_searchable: this.listSearchable,
