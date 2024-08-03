@@ -1,6 +1,7 @@
 import Service from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { later } from '@ember/runloop';
 import { service } from '@ember/service';
 import { A } from '@ember/array';
 
@@ -80,18 +81,35 @@ export default class TypeService extends Service {
   @tracked modules = {};
 
   @action
-  async savePublicForm() {
+  async savePublicForm(e) {
+    e.target.innerHTML = '<i class="fa-solid fa-circle-check"></i> Saved';
+    e.target.classList.remove('btn-secondary');
+    e.target.classList.add('btn-success');
+
     var type_slug = this.currentType.slug;
 
-    this.types.json.modules[type_slug].public_form.is_live = this.isLive;
-    this.types.json.modules[type_slug].public_form.title = this.title;
-    this.types.json.modules[type_slug].public_form.button_text = this.buttonText;
-    this.types.json.modules[type_slug].public_form.thankyou_text = this.thankyouText;
-    this.types.json.modules[type_slug].public_form.description = this.description;
-    this.types.json.modules[type_slug].public_form.cover_url = this.coverURL;
-    this.types.json.modules[type_slug].public_form.modules = JSON.stringify(this.modules);
+    this.types.json.modules[type_slug].public_form = {};
+    this.types.json.modules[type_slug].public_form['is_live'] = this.isLive;
+    this.types.json.modules[type_slug].public_form['title'] = this.title;
+    this.types.json.modules[type_slug].public_form['button_text'] = this.buttonText;
+    this.types.json.modules[type_slug].public_form['thankyou_text'] = this.thankyouText;
+    this.types.json.modules[type_slug].public_form['description'] = this.description;
+    this.types.json.modules[type_slug].public_form['cover_url'] = this.coverURL;
+    this.types.json.modules[type_slug].public_form['modules'] = JSON.stringify(this.modules);
+
+    this.types.json.modules[type_slug].public_form = this.types.json.modules[type_slug].public_form;
 
     await this.types.json.save();
+
+    later(
+      this,
+      () => {
+        e.target.innerHTML = '<i class="fa-solid fa-save"></i> Save Changes';
+        e.target.classList.add('btn-secondary');
+        e.target.classList.remove('btn-success');
+      },
+      2000,
+    );
   }
 
   @action

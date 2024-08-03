@@ -31,6 +31,21 @@
           </div>
         </div>
 
+        <div class="row g-3 align-items-center my-3 border-bottom border-1 border-muted pb-3">
+          <div class="my-1 py-0 col-12 col-md-2">
+            <label class="fst-italic col-form-label fw-bold">mandatory?</label>
+          </div>
+          <div class="my-1 col-12 col-md-7">
+            <XToggle @theme='ios' @variant={{this.colormodes.mode}}
+              @value={{this.module.inputRequired}}
+              @onToggle={{fn (mut this.module.inputRequired)}}
+            />
+          </div>
+          <div class="my-1 col-12 col-md-3">
+            <span class="form-text">Is it a required field?</span>
+          </div>
+        </div>
+
       {{#if (not-eq this.module.currentModule.input_primary true)}}
         <div class="row g-3 align-items-center my-3 border-bottom border-1 border-muted pb-3">
           <div class="my-1 py-0 col-12 col-md-2">

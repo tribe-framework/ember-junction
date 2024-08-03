@@ -12,13 +12,13 @@
 			<Types::ListTable::PageLengthSelector @updatePageLength={{@updatePageLength}} @currentPageLength={{@currentPageLength}} @type={{@type}} />
 		</div>
 
-		<div class="order-2 order-lg-2 col-lg-4 px-0 col-12 my-1 d-flex justify-content-end">
+		<div class="order-2 order-lg-2 col-lg-5 px-0 col-12 my-1 d-flex justify-content-end">
 			<Types::ListTable::SearchBox @type={{@type}} @search={{@search}} @clearSearch={{@clearSearch}} @advancedSearch={{@advancedSearch}} @showClearSearchButton={{@showClearSearchButton}} @searchQuery={{@searchQuery}} @advancedSearchQuery={{@advancedSearchQuery}} @clearSearchQuery={{@clearSearchQuery}} @changePageNumber={{@changePageNumber}} />
 		</div>
 
 
 		{{#unless @type.readonly}}
-			<div class="order-1 order-lg-3 col-lg-5 px-0 col-12 my-1 d-flex justify-content-end">
+			<div class="order-1 order-lg-3 col-lg-4 px-0 col-12 my-1 d-flex justify-content-end">
 				{{#if (and (get @selectedRowIDs @type.slug) (not-eq @type.editable false))}}
 					<button {{on 'click' this.openMultiModal}} type="button" class="btn btn-info fw-normal w-100"><i class="fa-solid fa-layer-group"></i>&nbsp;Multi-edit</button>
 				{{/if}}
@@ -28,7 +28,7 @@
 		{{/unless}}
 
 		{{#if (eq @type.slug "deleted_record")}}
-			<div class="order-1 order-lg-3 col-lg-5 px-0 col-12 my-1 d-flex justify-content-end">
+			<div class="order-1 order-lg-3 col-lg-4 px-0 col-12 my-1 d-flex justify-content-end">
 				{{#if (get @selectedRowIDs @type.slug)}}
 					<button {{on 'click' this.openMultiModal}} type="button" class="btn btn-danger fw-normal w-100"><i class="fa-solid fa-trash-alt"></i>&nbsp;Delete permanently</button>
 				{{else}}

@@ -6,6 +6,7 @@
   <button class="btn btn-outline-{{this.colormodes.inverseMode}}" type="button" {{on 'click' @search}} {{on 'click' (fn @changePageNumber 1)}}><i class="fa-solid fa-magnifying-glass"></i></button>
   <button class="btn btn-outline-{{this.colormodes.inverseMode}}" type="button" data-bs-toggle="modal" data-bs-target="#advancedSearchModal"><i class="fa-solid fa-filter"></i></button>
   <button class="btn btn-outline-{{this.colormodes.inverseMode}}" type="button" data-bs-toggle="modal" data-bs-target="#publicFormModal"><i class="fa-solid fa-share-nodes"></i></button>
+  <button {{on 'click' this.papaUnparse}} type="button" class="btn btn-outline-{{this.colormodes.inverseMode}}"><i class="fa-solid fa-download"></i></button>
 </div>
 
 {{!-- Modal --}}

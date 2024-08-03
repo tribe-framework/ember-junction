@@ -6,7 +6,7 @@
 	{{/if}}
 
 	<div class="form-text text-end d-flex align-items-center justify-content-end">
-		<span class="me-2">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}}</span>
+		<span class="me-2">{{if @module.input_placeholder @module.input_placeholder (concat "Enter " @module.input_slug)}} {{if @module.input_required (html-safe "<span class=\"text-danger\">*</span>")}}</span>
 
 		{{#if this.disabled}}
 			<button class="btn btn-sm btn-outline-primary" type="button" {{on 'click' this.initTypeout}}>Edit (Typeout)</button>

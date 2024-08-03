@@ -1,14 +1,14 @@
 {{!-- Modal --}}
 <div class="modal fade" id="publicFormModal" tabindex="-1" aria-labelledby="publicFormModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-lg modal-dialog-scrollable">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title w-100 fs-6" id="publicFormModalLabel">
           <div class="row gx-3 align-items-start">
             <div class="py-0 col-12 col-md-2">
-              <div class="ms-n6"><XToggle @value={{this.type.isLive}} @onToggle={{fn (mut this.type.isLive)}} @theme='ios' @variant={{this.colormodes.mode}} /></div>
+              <div class="ms-n5"><XToggle @value={{this.type.isLive}} @onToggle={{fn (mut this.type.isLive)}} @theme='ios' @variant={{this.colormodes.mode}} /></div>
             </div>
-            <div class="col-12 col-md-9 ms-n5">
+            <div class="col-12 col-md-9 ms-n3">
               <label class="fst-italic col-form-label fw-bold">Make form public: {{this.type.currentType.name}}</label>
             </div>
           </div>
@@ -58,7 +58,7 @@
             <label class="fst-italic col-form-label fw-bold">post-submission</label>
           </div>
           <div class="my-1 col-12 col-md-7">
-            <Textarea @value={{this.type.buttonText}} class="form-control" placeholder="Text shown form submission" />
+            <Textarea @value={{this.type.thankyouText}} class="form-control" placeholder="Text shown form submission" />
           </div>
           <div class="my-1 col-12 col-md-3">
             <span class="form-text">Thank you text, shown after submission</span>
@@ -84,7 +84,7 @@
               <div class="mx-n1"><XToggle @value={{get this.type.modules module.input_slug}} @onToggle={{fn (mut (get this.type.modules module.input_slug))}} @theme='ios' @variant={{this.colormodes.mode}} /></div>
             </div>
             <div class="my-1 col-12 col-md-7">
-              <label class="fst-italic col-form-label fw-bold">{{if module.input_placeholder module.input_placeholder module.input_slug}}</label>
+              <label class="fst-italic col-form-label fw-bold">{{if module.input_placeholder module.input_placeholder module.input_slug}} {{if module.input_required (html-safe "<span class=\"text-danger\">*</span>")}}</label>
             </div>
           </div>
         {{/each}}
@@ -94,7 +94,9 @@
       <div class="modal-footer justify-content-between p-1 d-flex align-items-center">
         <button type="button" data-bs-dismiss="modal" class="btn btn-outline-{{this.colormodes.inverseMode}}">Ignore changes</button>
         <div class="d-flex align-items-center justify-content-end">
-          <button {{on 'click' this.copyFormLink}} type="button" class="btn btn-sm btn-secondary ms-2"><i class="fa-solid fa-copy"></i> Copy Form Link</button>
+          {{#if this.type.isLive}}
+            <button {{on 'click' this.copyFormLink}} type="button" class="btn btn-sm btn-secondary ms-2"><i class="fa-solid fa-copy"></i> Copy Form Link</button>
+          {{/if}}
           <button {{on 'click' this.type.savePublicForm}} type="button" class="btn btn-sm btn-secondary ms-2"><i class="fa-solid fa-save"></i> Save Changes</button>
         </div>
       </div>
