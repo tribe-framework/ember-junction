@@ -8,7 +8,7 @@
 ## Installation
 
 ```
-ember init; yes | ember install ember-junction; yes | ember install ember-junction;
+ember init; yes | ember install ember-tribe; yes | ember install ember-junction;
 ```
 Then fill in the .env file with Tribe credentials and run:
 ```
