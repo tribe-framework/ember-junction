@@ -64,7 +64,7 @@ export default class HeaderComponent extends Component {
     });
     this.junctionBlueprints = data.data;
     this.myBlueprints = await this.store.query('deleted_record', {
-      modules: { deleted_type: 'type' }
+      modules: { deleted_type: 'types_json_record' }
     });
   }
 

@@ -23,7 +23,7 @@ export default class TypesService extends Service {
     let obj = this.store.createRecord('deleted_record', { modules: {
       title: 'Last used on ' + d,
       is_types: true,
-      deleted_type: 'type',
+      deleted_type: 'types_json_record',
       types_json: t,
       content_privacy: 'public'
     }});
