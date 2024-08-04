@@ -31,3 +31,6 @@
 
 # broccoli-debug
 /DEBUG/
+
+/blueprints/ember-junction/files/app/models
+!/blueprints/ember-junction/files/app/models/webapp.js
