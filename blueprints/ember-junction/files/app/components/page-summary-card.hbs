@@ -1,4 +1,6 @@
 <div {{on-click-outside this.ignoreReordering}} class="card p-0 mt-5 border-0">
+  <h1 class="display-5 fw-bold text-primary {{if (lte this.typesCount 4) "text-center"}}">{{this.types.json.modules.webapp.name}}</h1>
+  
   {{#unless this.reloadTypes}}
     <div id="track-names" class="card-body d-flex align-items-center justify-content-start flex-wrap p-0">
       {{#if this.types.json.modules.webapp.interfaces}}
