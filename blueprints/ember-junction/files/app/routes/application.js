@@ -17,7 +17,11 @@ export default class ApplicationRoute extends Route {
   @tracked currentSlugName = window.location.pathname.split('/')[2];
 
   async beforeModel() {
-    this.auth.goToRouteAfterLogin = (this.currentRouteName ? (this.currentRouteName == 'track' ? 'type' : this.currentRouteName) : 'index');
+    this.auth.goToRouteAfterLogin = this.currentRouteName
+      ? this.currentRouteName == 'track'
+        ? 'type'
+        : this.currentRouteName
+      : 'index';
     this.auth.goToSlugAfterLogin = this.currentSlugName;
     await this.types.fetchAgain();
 

@@ -63,11 +63,11 @@ export default class TypeService extends Service {
 
   @action
   editorJSOnTypeChange() {
-    this.hideModalEvents.forEach((u)=>{
+    this.hideModalEvents.forEach((u) => {
       this.editObjectModal.removeEventListener('hidden.bs.modal', u);
     });
 
-    this.showModalEvents.forEach((i)=>{
+    this.showModalEvents.forEach((i) => {
       this.editObjectModal.removeEventListener('show.bs.modal', i);
     });
   }
@@ -91,13 +91,19 @@ export default class TypeService extends Service {
     this.types.json.modules[type_slug].public_form = {};
     this.types.json.modules[type_slug].public_form['is_live'] = this.isLive;
     this.types.json.modules[type_slug].public_form['title'] = this.title;
-    this.types.json.modules[type_slug].public_form['button_text'] = this.buttonText;
-    this.types.json.modules[type_slug].public_form['thankyou_text'] = this.thankyouText;
-    this.types.json.modules[type_slug].public_form['description'] = this.description;
+    this.types.json.modules[type_slug].public_form['button_text'] =
+      this.buttonText;
+    this.types.json.modules[type_slug].public_form['thankyou_text'] =
+      this.thankyouText;
+    this.types.json.modules[type_slug].public_form['description'] =
+      this.description;
     this.types.json.modules[type_slug].public_form['cover_url'] = this.coverURL;
-    this.types.json.modules[type_slug].public_form['modules'] = JSON.stringify(this.modules);
+    this.types.json.modules[type_slug].public_form['modules'] = JSON.stringify(
+      this.modules,
+    );
 
-    this.types.json.modules[type_slug].public_form = this.types.json.modules[type_slug].public_form;
+    this.types.json.modules[type_slug].public_form =
+      this.types.json.modules[type_slug].public_form;
 
     await this.types.json.save();
 
@@ -121,28 +127,35 @@ export default class TypeService extends Service {
 
     if (this.types.json.modules[type_slug].public_form.is_live === undefined)
       this.isLive = false;
-    else
-      this.isLive = this.types.json.modules[type_slug].public_form.is_live;
+    else this.isLive = this.types.json.modules[type_slug].public_form.is_live;
 
     if (this.types.json.modules[type_slug].public_form.title === undefined)
       this.title = '';
-    else
-      this.title = this.types.json.modules[type_slug].public_form.title;
+    else this.title = this.types.json.modules[type_slug].public_form.title;
 
-    if (this.types.json.modules[type_slug].public_form.description === undefined)
+    if (
+      this.types.json.modules[type_slug].public_form.description === undefined
+    )
       this.description = '';
     else
-      this.description = this.types.json.modules[type_slug].public_form.description;
+      this.description =
+        this.types.json.modules[type_slug].public_form.description;
 
-    if (this.types.json.modules[type_slug].public_form.button_text === undefined)
+    if (
+      this.types.json.modules[type_slug].public_form.button_text === undefined
+    )
       this.buttonText = '';
     else
-      this.buttonText = this.types.json.modules[type_slug].public_form.button_text;
+      this.buttonText =
+        this.types.json.modules[type_slug].public_form.button_text;
 
-    if (this.types.json.modules[type_slug].public_form.thankyou_text === undefined)
+    if (
+      this.types.json.modules[type_slug].public_form.thankyou_text === undefined
+    )
       this.thankyouText = '';
     else
-      this.thankyouText = this.types.json.modules[type_slug].public_form.thankyou_text;
+      this.thankyouText =
+        this.types.json.modules[type_slug].public_form.thankyou_text;
 
     if (this.types.json.modules[type_slug].public_form.cover_url === undefined)
       this.coverURL = '';
@@ -152,7 +165,9 @@ export default class TypeService extends Service {
     if (this.types.json.modules[type_slug].public_form.modules === undefined)
       this.modules = {};
     else
-      this.modules = JSON.parse(this.types.json.modules[type_slug].public_form.modules);
+      this.modules = JSON.parse(
+        this.types.json.modules[type_slug].public_form.modules,
+      );
   }
 
   @action

@@ -27,13 +27,12 @@ export default class TypesEditObjectModalComponent extends Component {
   @service type;
   @service object;
 
-  indexOf = (arr, slug)=>{
+  indexOf = (arr, slug) => {
     let publicModules = JSON.parse(arr);
     if (publicModules[slug] !== undefined && publicModules[slug] !== false)
       return true;
-    else
-      return false
-  }
+    else return false;
+  };
 
   @tracked objectModules = this.object.currentObject
     ? this.object.currentObject.modules
@@ -122,7 +121,10 @@ export default class TypesEditObjectModalComponent extends Component {
                 this.mutObjectModuleValue(module.input_slug, outputData, false);
                 resolve();
                 var ejsTarget = `${this.type.currentType.slug}-${module.input_slug}`;
-                if (this.editorjsInstances != [] && this.editorjsInstances[ejsTarget] !== undefined)
+                if (
+                  this.editorjsInstances != [] &&
+                  this.editorjsInstances[ejsTarget] !== undefined
+                )
                   this.editorjsInstances[ejsTarget].destroy();
               },
             );
@@ -167,7 +169,11 @@ export default class TypesEditObjectModalComponent extends Component {
 
     //if mandatory fields have not been filled
     let stop = false;
-    if (!this.type.currentType.sendable && vvv.content_privacy !== undefined && !(vvv.content_privacy == '' || vvv.content_privacy == 'draft')) {
+    if (
+      !this.type.currentType.sendable &&
+      vvv.content_privacy !== undefined &&
+      !(vvv.content_privacy == '' || vvv.content_privacy == 'draft')
+    ) {
       this.type.currentType.modules.forEach((module) => {
         if (module.input_required === true) {
           let slg = module.input_slug;
@@ -297,7 +303,11 @@ export default class TypesEditObjectModalComponent extends Component {
   @action
   async uninitEditorJS(module_input_slug) {
     var ejsTarget = `${this.type.currentType.slug}-${module_input_slug}`;
-    if (this.editorjsInstances != [] && this.editorjsInstances[ejsTarget] !== undefined && this.editorjsInstances[ejsTarget].blocks !== undefined)
+    if (
+      this.editorjsInstances != [] &&
+      this.editorjsInstances[ejsTarget] !== undefined &&
+      this.editorjsInstances[ejsTarget].blocks !== undefined
+    )
       this.editorjsInstances[ejsTarget].destroy();
   }
 
@@ -305,7 +315,11 @@ export default class TypesEditObjectModalComponent extends Component {
   async initEditorJS(module_input_slug) {
     var ejsTarget = `${this.type.currentType.slug}-${module_input_slug}`;
 
-    if (this.objectID == 'new' && this.editorjsInstances != [] && this.editorjsInstances[ejsTarget] !== undefined)
+    if (
+      this.objectID == 'new' &&
+      this.editorjsInstances != [] &&
+      this.editorjsInstances[ejsTarget] !== undefined
+    )
       this.editorjsInstances[ejsTarget].destroy();
 
     var editor_object_in_type = Object(this.type.currentType.modules).find(
@@ -314,9 +328,12 @@ export default class TypesEditObjectModalComponent extends Component {
       },
     );
 
-    let primaryPlaceholder = (editor_object_in_type !== undefined && editor_object_in_type.input_placeholder !== undefined) ? editor_object_in_type.input_placeholder : "Type here...";
+    let primaryPlaceholder =
+      editor_object_in_type !== undefined &&
+      editor_object_in_type.input_placeholder !== undefined
+        ? editor_object_in_type.input_placeholder
+        : 'Type here...';
 
-      
     var ejsInstance = new EditorJS({
       holder: ejsTarget,
       data: this.object.currentObject
@@ -407,7 +424,7 @@ export default class TypesEditObjectModalComponent extends Component {
         },
       },
     });
-    
+
     ejsInstance.isReady
       .then((i) => {
         const editors = document.querySelectorAll(
@@ -423,7 +440,6 @@ export default class TypesEditObjectModalComponent extends Component {
       .catch((e) => {
         console.error('Error during Editor.js initialization:', e);
       });
-
   }
 
   @action

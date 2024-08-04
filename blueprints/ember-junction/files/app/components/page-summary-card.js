@@ -11,10 +11,15 @@ export default class PageSummaryCardComponent extends Component {
   @service router;
   @service store;
   @service colormodes;
+  @service blueprints;
   @tracked sortable = null;
   @tracked activateReordering = false;
   @tracked modules = Object.entries(this.types.json.modules);
   @tracked reloadTypes = false;
+
+  get typesCount() {
+    return this.modules.length;
+  }
 
   @action
   changeType(type) {

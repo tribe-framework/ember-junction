@@ -8,6 +8,7 @@ import { later } from '@ember/runloop';
 export default class TypesDeleteModelComponent extends Component {
   @service type;
   @service types;
+  @service router;
   @tracked modelBox = null;
 
   @action
@@ -29,9 +30,9 @@ export default class TypesDeleteModelComponent extends Component {
       later(
         this,
         () => {
-          window.location.replace('/types');
+          this.router.transitionTo('index');
         },
-        1000,
+        700,
       );
     }
   }

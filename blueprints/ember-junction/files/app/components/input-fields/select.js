@@ -20,9 +20,7 @@ export default class InputFieldsSelectComponent extends Component {
 
   @action
   async cleanVarsOnNewModalOpen() {
-    const myModalNew = document.getElementById(
-      'editObjectModal',
-    );
+    const myModalNew = document.getElementById('editObjectModal');
     await myModalNew.addEventListener('show.bs.modal', async (event) => {
       this.selectedOption = null;
       this.selectedMultiOptions = A([]);

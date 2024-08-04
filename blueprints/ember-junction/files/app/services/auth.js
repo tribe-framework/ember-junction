@@ -68,6 +68,8 @@ export default class AuthService extends Service {
         })
         .then(async (response) => {
           if (response.authenticated === true) {
+            this.types.json.modules.webapp.name = response.title;
+            await this.types.json.save();
             this.cookies.setCookie(ENV.JUNCTION_SLUG, this.inputPassword);
             this.justGoToRouteAfterLogin();
           } else {
@@ -83,8 +85,10 @@ export default class AuthService extends Service {
       this.router.transitionTo(this.goToRouteAfterLogin);
     else {
       this.type.currentType = this.types.json.modules[this.goToSlugAfterLogin];
-      await this.type.loadTypeObjects();
-      this.router.transitionTo(this.goToRouteAfterLogin, this.goToSlugAfterLogin);
+      this.router.transitionTo(
+        this.goToRouteAfterLogin,
+        this.goToSlugAfterLogin,
+      );
     }
   }
 

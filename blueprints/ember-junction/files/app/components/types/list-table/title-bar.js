@@ -28,12 +28,7 @@ export default class TypesListTableTitleBarComponent extends Component {
     this.object.reloadingVars = true;
     this.object.currentObject = null;
     this.object.reloadingVars = false;
-    let bp = new Modal(
-      document.getElementById(
-        'editObjectModal',
-      ),
-      {},
-    );
+    let bp = new Modal(document.getElementById('editObjectModal'), {});
     bp.show();
   }
 }

@@ -19,9 +19,7 @@ export default class TypesPublicModalComponent extends Component {
   copyFormLink(e) {
     e.target.innerHTML = 'Copied!';
     navigator.clipboard.writeText(
-      window.location.origin +
-        '/public/form/' +
-        this.type.currentType.slug,
+      window.location.origin + '/public/form/' + this.type.currentType.slug,
     );
 
     later(

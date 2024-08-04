@@ -8,7 +8,7 @@ module.exports = function (/* environment, appConfig */) {
     name: '<%= classifiedPackageName %>',
     short_name: '<%= classifiedPackageName %>',
     description:
-      'A data management system by Wildfire.',
+      'Frame your data.',
     start_url: '/',
     scope: '/',
     display: 'standalone',

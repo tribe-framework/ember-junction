@@ -7,7 +7,18 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      	<Types::Editor::Text @typeKey="name" @typeSlug="webapp" @helpText="A name for this Junction." />
+        <div class="row g-3 align-items-center my-3 border-bottom border-1 border-muted pb-3">
+          <div class="my-1 py-0 col-12 col-md-2">
+            <label class="fst-italic col-form-label fw-bold">name</label>
+          </div>
+          <div class="my-1 col-12 col-md-7">
+            <Input disabled @type="text" @value={{mut (get (get this.types.json.modules "webapp") "name")}} class="form-control" />
+          </div>
+          <div class="my-1 col-12 col-md-3">
+            <span class="form-text">A name for this Junction. <a href="https://junction.express/junctions" target="_blank">Click here to edit.</a></span>
+          </div>
+        </div>
+
       	<Types::Editor::Textarea @typeKey="description" @typeSlug="webapp" @helpText="Short description." />
       	<Types::Editor::Checkbox @typeKey="soft_delete_records" @typeSlug="webapp" @helpText="To make sure your records never get fully deleted." />
       </div>

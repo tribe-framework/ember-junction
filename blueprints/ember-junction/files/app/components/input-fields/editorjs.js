@@ -11,7 +11,6 @@ export default class InputFieldsEditorjsComponent extends Component {
 
   @action
   async cleanVarsOnNewModalOpen(input_slug) {
-
     let i = async (event) => {
       await this.args.initEditorJS(input_slug);
     };

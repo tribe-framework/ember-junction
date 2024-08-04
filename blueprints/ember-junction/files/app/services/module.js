@@ -70,8 +70,14 @@ export default class ModuleService extends Service {
 
     this.currentModule = module;
 
-    this.inputMultiple = (this.currentModule.input_multiple !== undefined ? this.currentModule.input_multiple : false);
-    this.inputRequired = (this.currentModule.input_required !== undefined ? this.currentModule.input_required : false);
+    this.inputMultiple =
+      this.currentModule.input_multiple !== undefined
+        ? this.currentModule.input_multiple
+        : false;
+    this.inputRequired =
+      this.currentModule.input_required !== undefined
+        ? this.currentModule.input_required
+        : false;
 
     this.inputTypes.forEach((i) => {
       if (i.slug == this.currentModule.input_type) this.selectedInputType = i;

@@ -19,14 +19,16 @@ export default class TypesService extends Service {
 
   @action
   async saveCurrentTypes(t) {
-    let d = (new Date()).toLocaleString();
-    let obj = this.store.createRecord('deleted_record', { modules: {
-      title: 'Last used on ' + d,
-      is_types: true,
-      deleted_type: 'types_json_record',
-      types_json: t,
-      content_privacy: 'public'
-    }});
+    let d = new Date().toLocaleString();
+    let obj = this.store.createRecord('deleted_record', {
+      modules: {
+        title: 'Last used on ' + d,
+        is_types: true,
+        deleted_type: 'blueprint_record',
+        types_json: t,
+        content_privacy: 'public',
+      },
+    });
     await obj.save();
 
     obj.modules.deleted_slug = obj.slug;
