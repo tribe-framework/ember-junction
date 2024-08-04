@@ -2,6 +2,7 @@ import Route from '@ember/routing/route';
 import { service } from '@ember/service';
 import { later } from '@ember/runloop';
 import { action } from '@ember/object';
+import { tracked } from '@glimmer/tracking';
 import ENV from '<%= dasherizedPackageName %>/config/environment';
 import * as bootstrap from 'bootstrap';
 
@@ -12,11 +13,18 @@ export default class ApplicationRoute extends Route {
   @service auth;
   @service router;
 
+  @tracked currentRouteName = window.location.pathname.split('/')[1];
+  @tracked currentSlugName = window.location.pathname.split('/')[2];
+
   async beforeModel() {
+    this.auth.goToRouteAfterLogin = (this.currentRouteName ? (this.currentRouteName == 'track' ? 'type' : this.currentRouteName) : 'index');
+    this.auth.goToSlugAfterLogin = this.currentSlugName;
+    await this.types.fetchAgain();
+
     await this.auth.getJunctionPassword();
     if (
-      this.router.currentRouteName != 'auth' &&
-      this.router.currentRouteName != 'public' &&
+      this.currentRouteName != 'auth' &&
+      this.currentRouteName != 'public' &&
       !this.auth.checkIfLoggedIn()
     ) {
       this.router.transitionTo('auth');
@@ -34,14 +42,10 @@ export default class ApplicationRoute extends Route {
     later(
       this,
       () => {
-        if (this.router.currentRouteName != 'auth')
-          this.auth.goToRouteAfterLogin = this.router.currentRouteName;
-        else this.auth.goToRouteAfterLogin = 'index';
-
         if (this.router.currentRouteName != 'type')
           this.type.loadingSearchResults = false;
       },
-      200,
+      300,
     );
   }
 

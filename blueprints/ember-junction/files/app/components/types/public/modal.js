@@ -20,9 +20,8 @@ export default class TypesPublicModalComponent extends Component {
     e.target.innerHTML = 'Copied!';
     navigator.clipboard.writeText(
       window.location.origin +
-        '/' +
-        this.type.currentType.slug +
-        '/public/form',
+        '/public/form/' +
+        this.type.currentType.slug,
     );
 
     later(

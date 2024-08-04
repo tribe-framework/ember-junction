@@ -32,7 +32,7 @@
 				{{#if (get @selectedRowIDs @type.slug)}}
 					<button {{on 'click' this.openMultiModal}} type="button" class="btn btn-danger fw-normal w-100"><i class="fa-solid fa-trash-alt"></i>&nbsp;Delete permanently</button>
 				{{else}}
-					<button type="button" class="btn btn-outline-{{this.colormodes.inverseMode}} fw-normal w-100"><i class="fa-solid fa-trash-alt"></i>&nbsp;Select objects to delete permanently</button>
+					<button type="button" class="btn btn-outline-{{this.colormodes.inverseMode}} fw-normal w-100"><i class="fa-solid fa-trash-alt"></i>&nbsp;Select to delete permanently</button>
 				{{/if}}
 			</div>
 		{{/if}}

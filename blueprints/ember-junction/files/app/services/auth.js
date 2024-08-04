@@ -8,12 +8,16 @@ import fetch from 'fetch';
 export default class AuthService extends Service {
   @service router;
   @service cookies;
+  @service type;
+  @service types;
+
   @tracked inputPassword;
   @tracked isLoggedIn = false;
   @tracked junctionPassword = '';
   @tracked goToRouteAfterLogin = 'index';
+  @tracked goToSlugAfterLogin = '';
 
-  checkIfLoggedIn = () => {
+  checkIfLoggedIn = async () => {
     let cookiePassword = this.cookies.getCookie(ENV.JUNCTION_SLUG);
 
     if (
@@ -29,7 +33,7 @@ export default class AuthService extends Service {
       this.junctionPassword == ''
     ) {
       this.inputPassword = cookiePassword;
-      this.submitPassword();
+      await this.submitPassword();
     } else {
       return false;
     }
@@ -44,7 +48,7 @@ export default class AuthService extends Service {
       this.inputPassword == this.junctionPassword
     ) {
       this.cookies.setCookie(ENV.JUNCTION_SLUG, this.inputPassword);
-      this.router.transitionTo(this.goToRouteAfterLogin);
+      this.justGoToRouteAfterLogin();
     } else if (ENV.JUNCTION_SLUG !== undefined && ENV.JUNCTION_SLUG != '') {
       await fetch('https://tribe.junction.express/custom/auth/access.php', {
         method: 'post',
@@ -65,11 +69,22 @@ export default class AuthService extends Service {
         .then(async (response) => {
           if (response.authenticated === true) {
             this.cookies.setCookie(ENV.JUNCTION_SLUG, this.inputPassword);
-            this.router.transitionTo(this.goToRouteAfterLogin);
+            this.justGoToRouteAfterLogin();
           } else {
             alert('Incorrect password.');
           }
         });
+    }
+  }
+
+  @action
+  async justGoToRouteAfterLogin() {
+    if (this.goToRouteAfterLogin == 'index')
+      this.router.transitionTo(this.goToRouteAfterLogin);
+    else {
+      this.type.currentType = this.types.json.modules[this.goToSlugAfterLogin];
+      await this.type.loadTypeObjects();
+      this.router.transitionTo(this.goToRouteAfterLogin, this.goToSlugAfterLogin);
     }
   }
 
