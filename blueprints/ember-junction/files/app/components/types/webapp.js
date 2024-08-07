@@ -3,10 +3,19 @@ import { action } from '@ember/object';
 import { service } from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { Modal } from 'bootstrap';
+import ENV from '<%= dasherizedPackageName %>/config/environment';
 
 export default class TypesWebappComponent extends Component {
   @service types;
   @tracked webappBox = null;
+
+  get isJunctionExpress() {
+    if (ENV.JUNCTION_SLUG == 'junction') {
+      return false;
+    } else {
+      return true;
+    }
+  }
 
   @action
   initWebapp() {

@@ -12,10 +12,18 @@
             <label class="fst-italic col-form-label fw-bold">name</label>
           </div>
           <div class="my-1 col-12 col-md-7">
-            <Input disabled @type="text" @value={{mut (get (get this.types.json.modules "webapp") "name")}} class="form-control" />
+            {{#if this.isJunctionExpress}}
+              <Input disabled @type="text" @value={{mut (get (get this.types.json.modules "webapp") "name")}} class="form-control" />
+            {{else}}
+              <Input @type="text" @value={{mut (get (get this.types.json.modules "webapp") "name")}} class="form-control" />
+            {{/if}}
           </div>
           <div class="my-1 col-12 col-md-3">
-            <span class="form-text">A name for this Junction. <a href="https://junction.express/junctions" target="_blank">Click here to edit.</a></span>
+            {{#if this.isJunctionExpress}}
+              <span class="form-text">A name for your Junction.</span>
+            {{else}}
+              <span class="form-text">A name for your Junction. <a href="https://junction.express/junctions" target="_blank">Click here to edit.</a></span>
+            {{/if}}
           </div>
         </div>
 
