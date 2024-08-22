@@ -34,7 +34,11 @@ export default class TypesNewModelComponent extends Component {
 
   @action
   async save() {
-    if (this.trackName != '' && this.trackPlural != '') {
+    if (
+      this.trackName != '' &&
+      this.trackPlural != '' &&
+      this.trackPrimary != ''
+    ) {
       var exists = false;
       Object.keys(this.types.json.modules).forEach((track) => {
         if (track != 'webapp') {
@@ -87,7 +91,7 @@ export default class TypesNewModelComponent extends Component {
         );
       }
     } else {
-      alert('Name and plural fields are compulsory.');
+      alert('Name, plural and primary fields are compulsory.');
     }
   }
 }

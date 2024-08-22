@@ -68,14 +68,18 @@
         
         <HeaderNavItem>
           <div class="fs-4 px-2 px-md-3 cursor-pointer btn-group">
-            <div class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            <div class="dropdown-toggle" data-bs-toggle="dropdown">
               <i class="fa-solid fa-circle-nodes"></i>
             </div>
-            <ul class="dropdown-menu dropdown-menu-md-end" {{did-insert this.blueprints.getBlueprints}}>
+            <ul class="dropdown-menu dropdown-menu-md-end overflow-y-scroll" style="max-height:400px" {{did-insert this.blueprints.getBlueprints}}>
               <li><h6 class="dropdown-header text-capitalize">Switch blueprint</h6></li>
               {{#each this.blueprints.junctionBlueprints as |blueprint|}}
                 <li><a {{on 'click' (fn this.blueprints.changeBlueprint blueprint.attributes.modules.link)}} href="#" class="dropdown-item">{{blueprint.attributes.modules.title}}</a></li>
               {{/each}}
+              
+              <li><hr class="dropdown-divider"></li>
+              <li><h6 class="dropdown-header text-capitalize">Start Again</h6></li>
+              <li><a {{on 'click' this.blueprints.clearBlueprint}} class="dropdown-item" href="#">Clear the canvas</a></li>
 
               {{#if this.blueprints.myBlueprints}}
                 <li><hr class="dropdown-divider"></li>
@@ -85,6 +89,7 @@
                   <li><a {{on 'click' (fn this.blueprints.revertBlueprint blueprint.modules.types_json)}} class="dropdown-item" href="#">{{blueprint.modules.title}}</a></li>
                 {{/each}}
               {{/if}}
+
             </ul>
           </div>
         </HeaderNavItem>

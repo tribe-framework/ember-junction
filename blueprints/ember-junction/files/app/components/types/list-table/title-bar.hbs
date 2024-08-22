@@ -1,5 +1,8 @@
 {{#if (not (or (eq @type.slug "deleted_record") (eq @type.slug "file_record")))}}
-	<button id="removeTrackButton" type="button" data-bs-toggle="modal" data-bs-target="#deleteModel" class="btn btn-outline-danger btn-sm position-absolute top-0 start-0 d-none m-1"><i class="fa-solid fa-triangle-exclamation"></i> Remove Track</button>
+	<div id="trackOptionButtons" class="position-absolute top-0 start-0 d-none">
+		<button id="removeTrackButton" type="button" data-bs-toggle="modal" data-bs-target="#deleteModel" class="btn btn-outline-danger btn-sm m-1"><i class="fa-solid fa-triangle-exclamation"></i> Remove Track</button>
+		<button id="editTrackButton" type="button" data-bs-toggle="modal" data-bs-target="#editModel" class="btn btn-outline-{{this.colormodes.inverseMode}} btn-sm m-1"><i class="fa-solid fa-edit"></i> Edit Track</button>
+	</div>
 {{/if}}
 
 	<div class="container-xxl">

@@ -25,7 +25,7 @@ export default class TypeController extends Controller {
       this.type.currentType.slug != 'deleted_record' &&
       this.type.currentType.slug != 'file_record'
     )
-      document.querySelector('#removeTrackButton').classList.remove('d-none');
+      document.querySelector('#trackOptionButtons').classList.remove('d-none');
 
     this.activateReordering = true;
     this.initDragDrop();
@@ -37,7 +37,7 @@ export default class TypeController extends Controller {
       this.type.currentType.slug != 'deleted_record' &&
       this.type.currentType.slug != 'file_record'
     )
-      document.querySelector('#removeTrackButton').classList.add('d-none');
+      document.querySelector('#trackOptionButtons').classList.add('d-none');
 
     this.activateReordering = false;
     this.stopDragDrop();

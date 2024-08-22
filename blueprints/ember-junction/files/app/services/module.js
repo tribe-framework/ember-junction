@@ -127,9 +127,8 @@ export default class ModuleService extends Service {
       });
 
       if (exists !== false) {
-        if (this.currentModule.input_slug == 'title') {
+        if (this.currentModule.input_primary === true) {
           this.inputPrimary = true;
-          this.inputUnique = false;
         } else {
           this.inputPrimary = false;
           this.inputUnique = false;

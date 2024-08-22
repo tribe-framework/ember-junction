@@ -26,9 +26,11 @@ export default class ApplicationRoute extends Route {
       : 'index';
     this.auth.goToSlugAfterLogin = this.currentSlugName;
 
-    if (this.auth.goToRouteAfterLogin != 'auth' &&
-        this.auth.goToRouteAfterLogin != 'public') {
-      this.auth.checkIfLoggedIn().then(async (checkIfLoggedIn)=>{
+    if (
+      this.auth.goToRouteAfterLogin != 'auth' &&
+      this.auth.goToRouteAfterLogin != 'public'
+    ) {
+      this.auth.checkIfLoggedIn().then(async (checkIfLoggedIn) => {
         if (
           this.auth.goToRouteAfterLogin != 'auth' &&
           this.auth.goToRouteAfterLogin != 'public' &&
