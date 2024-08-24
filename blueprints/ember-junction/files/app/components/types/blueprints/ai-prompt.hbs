@@ -7,14 +7,14 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-      	<Textarea @value={{this.blueprints.projectDescription}} class="form-control w-100 border-primary" rows="7" placeholder="Briefly tell us about your project and what you hope to achieve." />
+      	<Textarea @value={{this.blueprints.projectDescription}} class="form-control w-100 border-primary" rows="7" placeholder="Briefly tell us about your project and what you hope to achieve (in 20 to 160 characters)" />
       </div>
       <div class="modal-footer d-flex align-items-center justify-content-end p-0">
         <div class="d-flex align-items-center justify-content-end">
-          {{#if this.blueprints.projectDescription}}
-            <button {{on 'click' this.blueprints.getAI}} type="button" class="btn btn-lg btn-primary ms-2">Set up Junction &rarr;</button>
+          {{#if (gte this.blueprints.projectDescription.length 20)}}
+            <button {{on 'click' this.blueprints.getAI}} type="button" class="btn btn-primary ms-2">Set up Junction &rarr;</button>
           {{else}}
-            <button type="button" class="btn btn-{{this.colormodes.inverseMode}} ms-2">Set up Junction &rarr;</button>
+            <button type="button" disabled class="btn btn-{{this.colormodes.mode}} ms-2">Set up Junction &rarr;</button>
           {{/if}}
         </div>
       </div>
