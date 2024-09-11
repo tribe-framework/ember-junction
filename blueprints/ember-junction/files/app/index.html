@@ -1,25 +1,35 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en" data-bs-theme="dark">
   <head>
-    <meta charset="utf-8">
+    <meta charset="utf-8" />
     <title><%= classifiedPackageName %></title>
-    <meta name="description" content="Frame your data.">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Frame your data." />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <link rel="manifest" href="{{rootURL}}manifest.webmanifest">
-    <meta name="msapplication-config" content="{{rootURL}}browserconfig.xml">
+    <link rel="manifest" href="{{rootURL}}manifest.webmanifest" />
+    <meta name="msapplication-config" content="{{rootURL}}browserconfig.xml" />
 
     {{content-for "head"}}
 
-    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/vendor.css">
-    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/<%= dasherizedPackageName %>.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/fontawesome.min.css">
+    <link integrity="" rel="stylesheet" href="{{rootURL}}assets/vendor.css" />
+    <link
+      integrity=""
+      rel="stylesheet"
+      href="{{rootURL}}assets/<%= dasherizedPackageName %>.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.2/css/fontawesome.min.css"
+    />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/7.1.2/tinymce.min.js"></script>
 
     {{content-for "head-footer"}}
   </head>
-  <body style="overflow-x: hidden;">
-    <div class="vh-100 w-100 d-flex align-items-center justify-content-center" id="loadingHTML">
+  <body style="overflow-x: hidden">
+    <div
+      class="vh-100 w-100 d-flex align-items-center justify-content-center"
+      id="loadingHTML"
+    >
       <div class="spinner-border text-primary" role="status">
         <span class="visually-hidden">Loading...</span>
       </div>
@@ -31,11 +41,15 @@
     <script src="{{rootURL}}assets/vendor.js"></script>
     <script src="{{rootURL}}assets/<%= dasherizedPackageName %>.js"></script>
     <script>
-    document.addEventListener('focusin', (e) => {
-      if (e.target.closest(".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root") !== null) {
-        e.stopImmediatePropagation();
-      }
-    });
+      document.addEventListener("focusin", (e) => {
+        if (
+          e.target.closest(
+            ".tox-tinymce-aux, .moxman-window, .tam-assetmanager-root",
+          ) !== null
+        ) {
+          e.stopImmediatePropagation();
+        }
+      });
     </script>
 
     {{content-for "body-footer"}}

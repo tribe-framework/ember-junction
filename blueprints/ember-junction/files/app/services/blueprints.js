@@ -32,7 +32,7 @@ export default class BlueprintsService extends Service {
         types_json['webapp'] = type_obj;
       }
     });
-    
+
     types_json['webapp']['implementation_summary'] = '';
 
     if (data_json !== undefined && data_json) {
@@ -103,7 +103,10 @@ export default class BlueprintsService extends Service {
     });
   }
 
-  @tracked projectDescription = '';
+  @tracked projectDescription = this.types.json.modules.webapp
+    .project_description
+    ? this.types.json.modules.webapp.project_description
+    : '';
 
   @action
   async getAI() {
@@ -118,7 +121,9 @@ export default class BlueprintsService extends Service {
           headers: {
             'Content-Type': 'application/json',
           },
-          body: JSON.stringify({ project_description: this.projectDescription }),
+          body: JSON.stringify({
+            project_description: this.projectDescription,
+          }),
         },
       ).then(function (response) {
         return response.json();
@@ -127,39 +132,45 @@ export default class BlueprintsService extends Service {
       if (data !== undefined && data && data.json) {
         let data_json = JSON.parse(data.json);
 
-        var types_json = [];
-        Object.entries(this.types.json.modules).forEach((v, i) => {
-          let type_slug = v[0];
-          let type_obj = v[1];
+        if (data_json === undefined) {
+          console.log('tried');
+          this.getAI();
+        } else {
+          var types_json = [];
+          Object.entries(this.types.json.modules).forEach((v, i) => {
+            let type_slug = v[0];
+            let type_obj = v[1];
 
-          if (type_slug == 'webapp') {
-            types_json['webapp'] = type_obj;
+            if (type_slug == 'webapp') {
+              types_json['webapp'] = type_obj;
+            }
+          });
+
+          var link_json = [];
+          Object.entries(data_json).forEach((v, i) => {
+            let type_slug = v[0];
+            let type_obj = v[1];
+
+            if (type_slug != 'webapp') {
+              link_json[type_slug] = type_obj;
+            }
+          });
+
+          types_json['webapp']['project_description'] = this.projectDescription;
+          types_json['webapp']['implementation_summary'] = data.html;
+
+          if (data_json) {
+            this.types.json.modules = {
+              ...Object.assign({}, types_json),
+              ...Object.assign({}, link_json),
+            };
+            await this.types.json.save();
+
+            this.type.loadingSearchResults = false;
           }
-        });
 
-        var link_json = [];
-        Object.entries(data_json).forEach((v, i) => {
-          let type_slug = v[0];
-          let type_obj = v[1];
-
-          if (type_slug != 'webapp') {
-            link_json[type_slug] = type_obj;
-          }
-        });
-
-        types_json['webapp']['implementation_summary'] = data.html;
-
-        if (data_json) {
-          this.types.json.modules = {
-            ...Object.assign({}, types_json),
-            ...Object.assign({}, link_json),
-          };
-          await this.types.json.save();
-
-          this.type.loadingSearchResults = false;
+          window.location.href = '/';
         }
-
-        window.location.href = '/';
       } else {
         this.type.loadingSearchResults = false;
       }

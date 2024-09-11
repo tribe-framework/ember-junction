@@ -9,6 +9,11 @@ export default class TypesListTableSearchBoxComponent extends Component {
   @service type;
 
   @action
+  async advancedSearch() {
+    await this.args.advancedSearch();
+  }
+
+  @action
   async papaUnparse() {
     this.type.loadingSearchResults = true;
     let data = await this.store.query(this.type.currentType.slug, {
