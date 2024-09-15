@@ -7,6 +7,7 @@ export default class TypesListTableSearchBoxComponent extends Component {
   @service colormodes;
   @service store;
   @service type;
+  @service types;
 
   @action
   async advancedSearch() {

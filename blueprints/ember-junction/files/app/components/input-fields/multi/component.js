@@ -1,19 +1,20 @@
 import Component from '@glimmer/component';
-import { tracked } from '@glimmer/tracking';
-import { action } from '@ember/object';
-import { A } from '@ember/array';
+import { service } from '@ember/service';
 
 export default class InputFieldsMultiComponent extends Component {
-  @tracked fieldValue = A([]);
+  @service object;
 
-  @action
-  initiateFieldValue() {
-    this.fieldValue =
-      this.args.object[this.args.module.input_slug] !== undefined
-        ? Array.isArray(this.args.object[this.args.module.input_slug])
-          ? this.args.object[this.args.module.input_slug][this.args.index]
-          : this.args.object[this.args.module.input_slug]
-        : [' '];
-    this.fieldValue = this.fieldValue;
+  get lengthMinusOne() {
+    if (
+      this.object.currentObject === null ||
+      this.object.currentObject.modules[this.args.module.input_slug] ===
+        undefined
+    )
+      return 0;
+    else
+      return (
+        this.object.currentObject.modules[this.args.module.input_slug].length -
+        1
+      );
   }
 }

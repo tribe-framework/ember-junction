@@ -176,4 +176,59 @@ export default class BlueprintsService extends Service {
       }
     }
   }
+
+  @action
+  async getSampleData() {
+    if (this.projectDescription != '') {
+      this.type.loadingSearchResults = true;
+
+      var types_json = [];
+      Object.entries(this.types.json.modules).forEach((v, i) => {
+        let type_slug = v[0];
+        let type_obj = v[1];
+
+        if (
+          type_slug != 'webapp' &&
+          type_slug != 'deleted_record' &&
+          type_slug != 'file_record' &&
+          type_slug != 'blueprint_record'
+        ) {
+          types_json[type_slug] = type_obj;
+        }
+      });
+
+      let data = await fetch(
+        'https://tribe.junction.express/custom/anthropic/get-sample-data.php',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            project_description: this.projectDescription,
+            type: this.type.currentType.slug,
+            implementation_summary:
+              this.types.json.modules.webapp.implementation_summary,
+            types_json: { ...Object.assign({}, types_json) },
+          }),
+        },
+      ).then(function (response) {
+        return response.json();
+      });
+
+      if (data !== undefined && data && data.objects) {
+        Object.entries(data.objects).forEach(async (v, i) => {
+          let obj = v[1];
+          let vv = this.store.createRecord(this.type.currentType.slug, {
+            modules: { ...obj },
+          });
+          await vv.save();
+        });
+
+        window.location.href = '/track/' + this.type.currentType.slug;
+      } else {
+        this.type.loadingSearchResults = false;
+      }
+    }
+  }
 }
