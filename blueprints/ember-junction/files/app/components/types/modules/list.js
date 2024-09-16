@@ -13,6 +13,20 @@ export default class TypesModulesListComponent extends Component {
   @tracked reloadTypes = false;
 
   @action
+  highlightLinkages(l) {
+    if (l !== undefined) {
+      document.querySelector('#track-' + l).classList.add('bg-primary');
+    }
+  }
+
+  @action
+  unhighlightLinkages(l) {
+    if (l !== undefined) {
+      document.querySelector('#track-' + l).classList.remove('bg-primary');
+    }
+  }
+
+  @action
   async ignoreReordering() {
     this.type.loadingSearchResults = true;
     this.args.stopWobble();
