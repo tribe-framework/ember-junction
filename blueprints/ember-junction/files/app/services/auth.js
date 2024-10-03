@@ -40,7 +40,7 @@ export default class AuthService extends Service {
   };
 
   @action
-  async submitPassword() {
+  async submitPassword(e) {
     if (
       ENV.JUNCTION_SLUG == 'junction' &&
       this.inputPassword !== '' &&
@@ -81,14 +81,16 @@ export default class AuthService extends Service {
 
   @action
   async justGoToRouteAfterLogin() {
-    if (this.goToRouteAfterLogin == 'index')
+    if (this.goToRouteAfterLogin == 'index') {
       this.router.transitionTo(this.goToRouteAfterLogin);
-    else {
+    } else if (this.goToRouteAfterLogin && this.goToSlugAfterLogin) {
       this.type.currentType = this.types.json.modules[this.goToSlugAfterLogin];
       this.router.transitionTo(
         this.goToRouteAfterLogin,
-        this.goToSlugAfterLogin,
+        this.goToSlugAfterLogin
       );
+    } else {
+      this.router.transitionTo('index');
     }
   }
 
