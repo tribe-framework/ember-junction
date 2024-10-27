@@ -1,6 +1,7 @@
 import Service from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
+import { later } from '@ember/runloop';
 import { service } from '@ember/service';
 import { Modal } from 'bootstrap';
 
@@ -9,6 +10,10 @@ export default class ModuleService extends Service {
   @tracked currentModule = null;
   @service types;
   @tracked modelBox = null;
+
+  inputLinkedTypesOnly = [
+    { title: 'Select', slug: 'select', var: 'string', multi: false },
+  ];
 
   inputTypes = [
     { title: 'Text', slug: 'text', var: 'string', multi: false },
@@ -45,10 +50,18 @@ export default class ModuleService extends Service {
   @tracked listSortable = null;
   @tracked linkedType = '';
   @tracked linkedTypesAvailable = [];
+  @tracked inputOptions = [];
   @tracked inputMultiple = false;
   @tracked inputRequired = false;
   @tracked inputPrimary = false;
   @tracked inputUnique = false;
+  @tracked restrictToLinkedOnly = false;
+
+  @action
+  changeToRestrictToLinkedOnly(e) {
+    this.restrictToLinkedOnly = e;
+    if (e == true) this.changeInputType(this.inputLinkedTypesOnly[0]);
+  }
 
   @action
   changeLinkedType(e) {
@@ -78,14 +91,25 @@ export default class ModuleService extends Service {
       this.currentModule.input_required !== undefined
         ? this.currentModule.input_required
         : false;
+    this.inputOptions =
+      this.currentModule.input_options !== undefined
+        ? this.currentModule.input_options
+        : [];
 
     this.inputTypes.forEach((i) => {
       if (i.slug == this.currentModule.input_type) this.selectedInputType = i;
     });
 
-    if (this.currentModule.linked_type !== undefined)
+    if (
+      this.currentModule.linked_type !== undefined &&
+      this.currentModule.linked_type
+    ) {
       this.linkedType = this.currentModule.linked_type;
-    else this.linkedType = '';
+      this.restrictToLinkedOnly = true;
+    } else {
+      this.linkedType = '';
+      this.restrictToLinkedOnly = false;
+    }
 
     if (this.currentModule.list_field !== undefined)
       this.listField = this.currentModule.list_field;
@@ -134,6 +158,10 @@ export default class ModuleService extends Service {
           this.inputUnique = false;
         }
 
+        if (this.restrictToLinkedOnly === false) {
+          this.linkedType = '';
+        }
+
         this.types.json.modules[slug].modules[exists] = {
           input_slug: this.currentModule.input_slug,
           linked_type: this.linkedType,
@@ -141,6 +169,7 @@ export default class ModuleService extends Service {
           input_unique: this.inputUnique,
           input_type: this.selectedInputType.slug,
           input_multiple: this.inputMultiple,
+          input_options: this.inputOptions,
           input_required: this.inputRequired,
           input_placeholder: this.currentModule.input_placeholder,
           list_field: this.listField,
@@ -156,6 +185,40 @@ export default class ModuleService extends Service {
     } else {
       alert('Form Input Type field is compulsory.');
     }
+  }
+
+  @action
+  addOption() {
+    later(
+      this,
+      () => {
+        this.inputOptions.push({ title: '', slug: '' });
+        this.inputOptions = this.inputOptions;
+      },
+      100,
+    );
+  }
+
+  @action
+  updateOption(e) {
+    this.inputOptions.push(e);
+    this.inputOptions = [...new Set(this.inputOptions)];
+    this.inputOptions = this.inputOptions;
+  }
+
+  @action
+  removeOption(index) {
+    later(
+      this,
+      () => {
+        if (index > -1) {
+          this.inputOptions.splice(index, 1);
+        }
+        this.inputOptions = this.inputOptions;
+        console.log(this.inputOptions);
+      },
+      100,
+    );
   }
 
   @action

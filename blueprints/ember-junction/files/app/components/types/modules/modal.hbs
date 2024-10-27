@@ -7,7 +7,7 @@
   aria-hidden="true"
   {{did-insert this.module.initModel}}
 >
-  <div class="modal-dialog modal-lg">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg">
     <div class="modal-content">
       <div class="modal-header">
         <h1
@@ -67,25 +67,99 @@
             class="row g-3 align-items-center my-3 border-bottom border-1 border-muted pb-3"
           >
             <div class="my-1 py-0 col-12 col-md-2">
+              <label class="fst-italic col-form-label fw-bold">linked track</label>
+            </div>
+            <div class="my-1 col-12 col-md-7">
+              <XToggle
+                @theme="ios"
+                @variant={{this.colormodes.mode}}
+                @value={{this.module.restrictToLinkedOnly}}
+                @onToggle={{this.module.changeToRestrictToLinkedOnly}}
+              />
+            </div>
+            <div class="my-1 col-12 col-md-3">
+              <span class="form-text">Dynamically links objects of another
+                track.</span>
+            </div>
+          </div>
+
+          {{#if
+            (and
+              (eq this.module.selectedInputType.slug "select")
+              (eq this.module.restrictToLinkedOnly true)
+            )
+          }}
+            <div
+              class="row g-3 align-items-center my-3 border-bottom border-1 border-muted pb-3"
+            >
+              <div class="my-1 py-0 col-12 col-md-2">
+                <label class="fst-italic col-form-label fw-bold">choose track</label>
+              </div>
+              <div class="my-1 col-12 col-md-7">
+                <PowerSelect
+                  @selected={{this.module.linkedType}}
+                  @options={{this.module.linkedTypesAvailable}}
+                  @onChange={{this.module.changeLinkedType}}
+                  @dropdownClass="in-modal-dropdown"
+                  class="rounded-0 px-2 border-muted"
+                  @placeholder="Select linked track"
+                  as |tp|
+                >
+                  {{tp}}
+                </PowerSelect>
+              </div>
+              <div class="my-1 col-12 col-md-3">
+                <span class="form-text">Choose the linked track</span>
+              </div>
+            </div>
+          {{/if}}
+
+          <div
+            class="row g-3 align-items-center my-3 border-bottom border-1 border-muted pb-3"
+          >
+            <div class="my-1 py-0 col-12 col-md-2">
               <label class="fst-italic col-form-label fw-bold">type</label>
             </div>
             <div class="my-1 col-12 col-md-7">
-              <PowerSelect
-                @selected={{this.module.selectedInputType}}
-                @options={{this.module.inputTypes}}
-                @onChange={{this.module.changeInputType}}
-                @dropdownClass="in-modal-dropdown"
-                class="rounded-0 px-2 border-muted"
-                @placeholder="Select input type"
-                as |ip|
-              >
-                {{ip.title}}
-              </PowerSelect>
+              {{#if (eq this.module.restrictToLinkedOnly true)}}
+                <PowerSelect
+                  @selected={{this.module.selectedInputType}}
+                  @options={{this.module.inputLinkedTypesOnly}}
+                  @onChange={{this.module.changeInputType}}
+                  @dropdownClass="in-modal-dropdown"
+                  class="rounded-0 px-2 border-muted"
+                  @placeholder="Select input type"
+                  as |ip|
+                >
+                  {{ip.title}}
+                </PowerSelect>
+              {{else}}
+                <PowerSelect
+                  @selected={{this.module.selectedInputType}}
+                  @options={{this.module.inputTypes}}
+                  @onChange={{this.module.changeInputType}}
+                  @dropdownClass="in-modal-dropdown"
+                  class="rounded-0 px-2 border-muted"
+                  @placeholder="Select input type"
+                  as |ip|
+                >
+                  {{ip.title}}
+                </PowerSelect>
+              {{/if}}
             </div>
             <div class="my-1 col-12 col-md-3">
               <span class="form-text">Form input type.</span>
             </div>
           </div>
+
+          {{#if
+            (and
+              (eq this.module.selectedInputType.slug "select")
+              (eq this.module.restrictToLinkedOnly false)
+            )
+          }}
+            <Types::Modules::InputOptions />
+          {{/if}}
 
           {{#if
             (and
@@ -111,33 +185,6 @@
               </div>
               <div class="my-1 col-12 col-md-3">
                 <span class="form-text">Is it a required field?</span>
-              </div>
-            </div>
-          {{/if}}
-
-          {{#if (eq this.module.selectedInputType.slug "select")}}
-            <div
-              class="row g-3 align-items-center my-3 border-bottom border-1 border-muted pb-3"
-            >
-              <div class="my-1 py-0 col-12 col-md-2">
-                <label class="fst-italic col-form-label fw-bold">linked track</label>
-              </div>
-              <div class="my-1 col-12 col-md-7">
-                <PowerSelect
-                  @selected={{this.module.linkedType}}
-                  @options={{this.module.linkedTypesAvailable}}
-                  @onChange={{this.module.changeLinkedType}}
-                  @dropdownClass="in-modal-dropdown"
-                  class="rounded-0 px-2 border-muted"
-                  @placeholder="Select linked track"
-                  as |tp|
-                >
-                  {{tp}}
-                </PowerSelect>
-              </div>
-              <div class="my-1 col-12 col-md-3">
-                <span class="form-text">Dynamically links objects of another
-                  track.</span>
               </div>
             </div>
           {{/if}}

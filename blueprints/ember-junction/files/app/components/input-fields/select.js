@@ -33,21 +33,18 @@ export default class InputFieldsSelectComponent extends Component {
   }
 
   @action
-  cleanVarsOnMultiModalOpen() {
+  async cleanVarsOnMultiModalOpen() {
     const myModalMulti = document.getElementById(
       'editObjectModal-' + this.args.type.slug + '-multi',
     );
-    myModalMulti.addEventListener('show.bs.modal', async (event) => {
-      if (this.args.id == 'multi') {
-        this.selectedOption = null;
-        this.selectedMultiOptions = A([]);
+    await myModalMulti.addEventListener('show.bs.modal', async (event) => {
+      this.selectedOption = null;
+      this.selectedMultiOptions = A([]);
 
-        this.selectedOption = this.selectedOption;
-        this.selectedMultiOptions = this.selectedMultiOptions;
+      this.selectedOption = this.selectedOption;
+      this.selectedMultiOptions = this.selectedMultiOptions;
 
-        await this.isModuleAlsoAType();
-      } else {
-      }
+      await this.isModuleAlsoAType();
     });
   }
 

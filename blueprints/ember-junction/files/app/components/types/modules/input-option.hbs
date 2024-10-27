@@ -1,0 +1,36 @@
+<div class="input-group mb-3">
+  <Input
+    @type="text"
+    class="form-control"
+    placeholder="Option title"
+    @value={{mut (get this.option "title")}}
+    {{on "focus" this.clickedInside}}
+    {{on-click-outside this.validateOption}}
+    {{on-key "Tab" this.validateOption}}
+    {{on-key "Enter" this.validateOption}}
+  />
+
+  {{#if (get this.option "title")}}
+    <Input
+      @type="text"
+      class="form-control"
+      placeholder="Option value"
+      @value={{mut (get this.option "slug")}}
+      {{on "focus" this.clickedInside}}
+      {{on-click-outside this.validateOption}}
+      {{on-key "Tab" this.validateOption}}
+      {{on-key "Enter" this.validateOption}}
+    />
+  {{/if}}
+
+  {{#if (eq @index 0)}}
+    <span class="input-group-text" {{on "click" this.module.addOption}}><i
+        class="fa-solid fa-circle-plus"
+      ></i></span>
+  {{else}}
+    <span
+      class="input-group-text text-danger"
+      {{on "click" (fn this.module.removeOption @index)}}
+    ><i class="fa-solid fa-circle-xmark"></i></span>
+  {{/if}}
+</div>

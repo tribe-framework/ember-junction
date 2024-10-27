@@ -15,6 +15,12 @@ export default class TypesListTableSearchBoxComponent extends Component {
   }
 
   @action
+  async search() {
+    this.args.changePageNumber(1);
+    await this.type.search();
+  }
+
+  @action
   async papaUnparse() {
     this.type.loadingSearchResults = true;
     let data = await this.store.query(this.type.currentType.slug, {

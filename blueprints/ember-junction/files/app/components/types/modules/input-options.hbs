@@ -1,0 +1,7 @@
+{{#each this.module.inputOptions as |option index|}}
+  <Types::Modules::InputOption @index={{index}} @option={{option}} />
+{{else}}
+  <Types::Modules::InputOption @index={{0}} />
+{{/each}}
+
+{{! "input_options":[{"slug":"admin","title":"Admin"},{"slug":"organisation_employee","title":"Organisation Employee"},{"slug":"community_leader","title":"Community Leader"} }}

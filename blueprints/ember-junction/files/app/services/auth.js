@@ -18,6 +18,7 @@ export default class AuthService extends Service {
   @tracked goToSlugAfterLogin = '';
 
   checkIfLoggedIn = async () => {
+    this.type.loadingSearchResults = true;
     let cookiePassword = this.cookies.getCookie(ENV.JUNCTION_SLUG);
 
     if (
@@ -25,6 +26,7 @@ export default class AuthService extends Service {
       this.junctionPassword !== '' &&
       cookiePassword == this.junctionPassword
     ) {
+      this.type.loadingSearchResults = false;
       return true;
     } else if (
       cookiePassword !== null &&
@@ -33,14 +35,17 @@ export default class AuthService extends Service {
     ) {
       this.inputPassword = cookiePassword;
       await this.submitPassword();
+      this.type.loadingSearchResults = false;
       return true;
     } else {
+      this.type.loadingSearchResults = false;
       return false;
     }
   };
 
   @action
-  async submitPassword(e) {
+  async submitPassword() {
+    this.type.loadingSearchResults = true;
     if (
       ENV.JUNCTION_SLUG == 'junction' &&
       this.inputPassword !== '' &&
@@ -48,6 +53,7 @@ export default class AuthService extends Service {
       this.inputPassword == this.junctionPassword
     ) {
       this.cookies.setCookie(ENV.JUNCTION_SLUG, this.inputPassword);
+      this.type.loadingSearchResults = false;
       this.justGoToRouteAfterLogin();
     } else if (ENV.JUNCTION_SLUG !== undefined && ENV.JUNCTION_SLUG != '') {
       await fetch('https://tribe.junction.express/custom/auth/access.php', {
@@ -67,12 +73,14 @@ export default class AuthService extends Service {
           }
         })
         .then(async (response) => {
-          if (response.authenticated === true) {
+          if (response !== undefined && response.authenticated === true) {
             this.types.json.modules.webapp.name = response.title;
             await this.types.json.save();
             this.cookies.setCookie(ENV.JUNCTION_SLUG, this.inputPassword);
+            this.type.loadingSearchResults = false;
             this.justGoToRouteAfterLogin();
           } else {
+            this.type.loadingSearchResults = false;
             alert('Incorrect password.');
           }
         });
@@ -81,16 +89,17 @@ export default class AuthService extends Service {
 
   @action
   async justGoToRouteAfterLogin() {
-    if (this.goToRouteAfterLogin == 'index') {
-      this.router.transitionTo(this.goToRouteAfterLogin);
-    } else if (this.goToRouteAfterLogin && this.goToSlugAfterLogin) {
+    if (
+      this.goToRouteAfterLogin == 'index' ||
+      this.goToRouteAfterLogin == 'auth'
+    )
+      this.router.transitionTo('index');
+    else {
       this.type.currentType = this.types.json.modules[this.goToSlugAfterLogin];
       this.router.transitionTo(
         this.goToRouteAfterLogin,
-        this.goToSlugAfterLogin
+        this.goToSlugAfterLogin,
       );
-    } else {
-      this.router.transitionTo('index');
     }
   }
 

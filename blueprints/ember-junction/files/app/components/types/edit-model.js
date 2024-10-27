@@ -36,6 +36,7 @@ export default class TypesEditModelComponent extends Component {
     });
     myModalEl.addEventListener('show.bs.modal', async (event) => {
       let typeSlug = this.type.currentType.slug;
+      console.log(typeSlug);
       this.trackName = this.types.json.modules[typeSlug]['name'];
       this.trackPlural = this.types.json.modules[typeSlug]['plural'];
       this.trackDescription = this.types.json.modules[typeSlug]['description'];

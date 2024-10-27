@@ -14,14 +14,14 @@ export default class TypesModulesListComponent extends Component {
 
   @action
   highlightLinkages(l) {
-    if (l !== undefined) {
+    if (l !== undefined && document.querySelector('#track-' + l) !== null) {
       document.querySelector('#track-' + l).classList.add('bg-primary');
     }
   }
 
   @action
   unhighlightLinkages(l) {
-    if (l !== undefined) {
+    if (l !== undefined && document.querySelector('#track-' + l) !== null) {
       document.querySelector('#track-' + l).classList.remove('bg-primary');
     }
   }

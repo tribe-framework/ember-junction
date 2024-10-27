@@ -13,6 +13,7 @@ export default class HeaderComponent extends Component {
 
   @action
   changeType(type) {
+    this.type.clearSearchQuery();
     this.type.editorJSOnTypeChange();
     this.type.currentType = type;
     this.type.loadTypeObjects();

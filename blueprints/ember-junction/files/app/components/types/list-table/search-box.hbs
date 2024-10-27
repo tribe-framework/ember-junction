@@ -20,8 +20,7 @@
   <button
     class="btn btn-outline-{{this.colormodes.inverseMode}}"
     type="button"
-    {{on "click" @search}}
-    {{on "click" (fn @changePageNumber 1)}}
+    {{on "click" this.search}}
   ><i class="fa-solid fa-magnifying-glass"></i></button>
   <button
     class="btn btn-outline-{{this.colormodes.inverseMode}}"

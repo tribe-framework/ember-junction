@@ -1,6 +1,7 @@
 import Service from '@ember/service';
 import { tracked } from '@glimmer/tracking';
 import { action } from '@ember/object';
+import { later } from '@ember/runloop';
 import { service } from '@ember/service';
 import ENV from '<%= dasherizedPackageName %>/config/environment';
 
@@ -74,6 +75,7 @@ export default class BlueprintsService extends Service {
     });
 
     types_json['webapp']['implementation_summary'] = '';
+    types_json['webapp']['project_description'] = '';
 
     this.types.json.modules = {
       ...Object.assign({}, types_json),
@@ -108,11 +110,27 @@ export default class BlueprintsService extends Service {
     ? this.types.json.modules.webapp.project_description
     : '';
 
+  @tracked loadingProgress = 0;
+  @tracked totalTime = 0;
+
+  progressLoading = () => {
+    if (this.loadingProgress < 89) this.loadingProgress += 10;
+    this.totalTime += 5;
+
+    if (this.totalTime > 70) {
+      clearInterval(intervalId);
+      this.getAI();
+    }
+  };
+
   @action
   async getAI() {
     if (this.projectDescription != '') {
-      this.type.loadingSearchResults = true;
+      this.loadingProgress = 5;
+      this.totalTime = 5;
       await this.types.saveCurrentTypes(this.types.json.modules);
+
+      let intervalId = setInterval(this.progressLoading, 5000);
 
       let data = await fetch(
         'https://tribe.junction.express/custom/anthropic/get-response.php',
@@ -133,7 +151,6 @@ export default class BlueprintsService extends Service {
         let data_json = JSON.parse(data.json);
 
         if (data_json === undefined) {
-          console.log('tried');
           this.getAI();
         } else {
           var types_json = [];
@@ -166,13 +183,20 @@ export default class BlueprintsService extends Service {
             };
             await this.types.json.save();
 
-            this.type.loadingSearchResults = false;
+            this.loadingProgress = 100;
+            clearInterval(intervalId);
           }
 
-          window.location.href = '/';
+          later(
+            this,
+            () => {
+              window.location.href = '/';
+            },
+            1000,
+          );
         }
       } else {
-        this.type.loadingSearchResults = false;
+        this.loadingProgress = 0;
       }
     }
   }

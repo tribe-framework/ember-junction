@@ -516,23 +516,6 @@ export default class TypesEditObjectModalComponent extends Component {
   @action
   cleanVarsOnModalOpen(e) {
     const myModalEl = document.getElementById(e.id);
-
-    if (this.args.multiEdit !== true) {
-      this.type.currentType.modules.forEach((module) => {
-        if (module.input_type == 'editorjs') {
-          let i = async (event) => {
-            await this.initEditorJS(module.input_slug);
-          };
-          this.type.showModalEvents.push(i);
-
-          let u = async (event) => {
-            await this.uninitEditorJS(module.input_slug);
-          };
-          this.type.hideModalEvents.push(u);
-        }
-      });
-    }
-
     myModalEl.addEventListener('show.bs.modal', (event) => {
       this.deleteSurity = 'd-none';
 
@@ -545,24 +528,6 @@ export default class TypesEditObjectModalComponent extends Component {
 
       if (this.objectID == 'new' || this.objectID == 'multi') {
         this.cleanVarsIfNew();
-      }
-
-      if (this.args.multiEdit !== true) {
-        this.type.currentType.modules.forEach((module) => {
-          if (module.input_type == 'editorjs') {
-            this.initEditorJS(module.input_slug);
-          }
-        });
-      }
-    });
-
-    myModalEl.addEventListener('hidden.bs.modal', (event) => {
-      if (this.args.multiEdit !== true) {
-        this.type.currentType.modules.forEach((module) => {
-          if (module.input_type == 'editorjs') {
-            this.uninitEditorJS(module.input_slug);
-          }
-        });
       }
     });
   }

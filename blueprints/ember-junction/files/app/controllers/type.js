@@ -13,13 +13,6 @@ export default class TypeController extends Controller {
   @tracked activateReordering = false;
 
   @action
-  changeType() {
-    this.type.editorJSOnTypeChange();
-    this.type.currentType = this.model;
-    this.type.loadTypeObjects();
-  }
-
-  @action
   startWobble() {
     if (
       this.type.currentType.slug != 'deleted_record' &&

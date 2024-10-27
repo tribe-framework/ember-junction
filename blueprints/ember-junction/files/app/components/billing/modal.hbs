@@ -1,0 +1,51 @@
+{{! Modal }}
+<div
+  class="modal fade"
+  id="billingModal"
+  tabindex="-1"
+  aria-labelledby="billingModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-xl modal-dialog-scrollable">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="billingModalLabel"><span
+            class="text-primary fst-italic"
+          >Billing for</span>
+          {{this.billing.currentJunction.name}}</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+
+      <div class="modal-body">
+      </div>
+
+      {{#if this.billing.isPaymentDue}}
+        <div
+          class="modal-footer d-flex align-items-center justify-content-end p-0"
+        >
+          <div class="d-flex align-items-center justify-content-end">
+            <button
+              {{on "click" this.payNow}}
+              type="button"
+              class="btn btn-sm btn-secondary ms-2"
+            ><i class="fa-solid fa-money-bill"></i> Pay Now</button>
+          </div>
+        </div>
+      {{else}}
+        <div
+          class="modal-footer d-flex align-items-center justify-content-end p-0"
+        >
+          <div class="d-flex align-items-center justify-content-end">
+            <i class="fa-solid fa-circle-check text-success"></i>
+            No payment due.
+          </div>
+        </div>
+      {{/if}}
+    </div>
+  </div>
+</div>

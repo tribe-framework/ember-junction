@@ -206,7 +206,7 @@ export default class TypeService extends Service {
     this.sortFieldQuery = this.sortFieldQuery;
     this.sortOrder = this.sortOrder;
 
-    if (searchResults === true) {
+    if (searchResults !== false) {
       await this.search();
     } else {
       await this.clearSearch();
@@ -267,26 +267,31 @@ export default class TypeService extends Service {
         filter: { title: this.searchQuery },
       });
       this.loadingSearchResults = false;
-      if (this.objectsInType.meta.total_objects !== undefined)
+      if (
+        this.objectsInType.meta !== undefined &&
+        this.objectsInType.meta.total_objects !== undefined
+      )
         this.totalObjects = this.objectsInType.meta.total_objects;
     } else this.clearSearch();
   }
 
   @action
   async clearSearch() {
-    this.isAdvancedSearch = false;
-    this.totalObjects = this.currentType.total_objects;
-    this.loadingSearchResults = true;
-    this.objectsInType = null;
+    if (this.currentType !== null) {
+      this.isAdvancedSearch = false;
+      this.totalObjects = this.currentType.total_objects;
+      this.loadingSearchResults = true;
+      this.objectsInType = null;
 
-    this.objectsInType = await this.store.query(this.currentType.slug, {
-      show_public_objects_only: false,
-      sort: this.sortFieldQuery[this.currentType.slug],
-      page: {
-        limit: this.currentPageLength[this.currentType.slug],
-        offset: this.currentPageOffset[this.currentType.slug],
-      },
-    });
+      this.objectsInType = await this.store.query(this.currentType.slug, {
+        show_public_objects_only: false,
+        sort: this.sortFieldQuery[this.currentType.slug],
+        page: {
+          limit: this.currentPageLength[this.currentType.slug],
+          offset: this.currentPageOffset[this.currentType.slug],
+        },
+      });
+    }
 
     this.showClearSearchButton = false;
     this.loadingSearchResults = false;
@@ -309,7 +314,10 @@ export default class TypeService extends Service {
 
     this.showClearSearchButton = true;
     this.loadingSearchResults = false;
-    if (this.objectsInType.meta.total_objects !== undefined)
+    if (
+      this.objectsInType.meta !== undefined &&
+      this.objectsInType.meta.total_objects !== undefined
+    )
       this.totalObjects = this.objectsInType.meta.total_objects;
   }
 
