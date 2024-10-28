@@ -43,9 +43,7 @@ export default class ApplicationRoute extends Route {
   }
 
   async model() {
-    return await this.store.findRecord('webapp', 0, {
-      include: ['total_objects'],
-    });
+    return await this.store.findRecord('webapp', 0, {});
   }
 
   @action

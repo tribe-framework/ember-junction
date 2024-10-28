@@ -5,15 +5,11 @@ import { tracked } from '@glimmer/tracking';
 
 export default class TypesService extends Service {
   @service store;
-  @tracked json = this.store.peekRecord('webapp', 0, {
-    include: ['total_objects'],
-  });
+  @tracked json = this.store.peekRecord('webapp', 0, {});
 
   @action
   async fetchAgain() {
-    this.json = await this.store.findRecord('webapp', 0, {
-      include: ['total_objects'],
-    });
+    this.json = await this.store.findRecord('webapp', 0, {});
     this.json = this.json;
   }
 
