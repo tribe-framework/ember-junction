@@ -1,22 +1,43 @@
-<nav class="fs-4 fs-light border-bottom border-5 border-primary navbar navbar-expand bg-{{this.colormodes.mode}} sticky-top py-0" {{did-insert this.colormodes.initMode}}>
+<nav
+  class="fs-4 fs-light border-bottom border-5 border-primary navbar navbar-expand bg-{{this.colormodes.mode}}
+    sticky-top py-0"
+  {{did-insert this.colormodes.initMode}}
+>
   {{#if @public}}
 
     <div class="p-3 container-fluid">
-      <button id="main-menu-toggler" class="shadow-none navbar-toggler p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button
+        id="main-menu-toggler"
+        class="shadow-none navbar-toggler p-0"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <i class="bars-staggered fs-1"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto text-end d-flex align-items-stretch">
           {{#if (eq this.colormodes.mode "light")}}
-            <div class="py-1"><Logo::Icon @width="100" @color="var(--bs-black)" /></div>
+            <div class="py-1"><Logo::Icon
+                @width="100"
+                @color="var(--bs-black)"
+              /></div>
           {{else}}
-            <div class="py-1"><Logo::Icon @width="100" @color="var(--bs-white)" /></div>
+            <div class="py-1"><Logo::Icon
+                @width="100"
+                @color="var(--bs-white)"
+              /></div>
           {{/if}}
         </ul>
       </div>
       <div class="d-flex align-items-center justify-content-end">
-        <div class="fs-4 px-2 px-md-3 cursor-pointer"
-          {{on 'click' this.colormodes.changeMode}}>
+        <div
+          class="fs-4 px-2 px-md-3 cursor-pointer"
+          {{on "click" this.colormodes.changeMode}}
+        >
           {{#if (eq this.colormodes.mode "dark")}}
             <i class="fa-solid fa-sun"></i>
           {{else}}
@@ -28,24 +49,42 @@
 
   {{else}}
     <div class="container-fluid px-0">
-      <button id="main-menu-toggler" {{on 'click' this.toggleBarsIcon}} class="shadow-none navbar-toggler p-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <button
+        id="main-menu-toggler"
+        {{on "click" this.toggleBarsIcon}}
+        class="shadow-none navbar-toggler p-0"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <i class="bars-staggered fs-1"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto text-end d-flex align-items-stretch">
           <HeaderNavItem @collapseMenu={{this.collapseMenu}} @navroute="index">
             {{#if (eq this.colormodes.mode "light")}}
-              <div class="py-1"><Logo::Icon @width="100" @color="var(--bs-black)" /></div>
+              <div class="py-1"><Logo::Icon
+                  @width="100"
+                  @color="var(--bs-black)"
+                /></div>
             {{else}}
-              <div class="py-1"><Logo::Icon @width="100" @color="var(--bs-white)" /></div>
+              <div class="py-1"><Logo::Icon
+                  @width="100"
+                  @color="var(--bs-white)"
+                /></div>
             {{/if}}
           </HeaderNavItem>
         </ul>
       </div>
       <div class="d-flex align-items-center justify-content-end px-md-2">
 
-        <div class="fs-4 px-2 px-md-3 cursor-pointer"
-          {{on 'click' this.colormodes.changeMode}}>
+        <div
+          class="fs-4 px-2 px-md-3 cursor-pointer"
+          {{on "click" this.colormodes.changeMode}}
+        >
           {{#if (eq this.colormodes.mode "dark")}}
             <i class="fa-solid fa-sun"></i>
           {{else}}
@@ -53,40 +92,84 @@
           {{/if}}
         </div>
 
-        <div {{on 'click' (fn this.changeType (get this.types.json.modules "file_record"))}} class="fs-4 px-2 px-md-3 cursor-pointer">
+        <div
+          {{on
+            "click"
+            (fn this.changeType (get this.types.json.modules "file_record"))
+          }}
+          class="fs-4 px-2 px-md-3 cursor-pointer"
+        >
           <i class="fa-solid fa-cloud"></i>
         </div>
 
-        <div {{on 'click' (fn this.changeType (get this.types.json.modules "deleted_record"))}} class="fs-4 px-2 px-md-3 cursor-pointer">
+        <div
+          {{on
+            "click"
+            (fn this.changeType (get this.types.json.modules "deleted_record"))
+          }}
+          class="fs-4 px-2 px-md-3 cursor-pointer"
+        >
           <i class="fa-solid fa-trash"></i>
         </div>
 
-        <div class="fs-4 px-2 px-md-3 cursor-pointer"
-          data-bs-toggle="modal" data-bs-target="#typesWebapp">
+        <div
+          class="fs-4 px-2 px-md-3 cursor-pointer"
+          data-bs-toggle="modal"
+          data-bs-target="#typesWebapp"
+        >
           <i class="fa-solid fa-gear"></i>
         </div>
-        
+
         <HeaderNavItem>
           <div class="fs-4 px-2 px-md-3 cursor-pointer btn-group">
             <div class="dropdown-toggle" data-bs-toggle="dropdown">
               <i class="fa-solid fa-circle-nodes"></i>
             </div>
-            <ul class="dropdown-menu dropdown-menu-md-end overflow-y-scroll" style="max-height:400px" {{did-insert this.blueprints.getBlueprints}}>
+            <ul
+              class="dropdown-menu dropdown-menu-end overflow-y-scroll"
+              style="max-height:400px"
+              {{did-insert this.blueprints.getBlueprints}}
+            >
               <li><h6 class="dropdown-header text-capitalize">Switch blueprint</h6></li>
               {{#each this.blueprints.junctionBlueprints as |blueprint|}}
-                <li><a {{on 'click' (fn this.blueprints.changeBlueprint blueprint.attributes.modules.link)}} href="#" class="dropdown-item">{{blueprint.attributes.modules.title}}</a></li>
+                <li><a
+                    {{on
+                      "click"
+                      (fn
+                        this.blueprints.changeBlueprint
+                        blueprint.attributes.modules.link
+                      )
+                    }}
+                    href="#"
+                    class="dropdown-item"
+                  >{{blueprint.attributes.modules.title}}</a></li>
               {{/each}}
-              
-              <li><hr class="dropdown-divider"></li>
+
+              <li><hr class="dropdown-divider" /></li>
               <li><h6 class="dropdown-header text-capitalize">Start Again</h6></li>
-              <li><a {{on 'click' this.blueprints.clearBlueprint}} class="dropdown-item" href="#">Clear the canvas</a></li>
+              <li><a
+                  {{on "click" this.blueprints.clearBlueprint}}
+                  class="dropdown-item"
+                  href="#"
+                >Clear the canvas</a></li>
 
               {{#if this.blueprints.myBlueprints}}
-                <li><hr class="dropdown-divider"></li>
+                <li><hr class="dropdown-divider" /></li>
 
-                <li><h6 class="dropdown-header text-capitalize">Recently used blueprints</h6></li>
+                <li><h6 class="dropdown-header text-capitalize">Recently used
+                    blueprints</h6></li>
                 {{#each this.blueprints.myBlueprints as |blueprint|}}
-                  <li><a {{on 'click' (fn this.blueprints.revertBlueprint blueprint.modules.types_json)}} class="dropdown-item" href="#">{{blueprint.modules.title}}</a></li>
+                  <li><a
+                      {{on
+                        "click"
+                        (fn
+                          this.blueprints.revertBlueprint
+                          blueprint.modules.types_json
+                        )
+                      }}
+                      class="dropdown-item"
+                      href="#"
+                    >{{blueprint.modules.title}}</a></li>
                 {{/each}}
               {{/if}}
 
@@ -94,9 +177,13 @@
           </div>
         </HeaderNavItem>
 
-        <div class="fs-4 px-2 px-md-3 cursor-pointer"
-          data-bs-toggle="tooltip" data-bs-placement="bottom"
-          title="Logout" {{on 'click' this.auth.logout}}>
+        <div
+          class="fs-4 px-2 px-md-3 cursor-pointer"
+          data-bs-toggle="tooltip"
+          data-bs-placement="bottom"
+          title="Logout"
+          {{on "click" this.auth.logout}}
+        >
           <i class="fa-solid fa-arrow-right-from-bracket"></i>
         </div>
       </div>

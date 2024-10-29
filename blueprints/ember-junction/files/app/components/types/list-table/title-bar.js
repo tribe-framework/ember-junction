@@ -9,6 +9,7 @@ export default class TypesListTableTitleBarComponent extends Component {
   @service colormodes;
   @service object;
   @service type;
+  @service types;
   @service store;
 
   @action

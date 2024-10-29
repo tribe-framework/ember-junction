@@ -110,15 +110,17 @@
           <button
             {{on "click" this.openMultiModal}}
             type="button"
-            class="btn btn-info fw-normal w-100 border border-1 border-dark border-start-0"
+            class="btn btn-info fw-normal w-100 border border-1 border-{{this.colormodes.inverseMode}}
+              border-start-0"
           ><i class="fa-solid fa-layer-group"></i>&nbsp;Multi-edit</button>
         {{/if}}
 
         <button
           {{on "click" this.openNewModal}}
           type="button"
-          class="btn btn-primary fw-normal w-100 border border-1 border-dark border-start-0"
-        ><i class="fa-solid fa-plus"></i>&nbsp;New</button>
+          class="btn text-capitalize btn-primary fw-normal w-100 border border-1 border-{{this.colormodes.inverseMode}}
+            border-start-sm-1 border-start-md-0"
+        ><i class="fa-solid fa-plus"></i>&nbsp;New {{@type.name}}</button>
       </div>
     {{/unless}}
 
@@ -130,13 +132,15 @@
           <button
             {{on "click" this.openMultiModal}}
             type="button"
-            class="btn btn-danger fw-normal w-100 border border-1 border-dark border-start-0"
+            class="btn btn-danger fw-normal w-100 border border-1 border-{{this.colormodes.inverseMode}}
+              border-start-0"
           ><i class="fa-solid fa-trash-alt"></i>&nbsp;Delete permanently</button>
         {{else}}
           <button
             type="button"
             class="btn btn-outline-{{this.colormodes.inverseMode}}
-              fw-normal w-100 border border-1 border-dark border-start-0"
+              fw-normal w-100 border border-1 border-{{this.colormodes.inverseMode}}
+              border-start-0"
           ><i class="fa-solid fa-trash-alt"></i>&nbsp;Select to delete
             permanently</button>
         {{/if}}

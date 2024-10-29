@@ -7,7 +7,7 @@
   {{#unless this.reloadTypes}}
     <div
       id="track-names"
-      class="card-body d-flex align-items-center justify-content-center flex-wrap p-0"
+      class="card-body d-flex align-items-center justify-content-center flex-wrap p-0 col-lg-10 mx-auto"
     >
       {{#if this.types.json.modules.webapp.interfaces}}{{else}}
       {{/if}}
@@ -21,7 +21,7 @@
           <div
             class="btn-group
               {{if this.activateReordering 'wobble'}}
-              me-4 my-3 track-name-btn"
+              m-2 track-name-btn"
             data-type-slug={{type.slug}}
             role="group"
           ><button
@@ -29,7 +29,7 @@
               id="track-{{type.slug}}"
               {{on "click" (fn this.changeType type)}}
               type="button"
-              class="text-capitalize btn-lg fw-normal btn btn-{{if
+              class="text-capitalize fw-normal btn btn-{{if
                   (eq type.slug this.type.currentType.slug)
                   'primary'
                   (concat 'outline-' this.colormodes.inverseMode)
@@ -43,19 +43,19 @@
 
       {{#if (gt this.typesCount 4)}}
         {{#if this.types.json.modules.webapp.implementation_summary}}
-          <div class="ignore-elements btn-group me-3 my-3" role="group"><button
+          <div class="ignore-elements btn-group m-2" role="group"><button
               type="button"
               data-bs-toggle="modal"
               data-bs-target="#blueprintConsultationModal"
-              class="text-capitalize btn-lg fw-normal btn btn-outline-{{this.colormodes.inverseMode}}"
+              class="text-capitalize fw-normal btn btn-outline-{{this.colormodes.inverseMode}}"
             ><i class="fa-solid fa-circle-info"></i></button></div>
         {{/if}}
-        <div class="ignore-elements btn-group me-3 my-3" role="group"><button
+        <div class="ignore-elements btn-group m-2" role="group"><button
             id="track-new"
             type="button"
             data-bs-toggle="modal"
             data-bs-target="#newModel"
-            class="text-capitalize btn-lg fw-normal btn btn-{{this.colormodes.inverseMode}}"
+            class="text-capitalize fw-normal btn btn-outline-{{this.colormodes.inverseMode}}"
           ><i class="fa-solid fa-plus"></i></button></div>
       {{else}}
         <div
@@ -145,14 +145,14 @@
             id="track-new"
             type="button"
             {{on "click" this.ignoreReordering}}
-            class="text-capitalize btn-lg fw-normal border-0 btn me-n5"
+            class="text-capitalize fw-normal border-0 btn me-n5"
           ><i class="fa-solid fa-lock-open"></i></button>
         {{else}}
           <button
             id="track-new"
             type="button"
             {{on "click" this.startWobble}}
-            class="text-capitalize btn-lg fw-normal border-0 btn me-n5"
+            class="text-capitalize fw-normal border-0 btn me-n5"
           ><i class="fa-solid fa-lock"></i></button>
         {{/if}}
       {{/if}}
@@ -165,12 +165,12 @@
         p-1 d-flex align-items-center justify-content-between"
     >
       <button
-        class="btn btn-lg btn-outline-{{this.colormodes.mode}}"
+        class="btn btn-outline-{{this.colormodes.mode}}"
         type="button"
         {{on "click" this.ignoreReordering}}
       ><i class="fa-solid fa-circle-xmark"></i> Do not save</button>
       <button
-        class="btn btn-lg btn-primary"
+        class="btn btn-primary"
         type="button"
         {{on "click" this.saveReordering}}
       ><i class="fa-solid fa-circle-check"></i> Save reordering</button>
