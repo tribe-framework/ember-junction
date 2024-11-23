@@ -115,6 +115,10 @@ export default class ModuleService extends Service {
       this.listField = this.currentModule.list_field;
     else this.listField = false;
 
+    if (this.currentModule.input_unique !== undefined)
+      this.inputUnique = this.currentModule.input_unique;
+    else this.inputUnique = false;
+
     if (this.currentModule.list_searchable !== undefined)
       this.listSearchable = this.currentModule.list_searchable;
     else this.listSearchable = false;

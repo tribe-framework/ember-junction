@@ -111,6 +111,7 @@ export default class BlueprintsService extends Service {
     : '';
 
   @tracked loadingProgress = 0;
+  @tracked tryAgain = false;
   @tracked totalTime = 0;
 
   progressLoading = () => {
@@ -148,55 +149,66 @@ export default class BlueprintsService extends Service {
       });
 
       if (data !== undefined && data && data.json) {
-        let data_json = JSON.parse(data.json);
-
-        if (data_json === undefined) {
-          this.getAI();
+        if (
+          (data.error !== undefined && data.error) ||
+          data.json === undefined
+        ) {
+          this.loadingProgress = 0;
+          this.tryAgain = true;
         } else {
-          var types_json = [];
-          Object.entries(this.types.json.modules).forEach((v, i) => {
-            let type_slug = v[0];
-            let type_obj = v[1];
+          let data_json = data.json;
 
-            if (type_slug == 'webapp') {
-              types_json['webapp'] = type_obj;
+          if (data_json === undefined) {
+            this.loadingProgress = 0;
+            this.tryAgain = true;
+          } else {
+            var types_json = [];
+            Object.entries(this.types.json.modules).forEach((v, i) => {
+              let type_slug = v[0];
+              let type_obj = v[1];
+
+              if (type_slug == 'webapp') {
+                types_json['webapp'] = type_obj;
+              }
+            });
+
+            var link_json = [];
+            Object.entries(data_json).forEach((v, i) => {
+              let type_slug = v[0];
+              let type_obj = v[1];
+
+              if (type_slug != 'webapp') {
+                link_json[type_slug] = type_obj;
+              }
+            });
+
+            types_json['webapp']['project_description'] =
+              this.projectDescription;
+            types_json['webapp']['implementation_summary'] = data.html;
+
+            if (data_json) {
+              this.types.json.modules = {
+                ...Object.assign({}, types_json),
+                ...Object.assign({}, link_json),
+              };
+              await this.types.json.save();
+
+              this.loadingProgress = 100;
+              clearInterval(intervalId);
             }
-          });
 
-          var link_json = [];
-          Object.entries(data_json).forEach((v, i) => {
-            let type_slug = v[0];
-            let type_obj = v[1];
-
-            if (type_slug != 'webapp') {
-              link_json[type_slug] = type_obj;
-            }
-          });
-
-          types_json['webapp']['project_description'] = this.projectDescription;
-          types_json['webapp']['implementation_summary'] = data.html;
-
-          if (data_json) {
-            this.types.json.modules = {
-              ...Object.assign({}, types_json),
-              ...Object.assign({}, link_json),
-            };
-            await this.types.json.save();
-
-            this.loadingProgress = 100;
-            clearInterval(intervalId);
+            later(
+              this,
+              () => {
+                window.location.href = '/';
+              },
+              300,
+            );
           }
-
-          later(
-            this,
-            () => {
-              window.location.href = '/';
-            },
-            1000,
-          );
         }
       } else {
         this.loadingProgress = 0;
+        this.tryAgain = true;
       }
     }
   }
