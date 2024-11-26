@@ -1,7 +1,7 @@
 <div {{on-click-outside this.ignoreReordering}} class="card p-0 mt-5 border-0">
   <h1
     class="display-6 mb-4 fw-normal text-muted
-      {{if (lte this.typesCount 4) 'text-center' 'text-center'}}"
+      {{if (lte this.typesCount 5) 'text-center' 'text-center'}}"
   >{{this.types.json.modules.webapp.name}}</h1>
 
   {{#unless this.reloadTypes}}
@@ -41,7 +41,7 @@
         {{/if}}
       {{/each-in}}
 
-      {{#if (gt this.typesCount 4)}}
+      {{#if (gt this.typesCount 5)}}
         {{#if this.types.json.modules.webapp.implementation_summary}}
           <div class="ignore-elements btn-group m-2" role="group"><button
               type="button"
@@ -139,7 +139,7 @@
         </div>
       {{/if}}
 
-      {{#if (gt this.typesCount 4)}}
+      {{#if (gt this.typesCount 5)}}
         {{#if this.activateReordering}}
           <button
             id="track-new"

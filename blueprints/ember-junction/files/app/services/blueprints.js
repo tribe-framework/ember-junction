@@ -227,6 +227,7 @@ export default class BlueprintsService extends Service {
           type_slug != 'webapp' &&
           type_slug != 'deleted_record' &&
           type_slug != 'file_record' &&
+          type_slug != 'apikey_record' &&
           type_slug != 'blueprint_record'
         ) {
           types_json[type_slug] = type_obj;
