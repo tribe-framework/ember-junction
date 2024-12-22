@@ -25,6 +25,7 @@ export default class TypesEditObjectModalComponent extends Component {
   @service router;
   @service types;
   @service type;
+  @service colormodes;
   @service object;
 
   indexOf = (arr, slug) => {
@@ -103,7 +104,10 @@ export default class TypesEditObjectModalComponent extends Component {
   }
 
   @action
-  async pushObject() {
+  async pushObject(e) {
+    if (e !== undefined) {
+        this.colormodes.buttonLoading(e);
+    }
     //save all modules that are type=editorjs in the object
     //because image data does no auto-save in component input-fields/editorjs
 
@@ -196,6 +200,10 @@ export default class TypesEditObjectModalComponent extends Component {
 
     if (stop === true) {
       alert('Please fill all mandatory fields.');
+      
+      if (e !== undefined) {
+        this.colormodes.buttonUnloading(e);
+      }
     } else {
       if (
         this.object.currentObject !== null &&
@@ -260,6 +268,10 @@ export default class TypesEditObjectModalComponent extends Component {
       }
 
       this.types.fetchAgain();
+      
+      if (e !== undefined) {
+        this.colormodes.buttonUnloading(e);
+      }
     }
   }
 

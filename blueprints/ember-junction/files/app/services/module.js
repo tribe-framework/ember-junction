@@ -7,6 +7,7 @@ import { Modal } from 'bootstrap';
 
 export default class ModuleService extends Service {
   @service type;
+  @service colormodes;
   @tracked currentModule = null;
   @service types;
   @tracked modelBox = null;
@@ -134,7 +135,8 @@ export default class ModuleService extends Service {
   }
 
   @action
-  async save() {
+  async save(e) {
+    this.colormodes.buttonLoading(e);
     if (this.selectedInputType != null) {
       if (
         this.currentModule.input_placeholder === undefined ||
@@ -182,11 +184,13 @@ export default class ModuleService extends Service {
           var_type: this.selectedInputType.var,
         };
         await this.types.json.save();
+        await this.types.fetchAgain();
         this.modelBox.hide();
-        this.types.fetchAgain();
         document.querySelector('#track-' + slug).click();
       }
+      this.colormodes.buttonUnloading(e);
     } else {
+      this.colormodes.buttonUnloading(e);
       alert('Form Input Type field is compulsory.');
     }
   }

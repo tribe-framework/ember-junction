@@ -14,6 +14,7 @@ export default class TypesEditModelComponent extends Component {
   @tracked editable = true;
   @tracked trackPrimary = 'title';
   @service types;
+  @service colormodes;
   @service type;
   @tracked modelBox = null;
 
@@ -50,8 +51,9 @@ export default class TypesEditModelComponent extends Component {
   }
 
   @action
-  async save() {
+  async save(e) {
     if (this.trackName != '' && this.trackPlural != '') {
+      this.colormodes.buttonLoading(e);
       let typeSlug = this.type.currentType.slug;
       this.types.json.modules[typeSlug]['name'] = this.trackName;
       this.types.json.modules[typeSlug]['plural'] = this.trackPlural;
@@ -61,14 +63,9 @@ export default class TypesEditModelComponent extends Component {
       this.types.json.modules[typeSlug]['editable'] = this.editable;
 
       await this.types.json.save();
+      await this.types.fetchAgain();
+      this.colormodes.buttonUnloading(e);
       this.modelBox.hide();
-      later(
-        this,
-        () => {
-          window.location.reload(true);
-        },
-        1000,
-      );
     } else {
       alert('Name and plural are compulsory.');
     }

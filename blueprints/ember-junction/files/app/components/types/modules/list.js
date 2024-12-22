@@ -53,12 +53,8 @@ export default class TypesModulesListComponent extends Component {
   async saveReordering() {
     this.type.loadingSearchResults = true;
     await this.types.json.save();
-    later(
-      this,
-      async () => {
-        window.location.reload(true);
-      },
-      500,
-    );
+    await this.types.fetchAgain();
+    this.type.loadingSearchResults = false;
+    this.args.stopWobble();
   }
 }

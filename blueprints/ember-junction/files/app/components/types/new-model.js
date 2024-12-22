@@ -11,6 +11,8 @@ export default class TypesNewModelComponent extends Component {
   @tracked trackDescription = '';
   @tracked trackPrimary = 'title';
   @service types;
+  @service router;
+  @service colormodes;
   @tracked modelBox = null;
 
   get initiatedType() {}
@@ -33,17 +35,20 @@ export default class TypesNewModelComponent extends Component {
   }
 
   @action
-  async save() {
+  async save(e) {
     if (
       this.trackName != '' &&
       this.trackPlural != '' &&
       this.trackPrimary != ''
     ) {
+      this.colormodes.buttonLoading(e);
+      let typeSlug = this.convertToSlug(this.trackName);
+
       var exists = false;
       Object.keys(this.types.json.modules).forEach((track) => {
         if (track != 'webapp') {
           if (
-            track == this.convertToSlug(this.trackName) ||
+            track == typeSlug ||
             this.types.json.modules[track].name.toLowerCase() ==
               this.trackName.toLowerCase() ||
             this.types.json.modules[track].plural.toLowerCase() ==
@@ -59,11 +64,12 @@ export default class TypesNewModelComponent extends Component {
       });
 
       if (exists) {
+        this.colormodes.buttonUnloading(e);
         alert('A track with this name already exists.');
       } else {
-        this.types.json.modules[this.convertToSlug(this.trackName)] = {
+        this.types.json.modules[typeSlug] = {
           name: this.trackName,
-          slug: this.convertToSlug(this.trackName),
+          slug: typeSlug,
           plural: this.trackPlural,
           description: this.trackDescription,
           modules: [
@@ -81,14 +87,10 @@ export default class TypesNewModelComponent extends Component {
           ],
         };
         await this.types.json.save();
+        await this.types.fetchAgain();
+        this.colormodes.buttonUnloading(e);
         this.modelBox.hide();
-        later(
-          this,
-          () => {
-            window.location.reload(true);
-          },
-          1000,
-        );
+        this.router.transitionTo('type', typeSlug);
       }
     } else {
       alert('Name, plural and primary fields are compulsory.');

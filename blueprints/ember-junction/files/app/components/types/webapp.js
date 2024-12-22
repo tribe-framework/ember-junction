@@ -7,6 +7,7 @@ import ENV from '<%= dasherizedPackageName %>/config/environment';
 
 export default class TypesWebappComponent extends Component {
   @service types;
+  @service colormodes;
   @tracked webappBox = null;
 
   get isJunctionExpress() {
@@ -28,8 +29,10 @@ export default class TypesWebappComponent extends Component {
   }
 
   @action
-  async save() {
+  async save(e) {
+    this.colormodes.buttonLoading(e);
     await this.types.json.save();
+    this.colormodes.buttonUnloading(e);
     this.webappBox.hide();
   }
 }

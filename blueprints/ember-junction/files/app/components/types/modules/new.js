@@ -31,7 +31,8 @@ export default class TypesModulesNewComponent extends Component {
   }
 
   @action
-  async save() {
+  async save(e) {
+    this.colormodes.buttonLoading(e);
     if (this.moduleName != '') {
       let slug = this.type.currentType.slug;
       var exists = false;
@@ -60,7 +61,9 @@ export default class TypesModulesNewComponent extends Component {
         this.types.fetchAgain();
         document.querySelector('#track-' + slug).click();
       }
+      this.colormodes.buttonUnloading(e);
     } else {
+      this.colormodes.buttonUnloading(e);
       alert('Module name field is compulsory.');
     }
   }

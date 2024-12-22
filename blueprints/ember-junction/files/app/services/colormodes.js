@@ -48,4 +48,19 @@ export default class ColormodesService extends Service {
       return 'light';
     }
   }
+
+  @tracked innerHTML = 'Save changes';
+
+  @action
+  buttonLoading(e) {
+    e.target.disabled = true;
+    this.innerHTML = e.target.innerHTML;
+    e.target.innerHTML = '<div class="small spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
+  }
+
+  @action
+  buttonUnloading(e) {
+    e.target.innerHTML = this.innerHTML;
+    e.target.disabled = false;
+  }
 }
