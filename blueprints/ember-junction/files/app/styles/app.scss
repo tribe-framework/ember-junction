@@ -3,30 +3,30 @@
 $font-family-sans-serif: "Museo Sans", sans-serif !default;
 $display-font-family: "Museo Sans Display", sans-serif !default;
 
-$primary:       #41B3FF !default;
-$secondary:     #E1B582 !default;
-$success:       #81AE86 !default;
-$info:          #FE7F2D !default;
-$warning:       #FCCA46 !default;
-$danger:        #BB3324 !default;
-$light:         #FFF8F0 !default;
-$dark:          #021724 !default;
+$primary: #41b3ff !default;
+$secondary: #e1b582 !default;
+$success: #81ae86 !default;
+$info: #fe7f2d !default;
+$warning: #fcca46 !default;
+$danger: #bb3324 !default;
+$light: #fff8f0 !default;
+$dark: #021724 !default;
 
-$enable-caret:                false !default;
-$enable-rounded:              false !default;
-$enable-gradients:            false !default;
-$enable-cssgrid:              true !default;
-$enable-negative-margins:     true !default;
-$enable-smooth-scroll:        true !default;
+$enable-caret: false !default;
+$enable-rounded: false !default;
+$enable-gradients: false !default;
+$enable-cssgrid: true !default;
+$enable-negative-margins: true !default;
+$enable-smooth-scroll: true !default;
 
-$modal-backdrop-opacity:            .8;
+$modal-backdrop-opacity: 0.8;
 
 // scss-docs-start spacer-variables-maps
 $spacer: 1rem !default;
 $spacers: (
   0: 0,
-  1: $spacer * .25,
-  2: $spacer * .5,
+  1: $spacer * 0.25,
+  2: $spacer * 0.5,
   3: $spacer,
   4: $spacer * 1.5,
   5: $spacer * 3,
@@ -58,10 +58,24 @@ $position-values: (
 $ember-power-select-border-radius: 0;
 $ember-power-select-background-color: none !default;
 
-@import 'ember-power-select/themes/bootstrap';
+@import "ember-power-select/themes/bootstrap";
 @import "ember-power-select";
 @import "node_modules/animate.css/animate";
 @import "node_modules/bootstrap/scss/bootstrap";
+
+@font-face {
+  font-family: "Subway Ticker";
+  src:
+    url("/assets/fonts/SubwayTicker/SubwayTicker.woff2") format("woff2"),
+    url("/assets/fonts/SubwayTicker/SubwayTicker.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.subway {
+  font-family: "Subway Ticker";
+}
 
 .page-loading {
   height: 100vh;
@@ -117,7 +131,7 @@ small {
   margin-right: 0.75rem;
 }
 
-.page-link{
+.page-link {
   cursor: pointer;
 }
 
@@ -130,11 +144,11 @@ body {
 }
 
 .table > :not(caption) > * > * {
-  background-color: rgba(0,0,0,0);
+  background-color: rgba(0, 0, 0, 0);
 }
 
 .ce-inline-tool--link:nth-child(even)::after {
-  content: '🔗';
+  content: "🔗";
   margin-left: -17px;
   font-size: 14px;
 }
@@ -158,7 +172,7 @@ body {
 }
 
 .ember-power-select-placeholder {
-  margin-left:2px;
+  margin-left: 2px;
 }
 
 @include color-mode(dark) {
@@ -214,7 +228,7 @@ table tbody th {
   .ce-block {
     color: var(--bs-light);
   }
-  
+
   .ce-inline-tool,
   .ce-inline-toolbar,
   .ce-conversion-tool__icon,
@@ -276,11 +290,21 @@ table tbody th {
 }
 
 @keyframes wobble {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(1deg); }
-  50% { transform: rotate(0eg); }
-  75% { transform: rotate(-1deg); }
-  100% { transform: rotate(0deg); }
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(1deg);
+  }
+  50% {
+    transform: rotate(0eg);
+  }
+  75% {
+    transform: rotate(-1deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
 }
 
 .wobble {

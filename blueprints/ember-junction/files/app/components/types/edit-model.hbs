@@ -18,7 +18,7 @@
 				<span class="form-text">Please give a name in singular format</span>
 			</div>
 		</div>
-      	<div class="row g-3 align-items-start my-3 pb-3">
+    <div class="row g-3 align-items-start my-3 pb-3">
 			<div class="my-1 py-0 col-12 col-md-2">
 				<label class="fst-italic col-form-label fw-bold">plural</label>
 			</div>
@@ -29,7 +29,18 @@
 				<span class="form-text">Please give a name in plural format</span>
 			</div>
 		</div>
-      	<div class="row g-3 align-items-start my-3 pb-3">
+    <div class="row g-3 align-items-start my-3 pb-3">
+      <div class="my-1 py-0 col-12 col-md-2">
+        <label class="fst-italic col-form-label fw-bold">URL</label>
+      </div>
+      <div class="my-1 col-12 col-md-7">
+        <Input @type="text" @value={{this.trackURL}} class="form-control" placeholder="https://domain.tld/{{this.type.currentType.slug}}" />
+      </div>
+      <div class="my-1 col-12 col-md-3">
+        <span class="form-text">Viewing URL to prepend (optional)</span>
+      </div>
+    </div>
+    <div class="row g-3 align-items-start my-3 pb-3">
 			<div class="my-1 py-0 col-12 col-md-2">
 				<label class="fst-italic col-form-label fw-bold">description</label>
 			</div>
@@ -82,6 +93,53 @@
         <span class="form-text">Triggers the Hook URL on-send, and is non-editable after sending.</span>
       </div>
     </div>
+
+    {{#if this.sendable}}
+      <div class="row g-3 align-items-start my-3 pb-3">
+        <div class="my-1 py-0 col-12 col-md-2">
+          <label class="fst-italic col-form-label fw-bold">on_create</label>
+        </div>
+        <div class="my-1 col-12 col-md-7">
+          <Input @type="url" @value={{mut (get this.apiHooks "on_create")}} class="form-control" placeholder="https://...." />
+        </div>
+        <div class="my-1 col-12 col-md-3">
+          <span class="form-text">Create Hook URL</span>
+        </div>
+      </div>
+      <div class="row g-3 align-items-start my-3 pb-3">
+        <div class="my-1 py-0 col-12 col-md-2">
+          <label class="fst-italic col-form-label fw-bold">on_read</label>
+        </div>
+        <div class="my-1 col-12 col-md-7">
+          <Input @type="url" @value={{mut (get this.apiHooks "on_read")}} class="form-control" placeholder="https://...." />
+        </div>
+        <div class="my-1 col-12 col-md-3">
+          <span class="form-text">Read Hook URL</span>
+        </div>
+      </div>
+      <div class="row g-3 align-items-start my-3 pb-3">
+        <div class="my-1 py-0 col-12 col-md-2">
+          <label class="fst-italic col-form-label fw-bold">on_update</label>
+        </div>
+        <div class="my-1 col-12 col-md-7">
+          <Input @type="url" @value={{mut (get this.apiHooks "on_update")}} class="form-control" placeholder="https://...." />
+        </div>
+        <div class="my-1 col-12 col-md-3">
+          <span class="form-text">Update Hook URL</span>
+        </div>
+      </div>
+      <div class="row g-3 align-items-start my-3 pb-3">
+        <div class="my-1 py-0 col-12 col-md-2">
+          <label class="fst-italic col-form-label fw-bold">on_delete</label>
+        </div>
+        <div class="my-1 col-12 col-md-7">
+          <Input @type="url" @value={{mut (get this.apiHooks "on_delete")}} class="form-control" placeholder="https://...." />
+        </div>
+        <div class="my-1 col-12 col-md-3">
+          <span class="form-text">Delete Hook URL</span>
+        </div>
+      </div>
+    {{/if}}
 
       </div>
       <div class="modal-footer p-1 d-flex align-items-center justify-content-between">

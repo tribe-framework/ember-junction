@@ -18,7 +18,7 @@
 
 <div
   class="{{if this.blueprints.loadingProgress 'd-flex' 'd-none'}}
-    align-items-center justify-content-center vh-100 w-100 position-fixed animate__animated animate__fadeIn animate__faster"
+    align-items-center justify-content-center vh-100 w-100 position-fixed animate__animated animate__fadeIn animate__faster flex-column text-center"
   style="z-index:11002"
 >
   <div class="position-relative w-50" role="status" style="z-index:1">
@@ -35,11 +35,15 @@
         style="width: {{this.blueprints.loadingProgress}}%"
       ></div>
     </div>
-
   </div>
+
   <div
-    style="z-index:0;"
-    class="position-absolute vh-100 w-100 bg-{{this.colormodes.mode}}
-      opacity-75"
+    class="my-2 mx-auto col-lg-7 col-10 text-uppercase text-secondary subway small"
+    style="z-index:1"
+  >⏳ Generating blueprint. This can take upto 60 seconds.</div>
+
+  <div
+    style="z-index:0; opacity:0.96"
+    class="position-absolute vh-100 w-100 bg-{{this.colormodes.mode}}"
   ></div>
 </div>

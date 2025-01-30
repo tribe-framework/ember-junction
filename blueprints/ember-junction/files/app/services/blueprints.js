@@ -10,15 +10,67 @@ export default class BlueprintsService extends Service {
   @service types;
   @service store;
   @service type;
+  @service auth;
 
   @tracked junctionBlueprints = [];
   @tracked myBlueprints = [];
 
   @action
-  async changeBlueprint(link) {
+  downloadCurrentBlueprint() {
     this.type.loadingSearchResults = true;
 
+    var types_json = [];
+    Object.entries(this.types.json.modules).forEach((v, i) => {
+      let type_slug = v[0];
+      let type_obj = v[1];
+
+      if (
+        type_slug != 'deleted_record' &&
+        type_slug != 'blueprint_record' &&
+        type_slug != 'file_record' &&
+        type_slug != 'apikey_record'
+      ) {
+        types_json[type_slug] = type_obj;
+      }
+    });
+
+    later(
+      this,
+      () => {
+        const jsonString = JSON.stringify(
+          Object.fromEntries(Object.entries(types_json)),
+          null,
+          2,
+        );
+
+        // Create a Blob from the JSON string
+        const blob = new Blob([jsonString], { type: 'application/json' });
+
+        // Create a link element
+        let t = Math.floor(new Date().getTime() / 1000);
+
+        const link = document.createElement('a');
+        link.href = URL.createObjectURL(blob);
+        link.download = 'Blueprint-' + t + '.types.json';
+
+        // Append to the document and trigger the download
+        document.body.appendChild(link);
+        link.click();
+
+        // Clean up and remove the link
+        document.body.removeChild(link);
+
+        this.type.loadingSearchResults = false;
+      },
+      1000,
+    );
+  }
+
+  @action
+  async changeBlueprint(link, implementationSummary = '') {
     await this.types.saveCurrentTypes(this.types.json.modules);
+
+    this.type.loadingSearchResults = true;
 
     let data_json = await fetch(link).then(function (response) {
       return response.json();
@@ -34,7 +86,7 @@ export default class BlueprintsService extends Service {
       }
     });
 
-    types_json['webapp']['implementation_summary'] = '';
+    types_json['webapp']['implementation_summary'] = implementationSummary;
 
     if (data_json !== undefined && data_json) {
       var link_json = [];
@@ -52,7 +104,17 @@ export default class BlueprintsService extends Service {
         ...Object.assign({}, link_json),
       };
       await this.types.json.save();
-      window.location.href = '/';
+
+      if (implementationSummary != '') {
+        later(
+          this,
+          () => {
+            window.location.href = '/#showImplementationSummary';
+            window.location.reload(true);
+          },
+          300,
+        );
+      } else window.location.href = '/';
     } else {
       this.type.loadingSearchResults = false;
     }
@@ -94,21 +156,44 @@ export default class BlueprintsService extends Service {
 
   @action
   async getBlueprints() {
-    let data = await fetch(
-      'https://tribe.junction.express/api.php/blueprint',
-    ).then(function (response) {
-      return response.json();
-    });
-    this.junctionBlueprints = data.data;
-    this.myBlueprints = await this.store.query('deleted_record', {
-      modules: { deleted_type: 'blueprint_record' },
-    });
+    if (
+      this.auth.projectDescription != '' &&
+      Object.entries(this.types.json.modules).length <= 5
+    ) {
+      await this.getAI();
+    } else if (
+      this.auth.blueprintLink != '' &&
+      Object.entries(this.types.json.modules).length <= 5
+    ) {
+      this.changeBlueprint(
+        this.auth.blueprintLink,
+        this.auth.implementationSummary,
+      );
+    } else {
+      let data = await fetch(
+        'https://tribe.junction.express/api.php/blueprint',
+      ).then(function (response) {
+        return response.json();
+      });
+      this.junctionBlueprints = data.data;
+      this.myBlueprints = await this.store.query('deleted_record', {
+        modules: { deleted_type: 'blueprint_record' },
+      });
+
+      //show implementation summary
+      const currentUrl = window.location.href;
+      const url = new URL(currentUrl);
+      const hash = url.hash;
+      if (hash == '#showImplementationSummary') {
+        document.querySelector('#blueprintConsultationModal-btn').click();
+      }
+    }
   }
 
   @tracked projectDescription = this.types.json.modules.webapp
     .project_description
     ? this.types.json.modules.webapp.project_description
-    : '';
+    : this.auth.projectDescription;
 
   @tracked loadingProgress = 0;
   @tracked tryAgain = false;
@@ -200,7 +285,8 @@ export default class BlueprintsService extends Service {
             later(
               this,
               () => {
-                window.location.href = '/';
+                window.location.href = '/#showImplementationSummary';
+                window.location.reload(true);
               },
               300,
             );

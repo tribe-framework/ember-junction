@@ -92,37 +92,13 @@
           {{/if}}
         </div>
 
-        <div
-          {{on
-            "click"
-            (fn this.changeType (get this.types.json.modules "file_record"))
-          }}
-          class="fs-4 px-2 px-md-3 cursor-pointer"
-        >
-          <i class="fa-solid fa-cloud"></i>
-        </div>
-
-        <div
-          {{on
-            "click"
-            (fn this.changeType (get this.types.json.modules "deleted_record"))
-          }}
-          class="fs-4 px-2 px-md-3 cursor-pointer"
-        >
-          <i class="fa-solid fa-trash"></i>
-        </div>
-
-        <div
-          class="fs-4 px-2 px-md-3 cursor-pointer"
-          data-bs-toggle="modal"
-          data-bs-target="#typesWebapp"
-        >
-          <i class="fa-solid fa-gear"></i>
-        </div>
-
         <HeaderNavItem>
           <div class="fs-4 px-2 px-md-3 cursor-pointer btn-group">
-            <div class="dropdown-toggle" data-bs-toggle="dropdown">
+            <div
+              id="blueprints-dropdown-btn"
+              class="dropdown-toggle"
+              data-bs-toggle="dropdown"
+            >
               <i class="fa-solid fa-circle-nodes"></i>
             </div>
             <ul
@@ -130,6 +106,26 @@
               style="max-height:400px"
               {{did-insert this.blueprints.getBlueprints}}
             >
+              <li><h6 class="dropdown-header text-capitalize">Current blueprint</h6></li>
+              <li><a
+                  class="dropdown-item"
+                  data-bs-toggle="modal"
+                  data-bs-target="#blueprintConsultationModal"
+                  href="#"
+                >Implementation summary</a></li>
+              <li><a
+                  {{on "click" this.blueprints.clearBlueprint}}
+                  class="dropdown-item"
+                  href="#"
+                >Clear the canvas</a></li>
+              <li><a
+                  {{on "click" this.blueprints.downloadCurrentBlueprint}}
+                  class="dropdown-item"
+                  href="#"
+                >Download current blueprint</a></li>
+
+              <li><hr class="dropdown-divider" /></li>
+
               <li><h6 class="dropdown-header text-capitalize">Switch blueprint</h6></li>
               {{#each this.blueprints.junctionBlueprints as |blueprint|}}
                 <li><a
@@ -145,19 +141,10 @@
                   >{{blueprint.attributes.modules.title}}</a></li>
               {{/each}}
 
-              <li><hr class="dropdown-divider" /></li>
-              <li><h6 class="dropdown-header text-capitalize">Start Again</h6></li>
-              <li><a
-                  {{on "click" this.blueprints.clearBlueprint}}
-                  class="dropdown-item"
-                  href="#"
-                >Clear the canvas</a></li>
-
               {{#if this.blueprints.myBlueprints}}
                 <li><hr class="dropdown-divider" /></li>
 
-                <li><h6 class="dropdown-header text-capitalize">Recently used
-                    blueprints</h6></li>
+                <li><h6 class="dropdown-header text-capitalize">Recently used</h6></li>
                 {{#each this.blueprints.myBlueprints as |blueprint|}}
                   <li><a
                       {{on
@@ -177,15 +164,59 @@
           </div>
         </HeaderNavItem>
 
-        <div
-          class="fs-4 px-2 px-md-3 cursor-pointer"
-          data-bs-toggle="tooltip"
-          data-bs-placement="bottom"
-          title="Logout"
-          {{on "click" this.auth.logout}}
-        >
-          <i class="fa-solid fa-arrow-right-from-bracket"></i>
-        </div>
+        <HeaderNavItem>
+          <div class="fs-3 cursor-pointer btn-group">
+            <div class="dropdown-toggle px-2 px-md-3" data-bs-toggle="dropdown">
+              <i class="fa-solid fa-ellipsis-vertical"></i>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li><a
+                  class="dropdown-item"
+                  {{on
+                    "click"
+                    (fn
+                      this.changeType
+                      (get this.types.json.modules "file_record")
+                    )
+                  }}
+                ><i class="fa-solid fa-cloud"></i> File Uploads</a></li>
+              <li><a
+                  class="dropdown-item"
+                  {{on
+                    "click"
+                    (fn
+                      this.changeType
+                      (get this.types.json.modules "deleted_record")
+                    )
+                  }}
+                ><i class="fa-solid fa-recycle"></i> Deleted Records</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a
+                  class="dropdown-item"
+                  data-bs-toggle="modal"
+                  data-bs-target="#typesWebapp"
+                ><i class="fa-solid fa-gear"></i> Settings</a></li>
+              <li><a
+                  target="new"
+                  class="dropdown-item"
+                  href="https://junction.express/junctions"
+                ><i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  My Junctions</a></li>
+              <li><a
+                  {{on "click" this.auth.logout}}
+                  class="dropdown-item"
+                  href="#"
+                ><i class="fa-solid fa-arrow-right-from-bracket"></i>
+                  Logout</a></li>
+              <li><hr class="dropdown-divider" /></li>
+              <li><a
+                  target="new"
+                  class="dropdown-item"
+                  href="https://junction.express"
+                >&larr; Visit homepage</a></li>
+            </ul>
+          </div>
+        </HeaderNavItem>
       </div>
     </div>
 

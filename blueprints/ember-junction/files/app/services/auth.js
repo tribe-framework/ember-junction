@@ -10,12 +10,16 @@ export default class AuthService extends Service {
   @service cookies;
   @service type;
   @service types;
+  @service blueprints;
 
   @tracked inputPassword;
   @tracked isLoggedIn = false;
   @tracked junctionPassword = '';
   @tracked goToRouteAfterLogin = 'index';
   @tracked goToSlugAfterLogin = '';
+  @tracked projectDescription = '';
+  @tracked implementationSummary = '';
+  @tracked blueprintLink = '';
 
   checkIfLoggedIn = async () => {
     this.type.loadingSearchResults = true;
@@ -104,17 +108,61 @@ export default class AuthService extends Service {
   }
 
   @action
-  logout() {
-    this.cookies.eraseCookie(ENV.JUNCTION_SLUG);
-    window.location.reload(true);
+  async logout() {
+    await this.cookies.eraseCookie('junctionexpress_user_email');
+    await this.cookies.eraseCookie('junctionexpress_user_id');
+    await this.cookies.eraseCookie(ENV.JUNCTION_SLUG);
+    window.location.href = 'https://junction.express';
   }
 
   @action
-  getJunctionPassword() {
+  async getJunctionPassword() {
     if (ENV.JUNCTION_SLUG == undefined || ENV.JUNCTION_SLUG == '') {
       alert('Please define JUNCTION_SLUG in .ENV file');
     } else if (ENV.JUNCTION_SLUG == 'junction') {
       this.junctionPassword = ENV.JUNCTION_PASSWORD;
+    } else if (
+      this.cookies.getCookie('junctionexpress_user_id') !== undefined
+    ) {
+      let user_id = this.cookies.getCookie('junctionexpress_user_id');
+      await fetch('https://tribe.junction.express/custom/auth/access.php', {
+        method: 'post',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          slug: ENV.JUNCTION_SLUG,
+          user_id: user_id,
+        }),
+      })
+        .then((response) => {
+          if (response.ok) {
+            return response.json();
+          }
+        })
+        .then(async (response) => {
+          if (response !== undefined && response.authenticated === true) {
+            this.cookies.setCookie(ENV.JUNCTION_SLUG, response.password);
+            if (
+              response.project_description !== undefined &&
+              response.project_description != ''
+            )
+              this.projectDescription = response.project_description;
+            if (
+              response.blueprint_link !== undefined &&
+              response.blueprint_link != ''
+            )
+              this.blueprintLink = response.blueprint_link;
+            if (
+              response.implementation_summary !== undefined &&
+              response.implementation_summary != ''
+            )
+              this.implementationSummary = response.implementation_summary;
+            this.type.loadingSearchResults = false;
+            this.justGoToRouteAfterLogin();
+          }
+        });
     }
   }
 }

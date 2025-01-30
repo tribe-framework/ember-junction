@@ -1,4 +1,5 @@
 import Service from '@ember/service';
+import ENV from '<%= dasherizedPackageName %>/config/environment';
 import { service } from '@ember/service';
 import { action } from '@ember/object';
 import { tracked } from '@glimmer/tracking';
@@ -13,26 +14,28 @@ export default class TypesService extends Service {
 
   @action
   async fetchAgain() {
-    this.json = await this.store.findRecord('webapp', 0, {});
-    let owner = getOwner(this);
+    if (ENV.TribeENV.API_URL !== undefined && ENV.TribeENV.API_URL != '') {
+      this.json = await this.store.findRecord('webapp', 0, {});
+      let owner = getOwner(this);
 
-    Object.entries(this.json.modules).forEach(([modelName, modelData]) => {
-      const modelDynamicName = modelName.replace(/_/g, '-');
+      Object.entries(this.json.modules).forEach(([modelName, modelData]) => {
+        const modelDynamicName = modelName.replace(/_/g, '-');
 
-      class DynamicModel extends Model {
-        @attr slug;
-        @attr modules;
-      }
+        class DynamicModel extends Model {
+          @attr slug;
+          @attr modules;
+        }
+        
+        if (!owner.hasRegistration(`model:${modelDynamicName}`)) {
+          owner.register(`model:${modelDynamicName}`, DynamicModel);
+        }
+      });
       
-      if (!owner.hasRegistration(`model:${modelDynamicName}`)) {
-        owner.register(`model:${modelDynamicName}`, DynamicModel);
-      }
-    });
-    
-    this.json = await this.store.findRecord('webapp', 0, {
-      include: ['total_objects'],
-    });
-    this.json = this.json;
+      this.json = await this.store.findRecord('webapp', 0, {
+        include: ['total_objects'],
+      });
+      this.json = this.json;
+    }
   }
 
   @action

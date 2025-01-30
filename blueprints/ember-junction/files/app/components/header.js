@@ -12,6 +12,12 @@ export default class HeaderComponent extends Component {
   @service type;
 
   @action
+  blueprintsDropdown() {
+    console.log(document.querySelector('#blueprints-dropdown-btn'));
+    document.querySelector('#blueprints-dropdown-btn').click();
+  }
+
+  @action
   changeType(type) {
     this.type.clearSearchQuery();
     this.type.editorJSOnTypeChange();

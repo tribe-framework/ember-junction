@@ -223,7 +223,6 @@ export default class ModuleService extends Service {
           this.inputOptions.splice(index, 1);
         }
         this.inputOptions = this.inputOptions;
-        console.log(this.inputOptions);
       },
       100,
     );
@@ -253,7 +252,6 @@ export default class ModuleService extends Service {
       await this.types.json.modules[slug].modules.forEach(async (module) => {
         if (module.input_slug == this.currentModule.input_slug) {
           delete this.types.json.modules[slug].modules[ii];
-          console.log(this.types.json.modules[slug].modules);
         }
         ii++;
       });
