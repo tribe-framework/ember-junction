@@ -43,7 +43,12 @@
       ><i class="fa-solid fa-wand-magic-sparkles"></i> Sample Data</button>
     {{/if}}
 
-    {{#unless (eq this.type.currentType.slug "deleted_record")}}
+    {{#if
+      (and
+        (not-eq this.type.currentType.slug "deleted_record")
+        (not-eq this.type.currentType.slug "apikey_record")
+      )
+    }}
       <button
         class="btn rounded-pill m-1 btn-outline-{{this.colormodes.inverseMode}}"
         type="button"
@@ -56,7 +61,7 @@
         type="button"
         class="btn rounded-pill m-1 btn-outline-{{this.colormodes.inverseMode}}"
       ><i class="fa-solid fa-file-csv"></i> Export CSV</button>
-    {{/unless}}
+    {{/if}}
 
     {{#if
       (and

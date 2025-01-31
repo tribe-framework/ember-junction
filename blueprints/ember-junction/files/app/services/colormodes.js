@@ -55,7 +55,8 @@ export default class ColormodesService extends Service {
   buttonLoading(e) {
     e.target.disabled = true;
     this.innerHTML = e.target.innerHTML;
-    e.target.innerHTML = '<div class="small spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
+    e.target.innerHTML =
+      '<div class="small spinner-border" role="status"><span class="visually-hidden">Loading...</span></div>';
   }
 
   @action

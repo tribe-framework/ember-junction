@@ -2,7 +2,7 @@
 
 module.exports = {
   normalizeEntityName() {},
-  
+
   afterInstall(options) {
     return this.addPackagesToProject([
       { name: '@editorjs/editorjs' },
@@ -21,7 +21,8 @@ module.exports = {
       { name: 'miragejs' },
       { name: 'papaparse' },
       { name: 'sortablejs' },
+      { name: 'uuid' },
       { name: 'pretty-print-json' },
     ]);
-  }
+  },
 };

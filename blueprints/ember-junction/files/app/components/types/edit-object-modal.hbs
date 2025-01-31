@@ -148,6 +148,17 @@
                     @removeFromMultiField={{this.removeFromMultiField}}
                   />
 
+                {{else if (eq module.input_type "uuid-v4")}}
+                  <InputFields::UuidV4
+                    @mutObjectModuleValue={{this.mutObjectModuleValue}}
+                    @type={{this.type.currentType}}
+                    @module={{module}}
+                    @id={{this.objectID}}
+                    @object={{this.objectModules}}
+                    @addToMultiField={{this.addToMultiField}}
+                    @removeFromMultiField={{this.removeFromMultiField}}
+                  />
+
                 {{else}}
                   <InputFields::Text
                     @mutObjectModuleValue={{this.mutObjectModuleValue}}

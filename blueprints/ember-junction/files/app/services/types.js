@@ -25,12 +25,12 @@ export default class TypesService extends Service {
           @attr slug;
           @attr modules;
         }
-        
+
         if (!owner.hasRegistration(`model:${modelDynamicName}`)) {
           owner.register(`model:${modelDynamicName}`, DynamicModel);
         }
       });
-      
+
       this.json = await this.store.findRecord('webapp', 0, {
         include: ['total_objects'],
       });

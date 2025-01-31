@@ -122,28 +122,35 @@ export default class BlueprintsService extends Service {
 
   @action
   async clearBlueprint() {
-    this.type.loadingSearchResults = true;
+    // Display the confirmation dialog
+    var userResponse = confirm(
+      'Are you sure you want to clear the blueprint? This will remove all your tracks. This does not affect the data saved. You can undo this step.',
+    );
 
-    await this.types.saveCurrentTypes(this.types.json.modules);
+    if (userResponse) {
+      this.type.loadingSearchResults = true;
 
-    var types_json = [];
-    Object.entries(this.types.json.modules).forEach((v, i) => {
-      let type_slug = v[0];
-      let type_obj = v[1];
+      await this.types.saveCurrentTypes(this.types.json.modules);
 
-      if (type_slug == 'webapp') {
-        types_json['webapp'] = type_obj;
-      }
-    });
+      var types_json = [];
+      Object.entries(this.types.json.modules).forEach((v, i) => {
+        let type_slug = v[0];
+        let type_obj = v[1];
 
-    types_json['webapp']['implementation_summary'] = '';
-    types_json['webapp']['project_description'] = '';
+        if (type_slug == 'webapp') {
+          types_json['webapp'] = type_obj;
+        }
+      });
 
-    this.types.json.modules = {
-      ...Object.assign({}, types_json),
-    };
-    await this.types.json.save();
-    window.location.href = '/';
+      types_json['webapp']['implementation_summary'] = '';
+      types_json['webapp']['project_description'] = '';
+
+      this.types.json.modules = {
+        ...Object.assign({}, types_json),
+      };
+      await this.types.json.save();
+      window.location.href = '/';
+    }
   }
 
   @action

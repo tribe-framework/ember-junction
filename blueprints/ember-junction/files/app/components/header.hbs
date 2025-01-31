@@ -114,15 +114,15 @@
                   href="#"
                 >Implementation summary</a></li>
               <li><a
-                  {{on "click" this.blueprints.clearBlueprint}}
-                  class="dropdown-item"
-                  href="#"
-                >Clear the canvas</a></li>
-              <li><a
                   {{on "click" this.blueprints.downloadCurrentBlueprint}}
                   class="dropdown-item"
                   href="#"
                 >Download current blueprint</a></li>
+              <li><a
+                  {{on "click" this.blueprints.clearBlueprint}}
+                  class="dropdown-item"
+                  href="#"
+                >Reset blueprint</a></li>
 
               <li><hr class="dropdown-divider" /></li>
 
@@ -180,6 +180,16 @@
                     )
                   }}
                 ><i class="fa-solid fa-cloud"></i> File Uploads</a></li>
+              <li><a
+                  class="dropdown-item"
+                  {{on
+                    "click"
+                    (fn
+                      this.changeType
+                      (get this.types.json.modules "apikey_record")
+                    )
+                  }}
+                ><i class="fa-solid fa-key"></i> API Keys</a></li>
               <li><a
                   class="dropdown-item"
                   {{on
