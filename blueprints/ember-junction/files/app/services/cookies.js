@@ -45,6 +45,8 @@ export default class CookiesService extends Service {
         name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     } else {
       document.cookie =
+        name + '=; Path=/; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+      document.cookie =
         name +
         '=; Path=/; domain=.junction.express; Expires=Thu, 01 Jan 1970 00:00:01 GMT;';
     }
