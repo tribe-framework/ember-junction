@@ -50,6 +50,12 @@ export default class InputFieldsSelectComponent extends Component {
 
   @action
   updateValue(e) {
+    if (e === null) {
+      this.selectedOption = e;
+      this.args.mutObjectModuleValue(this.args.module.input_slug, null, false);
+
+      return;
+    }
     this.selectedOption = e;
     this.args.mutObjectModuleValue(this.args.module.input_slug, e.slug, false);
   }
