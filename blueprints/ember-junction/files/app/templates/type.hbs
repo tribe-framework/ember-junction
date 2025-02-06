@@ -3,9 +3,7 @@
 <Header @webapp={{this.type.types.json.modules.webapp}} />
 
 <div class="above-footer px-2">
-
   <main class="flex-shrink-0 page a4 d2 mb-5">
-
     <div class="container-xxl mx-auto px-0">
       <PageSummaryCard />
 
@@ -17,15 +15,12 @@
     {{#if this.type.currentType}}
       <div
         {{on-click-outside this.stopWobble}}
-        style="overflow-x:hidden"
-        class="mt-5 position-relative min-vh-100 row pb-5 mb-5 border border-1 border-{{this.colormodes.inverseMode}}
-          {{if
-            (lte this.type.modulesThatWillBeListed.length 5)
+        class="mt-5 position-relative min-vh-100 row pb-5 overflow-x-hidden mb-5 border border-1 border-{{this.colormodes.inverseMode}}
+          {{if (lte this.type.modulesThatWillBeListed.length 5)
             'container-xxl mx-auto'
             'mx-0'
           }}"
       >
-
         {{#if
           (not
             (or
