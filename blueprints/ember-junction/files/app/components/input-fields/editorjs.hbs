@@ -14,7 +14,5 @@
     </div>
   </div>
 </div>
-<div
-  class="d-none"
-  {{did-insert (fn this.cleanVarsOnNewModalOpen @module.input_slug)}}
-></div>
+
+{{this.onload @module.input_slug}}

@@ -19,6 +19,8 @@ import FootnotesTune from '@editorjs/footnotes';
 import Table from '@editorjs/table';
 import Hyperlink from 'editorjs-hyperlink';
 import fetch from 'fetch';
+import { Modal } from 'bootstrap';
+import { modifier } from 'ember-modifier';
 
 export default class TypesEditObjectModalComponent extends Component {
   @service store;
@@ -43,6 +45,10 @@ export default class TypesEditObjectModalComponent extends Component {
     : 'new';
   @tracked editorjsInstances = [];
   @tracked doUpdateSlug = false;
+
+  onload = modifier((el) => {
+    el.addEventListener('show.bs.modal', this.cleanVarsOnModalOpen(el));
+  });
 
   @action
   async pushObjects() {
@@ -235,7 +241,8 @@ export default class TypesEditObjectModalComponent extends Component {
               });
             }
 
-            document.querySelector('#editObjectModal-close').click();
+            let editModal = Modal.getOrCreateInstance('#editObjectModal');
+            editModal.hide();
           });
       } else {
         let obj = await this.store.createRecord(this.type.currentType.slug, {
@@ -264,7 +271,8 @@ export default class TypesEditObjectModalComponent extends Component {
         this.cleanVarsIfNew();
         this.object.currentObject = obj;
 
-        document.querySelector('#editObjectModal-close').click();
+        let editModal = Modal.getOrCreateInstance('#editObjectModal');
+        editModal.hide();
       }
 
       this.types.fetchAgain();
@@ -324,18 +332,19 @@ export default class TypesEditObjectModalComponent extends Component {
 
   @action
   async uninitEditorJS(module_input_slug) {
-    var ejsTarget = `${this.type.currentType.slug}-${module_input_slug}`;
+    const ejsTarget = `${this.type.currentType.slug}-${module_input_slug}`;
     if (
       this.editorjsInstances != [] &&
       this.editorjsInstances[ejsTarget] !== undefined &&
       this.editorjsInstances[ejsTarget].blocks !== undefined
-    )
+    ) {
       this.editorjsInstances[ejsTarget].destroy();
+    }
   }
 
   @action
   async initEditorJS(module_input_slug) {
-    var ejsTarget = `${this.type.currentType.slug}-${module_input_slug}`;
+    const ejsTarget = `${this.type.currentType.slug}-${module_input_slug}`;
 
     if (
       this.objectID == 'new' &&
