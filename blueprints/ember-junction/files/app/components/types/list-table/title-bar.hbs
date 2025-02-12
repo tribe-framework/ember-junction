@@ -29,19 +29,6 @@
   </h1>
 
   <div class="col-lg-9 mx-auto px-0 mb-4 text-center">
-    {{#if
-      (and
-        this.types.json.modules.webapp.implementation_summary
-        this.types.json.modules.webapp.project_description
-      )
-    }}
-      <button
-        class="btn rounded-pill m-1 btn-outline-{{this.colormodes.inverseMode}}"
-        type="button"
-        data-bs-toggle="modal"
-        data-bs-target="#sampleDataPromptModal"
-      ><i class="fa-solid fa-wand-magic-sparkles"></i> Sample Data</button>
-    {{/if}}
 
     {{#if
       (and
@@ -49,6 +36,20 @@
         (not-eq this.type.currentType.slug "apikey_record")
       )
     }}
+      {{#if
+        (and
+          this.types.json.modules.webapp.implementation_summary
+          this.types.json.modules.webapp.project_description
+        )
+      }}
+        <button
+          class="btn rounded-pill m-1 btn-outline-{{this.colormodes.inverseMode}}"
+          type="button"
+          data-bs-toggle="modal"
+          data-bs-target="#sampleDataPromptModal"
+        ><i class="fa-solid fa-wand-magic-sparkles"></i> Sample Data</button>
+      {{/if}}
+      
       <button
         class="btn rounded-pill m-1 btn-outline-{{this.colormodes.inverseMode}}"
         type="button"
@@ -67,6 +68,7 @@
       (and
         (not-eq this.type.currentType.slug "deleted_record")
         (not-eq this.type.currentType.slug "file_record")
+        (not-eq this.type.currentType.slug "apikey_record")
       )
     }}
       <button

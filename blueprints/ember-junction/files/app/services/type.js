@@ -8,6 +8,7 @@ import { A } from '@ember/array';
 export default class TypeService extends Service {
   @service store;
   @service types;
+  @service router;
 
   @tracked currentType = null;
 
@@ -370,5 +371,14 @@ export default class TypeService extends Service {
     this.updatePageOffset(
       (pageNumber - 1) * this.currentPageLength[this.currentType.slug],
     );
+  }
+
+  @action
+  changeType(type) {
+    this.clearSearchQuery();
+    this.editorJSOnTypeChange();
+    this.currentType = type;
+    this.loadTypeObjects();
+    this.router.transitionTo('type', type);
   }
 }

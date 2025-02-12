@@ -7,6 +7,7 @@ import ENV from '<%= dasherizedPackageName %>/config/environment';
 export default class TypesTrackApiModalComponent extends Component {
   @service type;
   @service colormodes;
+  @service types;
 
   @action
   copyAPILink(e) {

@@ -13,16 +13,12 @@ export default class InputFieldsEditorjsComponent extends Component {
   onload = modifier((input_slug) => {
     // initialize EditorJS when BS Modal is displayed
     this.type.editObjectModal.addEventListener('show.bs.modal', () => {
-      this.type.showModalEvents.push(
-        this.args.initEditorJS(input_slug)
-      );
+      this.type.showModalEvents.push(this.args.initEditorJS(input_slug));
     });
 
     // remove EditorJS when BS Modal is hidden
     this.type.editObjectModal.addEventListener('hidden.bs.modal', () => {
-      this.type.hideModalEvents.push(
-        this.args.uninitEditorJS(input_slug)
-      );
+      this.type.hideModalEvents.push(this.args.uninitEditorJS(input_slug));
     });
   });
 }

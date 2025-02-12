@@ -1,5 +1,16 @@
-<tr id="row-{{@object.id}}" class="border-dark {{if (this.inArray @object.id (get @selectedRowIDs @type.slug)) "bg-secondary"}}">
-  <th class="border-end border-start border-1 border-dark" scope="row" {{on 'click' this.toggleSelection}}>
+<tr
+  id="row-{{@object.id}}"
+  class="border-dark
+    {{if
+      (this.inArray @object.id (get @selectedRowIDs @type.slug))
+      'bg-secondary'
+    }}"
+>
+  <th
+    class="border-end border-start border-1 border-dark"
+    scope="row"
+    {{on "click" this.toggleSelection}}
+  >
     {{@object.id}}
     {{#if this.isSelected}}
       <i class="fa-solid fa-circle-check"></i>
@@ -11,22 +22,36 @@
       {{#if module.input_primary}}
         <td
           class="position-relative border-end border-1 border-dark"
-          {{on 'mouseover' this.showOptions}}
-          {{on 'mouseout' this.hideOptions}}
+          {{on "mouseover" this.showOptions}}
+          {{on "mouseout" this.hideOptions}}
         >
-          <div class="text-ellipsis" {{on 'touchend' this.toggleOptions}}>{{get @object.modules module.input_slug}}</div>
+          <div class="text-ellipsis" {{on "touchend" this.toggleOptions}}>{{get
+              @object.modules
+              module.input_slug
+            }}</div>
 
-          <Hooks::RowOptions @object={{@object}} @type={{@type}} @module={{module}} />
+          <Hooks::RowOptions
+            @object={{@object}}
+            @type={{@type}}
+            @module={{module}}
+          />
 
-          <Types::ListTable::RowOptions @object={{@object}} @type={{@type}} @module={{module}} />
+          <Types::ListTable::RowOptions
+            @object={{@object}}
+            @type={{@type}}
+            @module={{module}}
+          />
         </td>
       {{else}}
         <td
           class="position-relative border-end border-1 border-dark"
-          {{on 'mouseover' this.showOptions}}
-          {{on 'mouseout' this.hideOptions}}
+          {{on "mouseover" this.showOptions}}
+          {{on "mouseout" this.hideOptions}}
         >
-          <div class="text-ellipsis" {{on 'touchend' this.toggleOptions}}>{{get @object.modules module.input_slug}}</div>
+          <div class="text-ellipsis" {{on "touchend" this.toggleOptions}}>{{get
+              @object.modules
+              module.input_slug
+            }}</div>
         </td>
       {{/if}}
     {{/if}}

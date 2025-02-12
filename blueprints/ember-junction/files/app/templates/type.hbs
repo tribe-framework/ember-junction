@@ -10,13 +10,18 @@
       {{#if (eq this.type.currentType.slug "file_record")}}
         <Files::Uploader @reload={{this.changeType}} />
       {{/if}}
+
+      {{#if (eq this.type.currentType.slug "apikey_record")}}
+        <Api::AuthReference />
+      {{/if}}
     </div>
 
     {{#if this.type.currentType}}
       <div
         {{on-click-outside this.stopWobble}}
         class="mt-5 position-relative min-vh-100 row pb-5 overflow-x-hidden mb-5 border border-1 border-{{this.colormodes.inverseMode}}
-          {{if (lte this.type.modulesThatWillBeListed.length 5)
+          {{if
+            (lte this.type.modulesThatWillBeListed.length 5)
             'container-xxl mx-auto'
             'mx-0'
           }}"
