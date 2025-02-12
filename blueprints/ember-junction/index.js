@@ -21,6 +21,7 @@ module.exports = {
       { name: 'miragejs' },
       { name: 'papaparse' },
       { name: 'sortablejs' },
+      { name: 'highlight.js' },
       { name: 'uuid' },
       { name: 'pretty-print-json' },
     ]);
