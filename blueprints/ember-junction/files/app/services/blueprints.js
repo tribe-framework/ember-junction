@@ -15,12 +15,36 @@ export default class BlueprintsService extends Service {
   @tracked junctionBlueprints = [];
   @tracked myBlueprints = [];
 
+  isValidURL = (urlString) => {
+    try {
+      new URL(urlString);
+      return true; // The string is a valid URL
+    } catch (e) {
+      return false; // The string is not a valid URL
+    }
+  };
+
   @action
-  downloadCurrentBlueprint() {
+  async downloadCurrentBlueprint(j = '') {
     this.type.loadingSearchResults = true;
 
+    if (this.isValidURL(j)) {
+      j = await fetch(j).then(function (response) {
+        return response.json();
+      });
+    } else if (
+      typeof j === 'object' &&
+      j.isTrusted === undefined &&
+      j !== null &&
+      !Array.isArray(j)
+    ) {
+      j = j;
+    } else {
+      j = this.types.json.modules;
+    }
+
     var types_json = [];
-    Object.entries(this.types.json.modules).forEach((v, i) => {
+    Object.entries(j).forEach((v, i) => {
       let type_slug = v[0];
       let type_obj = v[1];
 
@@ -67,56 +91,68 @@ export default class BlueprintsService extends Service {
   }
 
   @action
-  async changeBlueprint(link, implementationSummary = '') {
-    await this.types.saveCurrentTypes(this.types.json.modules);
+  async changeBlueprint(j, implementationSummary = '') {
+    if (j.modules !== undefined) {
+      if (!this.isValidURL(j) && j.modules.types_json !== undefined) {
+        let t = j.modules.types_json;
+        this.type.loadingSearchResults = true;
+        this.types.json.modules = t;
+        await this.types.json.save();
+        window.location.href = '/';
+      } else if (j.modules.url !== undefined) {
+        let link = j.modules.url;
 
-    this.type.loadingSearchResults = true;
+        await this.types.saveCurrentTypes(this.types.json.modules);
 
-    let data_json = await fetch(link).then(function (response) {
-      return response.json();
-    });
+        this.type.loadingSearchResults = true;
 
-    var types_json = [];
-    Object.entries(this.types.json.modules).forEach((v, i) => {
-      let type_slug = v[0];
-      let type_obj = v[1];
+        let data_json = await fetch(link).then(function (response) {
+          return response.json();
+        });
 
-      if (type_slug == 'webapp') {
-        types_json['webapp'] = type_obj;
-      }
-    });
+        var types_json = [];
+        Object.entries(this.types.json.modules).forEach((v, i) => {
+          let type_slug = v[0];
+          let type_obj = v[1];
 
-    types_json['webapp']['implementation_summary'] = implementationSummary;
+          if (type_slug == 'webapp') {
+            types_json['webapp'] = type_obj;
+          }
+        });
 
-    if (data_json !== undefined && data_json) {
-      var link_json = [];
-      Object.entries(data_json).forEach((v, i) => {
-        let type_slug = v[0];
-        let type_obj = v[1];
+        types_json['webapp']['implementation_summary'] = implementationSummary;
 
-        if (type_slug != 'webapp') {
-          link_json[type_slug] = type_obj;
+        if (data_json !== undefined && data_json) {
+          var link_json = [];
+          Object.entries(data_json).forEach((v, i) => {
+            let type_slug = v[0];
+            let type_obj = v[1];
+
+            if (type_slug != 'webapp') {
+              link_json[type_slug] = type_obj;
+            }
+          });
+
+          this.types.json.modules = {
+            ...Object.assign({}, types_json),
+            ...Object.assign({}, link_json),
+          };
+          await this.types.json.save();
+
+          if (implementationSummary != '') {
+            later(
+              this,
+              () => {
+                window.location.href = '/#showImplementationSummary';
+                window.location.reload(true);
+              },
+              300,
+            );
+          } else window.location.href = '/';
+        } else {
+          this.type.loadingSearchResults = false;
         }
-      });
-
-      this.types.json.modules = {
-        ...Object.assign({}, types_json),
-        ...Object.assign({}, link_json),
-      };
-      await this.types.json.save();
-
-      if (implementationSummary != '') {
-        later(
-          this,
-          () => {
-            window.location.href = '/#showImplementationSummary';
-            window.location.reload(true);
-          },
-          300,
-        );
-      } else window.location.href = '/';
-    } else {
-      this.type.loadingSearchResults = false;
+      }
     }
   }
 
@@ -154,14 +190,6 @@ export default class BlueprintsService extends Service {
   }
 
   @action
-  async revertBlueprint(t) {
-    this.type.loadingSearchResults = true;
-    this.types.json.modules = t;
-    await this.types.json.save();
-    window.location.href = '/';
-  }
-
-  @action
   async getBlueprints() {
     if (
       this.auth.projectDescription != '' &&
@@ -177,15 +205,16 @@ export default class BlueprintsService extends Service {
         this.auth.implementationSummary,
       );
     } else {
+      this.myBlueprints = await this.store.query('blueprint_record', {
+        show_public_objects_only: false,
+      });
+
       let data = await fetch(
         'https://tribe.junction.express/api.php/blueprint',
       ).then(function (response) {
         return response.json();
       });
       this.junctionBlueprints = data.data;
-      this.myBlueprints = await this.store.query('deleted_record', {
-        modules: { deleted_type: 'blueprint_record' },
-      });
 
       //show implementation summary
       const currentUrl = window.location.href;

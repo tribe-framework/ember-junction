@@ -106,7 +106,9 @@
               style="max-height:400px"
               {{did-insert this.blueprints.getBlueprints}}
             >
-              <li><h6 class="dropdown-header text-capitalize">Current blueprint</h6></li>
+              <li><h6
+                  class="dropdown-header text-capitalize"
+                >Blueprint</h6></li>
               <li><a
                   class="dropdown-item"
                   data-bs-toggle="modal"
@@ -122,24 +124,17 @@
                   {{on "click" this.blueprints.clearBlueprint}}
                   class="dropdown-item"
                   href="#"
-                >Reset blueprint</a></li>
-
-              <li><hr class="dropdown-divider" /></li>
-
-              <li><h6 class="dropdown-header text-capitalize">Switch blueprint</h6></li>
-              {{#each this.blueprints.junctionBlueprints as |blueprint|}}
-                <li><a
-                    {{on
-                      "click"
-                      (fn
-                        this.blueprints.changeBlueprint
-                        blueprint.attributes.modules.link
-                      )
-                    }}
-                    href="#"
-                    class="dropdown-item"
-                  >{{blueprint.attributes.modules.title}}</a></li>
-              {{/each}}
+                >Reset current blueprint</a></li>
+              <li><a
+                  class="dropdown-item"
+                  {{on
+                    "click"
+                    (fn
+                      this.changeType
+                      (get this.types.json.modules "blueprint_record")
+                    )
+                  }}
+                >View all blueprints</a></li>
 
               {{#if this.blueprints.myBlueprints}}
                 <li><hr class="dropdown-divider" /></li>
@@ -149,10 +144,7 @@
                   <li><a
                       {{on
                         "click"
-                        (fn
-                          this.blueprints.revertBlueprint
-                          blueprint.modules.types_json
-                        )
+                        (fn this.blueprints.changeBlueprint blueprint)
                       }}
                       class="dropdown-item"
                       href="#"
@@ -180,6 +172,10 @@
                     )
                   }}
                 ><i class="fa-solid fa-cloud"></i> File Uploads</a></li>
+              <li><LinkTo class="dropdown-item" @route="files"><i
+                    class="fa-solid fa-magnifying-glass"
+                  ></i>
+                  Search Uploads</LinkTo></li>
               <li><a
                   class="dropdown-item"
                   {{on
@@ -216,7 +212,8 @@
                   target="new"
                   class="dropdown-item"
                   href="https://junction.express/?showHome=true"
-                ><i class="fa-solid fa-arrow-up-right-from-square"></i> Visit homepage</a></li>
+                ><i class="fa-solid fa-arrow-up-right-from-square"></i>
+                  Visit homepage</a></li>
               <li><hr class="dropdown-divider" /></li>
               <li><a
                   {{on "click" this.auth.logout}}

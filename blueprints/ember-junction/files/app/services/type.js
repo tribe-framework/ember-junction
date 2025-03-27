@@ -4,6 +4,7 @@ import { tracked } from '@glimmer/tracking';
 import { later } from '@ember/runloop';
 import { service } from '@ember/service';
 import { A } from '@ember/array';
+import ENV from '<%= dasherizedPackageName %>/config/environment';
 
 export default class TypeService extends Service {
   @service store;
@@ -11,6 +12,10 @@ export default class TypeService extends Service {
   @service router;
 
   @tracked currentType = null;
+
+  @tracked apiUrl = '';
+  @tracked csvData = null;
+  @tracked showCsvSave = false;
 
   @tracked searchQuery = null;
   @tracked advancedSearchQuery = [];
@@ -163,6 +168,9 @@ export default class TypeService extends Service {
     else
       this.coverURL = this.types.json.modules[type_slug].public_form.cover_url;
 
+    this.csvData = null;
+    this.showCsvSave = false;
+
     if (this.types.json.modules[type_slug].public_form.modules === undefined)
       this.modules = {};
     else
@@ -174,6 +182,7 @@ export default class TypeService extends Service {
   @action
   async loadTypeObjects(searchResults = false) {
     var type_slug = this.currentType.slug;
+    this.apiUrl = ENV.TribeENV.API_URL + '/api.php/' + type_slug;
 
     this.initPublicForm();
 

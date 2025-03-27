@@ -4,22 +4,28 @@
 
 <div class="above-footer px-2">
 
-	<main class="flex-shrink-0 page a4 d2 mb-5" style="min-height:75vh">
+  <main class="flex-shrink-0 page a4 d2 mb-5" style="min-height:75vh">
 
-		<div class="container-xxl px-0 mx-auto">
+    <div class="container-xxl px-0 mx-auto">
 
-				<PageSummaryCard />
+      <PageSummaryCard />
 
-				{{#if (and this.plausibleDomain this.plausibleAuth)}}
-					<div class="col px-0 border border-1 border-primary mt-5">
-						<iframe plausible-embed src="https://plausible.io/share/{{this.plausibleDomain}}?auth={{this.plausibleAuth}}&embed=true&theme={{this.colormodes.mode}}" scrolling="yes" frameborder="0" loading="lazy" style="width: 1px; min-width: 100%; min-height: 1600px;"></iframe>
-					</div>
-				{{/if}}
-				
+      {{#if (and this.plausibleDomain this.plausibleAuth)}}
+        <div class="col px-0 border border-1 border-primary mt-5">
+          <iframe
+            plausible-embed
+            src="https://plausible.io/share/{{this.plausibleDomain}}?auth={{this.plausibleAuth}}&embed=true&theme={{this.colormodes.mode}}"
+            scrolling="yes"
+            frameborder="0"
+            loading="lazy"
+            style="width: 1px; min-width: 100%; min-height: 1600px;"
+          ></iframe>
+        </div>
+      {{/if}}
 
-		</div>
+    </div>
 
-	</main>
+  </main>
 
 </div>
 

@@ -1,17 +1,96 @@
-<ul class="nav nav-tabs" id="apiCodeReference" role="tablist">
+<ul
+  class="nav nav-tabs justify-content-center"
+  id="apiCodeReference"
+  role="tablist"
+>
   <li class="nav-item" role="presentation">
-    <button class="nav-link active" id="apiCodeReference-home-tab" data-bs-toggle="tab" data-bs-target="#home-tab-pane" type="button" role="tab" aria-controls="home-tab-pane" aria-selected="true">Home</button>
+    <button
+      class="nav-link active"
+      id="apiCodeReference-javascript-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#apiCodeReference-javascript-tab-pane"
+      type="button"
+      role="tab"
+      aria-controls="apiCodeReference-javascript-tab-pane"
+      aria-selected="true"
+    >Javascript</button>
   </li>
   <li class="nav-item" role="presentation">
-    <button class="nav-link" id="apiCodeReference-profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Profile</button>
-  </li>
-  <li class="nav-item" role="presentation">
-    <button class="nav-link" id="apiCodeReference-contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Contact</button>
+    <button
+      class="nav-link"
+      id="apiCodeReference-curl-tab"
+      data-bs-toggle="tab"
+      data-bs-target="#apiCodeReference-curl-tab-pane"
+      type="button"
+      role="tab"
+      aria-controls="apiCodeReference-curl-tab-pane"
+      aria-selected="false"
+    >cURL</button>
   </li>
 </ul>
-<div class="tab-content" id="apiCodeReferenceContent">
-  <div class="tab-pane fade show active" id="apiCodeReference-home-tab-pane" role="tabpanel" aria-labelledby="home-tab" tabindex="0"></div>
-  <div class="tab-pane fade" id="apiCodeReference-profile-tab-pane" role="tabpanel" aria-labelledby="profile-tab" tabindex="0">...</div>
-  <div class="tab-pane fade" id="apiCodeReference-contact-tab-pane" role="tabpanel" aria-labelledby="contact-tab" tabindex="0">...</div>
+
+<div class="text-center my-4">
+  <div class="input-group mx-auto" style="max-width: 600px;">
+    <input 
+      type="text" 
+      class="form-control" 
+      value={{this.type.apiUrl}} 
+      readonly
+      aria-label="API URL"
+    >
+    <button 
+      class="btn btn-primary" 
+      type="button" 
+      {{on "click" this.copyApiUrl}}
+    >
+      {{#if this.copiedUrl}}
+        <i class="fa-solid fa-check"></i> Copied!
+      {{else}}
+        <i class="fa-solid fa-copy"></i> Copy Track API URL
+      {{/if}}
+    </button>
+  </div>
 </div>
-<div class="d-none" {{did-insert this.highlightAll}}></div>
+
+<div class="tab-content" id="apiCodeReferenceContent">
+  <div
+    class="tab-pane fade show active"
+    id="apiCodeReference-javascript-tab-pane"
+    role="tabpanel"
+    aria-labelledby="apiCodeReference-javascript-tab"
+    tabindex="0"
+  >
+    <div class="code-container position-relative p-3 border rounded bg-{{this.colormodes.mode}}">
+      <button 
+        class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" type="button" {{on "click" this.copyJsSnippet}}
+      >
+        {{#if this.copiedJs}}
+          <i class="fa-solid fa-check"></i> Copied!
+        {{else}}
+          <i class="fa-solid fa-copy"></i> Copy
+        {{/if}}
+      </button>
+      <pre class="mb-0"><code class="language-javascript">{{this.javascriptSnippet}}</code></pre>
+    </div>
+  </div>
+  <div
+    class="tab-pane fade"
+    id="apiCodeReference-curl-tab-pane"
+    role="tabpanel"
+    aria-labelledby="apiCodeReference-curl-tab"
+    tabindex="0"
+  >
+    <div class="code-container position-relative p-3 border rounded bg-{{this.colormodes.mode}}">
+      <button 
+        class="btn btn-sm btn-primary position-absolute top-0 end-0 m-2" type="button" {{on "click" this.copyCurlSnippet}}
+      >
+        {{#if this.copiedCurl}}
+          <i class="fa-solid fa-check"></i> Copied!
+        {{else}}
+          <i class="fa-solid fa-copy"></i> Copy
+        {{/if}}
+      </button>
+      <pre class="mb-0"><code class="language-bash">{{this.curlSnippet}}</code></pre>
+    </div>
+  </div>
+</div>

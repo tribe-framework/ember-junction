@@ -316,3 +316,18 @@ table tbody th {
   min-width: 300px;
   max-width: 70vw;
 }
+
+.code-container {
+  margin: 1rem;
+  overflow: hidden;
+}
+
+.code-container pre {
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+
+.hljs {
+  padding: 1rem;
+  border-radius: 0.25rem;
+}

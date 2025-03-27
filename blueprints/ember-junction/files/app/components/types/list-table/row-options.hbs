@@ -49,7 +49,44 @@
           font-weight-bold text-uppercase"
         {{on "click" this.openBlueprintModal}}
         type="button"
-      ><i class="fa-solid fa-code"></i>&nbsp;API</button>
+      ><i class="fa-solid fa-code"></i><span
+          class="d-none d-lg-inline"
+        >&nbsp;API</span></button>
+
+      {{#if (eq @type.slug "blueprint_record")}}
+        {{#if @object.modules.url}}
+          <button
+            {{on
+              "click"
+              (fn this.blueprints.downloadCurrentBlueprint @object.modules.url)
+            }}
+            class="badge badge-sm border bg-{{this.colormodes.inverseMode}}
+              border-1 border-{{this.colormodes.mode}}
+              text-{{this.colormodes.mode}}
+              font-weight-bold text-uppercase"
+            type="button"
+          ><i class="fa-solid fa-download"></i><span
+              class="d-none d-lg-inline"
+            >&nbsp;Download</span></button>
+        {{else}}
+          <button
+            {{on
+              "click"
+              (fn
+                this.blueprints.downloadCurrentBlueprint
+                @object.modules.types_json
+              )
+            }}
+            class="badge badge-sm border bg-{{this.colormodes.inverseMode}}
+              border-1 border-{{this.colormodes.mode}}
+              text-{{this.colormodes.mode}}
+              font-weight-bold text-uppercase"
+            type="button"
+          ><i class="fa-solid fa-download"></i><span
+              class="d-none d-lg-inline"
+            >&nbsp;Download</span></button>
+        {{/if}}
+      {{/if}}
 
       {{#unless @type.sendable}}
         {{#if
