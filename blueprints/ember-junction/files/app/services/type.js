@@ -181,46 +181,48 @@ export default class TypeService extends Service {
 
   @action
   async loadTypeObjects(searchResults = false) {
-    var type_slug = this.currentType.slug;
-    this.apiUrl = ENV.TribeENV.API_URL + '/api.php/' + type_slug;
+    if (this.currentType !== null) {
+      var type_slug = this.currentType.slug;
+      this.apiUrl = ENV.TribeENV.API_URL + '/api.php/' + type_slug;
 
-    this.initPublicForm();
+      this.initPublicForm();
 
-    if (this.selectedRowIDs[type_slug] === undefined)
-      this.selectedRowIDs[type_slug] = [];
+      if (this.selectedRowIDs[type_slug] === undefined)
+        this.selectedRowIDs[type_slug] = [];
 
-    if (this.currentPageOffset[type_slug] === undefined)
-      this.currentPageOffset[type_slug] = 0;
+      if (this.currentPageOffset[type_slug] === undefined)
+        this.currentPageOffset[type_slug] = 0;
 
-    if (this.currentPageLength[type_slug] === undefined)
-      this.currentPageLength[type_slug] = 25;
+      if (this.currentPageLength[type_slug] === undefined)
+        this.currentPageLength[type_slug] = 25;
 
-    if (this.currentPageNumber[type_slug] === undefined)
-      this.currentPageNumber[type_slug] = 1;
+      if (this.currentPageNumber[type_slug] === undefined)
+        this.currentPageNumber[type_slug] = 1;
 
-    if (this.sortField[type_slug] === undefined)
-      this.sortField[type_slug] = 'id';
+      if (this.sortField[type_slug] === undefined)
+        this.sortField[type_slug] = 'id';
 
-    if (this.sortFieldQuery[type_slug] === undefined)
-      this.sortFieldQuery[type_slug] = '-id';
+      if (this.sortFieldQuery[type_slug] === undefined)
+        this.sortFieldQuery[type_slug] = '-id';
 
-    if (this.sortOrder[type_slug] === undefined)
-      this.sortOrder[type_slug] = 'desc';
+      if (this.sortOrder[type_slug] === undefined)
+        this.sortOrder[type_slug] = 'desc';
 
-    this.selectedRowIDs = this.selectedRowIDs;
-    this.currentPageOffset = this.currentPageOffset;
-    this.currentPageLength = this.currentPageLength;
-    this.currentPageNumber = this.currentPageNumber;
+      this.selectedRowIDs = this.selectedRowIDs;
+      this.currentPageOffset = this.currentPageOffset;
+      this.currentPageLength = this.currentPageLength;
+      this.currentPageNumber = this.currentPageNumber;
 
-    this.sortField = this.sortField;
-    this.sortFieldQuery = this.sortFieldQuery;
-    this.sortOrder = this.sortOrder;
+      this.sortField = this.sortField;
+      this.sortFieldQuery = this.sortFieldQuery;
+      this.sortOrder = this.sortOrder;
 
-    if (searchResults !== false) {
-      await this.search();
-    } else {
-      await this.clearSearch();
-      this.updatePageLinks();
+      if (searchResults !== false) {
+        await this.search();
+      } else {
+        await this.clearSearch();
+        this.updatePageLinks();
+      }
     }
   }
 
@@ -350,36 +352,40 @@ export default class TypeService extends Service {
 
   @action
   updatePageLinks() {
-    this.currentNumberOfPages[this.currentType.slug] =
-      Math.ceil(
-        Number(this.totalObjects) /
-          this.currentPageLength[this.currentType.slug],
-      ) ?? 1;
-    this.currentNumberOfPages = this.currentNumberOfPages;
+    if (this.currentType !== null) {
+      this.currentNumberOfPages[this.currentType.slug] =
+        Math.ceil(
+          Number(this.totalObjects) /
+            this.currentPageLength[this.currentType.slug],
+        ) ?? 1;
+      this.currentNumberOfPages = this.currentNumberOfPages;
 
-    let i = 1;
-    this.pageLinks = A([]);
-    while (i <= this.currentNumberOfPages[this.currentType.slug]) {
-      if (
-        i === 1 ||
-        i === this.currentNumberOfPages[this.currentType.slug] ||
-        i <= this.currentPageNumber[this.currentType.slug] + 3 ||
-        i >= this.currentPageNumber[this.currentType.slug] - 3
-      )
-        this.pageLinks.push(i);
-      i++;
+      let i = 1;
+      this.pageLinks = A([]);
+      while (i <= this.currentNumberOfPages[this.currentType.slug]) {
+        if (
+          i === 1 ||
+          i === this.currentNumberOfPages[this.currentType.slug] ||
+          i <= this.currentPageNumber[this.currentType.slug] + 3 ||
+          i >= this.currentPageNumber[this.currentType.slug] - 3
+        )
+          this.pageLinks.push(i);
+        i++;
+      }
+      this.pageLinks = this.pageLinks;
     }
-    this.pageLinks = this.pageLinks;
   }
 
   @action
   changePageNumber(pageNumber = 1) {
-    this.currentPageNumber[this.currentType.slug] = pageNumber;
-    this.currentPageNumber = this.currentPageNumber;
+    if (this.currentType !== null) {
+      this.currentPageNumber[this.currentType.slug] = pageNumber;
+      this.currentPageNumber = this.currentPageNumber;
 
-    this.updatePageOffset(
-      (pageNumber - 1) * this.currentPageLength[this.currentType.slug],
-    );
+      this.updatePageOffset(
+        (pageNumber - 1) * this.currentPageLength[this.currentType.slug],
+      );
+    }
   }
 
   @action

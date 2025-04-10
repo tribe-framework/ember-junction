@@ -331,3 +331,7 @@ table tbody th {
   padding: 1rem;
   border-radius: 0.25rem;
 }
+
+.ember-power-select-dropdown {
+  z-index: 1100 !important; /* Higher than Bootstrap's modal z-index */
+}

@@ -234,13 +234,14 @@ export default class BlueprintsService extends Service {
   @tracked loadingProgress = 0;
   @tracked tryAgain = false;
   @tracked totalTime = 0;
+  @tracked intervalId = 0;
 
   progressLoading = () => {
-    if (this.loadingProgress < 89) this.loadingProgress += 10;
+    if (this.loadingProgress < 95) this.loadingProgress += 5;
     this.totalTime += 5;
 
-    if (this.totalTime > 70) {
-      clearInterval(intervalId);
+    if (this.totalTime > 120) {
+      clearInterval(this.intervalId);
       this.getAI();
     }
   };
@@ -252,9 +253,9 @@ export default class BlueprintsService extends Service {
       this.totalTime = 5;
       await this.types.saveCurrentTypes(this.types.json.modules);
 
-      let intervalId = setInterval(this.progressLoading, 5000);
+      this.intervalId = setInterval(this.progressLoading, 5000);
 
-      let data = await fetch(
+      let response = await fetch(
         'https://tribe.junction.express/custom/anthropic/get-response.php',
         {
           method: 'POST',
@@ -265,9 +266,8 @@ export default class BlueprintsService extends Service {
             project_description: this.projectDescription,
           }),
         },
-      ).then(function (response) {
-        return response.json();
-      });
+      );
+      let data = await response.json();
 
       if (data !== undefined && data && data.json) {
         if (
@@ -315,7 +315,7 @@ export default class BlueprintsService extends Service {
               await this.types.json.save();
 
               this.loadingProgress = 100;
-              clearInterval(intervalId);
+              clearInterval(this.intervalId);
             }
 
             later(
