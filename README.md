@@ -2,22 +2,25 @@
 
 ## Compatibility
 
-* ember-tribe 2.x.x
+- ember-tribe 2.x.x
 
 ## Installation
 
 ```
 ember init; yes | ember install ember-tribe; yes | ember install ember-junction;
 ```
-Then fill in the .env file with Tribe credentials and run:
+
+Then fill in the .env file with Tribe API credentials.
+
 ```
-php sync-types.php
+TRIBE_API_URL=""
+JUNCTION_PASSWORD=""
+JUNCTION_SLUG="junction"
 ```
 
 ## Contributing
 
 See the [Contributing](CONTRIBUTING.md) guide for details.
-
 
 ## License
 
