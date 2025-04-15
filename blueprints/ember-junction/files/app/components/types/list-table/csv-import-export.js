@@ -13,6 +13,9 @@ export default class TypesListTableCsvImportExport extends Component {
   @service gzip;
 
   @tracked records = [];
+  @tracked saving = false;
+  @tracked csvRecordLength;
+  @tracked csvSaveSuccessCount = 0;
 
   @action
   async handleProcessedCsvData(csvInfo) {
@@ -77,15 +80,33 @@ export default class TypesListTableCsvImportExport extends Component {
   @action
   saveAllRecords() {
     this.type.loadingSearchResults = true;
-    this.records.forEach(async (o) => {
-      await o.save();
-    });
+    this.saving = true;
+    this.csvSaveSuccessCount = 0;
+    this.csvRecordLength = this.records.length;
+
+    let promises = [];
+    for (let record of this.records) {
+      let promise = record.save().then(() => {
+        setTimeout(() => {
+          this.csvSaveSuccessCount += 1
+        }, 100);
+       });
+
+      promises.push(promise);
+    }
+
+    Promise.all(promises)
+      .then(() => {
+        this.saving = false;
+      });
+
     this.type.showCsvSave = false;
     this.type.loadingSearchResults = false;
   }
 
   @action
-  papaUnparseFormat() {
+  papaUnparseFormat(e) {
+    e.preventDefault();
     this.type.loadingSearchResults = true;
 
     var mmm = [];
@@ -186,5 +207,9 @@ export default class TypesListTableCsvImportExport extends Component {
       '.csv';
     hiddenElement.click();
     this.type.loadingSearchResults = false;
+  }
+
+  get percentage() {
+    return ((this.csvSaveSuccessCount / this.csvRecordLength) * 100).toFixed(1);
   }
 }
