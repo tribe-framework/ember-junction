@@ -11,6 +11,7 @@ export default class ApplicationRoute extends Route {
   @service type;
   @service auth;
   @service router;
+  @service blueprints;
 
   @tracked currentRouteName = window.location.pathname.split('/')[1];
   @tracked currentSlugName = window.location.pathname.split('/')[2];
@@ -36,6 +37,8 @@ export default class ApplicationRoute extends Route {
           !checkIfLoggedIn
         ) {
           this.router.transitionTo('auth');
+        } else {
+          await this.blueprints.getBlueprints();
         }
       });
     }
