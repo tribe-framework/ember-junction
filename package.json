@@ -1,7 +1,7 @@
 {
   "name": "ember-junction",
-  "version": "3.0.1",
-  "description": "API access to Junction-based backend.",
+  "version": "3.0.2",
+  "description": "EmberData Adapter for API access to Junction-based backend.",
   "keywords": [
     "ember-addon"
   ],

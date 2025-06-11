@@ -1,9 +1,15 @@
 'use strict';
 
 module.exports = {
-  normalizeEntityName() {},
+  normalizeEntityName() {}, // no-op since we're just adding dependencies
 
-  afterInstall(options) {
-    return this.addPackagesToProject([]);
+  afterInstall() {
+    return this.addAddonsToProject({
+      packages: [],
+    }).then(() => {
+      return this.addPackagesToProject([
+        { name: '@ember/string' },
+      ]);
+    });
   },
 };
