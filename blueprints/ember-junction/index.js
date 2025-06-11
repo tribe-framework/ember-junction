@@ -5,7 +5,9 @@ module.exports = {
 
   afterInstall() {
     return this.addAddonsToProject({
-      packages: [],
+      packages: [
+        { name: 'ember-cli-dotenv' }, 
+      ],
     }).then(() => {
       return this.addPackagesToProject([
         { name: '@ember/string' },
