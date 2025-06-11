@@ -1,1 +1,0 @@
-<script src="/php/junction.js.php"></script>

@@ -25,33 +25,57 @@ export default class TypesService extends Service {
           @attr slug;
           @attr modules;
         }
-
+        
         if (!owner.hasRegistration(`model:${modelDynamicName}`)) {
           owner.register(`model:${modelDynamicName}`, DynamicModel);
         }
       });
-
+      
       this.json = await this.store.findRecord('webapp', 0, {
         include: ['total_objects'],
       });
       this.json = this.json;
+      this.simplifiedJson = this.convertTypesToSimplified(this.json);
     }
   }
+  
+  convertTypesToSimplified = (typesJson)=>{
+    // Create the basic structure with a types object
+    const simplifiedTypes = {
+      types: {}
+    };
 
-  @action
-  async saveCurrentTypes(t) {
-    let d = new Date().toLocaleString();
-    let obj = this.store.createRecord('blueprint_record', {
-      modules: {
-        title: t.webapp.name + ' (last used on ' + d + ')',
-        is_types: true,
-        types_json: t,
-        content_privacy: 'private',
-      },
-    });
-    await obj.save();
+    // Iterate through each content type in the original file
+    for (const [typeSlug, typeData] of Object.entries(typesJson.modules)) {
+      // Skip the webapp info and any types without modules
+      if (typeSlug === 'webapp' || typeSlug === 'deleted_record' || typeSlug === 'blueprint_record' || typeSlug === 'file_record' || typeSlug === 'apikey_record' || !typeData.modules || !Array.isArray(typeData.modules)) {
+        continue;
+      }
 
-    obj.modules.deleted_slug = obj.slug;
-    await obj.save();
+      // Create a new object for this type
+      simplifiedTypes.types[typeSlug] = {};
+
+      // Process each module in the content type
+      typeData.modules.forEach(module => {
+        const slug = module.input_slug;
+        let varType = module.var_type;
+
+        // Handle select options if they exist
+        if (module.input_options && Array.isArray(module.input_options) && module.input_options.length > 0) {
+          // Extract all option slugs
+          const optionSlugs = module.input_options.map(option => option.slug);
+          
+          // Add the piped extension to the var_type
+          if (optionSlugs.length > 0) {
+            varType += ` | ${optionSlugs.join(', ')}`;
+          }
+        }
+
+        // Add the module to the simplified type
+        simplifiedTypes.types[typeSlug][slug] = varType;
+      });
+    }
+
+    return simplifiedTypes;
   }
 }

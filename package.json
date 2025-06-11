@@ -1,13 +1,13 @@
 {
   "name": "ember-junction",
-  "version": "2.4.9",
-  "description": "Content Management System for Tribe.",
+  "version": "3.0.0",
+  "description": "API access to Junction-based backend.",
   "keywords": [
     "ember-addon"
   ],
   "repository": "https://github.com/tribe-framework/ember-junction",
   "license": "MIT",
-  "author": "Postcode Solutions",
+  "author": "Tribe",
   "directories": {
     "doc": "doc",
     "test": "tests"
